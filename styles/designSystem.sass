@@ -1,0 +1,114 @@
+@use 'sass:math'
+
+$defaultPixel: 16
+
+$hex-black: #000
+$hex-white: #fff
+$hex-dark: #332C29
+$hex-light: #CBCBCB
+$hex-dark-subject: #1A0505
+$hex-dark-summary: #141414
+$hex-light-border: #E3E5E8
+$hex-light-background: #F4F6FA
+$hex-accent: #DA3555
+$hex-light-subject: #ADADAD
+$hex-light-summary: #CBCBCB
+$hex-dark-border: #313334
+$hex-dark-background: #272829
+
+=mq($mediaquery)
+  @if $mediaquery == maxExtraSmall
+    @media screen and (max-width: rem(575))
+      @content
+
+  @if $mediaquery == minSmall
+    @media screen and (min-width: rem(576))
+      @content
+
+  @if $mediaquery == maxSmall
+    @media screen and (max-width: rem(767))
+      @content
+
+  @if $mediaquery == minMedium
+    @media screen and (min-width: rem(768))
+      @content
+
+  @if $mediaquery == maxMedium
+    @media screen and (max-width: rem(991))
+      @content
+
+  @if $mediaquery == minLarge
+    @media screen and (min-width: rem(992))
+      @content
+
+  @if $mediaquery == maxLarge
+    @media screen and (max-width: rem(1199))
+      @content
+
+  @if $mediaquery == minExtraLarge
+    @media screen and (min-width: rem(1200))
+      @content
+
+  @if $mediaquery == maxExtraLarge
+    @media screen and (max-width: rem(1399))
+      @content
+
+@mixin row
+  display: flex
+  flex-wrap: wrap
+  & > *
+    flex-shrink: 0
+    width: 100%
+    max-width: 100%
+
+@mixin col
+  flex: 1 0 0%
+
+@mixin coln
+  flex: 0 0 auto
+
+@mixin col-auto
+  flex: 0 0 auto
+  width: auto
+
+@mixin ellipsis
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
+
+@mixin screen-reader-only
+  position: absolute
+  overflow: hidden
+  margin: 0
+  width: 1px
+  height: 1px
+  clip: rect(1px, 1px, 1px, 1px)
+
+@mixin visually-hidden-focusable
+  overflow: visible
+  z-index: 20
+  width: auto
+  height: auto
+  clip: auto
+
+@mixin image-rendering
+  image-rendering: -webkit-optimize-contrast
+  backface-visibility: hidden
+
+@mixin line-abbr($clamp, $height, $lineheight)
+  overflow: hidden
+  text-overflow: ellipsis
+  display: -webkit-box
+  -webkit-box-orient: vertical
+  -webkit-line-clamp: #{$clamp}
+  max-height: #{$height / 16}rem
+  line-height: #{$lineheight}
+
+@function rem($pixelToRem)
+  @return math.div($pixelToRem, $defaultPixel) + rem
+
+@function vw($pixelToVw, $width)
+  @return (($pixelToVw * 100) / $width) + vw
+
+@function vh($pixelToVh, $height)
+  @return (($pixelToVh * 100) / $height) + vh
