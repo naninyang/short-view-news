@@ -1,3 +1,5 @@
+@import './designSystem'
+
 *, ::before, ::after
   box-sizing: border-box
 
@@ -9,10 +11,29 @@ body
   font-size: 16px
   word-break: keep-all
   -webkit-text-size-adjust: none
+  transition: all .4s cubic-bezier(.4,0,.2,1),
 
 body, pre, input, button, textarea, select
   font-size: 1rem
   font-weight: 400
+
+body, body[data-theme="dark"]
+  --txt-subject: #{$hex-light-subject}
+  --txt-summary: #{$hex-light-summary}
+  --txt-blockquote: #{$hex-white}
+  --bg-primary: #{$hex-black}
+  --bg-secondary: #{$hex-dark-background}
+  --border: #{$hex-dark-border}
+  background-color: var(--bg-primary)
+
+body[data-theme="light"]
+  --txt-subject: #{$hex-dark-subject}
+  --txt-summary: #{$hex-dark-summary}
+  --txt-blockquote: #{$hex-light}
+  --bg-primary: #{$hex-white}
+  --bg-secondary: #{$hex-light-background}
+  --border: #{$hex-light-border}
+  background-color: var(--bg-primary)
 
 h1, h2, h3, h4, h5, h6
   margin-top: 0

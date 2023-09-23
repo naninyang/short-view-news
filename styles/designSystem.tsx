@@ -29,7 +29,7 @@ export const ar: { support: string } = {
   support: `@supports not (aspect-ratio: 1)`,
 };
 
-export const mixin: { [key: string]: any } = {
+export const mixIn: { [key: string]: any } = {
   row: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -75,11 +75,7 @@ export const mixin: { [key: string]: any } = {
   },
 };
 
-export function lineAbbr(
-  clamp: number,
-  height: number,
-  lineheight: number,
-): string {
+export function lineAbbr(clamp: number, height: number, lineheight: number): string {
   return `
   overflow: hidden;
   text-overflow: ellipsis;
