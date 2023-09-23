@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "build": "next build",
-    "dev": "next dev --turbo",
+    "dev": "node server.js",
     "lint": "next lint",
     "lint-staged": "lint-staged",
     "prettier": "prettier --write --ignore-unknown .",
@@ -19,8 +19,12 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "axios": "^1.5.0",
     "date-fns": "2.29.3",
+    "google-auth-library": "^9.0.0",
+    "google-spreadsheet": "^4.1.0",
     "next": "latest",
+    "next-images": "^1.8.5",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
