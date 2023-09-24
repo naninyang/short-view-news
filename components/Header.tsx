@@ -10,7 +10,7 @@ const Container = styled.header({
   padding: rem(25),
   '& h1 a': {
     display: 'block',
-    width: rem(229),
+    width: rem(262),
     height: rem(52),
     transition: 'all .4s cubic-bezier(.4,0,.2,1)',
     'body &, body[data-theme="dark"] &': {
