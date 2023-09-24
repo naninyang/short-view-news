@@ -13,4 +13,7 @@ export const images = {
       nighttime: require('./mode/light/nighttime.svg'),
     },
   },
+  misc: {
+    play: require('./misc/play.svg'),
+  },
 };

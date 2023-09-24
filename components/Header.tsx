@@ -56,8 +56,8 @@ export default function Header() {
     window.localStorage.setItem('theme', themeMode);
   }, [themeMode]);
 
-  const themeModeHandle = (e) => {
-    e.preventDefault();
+  const themeModeHandle = (event: React.MouseEvent) => {
+    event.preventDefault();
     setThemeMode(themeMode === 'dark' ? 'light' : 'dark');
   };
   return (

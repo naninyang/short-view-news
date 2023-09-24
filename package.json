@@ -23,6 +23,7 @@
     "date-fns": "2.29.3",
     "google-auth-library": "^9.0.0",
     "google-spreadsheet": "^4.1.0",
+    "masonic": "^3.7.0",
     "next": "latest",
     "next-images": "^1.8.5",
     "react": "18.2.0",

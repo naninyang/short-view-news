@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Masonry } from 'masonic';
+import YouTubeController from '@/components/YouTubeController';
 import styles from '@/styles/home.module.sass';
 
 type ShortData = {
@@ -11,14 +13,9 @@ type ShortData = {
   created: string;
 };
 
-type ThumbnailData = {
-  name: string;
-  url: string;
-};
-
 export default function Home() {
   const [shorts, setShorts] = useState<ShortData[]>([]);
-  const [thumbnails, setThumbnails] = useState<ThumbnailData[]>([]);
+  const [columnCount, setColumnCount] = useState(1);
 
   useEffect(() => {
     axios
@@ -29,30 +26,45 @@ export default function Home() {
       .catch((error) => {
         console.error('Error fetching shorts:', error);
       });
+
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width < 922) setColumnCount(1);
+      else if (width >= 922 && width <= 1396) setColumnCount(2);
+      else setColumnCount(4);
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
+
+  const renderCard = ({ data }: { data: ShortData }) => (
+    <div className={styles.item}>
+      <figure>
+        <YouTubeController
+          videoId={data.video_id}
+          thumbnailUrl={`https://image.toast.com/aaaacnn/short-view-news/${data.thumbnail}`}
+        />
+        <figcaption>
+          <div>
+            <h2>
+              {data.subject} / <time>{data.created}</time>
+            </h2>
+            <p dangerouslySetInnerHTML={{ __html: data.summary }} />
+          </div>
+          <p>{data.blockquote}</p>
+        </figcaption>
+      </figure>
+    </div>
+  );
 
   return (
     <main className={styles.main}>
-      {shorts.map((item, index) => {
-        return (
-          <figure key={index}>
-            <img
-              src={`https://image.toast.com/aaaacnn/short-view-news/${item.thumbnail}`}
-              alt=""
-            />
-            <figcaption>
-              <div>
-                <p>{item.video_id}</p>
-                <h2>
-                  {item.subject} / <time>{item.created}</time>
-                </h2>
-                <p dangerouslySetInnerHTML={{ __html: item.summary }} />
-              </div>
-              <p>{item.blockquote}</p>
-            </figcaption>
-          </figure>
-        );
-      })}
+      <Masonry items={shorts} columnCount={columnCount} render={renderCard} />
     </main>
   );
 }
