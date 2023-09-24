@@ -14,16 +14,13 @@ export async function getSheetData() {
     scopes: 'https://www.googleapis.com/auth/spreadsheets',
   });
 
-  const doc = new GoogleSpreadsheet(
-    process.env.GCP_CONTENT_DOC_ID as string,
-    auth,
-  );
+  const doc = new GoogleSpreadsheet(process.env.GCP_CONTENT_DOC_ID as string, auth);
 
   await doc.loadInfo();
   const sheet = doc.sheetsByIndex[0];
   const rows = await sheet.getRows();
 
-  return rows.map((row: any) => ({
+  const rowsData = rows.map((row: any) => ({
     thumbnail: row._rawData[0],
     video_id: row._rawData[1],
     subject: row._rawData[2],
@@ -31,4 +28,6 @@ export async function getSheetData() {
     blockquote: row._rawData[4],
     created: row._rawData[5],
   }));
+
+  return rowsData.sort((a, b) => a.thumbnail.localeCompare(b.thumbnail));
 }

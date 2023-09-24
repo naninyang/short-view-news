@@ -42,6 +42,8 @@ export default function Home() {
     };
   }, []);
 
+  const sortedShorts = [...shorts].sort((a, b) => b.thumbnail.localeCompare(a.thumbnail));
+
   const renderCard = ({ data }: { data: ShortData }) => (
     <div className={styles.item}>
       <figure>
@@ -64,7 +66,7 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      <Masonry items={shorts} columnCount={columnCount} render={renderCard} />
+      <Masonry items={sortedShorts} columnCount={columnCount} render={renderCard} />
     </main>
   );
 }

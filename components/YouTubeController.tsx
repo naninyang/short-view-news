@@ -13,16 +13,16 @@ const Container = styled.div({
   position: 'relative',
   aspectRatio: '1920 / 1080',
   overflow: 'hidden',
+  '&:hover img': {
+    transform: 'scale(1.05)',
+  },
   '& img': {
+    transition: 'all .4s cubic-bezier(.4,0,.2,1)',
     display: 'block',
     width: '100%',
     height: '100%',
     objectFit: 'cover',
     ...mixIn.imageRendering,
-    '&:hover': {
-      transition: 'all .4s cubic-bezier(.4,0,.2,1)',
-      transform: 'scale(1.25)',
-    },
   },
   '& button': {
     display: 'flex',
