@@ -2,6 +2,7 @@ import { Lato, Noto_Sans_KR } from 'next/font/google';
 import { AppProps } from 'next/app';
 import 'styles/globals.sass';
 import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 const fontLato = Lato({
   weight: ['100', '300', '400', '700', '900'],
@@ -32,6 +33,7 @@ export default function App({ Component, pageProps }: AppProps) {
       </style>
       <Header />
       <Component {...pageProps} />
+      <Footer />
     </>
   );
 }
