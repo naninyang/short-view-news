@@ -52,6 +52,15 @@ export default function Header() {
   const [themeMode, setThemeMode] = useState<string>('dark');
 
   useEffect(() => {
+    const savedTheme = window.localStorage.getItem('theme');
+    if (!savedTheme || (savedTheme !== 'dark' && savedTheme !== 'light')) {
+      window.localStorage.setItem('theme', 'dark');
+    } else {
+      setThemeMode(savedTheme);
+    }
+  }, []);
+
+  useEffect(() => {
     document.body.dataset.theme = themeMode;
     window.localStorage.setItem('theme', themeMode);
   }, [themeMode]);
