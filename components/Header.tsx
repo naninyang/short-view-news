@@ -1,18 +1,26 @@
 import styled from '@emotion/styled';
 import AnchorLink from './AnchorLink';
-import { hex, mixIn, rem } from '@/styles/designSystem';
+import { hex, mixIn, mq, rem } from '@/styles/designSystem';
 import { images } from '@/images';
 import { useEffect, useState } from 'react';
 
 const Container = styled.header({
   display: 'flex',
-  gap: rem(25),
-  padding: rem(25),
+  gap: rem(15),
+  padding: rem(15),
+  [mq.minLarge]: {
+    gap: rem(25),
+    padding: rem(25),
+  },
   '& h1 a': {
-    display: 'block',
-    width: rem(262),
-    height: rem(52),
     transition: 'all .4s cubic-bezier(.4,0,.2,1)',
+    display: 'block',
+    width: rem(196),
+    height: rem(39),
+    [mq.minLarge]: {
+      width: rem(262),
+      height: rem(52),
+    },
     'body &, body[data-theme="dark"] &': {
       background: `url(${images.logo.light}) no-repeat 50% 50%/contain`,
     },
@@ -24,12 +32,17 @@ const Container = styled.header({
     },
   },
   '& button': {
-    border: 0,
-    borderRadius: rem(52),
-    width: rem(52),
-    height: rem(52),
-    display: 'block',
     transition: 'all .4s cubic-bezier(.4,0,.2,1)',
+    display: 'block',
+    border: 0,
+    borderRadius: rem(39),
+    width: rem(39),
+    height: rem(39),
+    [mq.minLarge]: {
+      borderRadius: rem(52),
+      width: rem(52),
+      height: rem(52),
+    },
     'body &, body[data-theme="dark"] &': {
       backgroundColor: hex.darkBackground,
     },
@@ -44,8 +57,13 @@ const Container = styled.header({
 
 const ThemeChangeButton = styled.button<{ themeMode?: boolean }>(({ themeMode }) => ({
   background: themeMode
-    ? `url(${images.mode.dark.nighttime}) no-repeat 50% 50%/${rem(36)} ${rem(36)}`
-    : `url(${images.mode.light.daytime}) no-repeat 50% 50%/${rem(36)} ${rem(36)}`,
+    ? `url(${images.mode.dark.nighttime}) no-repeat 50% 50%/${rem(27)} ${rem(27)}`
+    : `url(${images.mode.light.daytime}) no-repeat 50% 50%/${rem(27)} ${rem(27)}`,
+  [mq.minLarge]: {
+    background: themeMode
+      ? `url(${images.mode.dark.nighttime}) no-repeat 50% 50%/${rem(36)} ${rem(36)}`
+      : `url(${images.mode.light.daytime}) no-repeat 50% 50%/${rem(36)} ${rem(36)}`,
+  },
 }));
 
 export default function Header() {

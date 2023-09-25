@@ -1,12 +1,15 @@
 import styled from '@emotion/styled';
 import AnchorLink from './AnchorLink';
-import { hex, rem } from '@/styles/designSystem';
+import { hex, mq, rem } from '@/styles/designSystem';
 
 const Container = styled.footer({
   display: 'flex',
-  justifyContent: 'space-between',
   transition: 'all .4s cubic-bezier(.4,0,.2,1)',
-  padding: rem(25),
+  padding: rem(15),
+  [mq.minLarge]: {
+    justifyContent: 'space-between',
+    padding: rem(25),
+  },
   '& p, & a': {
     fontSize: rem(14),
     'body &, body[data-theme="dark"] &': {

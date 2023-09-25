@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
+import { isDesktop } from 'react-device-detect';
 import { mixIn, rem } from '@/styles/designSystem';
 import { images } from '@/images';
 import YouTubePlayer from './YouTubePlayer';
@@ -9,12 +10,12 @@ interface Props {
   thumbnailUrl: string;
 }
 
-const Container = styled.div({
+const Container = styled.div<{ isDesktop?: boolean }>(({ isDesktop }) => ({
   position: 'relative',
   aspectRatio: '1920 / 1080',
   overflow: 'hidden',
   '&:hover img': {
-    transform: 'scale(1.05)',
+    transform: isDesktop ? 'scale(1.05)' : undefined,
   },
   '& img': {
     transition: 'all .4s cubic-bezier(.4,0,.2,1)',
@@ -36,7 +37,7 @@ const Container = styled.div({
     width: '100%',
     height: '100%',
     '&:hover i': {
-      opacity: 1,
+      opacity: isDesktop ? 1 : undefined,
     },
     '& i': {
       transition: 'all .4s cubic-bezier(.4,0,.2,1)',
@@ -44,7 +45,7 @@ const Container = styled.div({
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: 'rgba(244, 246, 250, .7)',
-      opacity: 0,
+      opacity: isDesktop ? 0 : undefined,
       borderRadius: rem(52),
       width: rem(52),
       height: rem(52),
@@ -65,7 +66,7 @@ const Container = styled.div({
     width: '100%',
     height: '100%',
   },
-});
+}));
 
 const YouTubeController = ({ videoId, thumbnailUrl }: Props) => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -75,7 +76,7 @@ const YouTubeController = ({ videoId, thumbnailUrl }: Props) => {
   };
 
   return (
-    <Container>
+    <Container isDesktop={isDesktop}>
       {!isPlaying ? (
         <>
           <img src={thumbnailUrl} alt="" />

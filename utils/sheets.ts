@@ -29,5 +29,7 @@ export async function getSheetData(start: number, count: number) {
     created: row._rawData[5],
   }));
 
-  return rowsData.slice(start, start + count);
+  const sortedRowsData = rowsData.sort((a, b) => b.thumbnail.localeCompare(a.thumbnail));
+
+  return sortedRowsData.slice(start, start + count);
 }
