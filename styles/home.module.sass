@@ -4,6 +4,17 @@
   padding: 0 rem(15)
   font-size: rem(16)
 
+  .loading, .error
+    display: flex
+    justify-content: center
+    align-items: center
+    font-weight: 700
+    color: $hex-accent
+    text-align: center
+
+  .loading
+    min-height: calc(100vh - rem(200))
+
   div[role="gridcell"]
     transition: all .4s cubic-bezier(.4,0,.2,1),
 

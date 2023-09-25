@@ -1,7 +1,7 @@
 import { GoogleAuth } from 'google-auth-library';
 import { GoogleSpreadsheet } from 'google-spreadsheet';
 
-export async function getSheetData() {
+export async function getSheetData(start: number, count: number) {
   const auth = new GoogleAuth({
     credentials: {
       type: 'service_account',
@@ -29,5 +29,5 @@ export async function getSheetData() {
     created: row._rawData[5],
   }));
 
-  return rowsData.sort((a, b) => a.thumbnail.localeCompare(b.thumbnail));
+  return rowsData.slice(start, start + count);
 }

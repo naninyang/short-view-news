@@ -15,25 +15,56 @@ type ShortData = {
 
 export default function Home() {
   const [shorts, setShorts] = useState<ShortData[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [columnCount, setColumnCount] = useState(1);
+  const [loadedItems, setLoadedItems] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
-    axios
-      .get('/api/shorts')
-      .then((response) => {
-        setShorts(response.data);
-      })
-      .catch((error) => {
-        console.error('Error fetching shorts:', error);
-      });
+    loadShorts(loadedItems, 20);
+  }, []);
 
-    const handleResize = () => {
-      const width = window.innerWidth;
-      if (width < 922) setColumnCount(1);
-      else if (width >= 922 && width <= 1396) setColumnCount(2);
-      else setColumnCount(4);
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.innerHeight + window.scrollY + 1000 >= document.body.offsetHeight && !isLoading) {
+        loadShorts(loadedItems, 20);
+      }
     };
 
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [loadedItems, isLoading]);
+
+  const loadShorts = (start: number, count: number) => {
+    setIsLoading(true);
+    axios
+      .get(`/api/shorts?start=${start}&count=${count}`)
+      .then((response) => {
+        if (response.data.length < count) {
+          setHasMore(false);
+        }
+        setShorts((prev) => [...prev, ...response.data]);
+        setLoadedItems((prev) => prev + response.data.length);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error('Error fetching shorts:', err);
+        setError('데이터를 불러오는데 실패했습니다.');
+        setIsLoading(false);
+      });
+  };
+
+  const handleResize = () => {
+    const width = window.innerWidth;
+    if (width < 922) setColumnCount(1);
+    else if (width >= 922 && width <= 1396) setColumnCount(2);
+    else setColumnCount(4);
+  };
+
+  useEffect(() => {
     window.addEventListener('resize', handleResize);
     handleResize();
 
@@ -44,13 +75,19 @@ export default function Home() {
 
   const sortedShorts = [...shorts].sort((a, b) => b.thumbnail.localeCompare(a.thumbnail));
 
+  const dev = process.env.NODE_ENV !== 'production';
+
   const renderCard = ({ data }: { data: ShortData }) => (
     <div className={styles.item}>
       <figure>
-        <YouTubeController
-          videoId={data.video_id}
-          thumbnailUrl={`https://image.toast.com/aaaacnn/short-view-news/${data.thumbnail}`}
-        />
+        {dev ? (
+          <YouTubeController videoId={data.video_id} thumbnailUrl={`/images/${data.thumbnail}`} />
+        ) : (
+          <YouTubeController
+            videoId={data.video_id}
+            thumbnailUrl={`https://image.toast.com/aaaacnn/short-view-news/${data.thumbnail}`}
+          />
+        )}
         <figcaption>
           <div>
             <h2>
@@ -67,6 +104,8 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <Masonry items={sortedShorts} columnCount={columnCount} render={renderCard} />
+      {isLoading && hasMore && <div className={styles.loading}>기사를 불러오는 중입니다.</div>}
+      {error && <div className={styles.error}>{error}</div>}
     </main>
   );
 }

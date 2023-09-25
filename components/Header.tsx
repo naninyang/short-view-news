@@ -60,6 +60,7 @@ export default function Header() {
     event.preventDefault();
     setThemeMode(themeMode === 'dark' ? 'light' : 'dark');
   };
+
   return (
     <Container>
       <h1>
