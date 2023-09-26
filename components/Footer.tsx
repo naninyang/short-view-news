@@ -6,6 +6,10 @@ const Container = styled.footer({
   display: 'flex',
   transition: 'all .4s cubic-bezier(.4,0,.2,1)',
   padding: rem(15),
+  [mq.maxMedium]: {
+    flexDirection: 'column',
+    gap: rem(5),
+  },
   [mq.minLarge]: {
     justifyContent: 'space-between',
     padding: rem(25),
