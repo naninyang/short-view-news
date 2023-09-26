@@ -1,13 +1,21 @@
 import styled from '@emotion/styled';
+import { isDesktop } from 'react-device-detect';
 import AnchorLink from './AnchorLink';
 import { hex, mixIn, mq, rem } from '@/styles/designSystem';
 import { images } from '@/images';
 import { useEffect, useState } from 'react';
 
-const Container = styled.header({
+const Container = styled.header<{ isDesktop?: boolean }>(({ isDesktop }) => ({
+  backgroundColor: 'var(--bg-primary-opacity)',
+  backdropFilter: `saturate(180%) blur(${rem(20)})`,
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  zIndex: 1030,
   display: 'flex',
   gap: rem(15),
   padding: rem(15),
+  width: '100%',
   [mq.minLarge]: {
     gap: rem(25),
     padding: rem(25),
@@ -32,7 +40,7 @@ const Container = styled.header({
     },
   },
   '& button': {
-    transition: 'all .4s cubic-bezier(.4,0,.2,1)',
+    transition: isDesktop ? 'all .4s cubic-bezier(.4,0,.2,1)' : undefined,
     display: 'block',
     border: 0,
     borderRadius: rem(39),
@@ -53,7 +61,7 @@ const Container = styled.header({
       ...mixIn.screenReaderOnly,
     },
   },
-});
+}));
 
 const ThemeChangeButton = styled.button<{ themeMode?: boolean }>(({ themeMode }) => ({
   background: themeMode
@@ -89,7 +97,7 @@ export default function Header() {
   };
 
   return (
-    <Container>
+    <Container isDesktop={isDesktop}>
       <h1>
         <AnchorLink href="/">
           <span>short view news</span>

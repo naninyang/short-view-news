@@ -24,7 +24,7 @@ body, body[data-theme="dark"]
   --bg-primary: #{$hex-black}
   --bg-secondary: #{$hex-dark-background}
   --border: #{$hex-dark-border}
-  background-color: var(--bg-primary)
+  --bg-primary-opacity: rgba(#{$hex-black, .8})
 
 body[data-theme="light"]
   --txt-subject: #{$hex-dark-subject}
@@ -33,7 +33,16 @@ body[data-theme="light"]
   --bg-primary: #{$hex-white}
   --bg-secondary: #{$hex-light-background}
   --border: #{$hex-light-border}
+  --bg-primary-opacity: rgba(#{$hex-white, .8})
+
+body
   background-color: var(--bg-primary)
+
+main
+  margin-top: rem(69)
+
+  +mq(minLarge)
+    margin-top: rem(102)
 
 h1, h2, h3, h4, h5, h6
   margin-top: 0
