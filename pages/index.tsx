@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Masonry } from 'masonic';
 import YouTubeController from '@/components/YouTubeController';
 import styles from '@/styles/home.module.sass';
+import Seo from '@/components/Seo';
 
 type ShortData = {
   thumbnail: string;
@@ -103,6 +104,11 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
+      <Seo
+        pageTitle="숏뷰 뉴스 {short.view: news}"
+        pageDescription="당신이 놓친 뉴스를 짧게 요약해 드려요"
+        pageImg="og.png"
+      />
       <Masonry items={sortedShorts} columnCount={columnCount} render={renderCard} />
       {isLoading && hasMore && <div className={styles.loading}>기사를 불러오는 중입니다.</div>}
       {error && <div className={styles.error}>{error}</div>}
