@@ -1,5 +1,5 @@
 {
-  "name": "숏뷰 뉴스",
+  "name": "숏뷰 뉴스 {short.view: news}",
   "short_name": "숏뷰 뉴스",
   "description": "당신이 놓친 뉴스를 짧게 요약해 드려요",
   "start_url": "/",
