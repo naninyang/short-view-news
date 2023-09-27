@@ -1,8 +1,12 @@
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { Lato, Noto_Sans_KR } from 'next/font/google';
 import { AppProps } from 'next/app';
-import 'styles/globals.sass';
+import Script from 'next/script';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { GA_TRACKING_ID, pageview } from '@/lib/gtag';
+import 'styles/globals.sass';
 
 const fontLato = Lato({
   weight: ['100', '300', '400', '700', '900'],
@@ -15,8 +19,35 @@ const fontNoto = Noto_Sans_KR({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+  useEffect(() => {
+    const handleRouteChange = (url: any) => {
+      pageview(url);
+    };
+    router.events.on('routeChangeComplete', handleRouteChange);
+    router.events.on('hashChangeComplete', handleRouteChange);
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange);
+      router.events.off('hashChangeComplete', handleRouteChange);
+    };
+  }, [router.events]);
   return (
     <>
+      <Script strategy="afterInteractive" src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`} />
+      <Script
+        id="gtag-init"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_TRACKING_ID}', {
+              page_path: window.location.pathname,
+            });
+          `,
+        }}
+      />
       <style jsx global>
         {`
           body,

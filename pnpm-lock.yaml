@@ -46,6 +46,9 @@ dependencies:
     version: 10.1.0(react@18.2.0)
 
 devDependencies:
+  '@types/gtag.js':
+    specifier: ^0.0.14
+    version: 0.0.14
   '@types/node':
     specifier: 18.11.17
     version: 18.11.17
@@ -1883,6 +1886,11 @@ packages:
     dependencies:
       '@types/minimatch': 5.1.2
       '@types/node': 18.11.17
+    dev: true
+
+  /@types/gtag.js@0.0.14:
+    resolution:
+      { integrity: sha512-NcR9rf3B93ie5T086NIpXGTtoIJeOeQ14+IBIBwfNBztb175e/0gONc60ywUU4+f9dwctgz9L3I4h5Gs/hl31g== }
     dev: true
 
   /@types/json-schema@7.0.13:
