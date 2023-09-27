@@ -136,14 +136,10 @@ export default function Home() {
   const renderCard = ({ data }: { data: ShortData }) => (
     <div className={styles.item}>
       <figure>
-        {dev ? (
-          <YouTubeController videoId={data.video_id} thumbnailUrl={`/images/${data.thumbnail}`} />
-        ) : (
-          <YouTubeController
-            videoId={data.video_id}
-            thumbnailUrl={`https://image.toast.com/aaaacnn/short-view-news/${data.thumbnail}`}
-          />
-        )}
+        <YouTubeController
+          videoId={data.video_id}
+          thumbnailUrl={`https://i.ytimg.com/vi/${data.video_id}/maxresdefault.jpg`}
+        />
         <figcaption>
           <div>
             <h2>

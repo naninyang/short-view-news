@@ -1,25 +1,21 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import YouTube, { YouTubeProps } from 'react-youtube';
 
 interface Props {
   videoId: string;
 }
 
-const Container = styled.iframe({
-  border: 0,
-});
-
 const YouTubePlayer = ({ videoId }: Props) => {
-  return (
-    <Container
-      width="560"
-      height="315"
-      src={`https://www.youtube.com/embed/${videoId}?autoplay=1&controls=1"`}
-      title="YouTube 비디오 플레이어"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowFullScreen
-    />
-  );
+  const opts: YouTubeProps['opts'] = {
+    width: 560,
+    height: 315,
+    playerVars: {
+      autoplay: 1,
+    },
+  };
+
+  return <YouTube videoId={videoId} opts={opts} />;
 };
 
 export default YouTubePlayer;
