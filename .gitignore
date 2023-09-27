@@ -18,7 +18,9 @@
 # misc
 .DS_Store
 *.pem
-/public/images
+public/images
+public/sw.js
+public/workbox-*.js
 
 # debug
 npm-debug.log*

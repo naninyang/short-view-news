@@ -37,6 +37,7 @@
     "eslint": "8.30.0",
     "eslint-config-next": "latest",
     "lint-staged": "^14.0.1",
+    "next-pwa": "^5.6.0",
     "prettier": "2.8.1",
     "sass": "^1.68.0",
     "typescript": "4.9.4"

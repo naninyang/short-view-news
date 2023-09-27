@@ -15,5 +15,6 @@ export const images = {
   },
   misc: {
     play: require('./misc/play.svg'),
+    error: require('./misc/error.svg'),
   },
 };

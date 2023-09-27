@@ -4,6 +4,9 @@ import { Masonry } from 'masonic';
 import YouTubeController from '@/components/YouTubeController';
 import styles from '@/styles/home.module.sass';
 import Seo from '@/components/Seo';
+import styled from '@emotion/styled';
+import { hex, rem } from '@/styles/designSystem';
+import { images } from '@/images';
 
 type ShortData = {
   thumbnail: string;
@@ -13,6 +16,58 @@ type ShortData = {
   blockquote: string;
   created: string;
 };
+
+const IsOffline = styled.main({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: `calc(100vh - ${rem(175)})`,
+  'body[data-theme="dark"] &': {
+    color: hex.white,
+  },
+  'body[data-theme="light"] &': {
+    color: hex.black,
+  },
+  '& .container': {
+    textAlign: 'center',
+  },
+  '& h2': {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: rem(15),
+    fontSize: rem(16),
+    fontWeight: '700',
+    '&::before': {
+      content: "''",
+      display: 'block',
+      background: `url(${images.misc.error}) no-repeat 50% 50%/contain`,
+      width: rem(50),
+      height: rem(50),
+    },
+  },
+  '& p': {
+    margin: `${rem(15)} 0 ${rem(25)}`,
+    fontSize: rem(14),
+  },
+  '& button': {
+    background: 'none',
+    border: `1px solid ${hex.accent}`,
+    borderRadius: rem(32),
+    padding: `0 ${rem(32)}`,
+    height: rem(32),
+    fontSize: rem(16),
+    fontWeight: '700',
+    lineHeight: 1,
+    'body[data-theme="dark"] &': {
+      color: hex.white,
+    },
+    'body[data-theme="light"] &': {
+      color: hex.black,
+    },
+  },
+});
 
 export default function Home() {
   const [shorts, setShorts] = useState<ShortData[]>([]);
@@ -102,6 +157,36 @@ export default function Home() {
     </div>
   );
 
+  const [isOnline, setIsOnline] = useState(true);
+
+  useEffect(() => {
+    setIsOnline(navigator.onLine);
+
+    function updateNetworkStatus() {
+      setIsOnline(navigator.onLine);
+    }
+
+    window.addEventListener('online', updateNetworkStatus);
+    window.addEventListener('offline', updateNetworkStatus);
+
+    return () => {
+      window.removeEventListener('online', updateNetworkStatus);
+      window.removeEventListener('offline', updateNetworkStatus);
+    };
+  }, []);
+
+  if (!isOnline) {
+    return (
+      <IsOffline>
+        <div className="container">
+          <h2>인터넷 연결 필요</h2>
+          <p>오프라인 상태입니다. 연결 상태를 확인하세요.</p>
+          <button onClick={() => window.location.reload()}>다시 시도</button>
+        </div>
+      </IsOffline>
+    );
+  }
+
   return (
     <main className={styles.main}>
       <Seo
@@ -111,7 +196,12 @@ export default function Home() {
       />
       <Masonry items={sortedShorts} columnCount={columnCount} render={renderCard} />
       {isLoading && hasMore && <div className={styles.loading}>기사를 불러오는 중입니다.</div>}
-      {error && <div className={styles.error}>{error}</div>}
+      {error && (
+        <div className={styles.error}>
+          <p>{error}</p>
+          <button onClick={() => window.location.reload()}>다시 시도</button>
+        </div>
+      )}
     </main>
   );
 }

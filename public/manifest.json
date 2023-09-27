@@ -1,6 +1,11 @@
 {
-  "name": "short view news",
-  "short_name": "short view news",
+  "name": "숏뷰 뉴스",
+  "short_name": "숏뷰 뉴스",
+  "description": "당신이 놓친 뉴스를 짧게 요약해 드려요",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#141414",
+  "theme_color": "#141414",
   "icons": [
     {
       "src": "/favicon/android-chrome-192x192.png",
@@ -12,8 +17,5 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ],
-  "theme_color": "#141414",
-  "background_color": "#141414",
-  "display": "standalone"
+  ]
 }
