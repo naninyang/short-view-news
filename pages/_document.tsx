@@ -12,6 +12,15 @@ export default function Document() {
         <link href="/favicon/favicon.ico" rel="shortcut icon" />
         <link href="/manifest.json" rel="manifest" />
         <script src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`} />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+          `,
+          }}
+        />
       </Head>
       <body>
         <Main />
