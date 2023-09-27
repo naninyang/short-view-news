@@ -9,7 +9,7 @@ type EventProps = {
 
 export const pageview = (url: string) => {
   if (typeof window !== 'undefined') {
-    window.gtag('config', GA_TRACKING_ID, {
+    window.gtag('config', GA_TRACKING_ID as string, {
       page_path: url,
     });
   }
