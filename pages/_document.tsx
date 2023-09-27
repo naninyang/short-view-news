@@ -1,4 +1,5 @@
 import { Html, Head, Main, NextScript } from 'next/document';
+import { GA_TRACKING_ID } from '@/lib/gtag';
 
 export default function Document() {
   return (
@@ -10,6 +11,7 @@ export default function Document() {
         <link href="/favicon/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png" />
         <link href="/favicon/favicon.ico" rel="shortcut icon" />
         <link href="/manifest.json" rel="manifest" />
+        <script src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`} />
       </Head>
       <body>
         <Main />

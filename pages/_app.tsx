@@ -7,6 +7,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { GA_TRACKING_ID, pageview } from '@/lib/gtag';
 import 'styles/globals.sass';
+import Head from 'next/head';
 
 const fontLato = Lato({
   weight: ['100', '300', '400', '700', '900'],
@@ -33,7 +34,6 @@ export default function App({ Component, pageProps }: AppProps) {
   }, [router.events]);
   return (
     <>
-      <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`} />
       <Script id="google-analytics">
         {`
           window.dataLayer = window.dataLayer || [];
