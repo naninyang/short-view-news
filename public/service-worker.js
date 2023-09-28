@@ -1,4 +1,4 @@
-const CACHE_NAME = 'news-cache-v1';
+const CACHE_NAME = 'news-cache-v2';
 
 self.addEventListener('fetch', (event) => {
   if (event.request.url.includes('/api/shorts')) {
