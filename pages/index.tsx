@@ -95,38 +95,26 @@ export default function Home() {
   }, [loadedItems, isLoading]);
 
   const loadShorts = (start: number, count: number) => {
-    const requestUrl = `/api/shorts?start=${start}&count=${count}`;
-
     setIsLoading(true);
-
-    caches.match(requestUrl).then((cachedResponse) => {
-      if (cachedResponse) {
-        cachedResponse.json().then((data) => {
-          if (data.length < count) {
-            setHasMore(false);
-          }
-          setShorts((prev) => [...prev, ...data]);
-          setLoadedItems((prev) => prev + data.length);
-          setIsLoading(false);
-        });
-      } else {
-        axios
-          .get(requestUrl)
-          .then((response) => {
-            if (response.data.length < count) {
-              setHasMore(false);
-            }
-            setShorts((prev) => [...prev, ...response.data]);
-            setLoadedItems((prev) => prev + response.data.length);
-            setIsLoading(false);
-          })
-          .catch((err) => {
-            console.error('Error fetching shorts:', err);
-            setError('데이터를 불러오는데 실패했습니다.');
-            setIsLoading(false);
+    axios
+      .get(`/api/shorts?start=${start}&count=${count}`)
+      .then((response) => {
+        if (JSON.stringify(response.data) !== JSON.stringify(shorts.slice(start, start + count))) {
+          setShorts((prev) => {
+            return [...response.data, ...prev];
           });
-      }
-    });
+        }
+        if (response.data.length < count) {
+          setHasMore(false);
+        }
+        setLoadedItems((prev) => prev + response.data.length);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error('Error fetching shorts:', err);
+        setError('데이터를 불러오는데 실패했습니다.');
+        setIsLoading(false);
+      });
   };
 
   const handleResize = () => {
