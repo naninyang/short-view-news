@@ -96,6 +96,7 @@ export default function Home() {
 
   const loadShorts = (start: number, count: number) => {
     setIsLoading(true);
+
     axios
       .get(`/api/shorts?start=${start}&count=${count}`)
       .then((response) => {

@@ -1,23 +1,17 @@
-const CACHE_NAME = 'news-cache-v2';
+const CACHE_NAME = 'news-data';
 
 self.addEventListener('fetch', (event) => {
   if (event.request.url.includes('/api/shorts')) {
     event.respondWith(
-      caches.match(event.request).then((cachedResponse) => {
-        if (cachedResponse) {
-          return cachedResponse;
-        }
-
-        return fetch(event.request).then((networkResponse) => {
-          const responseToCache = networkResponse.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseToCache);
+      caches.open(CACHE_NAME).then((cache) => {
+        return cache.match(event.request).then((response) => {
+          const fetchPromise = fetch(event.request).then((networkResponse) => {
+            cache.put(event.request, networkResponse.clone());
+            return networkResponse;
           });
-          return networkResponse;
+          return response || fetchPromise;
         });
       }),
     );
-  } else {
-    event.respondWith(fetch(event.request));
   }
 });
