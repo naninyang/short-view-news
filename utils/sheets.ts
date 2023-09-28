@@ -20,7 +20,7 @@ export async function getSheetData(start: number, count: number) {
   const rows = await sheet.getRows();
 
   const rowsData = rows.map((row: any) => ({
-    thumbnail: row._rawData[0],
+    idx: row._rawData[0],
     video_id: row._rawData[1],
     subject: row._rawData[2],
     summary: row._rawData[3],
@@ -28,7 +28,7 @@ export async function getSheetData(start: number, count: number) {
     created: row._rawData[5],
   }));
 
-  const sortedRowsData = rowsData.sort((a, b) => b.thumbnail.localeCompare(a.thumbnail));
+  const sortedRowsData = rowsData.sort((a, b) => b.idx.localeCompare(a.idx));
 
   return sortedRowsData.slice(start, start + count);
 }

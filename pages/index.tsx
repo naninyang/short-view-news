@@ -9,7 +9,7 @@ import { hex, rem } from '@/styles/designSystem';
 import { images } from '@/images';
 
 type ShortData = {
-  thumbnail: string;
+  idx: string;
   video_id: string;
   subject: string;
   summary: string;
@@ -129,7 +129,7 @@ export default function Home() {
     };
   }, []);
 
-  const sortedShorts = [...shorts].sort((a, b) => b.thumbnail.localeCompare(a.thumbnail));
+  const sortedShorts = [...shorts].sort((a, b) => b.idx.localeCompare(a.idx));
 
   const dev = process.env.NODE_ENV !== 'production';
 

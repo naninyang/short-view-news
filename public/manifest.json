@@ -2,20 +2,24 @@
   "name": "숏뷰 뉴스 {short.view: news}",
   "short_name": "숏뷰 뉴스",
   "description": "당신이 놓친 뉴스를 짧게 요약해 드려요",
+  "scope": "/",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#141414",
   "theme_color": "#141414",
+  "orientation": "portrait",
   "icons": [
     {
-      "src": "/favicon/android-chrome-192x192.png",
+      "src": "https://news.dev1stud.io/favicon/android-chrome-192x192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      "src": "/favicon/android-chrome-512x512.png",
+      "src": "https://news.dev1stud.io/favicon/android-chrome-512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }

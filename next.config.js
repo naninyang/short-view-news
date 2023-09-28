@@ -7,6 +7,7 @@ const nextConfig = {
   swcMinify: true,
   pwa: {
     dest: 'public',
+    sw: 'service-worker.js',
     runtimeCaching: [
       {
         urlPattern: /^https?.*/,
