@@ -32,6 +32,15 @@ export default function App({ Component, pageProps }: AppProps) {
       router.events.off('hashChangeComplete', handleRouteChange);
     };
   }, [router.events]);
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      const registInit = async () => {
+        const registration = await navigator.serviceWorker.register('/service-worker.js');
+        registration.waiting?.postMessage('SKIP_WAITING');
+      };
+      registInit();
+    }
+  }, []);
   return (
     <>
       <Script id="google-analytics">

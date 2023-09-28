@@ -95,22 +95,38 @@ export default function Home() {
   }, [loadedItems, isLoading]);
 
   const loadShorts = (start: number, count: number) => {
+    const requestUrl = `/api/shorts?start=${start}&count=${count}`;
+
     setIsLoading(true);
-    axios
-      .get(`/api/shorts?start=${start}&count=${count}`)
-      .then((response) => {
-        if (response.data.length < count) {
-          setHasMore(false);
-        }
-        setShorts((prev) => [...prev, ...response.data]);
-        setLoadedItems((prev) => prev + response.data.length);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        console.error('Error fetching shorts:', err);
-        setError('데이터를 불러오는데 실패했습니다.');
-        setIsLoading(false);
-      });
+
+    caches.match(requestUrl).then((cachedResponse) => {
+      if (cachedResponse) {
+        cachedResponse.json().then((data) => {
+          if (data.length < count) {
+            setHasMore(false);
+          }
+          setShorts((prev) => [...prev, ...data]);
+          setLoadedItems((prev) => prev + data.length);
+          setIsLoading(false);
+        });
+      } else {
+        axios
+          .get(requestUrl)
+          .then((response) => {
+            if (response.data.length < count) {
+              setHasMore(false);
+            }
+            setShorts((prev) => [...prev, ...response.data]);
+            setLoadedItems((prev) => prev + response.data.length);
+            setIsLoading(false);
+          })
+          .catch((err) => {
+            console.error('Error fetching shorts:', err);
+            setError('데이터를 불러오는데 실패했습니다.');
+            setIsLoading(false);
+          });
+      }
+    });
   };
 
   const handleResize = () => {
@@ -130,8 +146,6 @@ export default function Home() {
   }, []);
 
   const sortedShorts = [...shorts].sort((a, b) => b.idx.localeCompare(a.idx));
-
-  const dev = process.env.NODE_ENV !== 'production';
 
   const renderCard = ({ data }: { data: ShortData }) => (
     <div className={styles.item}>
