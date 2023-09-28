@@ -78,13 +78,13 @@ export default function Home() {
   const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
-    loadShorts(20);
+    loadShorts(loadedItems, 20);
   }, []);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.innerHeight + window.scrollY + 1000 >= document.body.offsetHeight && !isLoading) {
-        loadShorts(20);
+      if (window.innerHeight + window.scrollY + 1000 >= document.body.offsetHeight && !isLoading && hasMore) {
+        loadShorts(loadedItems, 20);
       }
     };
 
@@ -92,18 +92,15 @@ export default function Home() {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [isLoading]);
+  }, [loadedItems, isLoading, hasMore]);
 
-  const loadShorts = (count: number = 20) => {
+  const loadShorts = (start: number, count: number) => {
     setIsLoading(true);
     axios
-      .get(`/api/shorts?start=0&count=${count}`)
+      .get(`/api/shorts?start=${start}&count=${count}`)
       .then((response) => {
-        if (JSON.stringify(response.data) !== JSON.stringify(shorts.slice(0, count))) {
-          setShorts((prev) => {
-            const newData = response.data.slice(0, count);
-            return [...newData, ...prev.filter((item) => !newData.includes(item))];
-          });
+        if (JSON.stringify(response.data) !== JSON.stringify(shorts.slice(start, start + count))) {
+          setShorts((prev) => [...prev, ...response.data]);
         }
         if (response.data.length < count) {
           setHasMore(false);
