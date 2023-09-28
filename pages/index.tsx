@@ -78,13 +78,13 @@ export default function Home() {
   const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
-    loadShorts(loadedItems, 20);
+    loadShorts(20);
   }, []);
 
   useEffect(() => {
     const handleScroll = () => {
       if (window.innerHeight + window.scrollY + 1000 >= document.body.offsetHeight && !isLoading) {
-        loadShorts(loadedItems, 20);
+        loadShorts(20);
       }
     };
 
@@ -92,7 +92,7 @@ export default function Home() {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [loadedItems, isLoading]);
+  }, [isLoading]);
 
   const loadShorts = (count: number = 20) => {
     setIsLoading(true);
