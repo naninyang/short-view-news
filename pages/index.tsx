@@ -78,6 +78,43 @@ export default function Home() {
   const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
+    let startY = 0;
+    let isPullingDown = false;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      if (window.scrollY === 0) {
+        startY = e.touches[0].pageY;
+      }
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      const touch = e.touches[0];
+      const change = touch.pageY - startY;
+
+      if (change > 0) {
+        isPullingDown = true;
+      }
+    };
+
+    const handleTouchEnd = () => {
+      if (isPullingDown) {
+        window.location.reload();
+      }
+      isPullingDown = false;
+    };
+
+    document.addEventListener('touchstart', handleTouchStart, false);
+    document.addEventListener('touchmove', handleTouchMove, false);
+    document.addEventListener('touchend', handleTouchEnd, false);
+
+    return () => {
+      document.removeEventListener('touchstart', handleTouchStart);
+      document.removeEventListener('touchmove', handleTouchMove);
+      document.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, []);
+
+  useEffect(() => {
     loadShorts(loadedItems, 20);
   }, []);
 
