@@ -94,14 +94,15 @@ export default function Home() {
     };
   }, [loadedItems, isLoading]);
 
-  const loadShorts = (start: number, count: number) => {
+  const loadShorts = (count: number = 20) => {
     setIsLoading(true);
     axios
-      .get(`/api/shorts?start=${start}&count=${count}`)
+      .get(`/api/shorts?start=0&count=${count}`)
       .then((response) => {
-        if (JSON.stringify(response.data) !== JSON.stringify(shorts.slice(start, start + count))) {
+        if (JSON.stringify(response.data) !== JSON.stringify(shorts.slice(0, count))) {
           setShorts((prev) => {
-            return [...response.data, ...prev];
+            const newData = response.data.slice(0, count);
+            return [...newData, ...prev.filter((item) => !newData.includes(item))];
           });
         }
         if (response.data.length < count) {
