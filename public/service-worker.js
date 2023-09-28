@@ -1,7 +1,7 @@
 const CACHE_NAME = 'news-cache-v1';
 
 self.addEventListener('fetch', (event) => {
-  if (event.request.url.endsWith('/api/shorts')) {
+  if (event.request.url.includes('/api/shorts')) {
     event.respondWith(
       caches.match(event.request).then((cachedResponse) => {
         if (cachedResponse) {
@@ -17,5 +17,7 @@ self.addEventListener('fetch', (event) => {
         });
       }),
     );
+  } else {
+    event.respondWith(fetch(event.request));
   }
 });

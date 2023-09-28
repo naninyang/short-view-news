@@ -8,18 +8,7 @@ const nextConfig = {
   pwa: {
     dest: 'public',
     sw: 'service-worker.js',
-    runtimeCaching: [
-      {
-        urlPattern: /^https?.*/,
-        handler: 'NetworkFirst',
-        options: {
-          cacheName: 'offlineCache',
-          expiration: {
-            maxEntries: 200,
-          },
-        },
-      },
-    ],
+    runtimeCaching: require('next-pwa/cache'),
   },
 };
 
