@@ -17,4 +17,10 @@ export const images = {
     play: require('./misc/play.svg'),
     error: require('./misc/error.svg'),
   },
+  arrow: {
+    backDark: require('./arrow/backDark.svg'),
+    backLight: require('./arrow/backLight.svg'),
+    crossDark: require('./arrow/crossDark.svg'),
+    crossLight: require('./arrow/crossLight.svg'),
+  },
 };

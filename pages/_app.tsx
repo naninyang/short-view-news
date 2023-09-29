@@ -7,7 +7,6 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { GA_TRACKING_ID, pageview } from '@/lib/gtag';
 import 'styles/globals.sass';
-import Head from 'next/head';
 
 const fontLato = Lato({
   weight: ['100', '300', '400', '700', '900'],

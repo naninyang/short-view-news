@@ -7,6 +7,9 @@
   +mq(minLarge)
     padding: 0 rem(15)
 
+  > div
+    position: relative
+
   .loading, .error
     display: flex
     justify-content: center
@@ -27,13 +30,13 @@
       color: $hex-accent
 
   div[role="gridcell"]
-    transition: all .4s cubic-bezier(.4,0,.2,1),
+    transition: all .4s cubic-bezier(.4,0,.2,1)
 
   .item
     padding: rem(10)
 
   figure
-    transition: all .4s cubic-bezier(.4,0,.2,1),
+    transition: all .4s cubic-bezier(.4,0,.2,1)
     display: flex
     flex-direction: column
     gap: rem(15)
@@ -53,25 +56,30 @@
         flex-direction: column
         gap: rem(5)
 
-        h2
-          transition: all .4s cubic-bezier(.4,0,.2,1),
+        a
+          transition: all .4s cubic-bezier(.4,0,.2,1)
           font-size: rem(16)
           font-weight: 700
           line-height: 1.5625
           color: var(--txt-subject)
 
+          &:hover
+            color: var(--txt-blockquote)
+
         p
-          transition: all .4s cubic-bezier(.4,0,.2,1),
+          transition: all .4s cubic-bezier(.4,0,.2,1)
           font-size: rem(14)
           font-weight: 400
           line-height: 1.57142857
           color: var(--txt-summary)
 
           strong
+            transition: all .4s cubic-bezier(.4,0,.2,1)
             font-weight: 700
+            color: var(--txt-blockquote)
 
       > p
-        transition: all .4s cubic-bezier(.4,0,.2,1),
+        transition: all .4s cubic-bezier(.4,0,.2,1)
         border-top: 1px solid var(--border)
         padding-top: rem(15)
         color: var(--txt-blockquote)

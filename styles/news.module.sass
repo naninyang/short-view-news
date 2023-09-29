@@ -1,0 +1,136 @@
+@import './designSystem'
+
+div.news
+  padding: 0
+  min-height: 0
+
+.news
+  display: flex
+  flex-direction: column
+  gap: rem(25)
+  padding: 0 rem(15)
+
+  +mq(maxMedium)
+    min-height: calc(100dvh - rem(140))
+
+  +mq(minLarge)
+    padding: 0 rem(25)
+
+  .top-link
+    a
+      display: inline-flex
+      gap: rem(2)
+      border: 1px solid var(--border)
+      border-radius: rem(10)
+      padding: rem(10)
+
+      +mq(minLarge)
+        gap: rem(5)
+
+      i
+        width: rem(18)
+        height: rem(18)
+
+        +mq(minLarge)
+          width: rem(20)
+          height: rem(20)
+
+      span
+        font-size: rem(14)
+        line-height: rem(18)
+        color: var(--txt-summary)
+
+        +mq(minLarge)
+          font-size: rem(16)
+          line-height: rem(20)
+
+      &:hover span
+        color: var(--txt-blockquote)
+
+  article
+    display: flex
+    flex-direction: column
+    gap: rem(15)
+
+    +mq(minLarge)
+      gap: rem(25)
+
+    > div:first-of-type
+      border-radius: rem(15)
+      overflow: hidden
+
+      +mq(minLarge)
+        border-radius: rem(25)
+
+    header
+      display: flex
+      flex-direction: column
+      gap: rem(5)
+      position: relative
+
+      +mq(minLarge)
+        gap: rem(15)
+
+      button
+        position: absolute
+        top: 0
+        right: 0
+        background: none
+        width: rem(26)
+        height: rem(26)
+
+        +mq(minLarge)
+          width: rem(50)
+          height: rem(50)
+
+        i
+          width: rem(26)
+          height: rem(26)
+
+          +mq(minLarge)
+            width: rem(50)
+            height: rem(50)
+
+        span
+          +screen-reader-only
+
+        & + h1
+          padding-right: rem(35)
+
+          +mq(minLarge)
+            padding-right: rem(70)
+
+    h1
+      transition: all .4s cubic-bezier(.4,0,.2,1)
+      font-size: rem(20)
+      line-height: 1.3
+      color: var(--txt-blockquote)
+
+      +mq(minLarge)
+        font-size: rem(38)
+
+    time
+      font-size: rem(14)
+      color: var(--txt-subject)
+
+    .description
+      p
+        transition: all .4s cubic-bezier(.4,0,.2,1)
+        font-size: rem(16)
+        color: var(--txt-blockquote)
+
+        +mq(minLarge)
+          font-size: rem(22)
+
+        &:nth-of-type(2)
+          transition: all .4s cubic-bezier(.4,0,.2,1)
+          margin-top: rem(15)
+          border-top: 1px solid var(--border)
+          padding-top: rem(15)
+          font-size: rem(14)
+          color: var(--txt-summary)
+
+          +mq(minLarge)
+            margin-top: rem(25)
+            padding-top: rem(25)
+            font-size: rem(16)

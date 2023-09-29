@@ -26,7 +26,13 @@ const Seo = ({ pageTitle, pageDescription, pageImg, pageImgWidth, pageImgHeight,
 
   return (
     <Head>
-      {title === defaultTitle ? <title>{defaultTitle}</title> : <title>{title}</title>}
+      {title === defaultTitle ? (
+        <title>{defaultTitle}</title>
+      ) : (
+        <title>
+          {title} - {defaultTitle}
+        </title>
+      )}
       <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
       <meta name="format-detection" content="telephone=no" />
       <meta name="description" content={description} />

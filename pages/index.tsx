@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import Modal from 'react-modal';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
 import axios from 'axios';
-import { Masonry } from 'masonic';
-import YouTubeController from '@/components/YouTubeController';
-import styles from '@/styles/home.module.sass';
-import Seo from '@/components/Seo';
 import styled from '@emotion/styled';
+import { Masonry } from 'masonic';
+import Seo from '@/components/Seo';
+import YouTubeController from '@/components/YouTubeController';
 import { hex, rem } from '@/styles/designSystem';
 import { images } from '@/images';
+import NewsDetail from '@/components/News';
+import styles from '@/styles/home.module.sass';
 
 type ShortData = {
   idx: string;
@@ -69,50 +74,54 @@ const IsOffline = styled.main({
   },
 });
 
+Modal.setAppElement('#__next');
+
 export default function Home() {
+  const router = useRouter();
+
   const [shorts, setShorts] = useState<ShortData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [columnCount, setColumnCount] = useState(1);
   const [loadedItems, setLoadedItems] = useState(0);
   const [hasMore, setHasMore] = useState(true);
+  const newsId = Array.isArray(router.query.newsId) ? router.query.newsId[0] : router.query.newsId;
+  const selectedNews = shorts.find((news) => news.idx === newsId);
+
+  const ReactPullToRefresh = dynamic(() => import('react-pull-to-refresh'), { ssr: false });
+
+  const handleRefresh = async () => {
+    try {
+      const start = shorts.length;
+      const count = 20;
+
+      const response = await axios.get(`/api/shorts?start=${start}&count=${count}`);
+      if (response.data.length > 0) {
+        setShorts((prevShorts) => [...prevShorts, ...response.data]);
+      }
+    } catch (error) {
+      console.error('Failed to refresh:', error);
+    }
+  };
 
   useEffect(() => {
-    let startY = 0;
-    let isPullingDown = false;
-
-    const handleTouchStart = (e: TouchEvent) => {
-      if (window.scrollY === 0) {
-        startY = e.touches[0].pageY;
-      }
+    const preventScroll = (e: Event) => {
+      e.preventDefault();
     };
 
-    const handleTouchMove = (e: TouchEvent) => {
-      const touch = e.touches[0];
-      const change = touch.pageY - startY;
-
-      if (change > 0) {
-        isPullingDown = true;
-      }
-    };
-
-    const handleTouchEnd = () => {
-      if (isPullingDown) {
-        window.location.reload();
-      }
-      isPullingDown = false;
-    };
-
-    document.addEventListener('touchstart', handleTouchStart, false);
-    document.addEventListener('touchmove', handleTouchMove, false);
-    document.addEventListener('touchend', handleTouchEnd, false);
+    if (newsId !== undefined) {
+      window.addEventListener('wheel', preventScroll, { passive: false });
+      window.addEventListener('touchmove', preventScroll, { passive: false });
+    } else {
+      window.removeEventListener('wheel', preventScroll);
+      window.removeEventListener('touchmove', preventScroll);
+    }
 
     return () => {
-      document.removeEventListener('touchstart', handleTouchStart);
-      document.removeEventListener('touchmove', handleTouchMove);
-      document.removeEventListener('touchend', handleTouchEnd);
+      window.removeEventListener('wheel', preventScroll);
+      window.removeEventListener('touchmove', preventScroll);
     };
-  }, []);
+  }, [newsId]);
 
   useEffect(() => {
     loadShorts(loadedItems, 20);
@@ -180,9 +189,9 @@ export default function Home() {
         />
         <figcaption>
           <div>
-            <h2>
+            <Link key={data.idx} href={`/?newsId=${data.idx}`} as={`/news/${data.idx}`}>
               {data.subject} / <time>{data.created}</time>
-            </h2>
+            </Link>
             <p dangerouslySetInnerHTML={{ __html: data.summary }} />
           </div>
           <p>{data.blockquote}</p>
@@ -221,6 +230,27 @@ export default function Home() {
     );
   }
 
+  const modalContainer = {
+    overlay: {
+      zIndex: 1070,
+      backgroundColor: `--bg-primary-opacity`,
+      backdropFilter: `saturate(180%) blur(${rem(20)})`,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    content: {
+      inset: undefined,
+      position: undefined,
+      background: 'var(--bg-primary)',
+      margin: 0,
+      border: undefined,
+      borderRadius: undefined,
+      padding: undefined,
+      maxWidth: rem(922),
+    },
+  };
+
   return (
     <main className={styles.main}>
       <Seo
@@ -228,14 +258,19 @@ export default function Home() {
         pageDescription="당신이 놓친 뉴스를 짧게 요약해 드려요"
         pageImg="og.png"
       />
-      <Masonry items={sortedShorts} columnCount={columnCount} render={renderCard} />
-      {isLoading && hasMore && <div className={styles.loading}>기사를 불러오는 중입니다.</div>}
-      {error && (
-        <div className={styles.error}>
-          <p>{error}</p>
-          <button onClick={() => window.location.reload()}>다시 시도</button>
-        </div>
-      )}
+      <Modal isOpen={!!newsId} onRequestClose={() => router.push('/')} contentLabel="News Modal" style={modalContainer}>
+        <NewsDetail newsItem={selectedNews} />
+      </Modal>
+      <ReactPullToRefresh onRefresh={handleRefresh} distanceToRefresh={50} resistance={3.5}>
+        <Masonry items={sortedShorts} columnCount={columnCount} render={renderCard} />
+        {isLoading && hasMore && <div className={styles.loading}>기사를 불러오는 중입니다.</div>}
+        {error && (
+          <div className={styles.error}>
+            <p>{error}</p>
+            <button onClick={() => window.location.reload()}>다시 시도</button>
+          </div>
+        )}
+      </ReactPullToRefresh>
     </main>
   );
 }
