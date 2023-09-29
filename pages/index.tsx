@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic';
 import axios from 'axios';
 import styled from '@emotion/styled';
 import { Masonry } from 'masonic';
+import PullToRefresh from 'react-simple-pull-to-refresh';
 import Seo from '@/components/Seo';
 import YouTubeController from '@/components/YouTubeController';
 import { hex, rem } from '@/styles/designSystem';
@@ -87,22 +88,6 @@ export default function Home() {
   const [hasMore, setHasMore] = useState(true);
   const newsId = Array.isArray(router.query.newsId) ? router.query.newsId[0] : router.query.newsId;
   const selectedNews = shorts.find((news) => news.idx === newsId);
-
-  const ReactPullToRefresh = dynamic(() => import('react-pull-to-refresh'), { ssr: false });
-
-  const handleRefresh = async () => {
-    try {
-      const start = shorts.length;
-      const count = 20;
-
-      const response = await axios.get(`/api/shorts?start=${start}&count=${count}`);
-      if (response.data.length > 0) {
-        setShorts((prevShorts) => [...prevShorts, ...response.data]);
-      }
-    } catch (error) {
-      console.error('Failed to refresh:', error);
-    }
-  };
 
   useEffect(() => {
     const preventScroll = (e: Event) => {
@@ -251,6 +236,20 @@ export default function Home() {
     },
   };
 
+  const handleRefresh = async () => {
+    try {
+      const start = shorts.length;
+      const count = 20;
+
+      const response = await axios.get(`/api/shorts?start=${start}&count=${count}`);
+      if (response.data.length > 0) {
+        setShorts((prevShorts) => [...prevShorts, ...response.data]);
+      }
+    } catch (error) {
+      console.error('Failed to refresh:', error);
+    }
+  };
+
   return (
     <main className={styles.main}>
       <Seo
@@ -261,16 +260,16 @@ export default function Home() {
       <Modal isOpen={!!newsId} onRequestClose={() => router.push('/')} contentLabel="News Modal" style={modalContainer}>
         <NewsDetail newsItem={selectedNews} />
       </Modal>
-      <ReactPullToRefresh onRefresh={handleRefresh} distanceToRefresh={50} resistance={3.5}>
+      <PullToRefresh onRefresh={handleRefresh}>
         <Masonry items={sortedShorts} columnCount={columnCount} render={renderCard} />
-        {isLoading && hasMore && <div className={styles.loading}>기사를 불러오는 중입니다.</div>}
-        {error && (
-          <div className={styles.error}>
-            <p>{error}</p>
-            <button onClick={() => window.location.reload()}>다시 시도</button>
-          </div>
-        )}
-      </ReactPullToRefresh>
+      </PullToRefresh>
+      {isLoading && hasMore && <div className={styles.loading}>기사를 불러오는 중입니다.</div>}
+      {error && (
+        <div className={styles.error}>
+          <p>{error}</p>
+          <button onClick={() => window.location.reload()}>다시 시도</button>
+        </div>
+      )}
     </main>
   );
 }

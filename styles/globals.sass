@@ -187,11 +187,18 @@ address, cite
     transform: scale(1)
     opacity: 1
 
+// .refresh-view
+//   touch-action: auto !important
+
+//   .ptr-refresh &, .ptr-loading &
+//     touch-action: none !important
+
 .ptr-loading .refresh-view,
 .ptr-reset .refresh-view,
 .ptr-loading .ptr-element,
 .ptr-reset .ptr-element
   transition: all 0.25s ease
+  touch-action: none !important
 
 .ptr-reset .refresh-view
   transform: translate3d(0, 0, 0)
