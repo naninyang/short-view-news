@@ -1,7 +1,16 @@
-import { Html, Head, Main, NextScript } from 'next/document';
+import Document, { Head, Main, NextScript, DocumentContext, DocumentInitialProps, Html } from 'next/document';
 import { GA_TRACKING_ID } from '@/lib/gtag';
 
-export default function Document() {
+import { extractCritical } from '@emotion/server';
+
+interface DocumentProps extends DocumentInitialProps {
+  css: string;
+  ids: string[];
+}
+
+const ShortsDocument: React.FC<DocumentProps> & {
+  getInitialProps: (ctx: DocumentContext) => Promise<DocumentProps>;
+} = ({ css, ids, ...props }) => {
   const domain = 'https://news.dev1stud.io';
   return (
     <Html lang="ko-KR">
@@ -199,6 +208,7 @@ export default function Document() {
             __html: `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', '${GA_TRACKING_ID}', { page_path: window.location.pathname });`,
           }}
         />
+        <style data-emotion-css={ids.join(' ')} dangerouslySetInnerHTML={{ __html: css }} />
       </Head>
       <body>
         <Main />
@@ -206,4 +216,20 @@ export default function Document() {
       </body>
     </Html>
   );
-}
+};
+
+ShortsDocument.getInitialProps = async (ctx) => {
+  const { renderPage } = ctx;
+  const page = await renderPage((App) => {
+    return function (props) {
+      return <App {...props} />;
+    };
+  });
+
+  const { css, ids } = extractCritical(page.html);
+  const initialProps = await Document.getInitialProps(ctx);
+
+  return { ...initialProps, ...page, css, ids };
+};
+
+export default ShortsDocument;
