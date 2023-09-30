@@ -1,10 +1,9 @@
 import { useRouter } from 'next/router';
+import PerfectScrollbar from 'react-perfect-scrollbar';
 import YouTubeController from './YouTubeController';
 import styles from '@/styles/news.module.sass';
 import styled from '@emotion/styled';
-import { rem } from '@/styles/designSystem';
 import { images } from '@/images';
-import { useEffect } from 'react';
 
 type ShortData = {
   idx: string;
@@ -38,7 +37,7 @@ const NewsDetail: React.FC<NewsProps> = ({ newsItem }) => {
   if (!newsItem) return <p>뉴스 불러오는 중...</p>;
 
   return (
-    <div className={styles.news}>
+    <div className={`${styles.news} ${styles['news-container']}`}>
       <article>
         <header>
           <button className="close-btn" onClick={handleCloseModal}>
@@ -48,13 +47,17 @@ const NewsDetail: React.FC<NewsProps> = ({ newsItem }) => {
           <h1>{newsItem.subject}</h1>
           <time>{newsItem.created}</time>
         </header>
-        <YouTubeController
-          videoId={newsItem.video_id}
-          thumbnailUrl={`https://i.ytimg.com/vi/${newsItem.video_id}/maxresdefault.jpg`}
-        />
-        <div className={styles.description}>
-          <p dangerouslySetInnerHTML={{ __html: newsItem.summary }} />
-          <p>{newsItem.blockquote}</p>
+        <div className={styles['news-content']}>
+          <PerfectScrollbar className={styles['scrollbar-container']}>
+            <YouTubeController
+              videoId={newsItem.video_id}
+              thumbnailUrl={`https://i.ytimg.com/vi/${newsItem.video_id}/maxresdefault.jpg`}
+            />
+            <div className={styles.description}>
+              <p dangerouslySetInnerHTML={{ __html: newsItem.summary }} />
+              <p>{newsItem.blockquote}</p>
+            </div>
+          </PerfectScrollbar>
         </div>
       </article>
     </div>

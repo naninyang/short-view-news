@@ -1,9 +1,5 @@
 @import './designSystem'
 
-div.news
-  padding: 0
-  min-height: 0
-
 .news
   display: flex
   flex-direction: column
@@ -16,7 +12,65 @@ div.news
   +mq(minLarge)
     padding: 0 rem(25)
 
+  &.news
+    &:not(.news-container)
+      align-items: center
+      padding: rem(15)
+
+      +mq(minLarge)
+        padding: rem(25)
+
+      article
+        max-width: rem(922)
+
+  &.news-container
+    padding: 0
+    overflow: hidden
+    max-height: calc(100dvh - rem(191))
+
+    article
+      display: flex
+      flex-direction: column
+      padding-bottom: rem(15)
+      max-height: calc(100dvh - rem(191))
+
+      +mq(minLarge)
+        padding-bottom: rem(25)
+
+      header
+        padding: rem(15)
+
+        +mq(minLarge)
+          padding: rem(25)
+
+      .news-content
+        display: flex
+        flex-direction: column
+        gap: rem(15)
+        flex: 1
+        overflow: hidden
+
+        +mq(minLarge)
+          gap: rem(25)
+
+        .scrollbar-container
+          flex: 1
+          overflow: hidden
+          padding: rem(15)
+
+          +mq(minLarge)
+            padding: 0 rem(25)
+
+          .description
+            padding-top: rem(15)
+
+            +mq(minLarge)
+              padding-top: rem(25)
+
   .top-link
+    max-width: rem(922)
+    width: 100%
+
     a
       display: inline-flex
       gap: rem(2)
@@ -55,9 +109,13 @@ div.news
     +mq(minLarge)
       gap: rem(25)
 
-    > div:first-of-type
+    div[class^="css"]
+      transition: all .4s cubic-bezier(.4,0,.2,1)
       border-radius: rem(15)
       overflow: hidden
+
+      &:hover
+        border-radius: 0
 
       +mq(minLarge)
         border-radius: rem(25)

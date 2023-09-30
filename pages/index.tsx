@@ -227,6 +227,7 @@ export default function Home() {
     },
     content: {
       inset: undefined,
+      overflow: undefined,
       position: undefined,
       background: 'var(--bg-secondary)',
       margin: 0,
@@ -234,6 +235,7 @@ export default function Home() {
       borderRadius: undefined,
       padding: undefined,
       maxWidth: rem(922),
+      maxHeight: `calc(100dvh - ${rem(140)})`,
     },
   };
 
