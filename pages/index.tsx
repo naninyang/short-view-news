@@ -218,8 +218,9 @@ export default function Home() {
   const modalContainer = {
     overlay: {
       zIndex: 1070,
-      backgroundColor: `--bg-primary-opacity`,
+      backgroundColor: `var(--bg-primary-opacity)`,
       backdropFilter: `saturate(180%) blur(${rem(20)})`,
+      WebkitBackdropFilter: `saturate(180%) blur(${rem(20)})`,
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
@@ -227,7 +228,7 @@ export default function Home() {
     content: {
       inset: undefined,
       position: undefined,
-      background: 'var(--bg-primary)',
+      background: 'var(--bg-secondary)',
       margin: 0,
       border: undefined,
       borderRadius: undefined,
