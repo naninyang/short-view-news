@@ -174,7 +174,7 @@ export default function Home() {
         />
         <figcaption>
           <div>
-            <Link key={data.idx} href={`/?newsId=${data.idx}`} as={`/news/${data.idx}`}>
+            <Link key={data.idx} href={`/?newsId=${data.idx}`} as={`/news/${data.idx}`} scroll={false} shallow={true}>
               {data.subject} / <time>{data.created}</time>
             </Link>
             <p dangerouslySetInnerHTML={{ __html: data.summary }} />
@@ -257,7 +257,12 @@ export default function Home() {
         pageDescription="당신이 놓친 뉴스를 짧게 요약해 드려요"
         pageImg="og.png"
       />
-      <Modal isOpen={!!newsId} onRequestClose={() => router.push('/')} contentLabel="News Modal" style={modalContainer}>
+      <Modal
+        isOpen={!!newsId}
+        onRequestClose={() => router.push('/', undefined, { scroll: false })}
+        contentLabel="News Modal"
+        style={modalContainer}
+      >
         <NewsDetail newsItem={selectedNews} />
       </Modal>
       <PullToRefresh onRefresh={handleRefresh}>
