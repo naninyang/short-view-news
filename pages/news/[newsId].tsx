@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { useMediaQuery } from 'react-responsive';
 import axios from 'axios';
 import styled from '@emotion/styled';
 import { images } from '@/images';
