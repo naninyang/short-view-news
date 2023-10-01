@@ -1,7 +1,7 @@
 import { GoogleAuth } from 'google-auth-library';
 import { GoogleSpreadsheet } from 'google-spreadsheet';
 
-export async function getSheetData(start: number, count: number) {
+export async function getSheetData(start?: number, count?: number) {
   const auth = new GoogleAuth({
     credentials: {
       type: 'service_account',
@@ -30,5 +30,8 @@ export async function getSheetData(start: number, count: number) {
 
   const sortedRowsData = rowsData.sort((a, b) => b.idx.localeCompare(a.idx));
 
-  return sortedRowsData.slice(start, start + count);
+  if (start !== undefined && count !== undefined) {
+    return sortedRowsData.slice(start, start + count);
+  }
+  return sortedRowsData;
 }
