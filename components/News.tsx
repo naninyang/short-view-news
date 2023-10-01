@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { useMediaQuery } from 'react-responsive';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import YouTubeController from './YouTubeController';
 import styles from '@/styles/news.module.sass';
@@ -30,18 +28,8 @@ const CrossButton = styled.i({
   },
 });
 
-export function useDesktop() {
-  const [isDesktop, setIsDesktop] = useState(false);
-  const desktop = useMediaQuery({ query: '(min-width: 768px)' });
-  useEffect(() => {
-    setIsDesktop(desktop);
-  }, [desktop]);
-  return isDesktop;
-}
-
 const NewsDetail: React.FC<NewsProps> = ({ newsItem }) => {
   const router = useRouter();
-  const isDesktop = useDesktop();
   const handleCloseModal = () => {
     router.push('/');
   };
@@ -61,14 +49,7 @@ const NewsDetail: React.FC<NewsProps> = ({ newsItem }) => {
         </header>
         <div className={styles['news-content']}>
           <PerfectScrollbar className={styles['scrollbar-container']}>
-            <YouTubeController
-              videoId={newsItem.video_id}
-              thumbnailUrl={
-                isDesktop
-                  ? `https://i.ytimg.com/vi/${newsItem.video_id}/sddefault.webp`
-                  : `https://i.ytimg.com/vi/${newsItem.video_id}/mqdefault.webp`
-              }
-            />
+            <YouTubeController videoId={newsItem.video_id} />
             <div className={styles.description}>
               <p dangerouslySetInnerHTML={{ __html: newsItem.summary }} />
               <p>{newsItem.blockquote}</p>

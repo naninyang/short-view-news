@@ -28,19 +28,9 @@ const BackButton = styled.i({
   },
 });
 
-export function useDesktop() {
-  const [isDesktop, setIsDesktop] = useState(false);
-  const desktop = useMediaQuery({ query: '(min-width: 768px)' });
-  useEffect(() => {
-    setIsDesktop(desktop);
-  }, [desktop]);
-  return isDesktop;
-}
-
 const NewsDetail = () => {
   const [newsData, setNewsData] = useState<ShortData | null>(null);
   const router = useRouter();
-  const isDesktop = useDesktop();
   const { newsId } = router.query;
 
   useEffect(() => {
@@ -61,7 +51,7 @@ const NewsDetail = () => {
       <Seo
         pageTitle={newsData.subject}
         pageDescription={newsData.summary}
-        pageImg={`https://i.ytimg.com/vi/${newsData.video_id}/maxresdefault.jpg`}
+        pageImg={`/vi/${newsData.video_id}/maxresdefault.jpg`}
       />
       <div className={styles['top-link']}>
         <AnchorLink href="/">
@@ -74,14 +64,7 @@ const NewsDetail = () => {
           <h1>{newsData.subject}</h1>
           <time>{newsData.created}</time>
         </header>
-        <YouTubeController
-          videoId={newsData.video_id}
-          thumbnailUrl={
-            isDesktop
-              ? `https://i.ytimg.com/vi_webp/${newsData.video_id}/sddefault.webp`
-              : `https://i.ytimg.com/vi_webp/${newsData.video_id}/mqdefault.webp`
-          }
-        />
+        <YouTubeController videoId={newsData.video_id} />
         <div className={styles.description}>
           <p dangerouslySetInnerHTML={{ __html: newsData.summary }} />
           <p>{newsData.blockquote}</p>

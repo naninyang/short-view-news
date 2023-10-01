@@ -168,10 +168,7 @@ export default function Home() {
   const renderCard = ({ data }: { data: ShortData }) => (
     <div className={styles.item}>
       <figure>
-        <YouTubeController
-          videoId={data.video_id}
-          thumbnailUrl={`https://i.ytimg.com/vi_webp/${data.video_id}/mqdefault.webp`}
-        />
+        <YouTubeController videoId={data.video_id} />
         <figcaption>
           <div>
             <Link key={data.idx} href={`/?newsId=${data.idx}`} as={`/news/${data.idx}`} scroll={false} shallow={true}>

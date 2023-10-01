@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import { isDesktop } from 'react-device-detect';
@@ -7,7 +8,6 @@ import YouTubePlayer from './YouTubePlayer';
 
 interface Props {
   videoId: string;
-  thumbnailUrl: string;
 }
 
 const Container = styled.div<{ isDesktop?: boolean }>(({ isDesktop }) => ({
@@ -72,7 +72,7 @@ const Container = styled.div<{ isDesktop?: boolean }>(({ isDesktop }) => ({
   },
 }));
 
-const YouTubeController = ({ videoId, thumbnailUrl }: Props) => {
+const YouTubeController = ({ videoId }: Props) => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   const handlePlay = () => {
@@ -83,7 +83,13 @@ const YouTubeController = ({ videoId, thumbnailUrl }: Props) => {
     <Container isDesktop={isDesktop}>
       {!isPlaying ? (
         <>
-          <img src={thumbnailUrl} alt="" />
+          <Image
+            src={`https://i.ytimg.com/vi_webp/${videoId}/sddefault.webp`}
+            width={640}
+            height={480}
+            unoptimized
+            alt=""
+          />
           <button type="button" onClick={handlePlay}>
             <i />
             <span>영상 재생하기</span>

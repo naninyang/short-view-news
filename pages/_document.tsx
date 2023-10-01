@@ -202,7 +202,7 @@ const ShortsDocument: React.FC<DocumentProps> & {
         <meta name="msapplication-TileColor" content="#141414" />
         <meta name="msapplication-tap-highlight" content="no" />
         <meta name="theme-color" content="#141414" />
-        <script src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`} />
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`} />
         <script
           dangerouslySetInnerHTML={{
             __html: `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', '${GA_TRACKING_ID}', { page_path: window.location.pathname });`,
