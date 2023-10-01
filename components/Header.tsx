@@ -14,11 +14,21 @@ const Container = styled.header<{ isDesktop?: boolean }>(({ isDesktop }) => ({
   zIndex: 1030,
   display: 'flex',
   gap: rem(15),
-  padding: `calc(env(safe-area-inset-top) + ${rem(15)}) ${rem(15)} ${rem(15)}`,
+  padding: `
+    calc(env(safe-area-inset-top) + ${rem(15)})
+    calc(env(safe-area-inset-right) + ${rem(15)})
+    ${rem(15)}
+    calc(env(safe-area-inset-left) + ${rem(15)})
+  `,
   width: '100%',
   [mq.minLarge]: {
     gap: rem(25),
-    padding: `calc(env(safe-area-inset-top) + ${rem(25)}) ${rem(25)} ${rem(25)}`,
+    padding: `
+      calc(env(safe-area-inset-top) + ${rem(25)})
+      calc(env(safe-area-inset-right) + ${rem(25)})
+      ${rem(15)}
+      calc(env(safe-area-inset-left) + ${rem(25)})
+    `,
   },
   '& h1 a': {
     transition: 'all .4s cubic-bezier(.4,0,.2,1)',

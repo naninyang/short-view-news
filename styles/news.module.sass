@@ -4,10 +4,10 @@
   display: flex
   flex-direction: column
   gap: rem(25)
-  padding: 0 rem(15)
+  padding: 0 calc(env(safe-area-inset-right) + rem(15)) 0 calc(env(safe-area-inset-left) + rem(15))
 
   +mq(minLarge)
-    padding: 0 rem(25)
+    padding: 0 calc(env(safe-area-inset-right) + rem(25)) 0 calc(env(safe-area-inset-left) + rem(25))
 
   &.news
     &:not(.news-container)
