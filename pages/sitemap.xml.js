@@ -12,6 +12,7 @@ function generateSiteMap(shorts) {
           return `
             <url>
               <loc>https://news.dev1stud.io/news/${idx}</loc>
+              <lastmod>${created}</lastmod>
             </url>
           `;
         })
