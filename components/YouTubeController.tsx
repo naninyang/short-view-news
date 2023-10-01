@@ -88,6 +88,7 @@ const YouTubeController = ({ videoId }: Props) => {
             width={640}
             height={480}
             unoptimized
+            priority
             alt=""
           />
           <button type="button" onClick={handlePlay}>
