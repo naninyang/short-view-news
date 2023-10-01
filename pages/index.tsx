@@ -2,16 +2,15 @@ import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import dynamic from 'next/dynamic';
+import { Masonry } from 'masonic';
 import axios from 'axios';
 import styled from '@emotion/styled';
-import { Masonry } from 'masonic';
 import PullToRefresh from 'react-simple-pull-to-refresh';
 import Seo from '@/components/Seo';
 import YouTubeController from '@/components/YouTubeController';
-import { hex, rem } from '@/styles/designSystem';
-import { images } from '@/images';
 import NewsDetail from '@/components/News';
+import { images } from '@/images';
+import { hex, rem } from '@/styles/designSystem';
 import styles from '@/styles/home.module.sass';
 
 type ShortData = {
@@ -149,8 +148,9 @@ export default function Home() {
 
   const handleResize = () => {
     const width = window.innerWidth;
-    if (width < 922) setColumnCount(1);
-    else if (width >= 922 && width <= 1396) setColumnCount(2);
+    if (width < 671) setColumnCount(1);
+    else if (width >= 671 && width <= 922) setColumnCount(2);
+    else if (width >= 922 && width <= 1396) setColumnCount(3);
     else setColumnCount(4);
   };
 
@@ -170,7 +170,7 @@ export default function Home() {
       <figure>
         <YouTubeController
           videoId={data.video_id}
-          thumbnailUrl={`https://i.ytimg.com/vi/${data.video_id}/maxresdefault.jpg`}
+          thumbnailUrl={`https://i.ytimg.com/vi_webp/${data.video_id}/mqdefault.webp`}
         />
         <figcaption>
           <div>

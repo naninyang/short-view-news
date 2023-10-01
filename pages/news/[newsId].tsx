@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { useMediaQuery } from 'react-responsive';
 import axios from 'axios';
 import styled from '@emotion/styled';
+import { images } from '@/images';
+import Seo from '@/components/Seo';
 import YouTubeController from '@/components/YouTubeController';
 import AnchorLink from '@/components/AnchorLink';
-import { images } from '@/images';
 import styles from '@/styles/news.module.sass';
-import Seo from '@/components/Seo';
 
 type ShortData = {
   idx: string;
@@ -27,9 +28,19 @@ const BackButton = styled.i({
   },
 });
 
+export function useDesktop() {
+  const [isDesktop, setIsDesktop] = useState(false);
+  const desktop = useMediaQuery({ query: '(min-width: 768px)' });
+  useEffect(() => {
+    setIsDesktop(desktop);
+  }, [desktop]);
+  return isDesktop;
+}
+
 const NewsDetail = () => {
   const [newsData, setNewsData] = useState<ShortData | null>(null);
   const router = useRouter();
+  const isDesktop = useDesktop();
   const { newsId } = router.query;
 
   useEffect(() => {
@@ -65,7 +76,11 @@ const NewsDetail = () => {
         </header>
         <YouTubeController
           videoId={newsData.video_id}
-          thumbnailUrl={`https://i.ytimg.com/vi/${newsData.video_id}/maxresdefault.jpg`}
+          thumbnailUrl={
+            isDesktop
+              ? `https://i.ytimg.com/vi_webp/${newsData.video_id}/sddefault.webp`
+              : `https://i.ytimg.com/vi_webp/${newsData.video_id}/mqdefault.webp`
+          }
         />
         <div className={styles.description}>
           <p dangerouslySetInnerHTML={{ __html: newsData.summary }} />
