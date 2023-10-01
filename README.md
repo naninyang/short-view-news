@@ -1,24 +1,38 @@
-# Next.js + Turbopack App Directory Playground
+# 숏뷰 뉴스 {short.view: news}
 
-[Turbopack](https://turbo.build/pack) is a new incremental bundler optimized for JavaScript and TypeScript, written in Rust by the creators of Webpack and Next.js at [Vercel](https://vercel.com). On large applications Turbopack updates 10x faster than Vite and 700x faster than Webpack ([benchmark](https://turbo.build/pack/docs/benchmarks)). For the biggest applications the difference grows even more stark with updates up to 20x faster than Vite.
+YouTube에 업로드 된 뉴스를 요약하고 큐레이터 본인의 생각을 짧게 보여주는 서비스입니다.
 
-This playground is a mirror of the [Next.js v13 App Directory Playground](https://github.com/vercel/app-playground), but uses Turbopack as the Next.js development server (`next dev --turbo`).
+5분 미만의 짧은 뉴스를 가져오며, 아주 가끔 그 이상의 뉴스도 가져옵니다.
 
-**As a reminder, Turbopack is currently in beta and not yet ready for production. We appreciate your ongoing support as we work to make it ready for everyone.**
+뉴스 목록은 Google Spreadsheets에서 관리합니다.
 
-## Running Locally
+## 사용된 주요 기술/기능 또는 패키지
 
-1. Install dependencies: `yarn`
-1. Start the dev server: `yarn dev`
+- Next.js w/ React
+- react-device-detect
+- react-modal w/ Route As Modal
+- TypeScript
+- Emotion
+- SASS
+- google-auth-library
+- google-spreadsheet
+- Google YouTube iframe API
+- Masonry w/ Masonic
+- Perfect Scrollbar
+- pull-to-refresh
+- PWA
 
-**Note:** The playground uses [Tailwind CSS](https://tailwindcss.com) via [PostCSS](https://turbo.build/pack/docs/features/css#postcss).
+## Troubleshooting
 
-For more information, see: https://turbo.build/pack/docs/features/css#tailwind-css
+발견된 문제점
 
-## Documentation
+- pull-to-refresh 동작해도 새로운 데이터를 제대로 못 불러옴.
+- Startup Image가 존재하나 불러오지 못함.
 
-https://nextjs.link/with-turbopack
+## 주의사항 및 저작권
 
-## Providing Feedback
+이 서비스는 Vercel, Next.js, Google과 관련이 없습니다.
 
-https://nextjs.link/turbopack-feedback
+큐레이터 본인의 생각이 들어간 부분은 언론사의 의견과 상관이 없습니다.
+
+뉴스 콘텐츠에 대한 저작권은 각 언론사에 있습니다.
