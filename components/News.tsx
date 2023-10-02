@@ -34,7 +34,12 @@ const NewsDetail: React.FC<NewsProps> = ({ newsItem }) => {
     router.push('/');
   };
 
-  if (!newsItem) return <p>뉴스 불러오는 중...</p>;
+  if (!newsItem)
+    return (
+      <main className={styles.news}>
+        <p className={styles.loading}>기사 불러오는 중...</p>
+      </main>
+    );
 
   return (
     <div className={`${styles.news} ${styles['news-container']}`}>

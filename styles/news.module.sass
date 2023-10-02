@@ -5,9 +5,17 @@
   flex-direction: column
   gap: rem(25)
   padding: 0 calc(env(safe-area-inset-right) + rem(15)) 0 calc(env(safe-area-inset-left) + rem(15))
+  min-height: calc(100dvh - rem(69) - rem(71) - env(safe-area-inset-top) - env(safe-area-inset-bottom))
 
   +mq(minLarge)
     padding: 0 calc(env(safe-area-inset-right) + rem(25)) 0 calc(env(safe-area-inset-left) + rem(25))
+    min-height: calc(100dvh - rem(92) - rem(69) - env(safe-area-inset-top) - env(safe-area-inset-bottom))
+
+  .loading
+    display: flex
+    flex: 1
+    align-items: center
+    color: $hex-accent
 
   &.news
     &:not(.news-container)

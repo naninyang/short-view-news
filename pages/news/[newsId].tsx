@@ -43,7 +43,12 @@ const NewsDetail = () => {
     }
   }, [newsId]);
 
-  if (!newsData) return <div>Loading...</div>;
+  if (!newsData)
+    return (
+      <main className={styles.news}>
+        <p className={styles.loading}>기사 불러오는 중...</p>
+      </main>
+    );
 
   return (
     <main className={styles.news}>
