@@ -16,7 +16,10 @@
     text-align: center
 
   .loading
-    min-height: calc(100dvh - rem(69) - rem(71) - env(safe-area-inset-top) - env(safe-area-inset-bottom))
+    min-height: calc(100dvh - rem(140) - env(safe-area-inset-top) - env(safe-area-inset-bottom))
+
+    +mq(minLarge)
+      min-height: calc(100dvh - rem(162) - env(safe-area-inset-top) - env(safe-area-inset-bottom))
 
   .error
     gap: rem(15)
