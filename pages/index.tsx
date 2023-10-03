@@ -253,7 +253,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <Seo
-        pageTitle="숏뷰 뉴스 {short.view: watch}"
+        pageTitle="숏뷰 뉴스 {short.view: news}"
         pageDescription="당신이 놓친 뉴스를 짧게 요약해 드려요"
         pageImg="og.png"
       />
