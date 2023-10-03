@@ -6,7 +6,7 @@ import { images } from '@/images';
 import Seo from '@/components/Seo';
 import YouTubeController from '@/components/YouTubeController';
 import AnchorLink from '@/components/AnchorLink';
-import styles from '@/styles/news.module.sass';
+import styles from '@/styles/watch.module.sass';
 
 type ShortData = {
   idx: string;
@@ -27,35 +27,36 @@ const BackButton = styled.i({
   },
 });
 
-const NewsDetail = () => {
-  const [newsData, setNewsData] = useState<ShortData | null>(null);
+const watchDetail = () => {
+  const [watchData, setwatchData] = useState<ShortData | null>(null);
   const router = useRouter();
-  const { newsId } = router.query;
+  const { watchId } = router.query;
 
   useEffect(() => {
-    if (newsId) {
+    if (watchId) {
       axios.get<ShortData[]>('/api/shorts').then((response) => {
-        const matchedData = response.data.find((news) => news.idx === newsId);
+        const matchedData = response.data.find((watch) => watch.idx === watchId);
         if (matchedData) {
-          setNewsData(matchedData);
+          setwatchData(matchedData);
         }
       });
     }
-  }, [newsId]);
+  }, [watchId]);
 
-  if (!newsData)
+  if (!watchData)
     return (
-      <main className={styles.news}>
+      <main className={styles.watch}>
         <p className={styles.loading}>기사 불러오는 중...</p>
       </main>
     );
 
   return (
-    <main className={styles.news}>
+    <main className={styles.watch}>
       <Seo
-        pageTitle={newsData.subject}
-        pageDescription={newsData.summary}
-        pageImg={`/vi/${newsData.video_id}/maxresdefault.jpg`}
+        pageTitle={watchData.subject}
+        pageDescription={watchData.summary}
+        pageImg={`/vi/${watchData.video_id}/maxresdefault.jpg`}
+        pageOgType="video.other"
       />
       <div className={styles['top-link']}>
         <AnchorLink href="/">
@@ -65,17 +66,17 @@ const NewsDetail = () => {
       </div>
       <article>
         <header>
-          <h1>{newsData.subject}</h1>
-          <time>{newsData.created}</time>
+          <h1>{watchData.subject}</h1>
+          <time>{watchData.created}</time>
         </header>
-        <YouTubeController videoId={newsData.video_id} />
+        <YouTubeController videoId={watchData.video_id} />
         <div className={styles.description}>
-          <p dangerouslySetInnerHTML={{ __html: newsData.summary }} />
-          <p>{newsData.blockquote}</p>
+          <p dangerouslySetInnerHTML={{ __html: watchData.summary }} />
+          <p>{watchData.blockquote}</p>
         </div>
       </article>
     </main>
   );
 };
 
-export default NewsDetail;
+export default watchDetail;

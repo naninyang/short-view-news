@@ -8,12 +8,12 @@ import styled from '@emotion/styled';
 import PullToRefresh from 'react-simple-pull-to-refresh';
 import Seo from '@/components/Seo';
 import YouTubeController from '@/components/YouTubeController';
-import NewsDetail from '@/components/News';
+import WatchDetail from '@/components/Watch';
 import { images } from '@/images';
 import { hex, rem } from '@/styles/designSystem';
 import styles from '@/styles/home.module.sass';
 
-type ShortData = {
+type SheetData = {
   idx: string;
   video_id: string;
   subject: string;
@@ -79,21 +79,21 @@ Modal.setAppElement('#__next');
 export default function Home() {
   const router = useRouter();
 
-  const [shorts, setShorts] = useState<ShortData[]>([]);
+  const [sheets, setSheets] = useState<SheetData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [columnCount, setColumnCount] = useState(1);
   const [loadedItems, setLoadedItems] = useState(0);
   const [hasMore, setHasMore] = useState(true);
-  const newsId = Array.isArray(router.query.newsId) ? router.query.newsId[0] : router.query.newsId;
-  const selectedNews = shorts.find((news) => news.idx === newsId);
+  const watchId = Array.isArray(router.query.watchId) ? router.query.watchId[0] : router.query.watchId;
+  const selectedWatch = sheets.find((watch) => watch.idx === watchId);
 
   useEffect(() => {
     const preventScroll = (e: Event) => {
       e.preventDefault();
     };
 
-    if (newsId !== undefined) {
+    if (watchId !== undefined) {
       window.addEventListener('wheel', preventScroll, { passive: false });
       window.addEventListener('touchmove', preventScroll, { passive: false });
     } else {
@@ -105,16 +105,16 @@ export default function Home() {
       window.removeEventListener('wheel', preventScroll);
       window.removeEventListener('touchmove', preventScroll);
     };
-  }, [newsId]);
+  }, [watchId]);
 
   useEffect(() => {
-    loadShorts(loadedItems, 20);
+    loadSheets(loadedItems, 20);
   }, []);
 
   useEffect(() => {
     const handleScroll = () => {
       if (window.innerHeight + window.scrollY + 1000 >= document.body.offsetHeight && !isLoading && hasMore) {
-        loadShorts(loadedItems, 20);
+        loadSheets(loadedItems, 20);
       }
     };
 
@@ -124,14 +124,14 @@ export default function Home() {
     };
   }, [loadedItems, isLoading, hasMore]);
 
-  const loadShorts = (start: number, count: number) => {
+  const loadSheets = (start: number, count: number) => {
     setIsLoading(true);
 
     axios
-      .get(`/api/shorts?start=${start}&count=${count}`)
+      .get(`/api/sheets?start=${start}&count=${count}`)
       .then((response) => {
-        if (JSON.stringify(response.data) !== JSON.stringify(shorts.slice(start, start + count))) {
-          setShorts((prev) => [...prev, ...response.data]);
+        if (JSON.stringify(response.data) !== JSON.stringify(sheets.slice(start, start + count))) {
+          setSheets((prev) => [...prev, ...response.data]);
         }
         if (response.data.length < count) {
           setHasMore(false);
@@ -140,7 +140,7 @@ export default function Home() {
         setIsLoading(false);
       })
       .catch((err) => {
-        console.error('Error fetching shorts:', err);
+        console.error('Error fetching sheets:', err);
         setError('데이터를 불러오는데 실패했습니다.');
         setIsLoading(false);
       });
@@ -163,15 +163,15 @@ export default function Home() {
     };
   }, []);
 
-  const sortedShorts = [...shorts].sort((a, b) => b.idx.localeCompare(a.idx));
+  const sortedSheets = [...sheets].sort((a, b) => b.idx.localeCompare(a.idx));
 
-  const renderCard = ({ data }: { data: ShortData }) => (
+  const renderCard = ({ data }: { data: SheetData }) => (
     <div className={styles.item}>
       <figure>
         <YouTubeController videoId={data.video_id} />
         <figcaption>
           <div>
-            <Link key={data.idx} href={`/?newsId=${data.idx}`} as={`/news/${data.idx}`} scroll={false} shallow={true}>
+            <Link key={data.idx} href={`/?watchId=${data.idx}`} as={`/watch/${data.idx}`} scroll={false} shallow={true}>
               {data.subject} / <time>{data.created}</time>
             </Link>
             <p dangerouslySetInnerHTML={{ __html: data.summary }} />
@@ -238,12 +238,12 @@ export default function Home() {
 
   const handleRefresh = async () => {
     try {
-      const start = shorts.length;
+      const start = sheets.length;
       const count = 20;
 
-      const response = await axios.get(`/api/shorts?start=${start}&count=${count}`);
+      const response = await axios.get(`/api/sheets?start=${start}&count=${count}`);
       if (response.data.length > 0) {
-        setShorts((prevShorts) => [...prevShorts, ...response.data]);
+        setSheets((prevSheets) => [...prevSheets, ...response.data]);
       }
     } catch (error) {
       console.error('Failed to refresh:', error);
@@ -253,20 +253,20 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <Seo
-        pageTitle="숏뷰 뉴스 {short.view: news}"
+        pageTitle="숏뷰 뉴스 {short.view: watch}"
         pageDescription="당신이 놓친 뉴스를 짧게 요약해 드려요"
         pageImg="og.png"
       />
       <Modal
-        isOpen={!!newsId}
+        isOpen={!!watchId}
         onRequestClose={() => router.push('/', undefined, { scroll: false })}
-        contentLabel="News Modal"
+        contentLabel="watch Modal"
         style={modalContainer}
       >
-        <NewsDetail newsItem={selectedNews} />
+        <WatchDetail watchItem={selectedWatch} />
       </Modal>
       <PullToRefresh onRefresh={handleRefresh}>
-        <Masonry items={sortedShorts} columnCount={columnCount} render={renderCard} />
+        <Masonry items={sortedSheets} columnCount={columnCount} render={renderCard} />
       </PullToRefresh>
       {isLoading && hasMore && <div className={styles.loading}>기사를 불러오는 중입니다.</div>}
       {error && (
