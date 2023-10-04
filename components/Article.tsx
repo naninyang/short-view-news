@@ -7,6 +7,7 @@ import AnchorLink from './AnchorLink';
 import { images } from '@/images';
 import styled from '@emotion/styled';
 import styles from '@/styles/article.module.sass';
+import Image from 'next/image';
 
 interface Metadata {
   ogTitle: string;
@@ -81,7 +82,17 @@ const articleDetail: React.FC<articleProps> = ({ articleItem }) => {
               </h1>
             </header>
             <PerfectScrollbar className={styles['scrollbar-container']}>
-              <p className={styles.comment}>{`${articleItem?.description}`}</p>
+              <div className={styles.description}>
+                <p>{`${articleItem?.description}`}</p>
+                <Image
+                  src={`https://drive.google.com/uc?id=${articleItem?.thumbnail}`}
+                  width={640}
+                  height={480}
+                  unoptimized
+                  priority
+                  alt=""
+                />
+              </div>
               <AnchorLink href={`https://n.news.naver.com/article/${articleItem?.oid}/${articleItem?.aid}`}>
                 <img
                   src={metadata[`https://n.news.naver.com/article/${articleItem?.oid}/${articleItem?.aid}`]?.ogImage}
@@ -109,7 +120,7 @@ const articleDetail: React.FC<articleProps> = ({ articleItem }) => {
                       {metadata &&
                         metadata[`https://n.news.naver.com/article/${articleItem?.oid}/${articleItem?.aid}`]?.ogTitle}
                     </strong>
-                    <p className={styles.summary}>
+                    <p className={styles.description}>
                       {
                         metadata[`https://n.news.naver.com/article/${articleItem?.oid}/${articleItem?.aid}`]
                           ?.ogDescription

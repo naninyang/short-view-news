@@ -66,23 +66,6 @@
       article
         max-width: rem(767)
 
-        .description
-          p
-            margin-bottom: rem(15)
-            font-size: rem(20)
-            color: var(--txt-blockquote)
-
-          img
-            overflow: hidden
-            aspect-ratio: auto
-            border-radius: rem(25)
-
-        a
-          display: block
-          background-color: var(--border)
-          border-radius: rem(15)
-          padding: rem(25)
-
   &.article-container
     padding: 0
     overflow: hidden
@@ -103,29 +86,17 @@
         +mq(minLarge)
           padding: rem(25)
 
-      .article-content
+      .scrollbar-container
         display: flex
         flex-direction: column
-        gap: rem(15)
         flex: 1
         overflow: hidden
+        padding: rem(15)
+        gap: rem(15)
 
         +mq(minLarge)
           gap: rem(25)
-
-        .scrollbar-container
-          flex: 1
-          overflow: hidden
-          padding: rem(15)
-
-          +mq(minLarge)
-            padding: 0 rem(25)
-
-          .description
-            padding-top: rem(15)
-
-            +mq(minLarge)
-              padding-top: rem(25)
+          padding: 0 rem(25)
 
   .top-link
     max-width: rem(767)
@@ -168,17 +139,6 @@
 
     +mq(minLarge)
       gap: rem(25)
-
-    div[class^="css"]
-      transition: all .4s cubic-bezier(.4,0,.2,1)
-      border-radius: rem(15)
-      overflow: hidden
-
-      &:hover
-        border-radius: 0
-
-      +mq(minLarge)
-        border-radius: rem(25)
 
     header
       display: flex
@@ -229,28 +189,19 @@
       +mq(minLarge)
         font-size: rem(38)
 
-    time
-      font-size: rem(14)
-      color: var(--txt-subject)
+  .description
+    p
+      margin-bottom: rem(15)
+      font-size: rem(20)
+      color: var(--txt-blockquote)
 
-    .description
-      p
-        transition: all .4s cubic-bezier(.4,0,.2,1)
-        font-size: rem(16)
-        color: var(--txt-blockquote)
+    img
+      overflow: hidden
+      aspect-ratio: auto
+      border-radius: rem(25)
 
-        +mq(minLarge)
-          font-size: rem(22)
-
-        &:nth-of-type(2)
-          transition: all .4s cubic-bezier(.4,0,.2,1)
-          margin-top: rem(15)
-          border-top: 1px solid var(--border)
-          padding-top: rem(15)
-          font-size: rem(14)
-          color: var(--txt-summary)
-
-          +mq(minLarge)
-            margin-top: rem(25)
-            padding-top: rem(25)
-            font-size: rem(16)
+  a
+    display: block
+    background-color: var(--border)
+    border-radius: rem(15)
+    padding: rem(25)

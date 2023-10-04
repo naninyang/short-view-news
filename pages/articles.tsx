@@ -31,6 +31,25 @@ export default function Articles() {
   const articleId = Array.isArray(router.query.articleId) ? router.query.articleId[0] : router.query.articleId;
   const selectedArticle = articles.find((article) => article.idx === articleId);
 
+  useEffect(() => {
+    const preventScroll = (e: Event) => {
+      e.preventDefault();
+    };
+
+    if (articleId !== undefined) {
+      window.addEventListener('wheel', preventScroll, { passive: false });
+      window.addEventListener('touchmove', preventScroll, { passive: false });
+    } else {
+      window.removeEventListener('wheel', preventScroll);
+      window.removeEventListener('touchmove', preventScroll);
+    }
+
+    return () => {
+      window.removeEventListener('wheel', preventScroll);
+      window.removeEventListener('touchmove', preventScroll);
+    };
+  }, [articleId]);
+
   const fetchArticleMetadata = async (url: string) => {
     try {
       const { data } = await axios.get<Metadata>(`/api/naverScraping?url=${url}`);
