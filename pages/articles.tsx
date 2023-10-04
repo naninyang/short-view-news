@@ -8,6 +8,7 @@ import styles from '@/styles/articles.module.sass';
 import { useRouter } from 'next/router';
 import { modalContainer } from '@/components/ModalStyling';
 import ArticleDetail from '@/components/Article';
+import Services from '@/components/Services';
 
 interface Metadata {
   ogTitle: string;
@@ -58,9 +59,6 @@ export default function Articles() {
     fetchArticles();
   }, []);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
-
   return (
     <main className={styles.articles}>
       <Modal
@@ -71,68 +69,95 @@ export default function Articles() {
       >
         <ArticleDetail articleItem={selectedArticle} />
       </Modal>
-      {articles.map((article: Article) => (
-        <article key={article.idx}>
-          <Link
-            key={article.idx}
-            href={`/articles/?articleId=${article.idx}`}
-            as={`/article/${article.idx}`}
-            scroll={false}
-            shallow={true}
-          >
-            <div className={styles.description}>
-              <div className={styles.comment} dangerouslySetInnerHTML={{ __html: article.description }} />
-              <Image
-                src={`https://drive.google.com/uc?id=${article.thumbnail}`}
-                width={640}
-                height={480}
-                unoptimized
-                priority
-                alt=""
-              />
-            </div>
-            <div className={styles.opengraph}>
-              {metadata && (
-                <>
-                  <img
-                    src={
-                      metadata[encodeURIComponent(`https://n.news.naver.com/article/${article.oid}/${article.aid}`)]
-                        ?.ogImage
-                    }
+      <Services />
+      <div className={styles['article-content']}>
+        <div className={styles['article-list']}>
+          {articles.map((article: Article) => (
+            <article key={article.idx}>
+              <Link
+                key={article.idx}
+                href={`/articles/?articleId=${article.idx}`}
+                as={`/article/${article.idx}`}
+                scroll={false}
+                shallow={true}
+              >
+                <div className={styles.description}>
+                  <div className={styles.comment} dangerouslySetInnerHTML={{ __html: article.description }} />
+                  <Image
+                    src={`https://drive.google.com/uc?id=${article.thumbnail}`}
+                    width={640}
+                    height={480}
+                    unoptimized
+                    priority
                     alt=""
                   />
-                  <cite>
-                    {
-                      metadata[encodeURIComponent(`https://n.news.naver.com/article/${article.oid}/${article.aid}`)]
-                        ?.ogCreator
-                    }
-                  </cite>
-                  <time
-                    dateTime={
-                      metadata[encodeURIComponent(`https://n.news.naver.com/article/${article.oid}/${article.aid}`)]
-                        ?.datestampTimeAttribute
-                    }
-                  >
-                    {metadata[`https://n.news.naver.com/article/${article.oid}/${article.aid}`]?.datestampTimeContent}
-                  </time>
-                  <strong>
-                    {
-                      metadata[encodeURIComponent(`https://n.news.naver.com/article/${article.oid}/${article.aid}`)]
-                        ?.ogTitle
-                    }
-                  </strong>
-                  <div>
-                    {
-                      metadata[encodeURIComponent(`https://n.news.naver.com/article/${article.oid}/${article.aid}`)]
-                        ?.ogDescription
-                    }
-                  </div>
-                </>
-              )}
-            </div>
-          </Link>
-        </article>
-      ))}
+                </div>
+                <div className={styles.opengraph}>
+                  {metadata && (
+                    <div className={styles['og-container']}>
+                      <img
+                        src={
+                          metadata[encodeURIComponent(`https://n.news.naver.com/article/${article.oid}/${article.aid}`)]
+                            ?.ogImage
+                        }
+                        alt=""
+                      />
+                      <div className={styles['og-info']}>
+                        <div className={styles.created}>
+                          <cite>
+                            {
+                              metadata[
+                                encodeURIComponent(`https://n.news.naver.com/article/${article.oid}/${article.aid}`)
+                              ]?.ogCreator
+                            }
+                          </cite>
+                          <time
+                            dateTime={
+                              metadata[
+                                encodeURIComponent(`https://n.news.naver.com/article/${article.oid}/${article.aid}`)
+                              ]?.datestampTimeAttribute
+                            }
+                          >
+                            {
+                              metadata[
+                                encodeURIComponent(`https://n.news.naver.com/article/${article.oid}/${article.aid}`)
+                              ]?.datestampTimeContent
+                            }
+                          </time>
+                        </div>
+                        <div className={styles.summary}>
+                          <strong>
+                            {
+                              metadata[
+                                encodeURIComponent(`https://n.news.naver.com/article/${article.oid}/${article.aid}`)
+                              ]?.ogTitle
+                            }
+                          </strong>
+                          <div className={styles.description}>
+                            {
+                              metadata[
+                                encodeURIComponent(`https://n.news.naver.com/article/${article.oid}/${article.aid}`)
+                              ]?.ogDescription
+                            }
+                            ...
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </Link>
+            </article>
+          ))}
+        </div>
+      </div>
+      {loading && <div className={styles.loading}>기사를 불러오는 중입니다.</div>}
+      {error && (
+        <div className={styles.error}>
+          <p>{error}</p>
+          <button onClick={() => window.location.reload()}>다시 시도</button>
+        </div>
+      )}
     </main>
   );
 }

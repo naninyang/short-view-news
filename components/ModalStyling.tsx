@@ -19,6 +19,7 @@ export const modalContainer = {
     border: undefined,
     borderRadius: undefined,
     padding: undefined,
+    width: '100%',
     maxWidth: rem(922),
     maxHeight: `calc(100dvh - ${rem(140)})`,
   },

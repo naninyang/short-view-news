@@ -10,10 +10,10 @@ import PullToRefresh from 'react-simple-pull-to-refresh';
 import YouTubeController from '@/components/YouTubeController';
 import { images } from '@/images';
 import { hex, rem } from '@/styles/designSystem';
-import AnchorLink from '@/components/AnchorLink';
 import { modalContainer } from '@/components/ModalStyling';
 import WatchDetail from '@/components/Watch';
 import styles from '@/styles/home.module.sass';
+import Services from '@/components/Services';
 
 type SheetData = {
   idx: string;
@@ -243,8 +243,7 @@ export default function Home() {
       >
         <WatchDetail watchItem={selectedWatch} />
       </Modal>
-      <AnchorLink href="/">메인</AnchorLink>
-      <AnchorLink href="/articles">네이버</AnchorLink>
+      <Services />
       <PullToRefresh onRefresh={handleRefresh}>
         <Masonry items={sortedSheets} columnCount={columnCount} render={renderCard} />
       </PullToRefresh>

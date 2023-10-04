@@ -14,9 +14,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const ogUrl = $('meta[property="og:url"]').attr('content');
     const ogImage = $('meta[property="og:image"]').attr('content');
     const ogDescription = $('meta[property="og:description"]').attr('content');
-    const ogCreator = $('meta[property="og:creator"]').attr('content');
-    const datestampTimeContent = $('.media_end_head_info_datestamp_time:eq(0)').text();
-    const datestampTimeAttribute = $('.media_end_head_info_datestamp_time:eq(0)').attr('data-date-time');
+    const ogCreator = $('meta[property="og:creator"]').attr('content')
+      ? $('meta[property="og:creator"]').attr('content')
+      : $('meta[property="og:article:author"]').attr('content');
+    const datestampTimeContent = $(
+      '.media_end_head_info_datestamp .media_end_head_info_datestamp_bunch:eq(0) .media_end_head_info_datestamp_time',
+    ).text();
+    const datestampTimeAttribute = $(
+      '.media_end_head_info_datestamp .media_end_head_info_datestamp_bunch:eq(0) .media_end_head_info_datestamp_time',
+    ).attr('data-date-time');
 
     res.status(200).json({
       ogTitle,

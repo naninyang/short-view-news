@@ -1,2 +1,106 @@
+@import './designSystem'
+
 .articles
-  opacity: 1
+  padding: rem(15) calc(env(safe-area-inset-right) + rem(5)) rem(15) calc(env(safe-area-inset-left) + rem(5))
+  font-size: rem(16)
+
+  +mq(minLarge)
+    padding: rem(25) 0
+
+  .loading, .error
+    display: flex
+    justify-content: center
+    align-items: center
+    font-weight: 700
+    color: $hex-accent
+    text-align: center
+
+  .loading
+    min-height: calc(100dvh - rem(140) - env(safe-area-inset-top) - env(safe-area-inset-bottom))
+
+    +mq(minLarge)
+      min-height: calc(100dvh - rem(162) - env(safe-area-inset-top) - env(safe-area-inset-bottom))
+
+  .error
+    gap: rem(15)
+
+    button
+      background: none
+      text-decoration: underline
+      color: $hex-accent
+
+  .article-content
+    background-color: var(--bg-primary-opacity)
+
+  .article-list
+    display: flex
+    flex-direction: column
+    margin: 0 auto
+    border: 1px solid var(--border)
+    border-top: 0
+    border-bottom: 0
+    width: rem(575)
+
+  article
+    display: flex
+    flex-direction: column
+    gap: rem(15)
+    border-bottom: 1px solid var(--border)
+
+    &:last-of-type
+      border-bottom: 0
+
+    a
+      display: block
+
+      img
+        display: block
+        aspect-ratio: 1200 / 630
+        object-fit: cover
+        width: 100%
+        height: auto
+
+      .description
+        .comment
+          padding: rem(15)
+          font-size: rem(16)
+          color: var(--txt-blockquote)
+
+      .opengraph
+        padding: rem(15)
+
+        .og-container
+          background-color: var(--border)
+          border-radius: rem(15)
+          padding: rem(25)
+
+          .og-info
+            display: flex
+            flex-direction: column
+            gap: rem(5)
+            margin-top: rem(15)
+
+            .created
+              display: flex
+              justify-content: space-between
+              color: var(--txt-summary)
+
+              cite
+                font-size: rem(14)
+                font-weight: 700
+
+              time
+                font-size: rem(12)
+
+            .summary
+              display: flex
+              flex-direction: column
+              gap: rem(5)
+
+              strong
+                font-size: rem(16)
+                color: var(--txt-summary)
+
+              .description
+                font-size: rem(14)
+                color: var(--txt-summary)
