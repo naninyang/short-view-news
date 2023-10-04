@@ -5,12 +5,14 @@ import { useRouter } from 'next/router';
 import { Masonry } from 'masonic';
 import axios from 'axios';
 import styled from '@emotion/styled';
-import PullToRefresh from 'react-simple-pull-to-refresh';
 import Seo from '@/components/Seo';
+import PullToRefresh from 'react-simple-pull-to-refresh';
 import YouTubeController from '@/components/YouTubeController';
-import WatchDetail from '@/components/Watch';
 import { images } from '@/images';
 import { hex, rem } from '@/styles/designSystem';
+import AnchorLink from '@/components/AnchorLink';
+import { modalContainer } from '@/components/ModalStyling';
+import WatchDetail from '@/components/Watch';
 import styles from '@/styles/home.module.sass';
 
 type SheetData = {
@@ -212,30 +214,6 @@ export default function Home() {
     );
   }
 
-  const modalContainer = {
-    overlay: {
-      zIndex: 1070,
-      backgroundColor: `var(--bg-primary-opacity)`,
-      backdropFilter: `saturate(180%) blur(${rem(20)})`,
-      WebkitBackdropFilter: `saturate(180%) blur(${rem(20)})`,
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    content: {
-      inset: undefined,
-      overflow: undefined,
-      position: undefined,
-      background: 'var(--bg-secondary)',
-      margin: 0,
-      border: undefined,
-      borderRadius: undefined,
-      padding: undefined,
-      maxWidth: rem(922),
-      maxHeight: `calc(100dvh - ${rem(140)})`,
-    },
-  };
-
   const handleRefresh = async () => {
     try {
       const start = sheets.length;
@@ -260,11 +238,13 @@ export default function Home() {
       <Modal
         isOpen={!!watchId}
         onRequestClose={() => router.push('/', undefined, { scroll: false })}
-        contentLabel="watch Modal"
+        contentLabel="Watch Modal"
         style={modalContainer}
       >
         <WatchDetail watchItem={selectedWatch} />
       </Modal>
+      <AnchorLink href="/">메인</AnchorLink>
+      <AnchorLink href="/articles">네이버</AnchorLink>
       <PullToRefresh onRefresh={handleRefresh}>
         <Masonry items={sortedSheets} columnCount={columnCount} render={renderCard} />
       </PullToRefresh>
