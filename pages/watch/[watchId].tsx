@@ -50,8 +50,6 @@ const watchDetail = () => {
       </main>
     );
 
-  console.log(router);
-
   return (
     <main className={styles.watch}>
       <Seo

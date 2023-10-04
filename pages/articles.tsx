@@ -19,7 +19,9 @@ interface Metadata {
   datestampTimeAttribute: any;
 }
 
-const Articles: FC = () => {
+Modal.setAppElement('#__next');
+
+export default function Articles() {
   const router = useRouter();
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -27,7 +29,6 @@ const Articles: FC = () => {
   const [metadata, setMetadata] = useState<Record<string, Metadata>>({});
   const articleId = Array.isArray(router.query.articleId) ? router.query.articleId[0] : router.query.articleId;
   const selectedArticle = articles.find((article) => article.idx === articleId);
-  console.log(selectedArticle);
 
   const fetchArticleMetadata = async (url: string) => {
     try {
@@ -134,6 +135,4 @@ const Articles: FC = () => {
       ))}
     </main>
   );
-};
-
-export default Articles;
+}
