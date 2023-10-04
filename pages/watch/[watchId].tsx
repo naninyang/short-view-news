@@ -27,7 +27,7 @@ const BackButton = styled.i({
   },
 });
 
-const watchDetail = () => {
+export default function watchDetail() {
   const router = useRouter();
   const [watchData, setwatchData] = useState<SheetData | null>(null);
   const { watchId } = router.query;
@@ -77,6 +77,4 @@ const watchDetail = () => {
       </article>
     </main>
   );
-};
-
-export default watchDetail;
+}

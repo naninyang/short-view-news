@@ -1,14 +1,14 @@
-import { useState, useEffect, FC } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import Modal from 'react-modal';
 import axios from 'axios';
 import { Article } from '@/types';
-import styles from '@/styles/articles.module.sass';
-import { useRouter } from 'next/router';
 import { modalContainer } from '@/components/ModalStyling';
-import ArticleDetail from '@/components/Article';
 import Services from '@/components/Services';
+import ArticleDetail from '@/components/Article';
+import styles from '@/styles/articles.module.sass';
 
 interface Metadata {
   ogTitle: string;
@@ -76,7 +76,7 @@ export default function Articles() {
             <article key={article.idx}>
               <Link
                 key={article.idx}
-                href={`/articles/?articleId=${article.idx}`}
+                href={`/articles?articleId=${article.idx}`}
                 as={`/article/${article.idx}`}
                 scroll={false}
                 shallow={true}
