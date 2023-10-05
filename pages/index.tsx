@@ -230,11 +230,7 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      <Seo
-        pageTitle="숏뷰 뉴스 {short.view: news}"
-        pageDescription="당신이 놓친 뉴스를 짧게 요약해 드려요"
-        pageImg="og.png"
-      />
+      <Seo pageTitle="유튜브 쇼츠 뉴스" pageDescription="당신이 놓친 뉴스를 짧게 요약해 드려요" pageImg="og.png" />
       <Modal
         isOpen={!!watchId}
         onRequestClose={() => router.push('/', undefined, { scroll: false })}
