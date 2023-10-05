@@ -26,7 +26,17 @@ YouTube에 업로드 된 뉴스를 요약하고 큐레이터 본인의 생각을
 
 발견된 문제점
 
-- pull-to-refresh 동작해도 새로운 데이터를 제대로 못 불러옴.
+- YouTube: pull-to-refresh 동작해도 새로운 데이터를 제대로 못 불러옴.
+- YouTube: 모바일에서 백그라운드로 오래 둔 상태에서 되돌아왔을 때 캐싱 데이터를 사용하지 않고 데이터를 모두 새로 불러옴
+- YouTube: 모달이 뜨거나 사라졌을 때 백그라운드 썸네일 이미지를 다시 불러옴
+- 공통 : YouTube <-> NAVER News 링크 이동시 캐싱된 데이터가 아닌 모든 데이터를 새로 불러옴
+
+TO-DO
+
+- NAVER News: 데이터를 20건 씩 끊어서 받아오기
+- NAVER News: 데이터 캐싱
+- NAVER News: pull-to-refresh 적용
+- NAVER News: sitemap.xml 작성
 
 ## 주의사항 및 저작권
 
