@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router';
+import styled from '@emotion/styled';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import YouTubeController from './YouTubeController';
-import styles from '@/styles/watch.module.sass';
-import styled from '@emotion/styled';
 import { images } from '@/images';
+import styles from '@/styles/watch.module.sass';
 
-type ShortData = {
+type WatchData = {
   idx: string;
   video_id: string;
   subject: string;
@@ -15,7 +15,7 @@ type ShortData = {
 };
 
 interface watchProps {
-  watchItem: ShortData | undefined;
+  watchItem: WatchData | undefined;
 }
 
 const CrossButton = styled.i({
@@ -45,7 +45,7 @@ const watchDetail: React.FC<watchProps> = ({ watchItem }) => {
     <div className={`${styles.watch} ${styles['watch-container']}`}>
       <article>
         <header>
-          <button className="close-btn" onClick={handleCloseModal}>
+          <button type="button" className="close-btn" onClick={handleCloseModal}>
             <CrossButton />
             <span>닫기</span>
           </button>

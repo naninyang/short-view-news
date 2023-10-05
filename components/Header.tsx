@@ -26,7 +26,7 @@ const Container = styled.header<{ isDesktop?: boolean }>(({ isDesktop }) => ({
     padding: `
       calc(env(safe-area-inset-top) + ${rem(25)})
       calc(env(safe-area-inset-right) + ${rem(25)})
-      ${rem(15)}
+      ${rem(25)}
       calc(env(safe-area-inset-left) + ${rem(25)})
     `,
   },

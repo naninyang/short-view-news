@@ -8,7 +8,7 @@ import YouTubeController from '@/components/YouTubeController';
 import AnchorLink from '@/components/AnchorLink';
 import styles from '@/styles/watch.module.sass';
 
-type ShortData = {
+type SheetData = {
   idx: string;
   video_id: string;
   subject: string;
@@ -27,17 +27,17 @@ const BackButton = styled.i({
   },
 });
 
-const watchDetail = () => {
-  const [watchData, setwatchData] = useState<ShortData | null>(null);
+export default function watchDetail() {
   const router = useRouter();
+  const [watchData, setWatchData] = useState<SheetData | null>(null);
   const { watchId } = router.query;
 
   useEffect(() => {
     if (watchId) {
-      axios.get<ShortData[]>('/api/shorts').then((response) => {
+      axios.get<SheetData[]>('/api/sheets').then((response) => {
         const matchedData = response.data.find((watch) => watch.idx === watchId);
         if (matchedData) {
-          setwatchData(matchedData);
+          setWatchData(matchedData);
         }
       });
     }
@@ -77,6 +77,4 @@ const watchDetail = () => {
       </article>
     </main>
   );
-};
-
-export default watchDetail;
+}
