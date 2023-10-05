@@ -15,8 +15,9 @@ const Seo = ({ pageTitle, pageDescription, pageImg, pageImgWidth, pageImgHeight,
   const pagePath = router.asPath;
   const domain = 'https://news.dev1stud.io';
 
-  const defaultTitle = '숏뷰 뉴스 {short.view: news}';
   const title = pageTitle;
+  const defaultTitle = '숏뷰 뉴스 {short.view: news}';
+  const finTitle = `${title} - ${defaultTitle}` || defaultTitle;
   const description = pageDescription;
   const url = `${domain}${pagePath}`;
   const imgUrl = `${pageImg}`;
@@ -26,19 +27,13 @@ const Seo = ({ pageTitle, pageDescription, pageImg, pageImgWidth, pageImgHeight,
 
   return (
     <Head>
-      {title === defaultTitle ? (
-        <title>{defaultTitle}</title>
-      ) : (
-        <title>
-          {title} - {defaultTitle}
-        </title>
-      )}
+      <title>{finTitle}</title>
       <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
       <meta name="format-detection" content="telephone=no" />
       <meta name="description" content={description} />
       <meta property="og:locale" content="ko_KR" />
       <meta property="og:url" content={url} />
-      <meta property="og:title" content={title} />
+      <meta property="og:title" content={finTitle} />
       <meta property="og:site_name" content={defaultTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:type" content={ogType} />

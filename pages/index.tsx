@@ -228,12 +228,14 @@ export default function Home() {
     }
   };
 
+  const timestamp = Date.now();
+
   return (
     <main className={styles.main}>
       <Seo
         pageTitle="유튜브 쇼츠 뉴스"
         pageDescription="당신이 놓친 뉴스를 짧게 요약해 드려요"
-        pageImg="https://image.toast.com/aaaacnn/short-view-news/og.png"
+        pageImg={`https://image.toast.com/aaaacnn/short-view-news/og.png?ts=${timestamp}`}
       />
       <Modal
         isOpen={!!watchId}

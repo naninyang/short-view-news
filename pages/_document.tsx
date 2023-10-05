@@ -11,7 +11,6 @@ interface DocumentProps extends DocumentInitialProps {
 const ShortsDocument: React.FC<DocumentProps> & {
   getInitialProps: (ctx: DocumentContext) => Promise<DocumentProps>;
 } = ({ css, ids, ...props }) => {
-  const domain = 'https://news.dev1stud.io';
   return (
     <Html lang="ko-KR">
       <Head>
