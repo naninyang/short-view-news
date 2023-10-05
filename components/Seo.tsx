@@ -12,7 +12,7 @@ interface Props {
 
 const Seo = ({ pageTitle, pageDescription, pageImg, pageImgWidth, pageImgHeight, pageOgType }: Props) => {
   const router = useRouter();
-  const pagePath = router.pathname;
+  const pagePath = router.asPath;
   const domain = 'https://news.dev1stud.io';
 
   const defaultTitle = '숏뷰 뉴스 {short.view: news}';
