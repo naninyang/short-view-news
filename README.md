@@ -35,6 +35,7 @@ YouTube 뉴스 목록은 Google Spreadsheets에서 관리하며, NAVER 뉴스 �
 
 ### TO-DO
 
+- Development Env.와 Production Env. 환경변수 분리
 - NAVER News: 데이터를 20건 씩 끊어서 받아오기
 - NAVER News: 데이터 캐싱
 - NAVER News: pull-to-refresh 적용
