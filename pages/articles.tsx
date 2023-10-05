@@ -68,9 +68,10 @@ export default function Articles() {
         data.forEach((article: Article) => {
           fetchArticleMetadata(encodeURIComponent(`https://n.news.naver.com/article/${article.oid}/${article.aid}`));
         });
+        setLoading(false);
       } catch (err) {
-        setError('Failed to fetch articles.');
-      } finally {
+        console.error('Error fetching articles:', err);
+        setError('데이터를 불러오는데 실패했습니다.');
         setLoading(false);
       }
     };
