@@ -4,7 +4,7 @@ YouTube 및 NAVER 뉴스에 업로드 된 뉴스를 요약하고 큐레이터 �
 
 YouTube는 5분 미만의 짧은 뉴스를 가져오며, 아주 가끔 그 이상의 뉴스도 가져옵니다.
 
-YouTube 뉴스 목록은 Google Spreadsheets에서 관리하며 NAVER 뉴스 목록은 Notion에서 관리됩니다.
+YouTube 뉴스 목록은 Google Spreadsheets에서 관리하며, NAVER 뉴스 목록은 Notion에서 관리됩니다.
 
 ## 사용된 주요 기술/기능 또는 패키지
 
