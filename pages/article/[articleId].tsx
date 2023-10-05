@@ -34,7 +34,7 @@ export default function ArticleDetail() {
   const { articleId } = router.query;
 
   const [article, setArticle] = useState<Article | null>(null);
-  const [metadata, setMetadata] = useState<any>({});
+  const [metaData, setMetaData] = useState<any | null>({});
 
   useEffect(() => {
     if (articleId) {
@@ -45,7 +45,7 @@ export default function ArticleDetail() {
 
           const metadataUrl = `https://n.news.naver.com/article/${data.oid}/${data.aid}`;
           const metadataResponse = await axios.get(`/api/naverScraping?url=${metadataUrl}`);
-          setMetadata((prev: Record<string, Metadata>) => ({ ...prev, [metadataUrl]: metadataResponse.data }));
+          setMetaData((prev: Record<string, Metadata>) => ({ ...prev, [metadataUrl]: metadataResponse.data }));
         } catch (err) {
           console.log('Failed to fetch article details.');
         }
@@ -54,13 +54,6 @@ export default function ArticleDetail() {
       fetchArticle();
     }
   }, [articleId]);
-
-  if (!metadata)
-    return (
-      <main className={styles.article}>
-        <p className={styles.loading}>기사 불러오는 중...</p>
-      </main>
-    );
 
   return (
     <main className={styles.article}>
@@ -71,23 +64,17 @@ export default function ArticleDetail() {
         </AnchorLink>
       </div>
       <article>
-        {metadata && (
+        <Seo
+          pageTitle={`${article?.subject}`}
+          pageDescription={`${article?.description}`}
+          pageImg={`https://drive.google.com/uc?id=${article?.thumbnail}`}
+          pageOgType="article"
+        />
+        <header>
+          <h1>{article?.subject}</h1>
+        </header>
+        {article ? (
           <>
-            <Seo
-              pageTitle={
-                metadata && metadata[`https://n.news.naver.com/article/${article?.oid}/${article?.aid}`]?.ogTitle
-              }
-              pageDescription={
-                metadata[`https://n.news.naver.com/article/${article?.oid}/${article?.aid}`]?.ogDescription
-              }
-              pageImg={metadata[`https://n.news.naver.com/article/${article?.oid}/${article?.aid}`]?.ogImage}
-              pageOgType="article"
-            />
-            <header>
-              <h1>
-                {metadata && metadata[`https://n.news.naver.com/article/${article?.oid}/${article?.aid}`]?.ogTitle}
-              </h1>
-            </header>
             <div className={styles.description}>
               <p>{`${article?.description}`}</p>
               <Image
@@ -99,31 +86,45 @@ export default function ArticleDetail() {
                 alt=""
               />
             </div>
-            <AnchorLink href={`https://n.news.naver.com/article/${article?.oid}/${article?.aid}`}>
-              <img src={metadata[`https://n.news.naver.com/article/${article?.oid}/${article?.aid}`]?.ogImage} alt="" />
-              <div className={styles['og-info']}>
-                <div className={styles.created}>
-                  <cite>{metadata[`https://n.news.naver.com/article/${article?.oid}/${article?.aid}`]?.ogCreator}</cite>
-                  <time
-                    dateTime={
-                      metadata[`https://n.news.naver.com/article/${article?.oid}/${article?.aid}`]
-                        ?.datestampTimeAttribute
-                    }
-                  >
-                    {metadata[`https://n.news.naver.com/article/${article?.oid}/${article?.aid}`]?.datestampTimeContent}
-                  </time>
-                </div>
-                <div className={styles.summary}>
-                  <strong>
-                    {metadata && metadata[`https://n.news.naver.com/article/${article?.oid}/${article?.aid}`]?.ogTitle}
-                  </strong>
-                  <div className={styles.description}>
-                    {metadata[`https://n.news.naver.com/article/${article?.oid}/${article?.aid}`]?.ogDescription}
+            {metaData ? (
+              <AnchorLink href={`https://n.news.naver.com/article/${article?.oid}/${article?.aid}`}>
+                <img
+                  src={metaData[`https://n.news.naver.com/article/${article?.oid}/${article?.aid}`]?.ogImage}
+                  alt=""
+                />
+                <div className={styles['og-info']}>
+                  <div className={styles.created}>
+                    <cite>
+                      {metaData[`https://n.news.naver.com/article/${article?.oid}/${article?.aid}`]?.ogCreator}
+                    </cite>
+                    <time
+                      dateTime={
+                        metaData[`https://n.news.naver.com/article/${article?.oid}/${article?.aid}`]
+                          ?.datestampTimeAttribute
+                      }
+                    >
+                      {
+                        metaData[`https://n.news.naver.com/article/${article?.oid}/${article?.aid}`]
+                          ?.datestampTimeContent
+                      }
+                    </time>
+                  </div>
+                  <div className={styles.summary}>
+                    <strong>
+                      {metaData[`https://n.news.naver.com/article/${article?.oid}/${article?.aid}`]?.ogTitle}
+                    </strong>
+                    <div className={styles.description}>
+                      {metaData[`https://n.news.naver.com/article/${article?.oid}/${article?.aid}`]?.ogDescription}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </AnchorLink>
+              </AnchorLink>
+            ) : (
+              <p className={styles.loading}>기사 불러오는 중...</p>
+            )}
           </>
+        ) : (
+          <p className={styles.loading}>본문 불러오는 중</p>
         )}
       </article>
     </main>

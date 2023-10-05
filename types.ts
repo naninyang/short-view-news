@@ -21,7 +21,8 @@ export type NotionRawPage = {
   properties: {
     Description?: NotionTitleProperty;
     OID?: NotionRichTextProperty;
-    AID?: NotionRichTextProperty;
+    Thumbnail?: NotionRichTextProperty;
+    Subject?: NotionRichTextProperty;
     [key: string]: any;
   };
 };
@@ -35,6 +36,7 @@ export type Article = {
   idx: string;
   description: string;
   thumbnail: string;
+  subject: string;
   oid: string;
   aid: string;
 };

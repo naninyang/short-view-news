@@ -29,7 +29,7 @@ const BackButton = styled.i({
 
 export default function watchDetail() {
   const router = useRouter();
-  const [watchData, setwatchData] = useState<SheetData | null>(null);
+  const [watchData, setWatchData] = useState<SheetData | null>(null);
   const { watchId } = router.query;
 
   useEffect(() => {
@@ -37,7 +37,7 @@ export default function watchDetail() {
       axios.get<SheetData[]>('/api/sheets').then((response) => {
         const matchedData = response.data.find((watch) => watch.idx === watchId);
         if (matchedData) {
-          setwatchData(matchedData);
+          setWatchData(matchedData);
         }
       });
     }

@@ -59,27 +59,17 @@ const articleDetail: React.FC<articleProps> = ({ articleItem }) => {
     router.push('/articles');
   };
 
-  if (!articleItem)
-    return (
-      <main className={styles.article}>
-        <p className={styles.loading}>기사 불러오는 중...</p>
-      </main>
-    );
-
   return (
     <div className={`${styles.article} ${styles['article-container']}`}>
       <article>
-        {metadata && (
+        {articleItem ? (
           <>
             <header>
               <button type="button" className="close-btn" onClick={handleCloseModal}>
                 <CrossButton />
                 <span>닫기</span>
               </button>
-              <h1>
-                {metadata &&
-                  metadata[`https://n.news.naver.com/article/${articleItem?.oid}/${articleItem?.aid}`]?.ogTitle}
-              </h1>
+              <h1>{articleItem?.subject}</h1>
             </header>
             <PerfectScrollbar className={styles['scrollbar-container']}>
               <div className={styles.description}>
@@ -93,44 +83,62 @@ const articleDetail: React.FC<articleProps> = ({ articleItem }) => {
                   alt=""
                 />
               </div>
-              <AnchorLink href={`https://n.news.naver.com/article/${articleItem?.oid}/${articleItem?.aid}`}>
-                <img
-                  src={metadata[`https://n.news.naver.com/article/${articleItem?.oid}/${articleItem?.aid}`]?.ogImage}
-                  alt=""
-                />
-                <div className={styles['og-info']}>
-                  <div className={styles.created}>
-                    <cite>
-                      {metadata[`https://n.news.naver.com/article/${articleItem?.oid}/${articleItem?.aid}`]?.ogCreator}
-                    </cite>
-                    <time
-                      dateTime={
-                        metadata[`https://n.news.naver.com/article/${articleItem?.oid}/${articleItem?.aid}`]
-                          ?.datestampTimeAttribute
+              {metadata && (
+                <>
+                  <AnchorLink href={`https://n.news.naver.com/article/${articleItem?.oid}/${articleItem?.aid}`}>
+                    <img
+                      src={
+                        metadata[`https://n.news.naver.com/article/${articleItem?.oid}/${articleItem?.aid}`]?.ogImage
                       }
-                    >
-                      {
-                        metadata[`https://n.news.naver.com/article/${articleItem?.oid}/${articleItem?.aid}`]
-                          ?.datestampTimeContent
-                      }
-                    </time>
-                  </div>
-                  <div className={styles.summary}>
-                    <strong>
-                      {metadata &&
-                        metadata[`https://n.news.naver.com/article/${articleItem?.oid}/${articleItem?.aid}`]?.ogTitle}
-                    </strong>
-                    <p className={styles.description}>
-                      {
-                        metadata[`https://n.news.naver.com/article/${articleItem?.oid}/${articleItem?.aid}`]
-                          ?.ogDescription
-                      }
-                    </p>
-                  </div>
-                </div>
-              </AnchorLink>
+                      alt=""
+                    />
+                    <div className={styles['og-info']}>
+                      <div className={styles.created}>
+                        <cite>
+                          {
+                            metadata[`https://n.news.naver.com/article/${articleItem?.oid}/${articleItem?.aid}`]
+                              ?.ogCreator
+                          }
+                        </cite>
+                        <time
+                          dateTime={
+                            metadata[`https://n.news.naver.com/article/${articleItem?.oid}/${articleItem?.aid}`]
+                              ?.datestampTimeAttribute
+                          }
+                        >
+                          {
+                            metadata[`https://n.news.naver.com/article/${articleItem?.oid}/${articleItem?.aid}`]
+                              ?.datestampTimeContent
+                          }
+                        </time>
+                      </div>
+                      <div className={styles.summary}>
+                        <strong>
+                          {metadata &&
+                            metadata[`https://n.news.naver.com/article/${articleItem?.oid}/${articleItem?.aid}`]
+                              ?.ogTitle}
+                        </strong>
+                        <p className={styles.description}>
+                          {
+                            metadata[`https://n.news.naver.com/article/${articleItem?.oid}/${articleItem?.aid}`]
+                              ?.ogDescription
+                          }
+                        </p>
+                      </div>
+                    </div>
+                  </AnchorLink>
+                </>
+              )}
             </PerfectScrollbar>
           </>
+        ) : (
+          <header>
+            <button type="button" className="close-btn" onClick={handleCloseModal}>
+              <CrossButton />
+              <span>닫기</span>
+            </button>
+            <h1>본문 불러오는 중</h1>
+          </header>
         )}
       </article>
     </div>
