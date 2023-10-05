@@ -55,7 +55,7 @@ export default function watchDetail() {
       <Seo
         pageTitle={watchData.subject}
         pageDescription={watchData.summary}
-        pageImg={`/vi/${watchData.video_id}/maxresdefault.jpg`}
+        pageImg={`https://i.ytimg.com/vi/${watchData.video_id}/maxresdefault.jpg`}
         pageOgType="video.other"
       />
       <div className={styles['top-link']}>

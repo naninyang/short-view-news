@@ -82,7 +82,11 @@ export default function Articles() {
 
   return (
     <main className={styles.articles}>
-      <Seo pageTitle="네이버 쇼츠 뉴스" pageDescription="당신이 놓친 뉴스를 짧게 요약해 드려요" pageImg="og.png" />
+      <Seo
+        pageTitle="네이버 쇼츠 뉴스"
+        pageDescription="당신이 놓친 뉴스를 짧게 요약해 드려요"
+        pageImg="https://news.dev1stud.io/og.png"
+      />
       <Modal
         isOpen={!!articleId}
         onRequestClose={() => router.push('/articles', undefined, { scroll: false })}
