@@ -84,7 +84,7 @@ const YouTubeController = ({ videoId }: Props) => {
       {!isPlaying ? (
         <>
           <Image
-            src={`https://i.ytimg.com/vi_webp/${videoId}/sddefault.webp`}
+            src={`https://i.ytimg.com/vi_webp/${videoId}/hqdefault.webp`}
             width={640}
             height={480}
             unoptimized
