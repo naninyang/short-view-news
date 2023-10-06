@@ -144,7 +144,6 @@ const ShortsDocument: React.FC<DocumentProps> & {
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="Black-translucent" />
         <meta name="apple-mobile-web-app-title" content="숏뷰 뉴스 {short.view: news}" />
-        <meta name="description" content="당신이 놓친 뉴스를 짧게 요약해 드려요" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="msapplication-config" content="/browserconfig.xml" />

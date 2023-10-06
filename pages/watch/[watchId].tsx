@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import axios from 'axios';
 import styled from '@emotion/styled';
 import { images } from '@/images';
@@ -27,22 +26,7 @@ const BackButton = styled.i({
   },
 });
 
-export default function watchDetail() {
-  const router = useRouter();
-  const [watchData, setWatchData] = useState<SheetData | null>(null);
-  const { watchId } = router.query;
-
-  useEffect(() => {
-    if (watchId) {
-      axios.get<SheetData[]>('/api/sheets').then((response) => {
-        const matchedData = response.data.find((watch) => watch.idx === watchId);
-        if (matchedData) {
-          setWatchData(matchedData);
-        }
-      });
-    }
-  }, [watchId]);
-
+export default function watchDetail({ watchData }: { watchData: SheetData | null }) {
   if (!watchData)
     return (
       <main className={styles.watch}>
@@ -78,3 +62,27 @@ export default function watchDetail() {
     </main>
   );
 }
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const watchId = context.params?.watchId;
+  let watchData = null;
+
+  if (watchId) {
+    const response = await axios.get<SheetData[]>(`http://localhost:3003/api/sheets`);
+    watchData = response.data.find((watch) => watch.idx === watchId);
+  }
+
+  return {
+    props: {
+      watchData,
+    },
+    revalidate: 1,
+  };
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: 'blocking',
+  };
+};

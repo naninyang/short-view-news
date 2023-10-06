@@ -8,6 +8,7 @@ import { images } from '@/images';
 import Seo from '@/components/Seo';
 import styled from '@emotion/styled';
 import styles from '@/styles/article.module.sass';
+import { GetStaticPaths, GetStaticProps } from 'next';
 
 interface Metadata {
   ogTitle: string;
@@ -19,6 +20,8 @@ interface Metadata {
   datestampTimeAttribute: any;
 }
 
+type MetaDataMap = { [key: string]: Metadata };
+
 const BackButton = styled.i({
   display: 'block',
   'body &, body[data-theme="dark"] &': {
@@ -29,32 +32,7 @@ const BackButton = styled.i({
   },
 });
 
-export default function ArticleDetail() {
-  const router = useRouter();
-  const { articleId } = router.query;
-
-  const [article, setArticle] = useState<Article | null>(null);
-  const [metaData, setMetaData] = useState<any | null>({});
-
-  useEffect(() => {
-    if (articleId) {
-      const fetchArticle = async () => {
-        try {
-          const { data } = await axios.get(`/api/articles?id=${articleId}`);
-          setArticle(data);
-
-          const metadataUrl = `https://n.news.naver.com/article/${data.oid}/${data.aid}`;
-          const metadataResponse = await axios.get(`/api/naverScraping?url=${metadataUrl}`);
-          setMetaData((prev: Record<string, Metadata>) => ({ ...prev, [metadataUrl]: metadataResponse.data }));
-        } catch (err) {
-          console.log('Failed to fetch article details.');
-        }
-      };
-
-      fetchArticle();
-    }
-  }, [articleId]);
-
+export default function ArticleDetail({ article, metaData }: { article: Article | null; metaData: any }) {
   return (
     <main className={styles.article}>
       <div className={styles['top-link']}>
@@ -130,3 +108,37 @@ export default function ArticleDetail() {
     </main>
   );
 }
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const articleId = context.params?.articleId;
+  let articleData = null;
+  let metaData: MetaDataMap = {};
+
+  if (articleId) {
+    try {
+      const { data } = await axios.get(`http://localhost:3003/api/articles?id=${articleId}`);
+      articleData = data;
+
+      const metadataUrl = `https://n.news.naver.com/article/${data.oid}/${data.aid}`;
+      const metadataResponse = await axios.get(`http://localhost:3003/api/naverScraping?url=${metadataUrl}`);
+      metaData[metadataUrl] = metadataResponse.data;
+    } catch (error) {
+      console.error('Failed to fetch data:', error);
+    }
+  }
+
+  return {
+    props: {
+      article: articleData,
+      metaData,
+    },
+    revalidate: 1,
+  };
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: 'blocking',
+  };
+};
