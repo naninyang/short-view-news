@@ -1,10 +1,10 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import axios from 'axios';
-import styled from '@emotion/styled';
 import { images } from '@/images';
 import Seo from '@/components/Seo';
 import YouTubeController from '@/components/YouTubeController';
 import AnchorLink from '@/components/AnchorLink';
+import styled from '@emotion/styled';
 import styles from '@/styles/watch.module.sass';
 
 type SheetData = {
@@ -68,7 +68,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   let watchData = null;
 
   if (watchId) {
-    const response = await axios.get<SheetData[]>(`http://localhost:3003/api/sheets`);
+    const response = await axios.get<SheetData[]>(`${process.env.NEXT_PUBLIC_API_URL}/api/sheets`);
     watchData = response.data.find((watch) => watch.idx === watchId);
   }
 

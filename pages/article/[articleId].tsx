@@ -1,14 +1,12 @@
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import Image from 'next/image';
 import axios from 'axios';
-import { Article } from '@/types';
 import AnchorLink from '@/components/AnchorLink';
-import { images } from '@/images';
 import Seo from '@/components/Seo';
+import { images } from '@/images';
+import { Article } from '@/types';
 import styled from '@emotion/styled';
 import styles from '@/styles/article.module.sass';
-import { GetStaticPaths, GetStaticProps } from 'next';
 
 interface Metadata {
   ogTitle: string;
@@ -116,11 +114,13 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   if (articleId) {
     try {
-      const { data } = await axios.get(`http://localhost:3003/api/articles?id=${articleId}`);
+      const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/articles?id=${articleId}`);
       articleData = data;
 
       const metadataUrl = `https://n.news.naver.com/article/${data.oid}/${data.aid}`;
-      const metadataResponse = await axios.get(`http://localhost:3003/api/naverScraping?url=${metadataUrl}`);
+      const metadataResponse = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/naverScraping?url=${metadataUrl}`,
+      );
       metaData[metadataUrl] = metadataResponse.data;
     } catch (error) {
       console.error('Failed to fetch data:', error);
