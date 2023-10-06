@@ -28,10 +28,22 @@ YouTube 뉴스 목록은 Google Spreadsheets에서 관리하며, NAVER 뉴스 �
 
 ### 발견된 문제점
 
-- YouTube: pull-to-refresh 동작해도 새로운 데이터를 제대로 못 불러옴.
-- YouTube: 모바일에서 백그라운드로 오래 둔 상태에서 되돌아왔을 때 캐싱 데이터를 사용하지 않고 데이터를 모두 새로 불러옴
-- YouTube: 모달이 뜨거나 사라졌을 때 백그라운드 썸네일 이미지를 다시 불러옴
-- 공통 : YouTube <-> NAVER News 링크 이동시 캐싱된 데이터가 아닌 모든 데이터를 새로 불러옴
+#### 공통
+
+- YouTube <-> NAVER News 링크 이동시 캐싱된 데이터가 아닌 모든 데이터를 새로 불러오는 현상
+- SEO에서 사용하는 `meta` 태그 props가 실제로는 return이 되지 않는 현상
+- 검색엔진 크롤러가 YouTube와 NAVER News의 목록을 가져가지 못하는 현상
+- Permallink 내용을 불러오는데 딜레이가 생기는 현상
+
+#### YouTube
+
+- pull-to-refresh 동작해도 20건을 불러오고 더 이상 새로운 데이터를 제대로 못 불러오는 현상
+- 모바일에서 백그라운드로 오래 둔 상태에서 되돌아왔을 때 캐싱 데이터를 사용하지 않고 데이터를 모두 새로 불러옴
+- 모달이 뜨거나 사라졌을 때 백그라운드 썸네일 이미지를 다시 불러옴
+
+#### NAVER News
+
+- 모달창과 Permalink 화면에서 Opengraph 가져오는 부분 딜레이가 발생하는 현상
 
 ### TO-DO
 
