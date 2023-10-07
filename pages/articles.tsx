@@ -1,8 +1,10 @@
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import React, { useEffect, useState } from 'react';
+import useSWR, { mutate } from 'swr';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Modal from 'react-modal';
+import { throttle } from 'lodash';
 import axios from 'axios';
 import { Article } from '@/types';
 import { modalContainer } from '@/components/ModalStyling';
@@ -25,30 +27,65 @@ interface Metadata {
 
 Modal.setAppElement('#__next');
 
+const fetcher = (url: string) => axios.get(url).then((res) => res.data);
+
 export default function Articles() {
   const router = useRouter();
-  const [articles, setArticles] = useState<Article[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [loadedItems, setLoadedItems] = useState(0);
+
+  const {
+    data: articles = [],
+    error,
+    mutate,
+  } = useSWR(`/api/articles?start=0&count=20`, fetcher, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+    shouldRetryOnError: false,
+  });
+
+  const isLoading = !articles && !error;
+  const [hasMore, setHasMore] = useState(true);
+
   const [metadata, setMetadata] = useState<Record<string, Metadata>>({});
   const articleId = Array.isArray(router.query.articleId) ? router.query.articleId[0] : router.query.articleId;
-  const selectedArticle = articles.find((article) => article.idx === articleId);
-
-  const [start, setStart] = useState(0);
+  const selectedArticle = Array.isArray(articles)
+    ? articles.find((article: any) => article.idx === articleId)
+    : undefined;
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000) {
-        setStart((prevStart) => prevStart + 20);
+    if (articles) {
+      articles.forEach((article: Article) => {
+        fetchArticleMetadata(encodeURIComponent(`https://n.news.naver.com/article/${article.oid}/${article.aid}`));
+      });
+    }
+  }, [articles]);
+
+  const [isFetching, setIsFetching] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = throttle(() => {
+      console.log('Scrolling...');
+      const isBottom = window.innerHeight + window.scrollY + 2000 >= document.body.offsetHeight;
+      console.log('Is near bottom:', isBottom);
+      if (!isFetching && isBottom && !isLoading && hasMore) {
+        setIsFetching(true);
+        setLoadedItems((prev) => prev + 20);
+        loadArticles(loadedItems + 20, 20); // 이 부분을 추가했습니다.
       }
-    };
+    }, 200);
 
     window.addEventListener('scroll', handleScroll);
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [isLoading, hasMore, isFetching, loadedItems]);
+
+  useEffect(() => {
+    if (loadedItems > 0 && !isFetching) {
+      loadArticles(loadedItems, 20);
+    }
+  }, [loadedItems]);
 
   useEffect(() => {
     const preventScroll = (e: Event) => {
@@ -78,35 +115,57 @@ export default function Articles() {
     }
   };
 
-  useEffect(() => {
-    const fetchArticles = async () => {
-      try {
-        const { data } = await axios.get<Article[]>(`/api/articles?start=${start}&count=20`);
-        setArticles((prevArticles) => [...prevArticles, ...data]);
+  const [isFetchingMore, setIsFetchingMore] = useState(false);
 
-        data.forEach((article: Article) => {
-          fetchArticleMetadata(encodeURIComponent(`https://n.news.naver.com/article/${article.oid}/${article.aid}`));
-        });
-        setLoading(false);
-      } catch (err) {
-        console.error('Error fetching articles:', err);
-        setError('데이터를 불러오는데 실패했습니다.');
-        setLoading(false);
+  const loadArticles = async (start: number, count: number) => {
+    setIsFetchingMore(true);
+
+    try {
+      const response = await axios.get(`/api/articles?start=${start}&count=${count}`);
+      const additionalArticles = response.data;
+
+      mutate((currentArticles: any) => {
+        if (!Array.isArray(currentArticles)) {
+          currentArticles = [];
+        }
+        const uniqueArticles = additionalArticles.filter(
+          (article: any) => !currentArticles.some((current: any) => current.idx === article.idx),
+        );
+        return [...currentArticles, ...uniqueArticles];
+      }, false);
+
+      console.log(additionalArticles);
+
+      additionalArticles.forEach((article: Article) => {
+        fetchArticleMetadata(encodeURIComponent(`https://n.news.naver.com/article/${article.oid}/${article.aid}`));
+        console.log(fetchArticleMetadata);
+        console.log('adsfasffafs');
+      });
+
+      if (additionalArticles.length < count) {
+        setHasMore(false);
       }
-    };
 
-    fetchArticles();
-  }, [start]);
+      setLoadedItems(start + additionalArticles.length);
+    } catch (err) {
+      console.error('Error fetching articles:', err);
+    } finally {
+      setIsFetchingMore(false);
+    }
+  };
 
   const handleRefresh = async () => {
     try {
-      const start = articles.length;
       const count = 20;
+      const response = await axios.get(`/api/articles?start=0&count=${count}`);
+      const newArticles = response.data;
 
-      const response = await axios.get(`/api/articles?start=${start}&count=${count}`);
-      if (response.data.length > 0) {
-        setArticles((prevSheets) => [...prevSheets, ...response.data]);
-      }
+      mutate((currentArticles: any) => {
+        const updatedArticles = newArticles.filter(
+          (newSheet: any) => !currentArticles.some((article: any) => article.idx === newSheet.idx),
+        );
+        return [...updatedArticles, ...currentArticles];
+      }, false);
     } catch (error) {
       console.error('Failed to refresh:', error);
     }
@@ -133,8 +192,8 @@ export default function Articles() {
       <div className={styles['article-content']}>
         <PullToRefresh onRefresh={handleRefresh}>
           <div className={styles['article-list']}>
-            {articles.map((article: Article) => (
-              <article key={article.idx}>
+            {articles.map((article: Article, index: number) => (
+              <article key={article.idx} data-index={index}>
                 <div className={styles.description}>
                   <Link
                     key={article.idx}
@@ -215,14 +274,14 @@ export default function Articles() {
             ))}
           </div>
         </PullToRefresh>
+        {isFetchingMore && <div className={styles.loading}>기사를 불러오는 중입니다.</div>}
+        {error && (
+          <div className={styles.error}>
+            <p>{error}</p>
+            <button onClick={() => window.location.reload()}>다시 시도</button>
+          </div>
+        )}
       </div>
-      {loading && <div className={styles.loading}>기사를 불러오는 중입니다.</div>}
-      {error && (
-        <div className={styles.error}>
-          <p>{error}</p>
-          <button onClick={() => window.location.reload()}>다시 시도</button>
-        </div>
-      )}
     </main>
   );
 }

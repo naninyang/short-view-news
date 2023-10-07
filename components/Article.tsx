@@ -121,6 +121,7 @@ const articleDetail: React.FC<articleProps> = ({ articleItem }) => {
                             metadata[`https://n.news.naver.com/article/${articleItem?.oid}/${articleItem?.aid}`]
                               ?.ogDescription
                           }
+                          ...
                         </p>
                       </div>
                     </div>

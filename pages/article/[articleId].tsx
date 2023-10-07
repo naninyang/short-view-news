@@ -90,7 +90,7 @@ export default function ArticleDetail({ article, metaData }: { article: Article 
                       {metaData[`https://n.news.naver.com/article/${article?.oid}/${article?.aid}`]?.ogTitle}
                     </strong>
                     <div className={styles.description}>
-                      {metaData[`https://n.news.naver.com/article/${article?.oid}/${article?.aid}`]?.ogDescription}
+                      {metaData[`https://n.news.naver.com/article/${article?.oid}/${article?.aid}`]?.ogDescription}...
                     </div>
                   </div>
                 </div>

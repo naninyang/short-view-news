@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
 import useSWR, { mutate } from 'swr';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Modal from 'react-modal';
 import { throttle } from 'lodash';
@@ -25,6 +25,8 @@ type SheetData = {
   blockquote: string;
   created: string;
 };
+
+Modal.setAppElement('#__next');
 
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
@@ -79,8 +81,6 @@ const IsOffline = styled.main({
     },
   },
 });
-
-Modal.setAppElement('#__next');
 
 export default function Home() {
   const router = useRouter();
