@@ -26,8 +26,6 @@
     "axios": "^1.5.0",
     "cheerio": "1.0.0-rc.12",
     "date-fns": "2.29.3",
-    "google-auth-library": "^9.0.0",
-    "google-spreadsheet": "^4.1.0",
     "lodash": "^4.17.21",
     "masonic": "^3.7.0",
     "next": "latest",
