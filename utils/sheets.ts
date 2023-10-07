@@ -1,33 +1,17 @@
-import { GoogleAuth } from 'google-auth-library';
-import { GoogleSpreadsheet } from 'google-spreadsheet';
+import { notion } from './notion';
 
 export async function getSheetData(start?: number, count?: number) {
-  const auth = new GoogleAuth({
-    credentials: {
-      type: 'service_account',
-      private_key: process.env.GCP_PRIVATE_KEY?.replace(/\\n/g, '\n'),
-      client_email: process.env.GCP_CLIENT_EMAIL,
-      client_id: process.env.GCP_CLIENT_ID,
-      universe_domain: 'googleapis.com',
-    },
-    scopes: 'https://www.googleapis.com/auth/spreadsheets',
+  const response = await notion.databases.query({ database_id: process.env.NOTION_DATABASE_ID_YOUTUBE! });
+  const rowsData = response.results.map((result: any) => {
+    return {
+      idx: result.properties.idx?.formula?.string || '',
+      video_id: result.properties.video_id?.rich_text[0]?.plain_text || '',
+      summary: result.properties.summary?.rich_text[0]?.plain_text || '',
+      blockquote: result.properties.blockquote?.rich_text[0]?.plain_text || '',
+      created: result.properties.created?.date?.start || '',
+      subject: result.properties.subject?.title[0]?.plain_text || '',
+    };
   });
-
-  const doc = new GoogleSpreadsheet(process.env.GCP_CONTENT_DOC_ID as string, auth);
-
-  await doc.loadInfo();
-  const sheet = doc.sheetsByIndex[0];
-  const rows = await sheet.getRows();
-
-  const rowsData = rows.map((row: any) => ({
-    idx: row._rawData[0],
-    video_id: row._rawData[1],
-    subject: row._rawData[2],
-    summary: row._rawData[3],
-    blockquote: row._rawData[4],
-    created: row._rawData[5],
-  }));
-
   const sortedRowsData = rowsData.sort((a, b) => b.idx.localeCompare(a.idx));
 
   if (start !== undefined && count !== undefined) {

@@ -1,13 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { Client } from '@notionhq/client';
-
-const notion = new Client({ auth: process.env.NOTION_SECRET });
+import { notion } from '@/utils/notion';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { id } = req.query;
 
   try {
-    const response = await notion.databases.query({ database_id: process.env.NOTION_DATABASE_ID! });
+    const response = await notion.databases.query({ database_id: process.env.NOTION_DATABASE_ID_NAVER! });
 
     if (!response || !response.results) {
       return res.status(404).json({ error: 'Article not found.' });

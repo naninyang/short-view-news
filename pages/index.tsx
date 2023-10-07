@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import Modal from 'react-modal';
 import Link from 'next/link';
+import useSWR, { mutate } from 'swr';
 import { useRouter } from 'next/router';
+import Modal from 'react-modal';
+import { throttle } from 'lodash';
 import { Masonry } from 'masonic';
 import axios from 'axios';
 import styled from '@emotion/styled';
@@ -23,6 +25,8 @@ type SheetData = {
   blockquote: string;
   created: string;
 };
+
+const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
 const IsOffline = styled.main({
   display: 'flex',
@@ -80,15 +84,23 @@ Modal.setAppElement('#__next');
 
 export default function Home() {
   const router = useRouter();
-
-  const [sheets, setSheets] = useState<SheetData[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [columnCount, setColumnCount] = useState(1);
   const [loadedItems, setLoadedItems] = useState(0);
+
+  const {
+    data: sheets = [],
+    error,
+    mutate,
+  } = useSWR(`/api/sheets?start=0&count=20`, fetcher, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+    shouldRetryOnError: false,
+  });
+
+  const isLoading = !sheets && !error;
+  const [columnCount, setColumnCount] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const watchId = Array.isArray(router.query.watchId) ? router.query.watchId[0] : router.query.watchId;
-  const selectedWatch = sheets.find((watch) => watch.idx === watchId);
+  const selectedWatch = Array.isArray(sheets) ? sheets.find((watch: any) => watch.idx === watchId) : undefined;
 
   useEffect(() => {
     const preventScroll = (e: Event) => {
@@ -110,15 +122,11 @@ export default function Home() {
   }, [watchId]);
 
   useEffect(() => {
-    loadSheets(loadedItems, 20);
-  }, []);
-
-  useEffect(() => {
-    const handleScroll = () => {
+    const handleScroll = throttle(() => {
       if (window.innerHeight + window.scrollY + 1000 >= document.body.offsetHeight && !isLoading && hasMore) {
         loadSheets(loadedItems, 20);
       }
-    };
+    }, 200);
 
     window.addEventListener('scroll', handleScroll);
     return () => {
@@ -126,26 +134,35 @@ export default function Home() {
     };
   }, [loadedItems, isLoading, hasMore]);
 
-  const loadSheets = (start: number, count: number) => {
-    setIsLoading(true);
+  const [isFetchingMore, setIsFetchingMore] = useState(false);
 
-    axios
-      .get(`/api/sheets?start=${start}&count=${count}`)
-      .then((response) => {
-        if (JSON.stringify(response.data) !== JSON.stringify(sheets.slice(start, start + count))) {
-          setSheets((prev) => [...prev, ...response.data]);
+  const loadSheets = async (start: number, count: number) => {
+    setIsFetchingMore(true);
+
+    try {
+      const response = await axios.get(`/api/sheets?start=${start}&count=${count}`);
+      const additionalSheets = response.data;
+
+      mutate((currentSheets: any) => {
+        if (!Array.isArray(currentSheets)) {
+          currentSheets = [];
         }
-        if (response.data.length < count) {
-          setHasMore(false);
-        }
-        setLoadedItems((prev) => prev + response.data.length);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        console.error('Error fetching sheets:', err);
-        setError('데이터를 불러오는데 실패했습니다.');
-        setIsLoading(false);
-      });
+        const uniqueSheets = additionalSheets.filter(
+          (sheet: any) => !currentSheets.some((current: any) => current.idx === sheet.idx),
+        );
+        return [...currentSheets, ...uniqueSheets];
+      }, false);
+
+      if (additionalSheets.length < count) {
+        setHasMore(false);
+      }
+
+      setLoadedItems(start + additionalSheets.length);
+    } catch (err) {
+      console.error('Error fetching sheets:', err);
+    } finally {
+      setIsFetchingMore(false);
+    }
   };
 
   const handleResize = () => {
@@ -165,7 +182,7 @@ export default function Home() {
     };
   }, []);
 
-  const sortedSheets = [...sheets].sort((a, b) => b.idx.localeCompare(a.idx));
+  const sortedSheets = [...(sheets || [])].sort((a, b) => b.idx.localeCompare(a.idx));
 
   const renderCard = ({ data }: { data: SheetData }) => (
     <div className={styles.item}>
@@ -216,13 +233,16 @@ export default function Home() {
 
   const handleRefresh = async () => {
     try {
-      const start = sheets.length;
       const count = 20;
+      const response = await axios.get(`/api/sheets?start=0&count=${count}`);
+      const newSheets = response.data;
 
-      const response = await axios.get(`/api/sheets?start=${start}&count=${count}`);
-      if (response.data.length > 0) {
-        setSheets((prevSheets) => [...prevSheets, ...response.data]);
-      }
+      mutate((currentSheets: any) => {
+        const updatedSheets = newSheets.filter(
+          (newSheet: any) => !currentSheets.some((sheet: any) => sheet.idx === newSheet.idx),
+        );
+        return [...updatedSheets, ...currentSheets];
+      }, false);
     } catch (error) {
       console.error('Failed to refresh:', error);
     }
@@ -247,12 +267,12 @@ export default function Home() {
       </Modal>
       <Services />
       <PullToRefresh onRefresh={handleRefresh}>
-        <Masonry items={sortedSheets} columnCount={columnCount} render={renderCard} />
+        <Masonry items={sortedSheets} columnCount={columnCount} render={renderCard} key={sheets.length} />
       </PullToRefresh>
-      {isLoading && hasMore && <div className={styles.loading}>기사를 불러오는 중입니다.</div>}
+      {isFetchingMore && hasMore && <div className={styles.loading}>기사를 불러오는 중입니다.</div>}
       {error && (
         <div className={styles.error}>
-          <p>{error}</p>
+          <p>데이터를 불러오는데 실패했습니다.</p>
           <button onClick={() => window.location.reload()}>다시 시도</button>
         </div>
       )}
