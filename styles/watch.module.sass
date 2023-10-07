@@ -9,11 +9,18 @@
   +mq(minLarge)
     padding: 0 calc(env(safe-area-inset-right) + rem(25)) 0 calc(env(safe-area-inset-left) + rem(25))
 
-  .loading
+  .loading, .error
     display: flex
     flex: 1
     align-items: center
     color: $hex-accent
+
+  .error
+    gap: rem(15)
+
+    a
+      text-decoration: underline
+      color: $hex-accent
 
   &.watch
     &:not(.watch-container)
