@@ -30,20 +30,11 @@ YouTube 뉴스 목록과 NAVER 뉴스 목록은 Notion에서 관리됩니다.
 #### 공통
 
 - YouTube <-> NAVER News 링크 이동시 캐싱된 데이터가 아닌 모든 데이터를 새로 불러오는 현상
-
-#### YouTube
-
 - pull-to-refresh 동작해도 20건을 불러오고 더 이상 새로운 데이터를 제대로 못 불러오는 현상
-- 모바일에서 백그라운드로 오래 둔 상태에서 되돌아왔을 때 캐싱 데이터를 사용하지 않고 데이터를 모두 새로 불러오는 현상
-
-#### NAVER News
-
-- 모달창과 Permalink 화면에서 Opengraph 가져오는 부분 딜레이가 발생하는 현상
 
 ### TO-DO
 
-- NAVER News: 데이터 캐싱
-- NAVER News: pull-to-refresh 적용
+- NAVER News: 데이터 캐싱 (Service Worker + SWR)
 - NAVER News: sitemap.xml 작성
 
 ## 알림
