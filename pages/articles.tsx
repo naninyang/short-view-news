@@ -32,6 +32,22 @@ export default function Articles() {
   const articleId = Array.isArray(router.query.articleId) ? router.query.articleId[0] : router.query.articleId;
   const selectedArticle = articles.find((article) => article.idx === articleId);
 
+  const [start, setStart] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000) {
+        setStart((prevStart) => prevStart + 20);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   useEffect(() => {
     const preventScroll = (e: Event) => {
       e.preventDefault();
@@ -63,8 +79,8 @@ export default function Articles() {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const { data } = await axios.post<Article[]>('/api/articles');
-        setArticles(data);
+        const { data } = await axios.get<Article[]>(`/api/articles?start=${start}&count=20`);
+        setArticles((prevArticles) => [...prevArticles, ...data]);
 
         data.forEach((article: Article) => {
           fetchArticleMetadata(encodeURIComponent(`https://n.news.naver.com/article/${article.oid}/${article.aid}`));
@@ -78,7 +94,7 @@ export default function Articles() {
     };
 
     fetchArticles();
-  }, []);
+  }, [start]);
 
   const timestamp = Date.now();
 

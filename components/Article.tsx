@@ -35,15 +35,13 @@ const CrossButton = styled.i({
 
 const articleDetail: React.FC<articleProps> = ({ articleItem }) => {
   const router = useRouter();
-  const { articleId } = router.query;
   const [metadata, setMetadata] = useState<any>({});
 
   useEffect(() => {
-    if (articleId) {
+    if (articleItem) {
       const fetchArticle = async () => {
         try {
-          const { data } = await axios.get(`/api/articles?id=${articleId}`);
-          const metadataUrl = `https://n.news.naver.com/article/${data.oid}/${data.aid}`;
+          const metadataUrl = `https://n.news.naver.com/article/${articleItem.oid}/${articleItem.aid}`;
           const metadataResponse = await axios.get(`/api/naverScraping?url=${metadataUrl}`);
           setMetadata((prev: Record<string, Metadata>) => ({ ...prev, [metadataUrl]: metadataResponse.data }));
         } catch (err) {
@@ -53,7 +51,7 @@ const articleDetail: React.FC<articleProps> = ({ articleItem }) => {
 
       fetchArticle();
     }
-  }, [articleId]);
+  }, [articleItem]);
 
   const handleCloseModal = () => {
     router.push('/articles');

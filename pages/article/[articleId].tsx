@@ -113,18 +113,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
   let metaData: MetaDataMap = {};
 
   if (articleId) {
-    try {
-      const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/articles?id=${articleId}`);
-      articleData = data;
-
-      const metadataUrl = `https://n.news.naver.com/article/${data.oid}/${data.aid}`;
-      const metadataResponse = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/naverScraping?url=${metadataUrl}`,
-      );
-      metaData[metadataUrl] = metadataResponse.data;
-    } catch (error) {
-      console.error('Failed to fetch data:', error);
-    }
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/articles?id=${articleId}`);
+    articleData = response.data.find((article: any) => article.idx === articleId);
+    const metadataUrl = `https://n.news.naver.com/article/${articleData.oid}/${articleData.aid}`;
+    const metadataResponse = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/naverScraping?url=${metadataUrl}`);
+    metaData[metadataUrl] = metadataResponse.data;
   }
 
   return {

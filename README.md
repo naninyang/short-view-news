@@ -42,7 +42,6 @@ YouTube 뉴스 목록과 NAVER 뉴스 목록은 Notion에서 관리됩니다.
 
 ### TO-DO
 
-- NAVER News: 데이터를 20건 씩 끊어서 받아오기
 - NAVER News: 데이터 캐싱
 - NAVER News: pull-to-refresh 적용
 - NAVER News: sitemap.xml 작성
