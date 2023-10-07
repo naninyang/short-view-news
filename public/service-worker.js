@@ -1,7 +1,7 @@
 const CACHE_NAME = 'news-data';
 
 self.addEventListener('fetch', (event) => {
-  if (event.request.url.includes('/api/shorts')) {
+  if (event.request.url.includes('/api/shorts') || event.request.url.includes('/api/articles')) {
     event.respondWith(
       caches.open(CACHE_NAME).then((cache) => {
         return cache.match(event.request).then((response) => {

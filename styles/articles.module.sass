@@ -56,56 +56,56 @@
     a
       display: block
 
-      img
-        display: block
-        width: 100%
-        height: auto
+    img
+      display: block
+      width: 100%
+      height: auto
 
-      .description
-        .comment
-          padding: rem(15)
-          font-size: rem(16)
-          color: var(--txt-blockquote)
-
-      .opengraph
+    .description
+      .comment
         padding: rem(15)
+        font-size: rem(16)
+        color: var(--txt-blockquote)
 
-        img
-          aspect-ratio: 1200 / 630
-          object-fit: cover
+    .opengraph
+      padding: rem(15)
 
-        .og-container
-          background-color: var(--border)
-          border-radius: rem(15)
-          padding: rem(25)
+      img
+        aspect-ratio: 1200 / 630
+        object-fit: cover
 
-          .og-info
+      .og-container
+        background-color: var(--border)
+        border-radius: rem(15)
+        padding: rem(25)
+
+        .og-info
+          display: flex
+          flex-direction: column
+          gap: rem(5)
+          margin-top: rem(15)
+
+          .created
+            display: flex
+            justify-content: space-between
+            color: var(--txt-summary)
+
+            cite
+              font-size: rem(14)
+              font-weight: 700
+
+            time
+              font-size: rem(12)
+
+          .summary
             display: flex
             flex-direction: column
             gap: rem(5)
-            margin-top: rem(15)
 
-            .created
-              display: flex
-              justify-content: space-between
+            strong
+              font-size: rem(16)
               color: var(--txt-summary)
 
-              cite
-                font-size: rem(14)
-                font-weight: 700
-
-              time
-                font-size: rem(12)
-
-            .summary
-              display: flex
-              flex-direction: column
-              gap: rem(5)
-
-              strong
-                font-size: rem(16)
-                color: var(--txt-summary)
-
-              .description
-                font-size: rem(14)
-                color: var(--txt-summary)
+            .description
+              font-size: rem(14)
+              color: var(--txt-summary)
