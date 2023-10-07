@@ -17,8 +17,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         oid: result.properties.oid?.rich_text[0]?.plain_text || '',
         aid: result.properties.aid?.rich_text[0]?.plain_text || '',
         thumbnail: result.properties.thumbnail?.rich_text[0]?.plain_text || '',
-        subject: result.properties.subject?.rich_text[0]?.plain_text || '',
-        description: result.properties.description?.title[0]?.plain_text || '',
+        subject: result.properties.subject?.title[0]?.plain_text || '',
+        description: result.properties.description?.rich_text[0]?.plain_text || '',
       };
     });
 
