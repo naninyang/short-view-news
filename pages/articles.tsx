@@ -87,7 +87,7 @@ export default function Articles() {
       <Seo
         pageTitle="네이버 쇼츠 뉴스"
         pageDescription="당신이 놓친 뉴스를 짧게 요약해 드려요"
-        pageImg={`https://image.toast.com/aaaacnn/short-view-news/og.png?ts=${timestamp}`}
+        pageImg={`https://news.dev1stud.io/og-image.png?ts=${timestamp}`}
       />
       <Modal
         isOpen={!!articleId}
