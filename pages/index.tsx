@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import useSWR, { mutate } from 'swr';
+import { mutate } from 'swr';
+import useSWRInfinite from 'swr/infinite';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Modal from 'react-modal';
@@ -27,8 +28,6 @@ type SheetData = {
 };
 
 Modal.setAppElement('#__next');
-
-const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
 const IsOffline = styled.main({
   display: 'flex',
@@ -82,24 +81,49 @@ const IsOffline = styled.main({
   },
 });
 
+export const fetcher = (url: string) => axios.get(url).then((res) => res.data);
+
+const getKey = (pageIndex: number, previousPageData: any) => {
+  if (previousPageData && !previousPageData.length) return null;
+  return `/api/sheets?start=${pageIndex * 20}&count=20`;
+};
+
 export default function Home() {
   const router = useRouter();
   const [loadedItems, setLoadedItems] = useState(0);
 
-  const {
-    data: sheets = [],
-    error,
-    mutate,
-  } = useSWR(`/api/sheets?start=0&count=20`, fetcher, {
+  const { data, error, size, setSize } = useSWRInfinite(getKey, fetcher, {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
     shouldRetryOnError: false,
   });
 
-  const isLoading = !sheets && !error;
-  const [columnCount, setColumnCount] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
+  const [target, setTarget] = useState<HTMLElement | null | undefined>(null);
   const watchId = Array.isArray(router.query.watchId) ? router.query.watchId[0] : router.query.watchId;
+
+  const sheets = data ? [].concat(...data) : [];
+  const isLoading = !data && !error;
+  const isReachingEnd = data && data[data.length - 1]?.length < 20;
+
+  const onIntersect: IntersectionObserverCallback = ([entry]) => {
+    if (entry.isIntersecting && !isReachingEnd && !isLoading && (size === 0 || size === 1)) {
+      setSize((prev) => prev + 1);
+    }
+  };
+
+  useEffect(() => {
+    if (!target) return;
+    const observer = new IntersectionObserver(onIntersect, {
+      rootMargin: '50% 0px',
+    });
+    observer.observe(target);
+    return () => observer && observer.disconnect();
+  }, [target]);
+
+  useEffect(() => {
+    if (!target || isLoading) return;
+  }, [target, isLoading]);
+
   const selectedWatch = Array.isArray(sheets) ? sheets.find((watch: any) => watch.idx === watchId) : undefined;
 
   useEffect(() => {
@@ -123,60 +147,6 @@ export default function Home() {
 
   const [isFetching, setIsFetching] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = throttle(() => {
-      const isBottom = window.innerHeight + window.scrollY + 2000 >= document.body.offsetHeight;
-      if (!isFetching && isBottom && !isLoading && hasMore) {
-        setIsFetching(true);
-        setLoadedItems((prev) => prev + 20);
-        loadSheets(loadedItems + 20, 20);
-      }
-    }, 200);
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [isLoading, hasMore, isFetching, loadedItems]);
-
-  useEffect(() => {
-    if (loadedItems > 0 && !isFetching) {
-      loadSheets(loadedItems, 20);
-    }
-  }, [loadedItems]);
-
-  const [isFetchingMore, setIsFetchingMore] = useState(false);
-
-  const loadSheets = async (start: number, count: number) => {
-    setIsFetchingMore(true);
-
-    try {
-      const response = await axios.get(`/api/sheets?start=${start}&count=${count}`);
-      const additionalSheets = response.data;
-
-      mutate((currentSheets: any) => {
-        if (!Array.isArray(currentSheets)) {
-          currentSheets = [];
-        }
-        const uniqueSheets = additionalSheets.filter(
-          (sheet: any) => !currentSheets.some((current: any) => current.idx === sheet.idx),
-        );
-        return [...currentSheets, ...uniqueSheets];
-      }, false);
-
-      if (additionalSheets.length < count) {
-        setHasMore(false);
-      }
-
-      setLoadedItems(start + additionalSheets.length);
-    } catch (err) {
-      console.error('Error fetching sheets:', err);
-    } finally {
-      setIsFetchingMore(false);
-    }
-  };
-
   const handleResize = () => {
     const width = window.innerWidth;
     if (width < 671) setColumnCount(1);
@@ -193,8 +163,6 @@ export default function Home() {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
-
-  const sortedSheets = [...(sheets || [])].sort((a, b) => b.idx.localeCompare(a.idx));
 
   const renderCard = ({ data }: { data: SheetData }) => (
     <div className={styles.item}>
@@ -259,6 +227,7 @@ export default function Home() {
       console.error('Failed to refresh:', error);
     }
   };
+  const [columnCount, setColumnCount] = useState(1);
 
   const timestamp = Date.now();
 
@@ -278,19 +247,26 @@ export default function Home() {
         <WatchDetail watchItem={selectedWatch} />
       </Modal>
       <Services />
-      <PullToRefresh onRefresh={handleRefresh}>
-        <Masonry
-          items={sortedSheets}
-          columnCount={columnCount}
-          render={renderCard}
-          key={sheets.length}
-          data-index={sheets.length}
-        />
-      </PullToRefresh>
-      {isFetchingMore && hasMore && <div className={styles.loading}>기사를 불러오는 중입니다.</div>}
+      {!isLoading && (
+        <>
+          <div className={styles['watch-content']}>
+            <PullToRefresh onRefresh={handleRefresh}>
+              <Masonry
+                items={sheets || []}
+                columnCount={columnCount}
+                render={renderCard}
+                key={sheets.length}
+                data-index={sheets.length}
+              />
+            </PullToRefresh>
+          </div>
+          <div ref={setTarget} className={isReachingEnd ? undefined : `${styles['is-loading']}`} />
+        </>
+      )}
+      {isLoading && <div className={styles.loading}>기사를 불러오는 중입니다.</div>}
       {error && (
         <div className={styles.error}>
-          <p>데이터를 불러오는데 실패했습니다.</p>
+          <p>데이터를 불러오는데 실패했습니다. 네트워크가 느리거나 삭제된 기사입니다.</p>
           <button onClick={() => window.location.reload()}>다시 시도</button>
         </div>
       )}

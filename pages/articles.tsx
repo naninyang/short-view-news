@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { mutate } from 'swr';
 import useSWRInfinite from 'swr/infinite';
 import Image from 'next/image';
@@ -33,14 +33,15 @@ const getKey = (pageIndex: number, previousPageData: any) => {
 };
 
 function Articles() {
+  const router = useRouter();
   const [metadata, setMetadata] = useState<Record<string, Metadata>>({});
 
-  const router = useRouter();
   const { data, error, size, setSize } = useSWRInfinite(getKey, fetcher, {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
     dedupingInterval: 7000,
   });
+
   const [target, setTarget] = useState<HTMLElement | null | undefined>(null);
   const articleId = Array.isArray(router.query.articleId) ? router.query.articleId[0] : router.query.articleId;
 
@@ -70,6 +71,25 @@ function Articles() {
   const selectedArticle = Array.isArray(articles)
     ? articles.find((article: any) => article.idx === articleId)
     : undefined;
+
+  useEffect(() => {
+    const preventScroll = (e: Event) => {
+      e.preventDefault();
+    };
+
+    if (articleId !== undefined) {
+      window.addEventListener('wheel', preventScroll, { passive: false });
+      window.addEventListener('touchmove', preventScroll, { passive: false });
+    } else {
+      window.removeEventListener('wheel', preventScroll);
+      window.removeEventListener('touchmove', preventScroll);
+    }
+
+    return () => {
+      window.removeEventListener('wheel', preventScroll);
+      window.removeEventListener('touchmove', preventScroll);
+    };
+  }, [articleId]);
 
   const fetchArticleMetadata = async (url: string) => {
     if (metadata[url]) return;
