@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import useSWR, { mutate } from 'swr';
+import React, { useEffect, useRef, useState } from 'react';
+import { mutate } from 'swr';
+import useSWRInfinite from 'swr/infinite';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Modal from 'react-modal';
-import { throttle } from 'lodash';
 import axios from 'axios';
 import { Article } from '@/types';
 import { modalContainer } from '@/components/ModalStyling';
@@ -25,32 +25,64 @@ interface Metadata {
   datestampTimeAttribute: any;
 }
 
-Modal.setAppElement('#__next');
+export const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
-const fetcher = (url: string) => axios.get(url).then((res) => res.data);
+const getKey = (pageIndex: number, previousPageData: any) => {
+  if (previousPageData && !previousPageData.length) return null;
+  return `${process.env.NEXT_PUBLIC_API_URL}/api/articles?start=${pageIndex * 20}&count=20`;
+};
 
-export default function Articles() {
+function Articles() {
+  const [metadata, setMetadata] = useState<Record<string, Metadata>>({});
+
   const router = useRouter();
-  const [loadedItems, setLoadedItems] = useState(0);
-
-  const {
-    data: articles = [],
-    error,
-    mutate,
-  } = useSWR(`/api/articles?start=0&count=20`, fetcher, {
+  const { data, error, size, setSize } = useSWRInfinite(getKey, fetcher, {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
-    shouldRetryOnError: false,
+    dedupingInterval: 7000,
   });
-
-  const isLoading = !articles && !error;
-  const [hasMore, setHasMore] = useState(true);
-
-  const [metadata, setMetadata] = useState<Record<string, Metadata>>({});
+  const [target, setTarget] = useState<HTMLElement | null | undefined>(null);
   const articleId = Array.isArray(router.query.articleId) ? router.query.articleId[0] : router.query.articleId;
+
+  const articles = data ? [].concat(...data) : [];
+  const isLoading = !data && !error;
+  const isReachingEnd = data && data[data.length - 1]?.length < 20;
+
+  const onIntersect: IntersectionObserverCallback = ([entry]) => {
+    if (entry.isIntersecting && !isReachingEnd && !isLoading && (size === 0 || size === 1)) {
+      setSize((prev) => prev + 1);
+    }
+  };
+
+  useEffect(() => {
+    if (!target) return;
+    const observer = new IntersectionObserver(onIntersect, {
+      rootMargin: '50% 0px',
+    });
+    observer.observe(target);
+    return () => observer && observer.disconnect();
+  }, [target]);
+
+  useEffect(() => {
+    if (!target || isLoading) return;
+  }, [target, isLoading]);
+
   const selectedArticle = Array.isArray(articles)
     ? articles.find((article: any) => article.idx === articleId)
     : undefined;
+
+  const fetchArticleMetadata = async (url: string) => {
+    if (metadata[url]) return;
+
+    try {
+      const { data } = await axios.get<Metadata>(`/api/naverScraping?url=${url}`);
+      if (metadata[url] !== data) {
+        setMetadata((prevData) => ({ ...prevData, [url]: data }));
+      }
+    } catch (err) {
+      console.error('Failed to fetch article metadata', err);
+    }
+  };
 
   useEffect(() => {
     if (articles) {
@@ -60,100 +92,6 @@ export default function Articles() {
     }
   }, [articles]);
 
-  const [isFetching, setIsFetching] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = throttle(() => {
-      console.log('Scrolling...');
-      const isBottom = window.innerHeight + window.scrollY + 2000 >= document.body.offsetHeight;
-      console.log('Is near bottom:', isBottom);
-      if (!isFetching && isBottom && !isLoading && hasMore) {
-        setIsFetching(true);
-        setLoadedItems((prev) => prev + 20);
-        loadArticles(loadedItems + 20, 20); // 이 부분을 추가했습니다.
-      }
-    }, 200);
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [isLoading, hasMore, isFetching, loadedItems]);
-
-  useEffect(() => {
-    if (loadedItems > 0 && !isFetching) {
-      loadArticles(loadedItems, 20);
-    }
-  }, [loadedItems]);
-
-  useEffect(() => {
-    const preventScroll = (e: Event) => {
-      e.preventDefault();
-    };
-
-    if (articleId !== undefined) {
-      window.addEventListener('wheel', preventScroll, { passive: false });
-      window.addEventListener('touchmove', preventScroll, { passive: false });
-    } else {
-      window.removeEventListener('wheel', preventScroll);
-      window.removeEventListener('touchmove', preventScroll);
-    }
-
-    return () => {
-      window.removeEventListener('wheel', preventScroll);
-      window.removeEventListener('touchmove', preventScroll);
-    };
-  }, [articleId]);
-
-  const fetchArticleMetadata = async (url: string) => {
-    try {
-      const { data } = await axios.get<Metadata>(`/api/naverScraping?url=${url}`);
-      setMetadata((prevData) => ({ ...prevData, [url]: data }));
-    } catch (err) {
-      console.error('Failed to fetch article metadata', err);
-    }
-  };
-
-  const [isFetchingMore, setIsFetchingMore] = useState(false);
-
-  const loadArticles = async (start: number, count: number) => {
-    setIsFetchingMore(true);
-
-    try {
-      const response = await axios.get(`/api/articles?start=${start}&count=${count}`);
-      const additionalArticles = response.data;
-
-      mutate((currentArticles: any) => {
-        if (!Array.isArray(currentArticles)) {
-          currentArticles = [];
-        }
-        const uniqueArticles = additionalArticles.filter(
-          (article: any) => !currentArticles.some((current: any) => current.idx === article.idx),
-        );
-        return [...currentArticles, ...uniqueArticles];
-      }, false);
-
-      console.log(additionalArticles);
-
-      additionalArticles.forEach((article: Article) => {
-        fetchArticleMetadata(encodeURIComponent(`https://n.news.naver.com/article/${article.oid}/${article.aid}`));
-        console.log(fetchArticleMetadata);
-        console.log('adsfasffafs');
-      });
-
-      if (additionalArticles.length < count) {
-        setHasMore(false);
-      }
-
-      setLoadedItems(start + additionalArticles.length);
-    } catch (err) {
-      console.error('Error fetching articles:', err);
-    } finally {
-      setIsFetchingMore(false);
-    }
-  };
-
   const handleRefresh = async () => {
     try {
       const count = 20;
@@ -161,6 +99,9 @@ export default function Articles() {
       const newArticles = response.data;
 
       mutate((currentArticles: any) => {
+        if (!Array.isArray(currentArticles)) {
+          return newArticles;
+        }
         const updatedArticles = newArticles.filter(
           (newSheet: any) => !currentArticles.some((article: any) => article.idx === newSheet.idx),
         );
@@ -189,99 +130,120 @@ export default function Articles() {
         <ArticleDetail articleItem={selectedArticle} />
       </Modal>
       <Services />
-      <div className={styles['article-content']}>
-        <PullToRefresh onRefresh={handleRefresh}>
-          <div className={styles['article-list']}>
-            {articles.map((article: Article, index: number) => (
-              <article key={article.idx} data-index={index}>
-                <div className={styles.description}>
-                  <Link
-                    key={article.idx}
-                    href={`/articles?articleId=${article.idx}`}
-                    as={`/article/${article.idx}`}
-                    scroll={false}
-                    shallow={true}
-                  >
-                    <p className={styles.comment} dangerouslySetInnerHTML={{ __html: article.description }} />
-                  </Link>
-                  <Image
-                    src={`https://drive.google.com/uc?id=${article.thumbnail}`}
-                    width={640}
-                    height={480}
-                    unoptimized
-                    priority
-                    alt=""
-                  />
-                </div>
-                <div className={styles.opengraph}>
-                  {metadata && (
-                    <AnchorLink href={`https://n.news.naver.com/article/${article.oid}/${article.aid}`}>
-                      <div className={styles['og-container']}>
-                        <img
-                          src={
-                            metadata[
-                              encodeURIComponent(`https://n.news.naver.com/article/${article.oid}/${article.aid}`)
-                            ]?.ogImage
-                          }
-                          alt=""
-                        />
-                        <div className={styles['og-info']}>
-                          <div className={styles.created}>
-                            <cite>
-                              {
+      {!isLoading && (
+        <>
+          <div className={styles['article-content']}>
+            <PullToRefresh onRefresh={handleRefresh}>
+              <div className={styles['article-list']}>
+                {articles.map((article: Article, index: number) => (
+                  <article key={article.idx} data-index={index}>
+                    <div className={styles.description}>
+                      <Link
+                        key={article.idx}
+                        href={`/articles?articleId=${article.idx}`}
+                        as={`/article/${article.idx}`}
+                        scroll={false}
+                        shallow={true}
+                      >
+                        <p className={styles.comment} dangerouslySetInnerHTML={{ __html: article.description }} />
+                      </Link>
+                      <Image
+                        src={`https://drive.google.com/uc?id=${article.thumbnail}`}
+                        width={640}
+                        height={480}
+                        unoptimized
+                        priority
+                        alt=""
+                      />
+                    </div>
+                    <div className={styles.opengraph}>
+                      {metadata && (
+                        <AnchorLink href={`https://n.news.naver.com/article/${article.oid}/${article.aid}`}>
+                          <div className={styles['og-container']}>
+                            <img
+                              src={
                                 metadata[
                                   encodeURIComponent(`https://n.news.naver.com/article/${article.oid}/${article.aid}`)
-                                ]?.ogCreator
+                                ]?.ogImage
                               }
-                            </cite>
-                            <time
-                              dateTime={
-                                metadata[
-                                  encodeURIComponent(`https://n.news.naver.com/article/${article.oid}/${article.aid}`)
-                                ]?.datestampTimeAttribute
-                              }
-                            >
-                              {
-                                metadata[
-                                  encodeURIComponent(`https://n.news.naver.com/article/${article.oid}/${article.aid}`)
-                                ]?.datestampTimeContent
-                              }
-                            </time>
-                          </div>
-                          <div className={styles.summary}>
-                            <strong>
-                              {
-                                metadata[
-                                  encodeURIComponent(`https://n.news.naver.com/article/${article.oid}/${article.aid}`)
-                                ]?.ogTitle
-                              }
-                            </strong>
-                            <div className={styles.description}>
-                              {
-                                metadata[
-                                  encodeURIComponent(`https://n.news.naver.com/article/${article.oid}/${article.aid}`)
-                                ]?.ogDescription
-                              }
-                              ...
+                              alt=""
+                            />
+                            <div className={styles['og-info']}>
+                              <div className={styles.created}>
+                                <cite>
+                                  {
+                                    metadata[
+                                      encodeURIComponent(
+                                        `https://n.news.naver.com/article/${article.oid}/${article.aid}`,
+                                      )
+                                    ]?.ogCreator
+                                  }
+                                </cite>
+                                <time
+                                  dateTime={
+                                    metadata[
+                                      encodeURIComponent(
+                                        `https://n.news.naver.com/article/${article.oid}/${article.aid}`,
+                                      )
+                                    ]?.datestampTimeAttribute
+                                  }
+                                >
+                                  {
+                                    metadata[
+                                      encodeURIComponent(
+                                        `https://n.news.naver.com/article/${article.oid}/${article.aid}`,
+                                      )
+                                    ]?.datestampTimeContent
+                                  }
+                                </time>
+                              </div>
+                              <div className={styles.summary}>
+                                <strong>
+                                  {
+                                    metadata[
+                                      encodeURIComponent(
+                                        `https://n.news.naver.com/article/${article.oid}/${article.aid}`,
+                                      )
+                                    ]?.ogTitle
+                                  }
+                                </strong>
+                                <div className={styles.description}>
+                                  {
+                                    metadata[
+                                      encodeURIComponent(
+                                        `https://n.news.naver.com/article/${article.oid}/${article.aid}`,
+                                      )
+                                    ]?.ogDescription
+                                  }
+                                  ...
+                                </div>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                    </AnchorLink>
-                  )}
-                </div>
-              </article>
-            ))}
+                        </AnchorLink>
+                      )}
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </PullToRefresh>
           </div>
-        </PullToRefresh>
-        {isFetchingMore && <div className={styles.loading}>기사를 불러오는 중입니다.</div>}
-        {error && (
-          <div className={styles.error}>
-            <p>{error}</p>
-            <button onClick={() => window.location.reload()}>다시 시도</button>
-          </div>
-        )}
-      </div>
+          <div ref={setTarget} className={isReachingEnd ? undefined : `${styles['is-loading']}`} />
+        </>
+      )}
+      {isLoading && (
+        <div className={styles.loading}>
+          <p>기사를 가져오는 중입니다.</p>
+        </div>
+      )}
+      {error && (
+        <div className={styles.error}>
+          <p>데이터를 불러오는데 실패했습니다. 네트워크가 느리거나 삭제된 기사입니다.</p>
+          <button onClick={() => window.location.reload()}>다시 시도</button>
+        </div>
+      )}
     </main>
   );
 }
+
+export default Articles;

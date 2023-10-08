@@ -121,18 +121,30 @@ export default function Home() {
     };
   }, [watchId]);
 
+  const [isFetching, setIsFetching] = useState(false);
+
   useEffect(() => {
     const handleScroll = throttle(() => {
-      if (window.innerHeight + window.scrollY + 1000 >= document.body.offsetHeight && !isLoading && hasMore) {
-        loadSheets(loadedItems, 20);
+      const isBottom = window.innerHeight + window.scrollY + 2000 >= document.body.offsetHeight;
+      if (!isFetching && isBottom && !isLoading && hasMore) {
+        setIsFetching(true);
+        setLoadedItems((prev) => prev + 20);
+        loadSheets(loadedItems + 20, 20);
       }
     }, 200);
 
     window.addEventListener('scroll', handleScroll);
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [loadedItems, isLoading, hasMore]);
+  }, [isLoading, hasMore, isFetching, loadedItems]);
+
+  useEffect(() => {
+    if (loadedItems > 0 && !isFetching) {
+      loadSheets(loadedItems, 20);
+    }
+  }, [loadedItems]);
 
   const [isFetchingMore, setIsFetchingMore] = useState(false);
 
@@ -267,7 +279,13 @@ export default function Home() {
       </Modal>
       <Services />
       <PullToRefresh onRefresh={handleRefresh}>
-        <Masonry items={sortedSheets} columnCount={columnCount} render={renderCard} key={sheets.length} />
+        <Masonry
+          items={sortedSheets}
+          columnCount={columnCount}
+          render={renderCard}
+          key={sheets.length}
+          data-index={sheets.length}
+        />
       </PullToRefresh>
       {isFetchingMore && hasMore && <div className={styles.loading}>기사를 불러오는 중입니다.</div>}
       {error && (
