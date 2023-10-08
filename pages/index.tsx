@@ -4,12 +4,11 @@ import useSWRInfinite from 'swr/infinite';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Modal from 'react-modal';
-import { throttle } from 'lodash';
-import { Masonry } from 'masonic';
 import axios from 'axios';
+import PullToRefresh from 'react-simple-pull-to-refresh';
+import { Masonry } from 'masonic';
 import styled from '@emotion/styled';
 import Seo from '@/components/Seo';
-import PullToRefresh from 'react-simple-pull-to-refresh';
 import YouTubeController from '@/components/YouTubeController';
 import { images } from '@/images';
 import { hex, rem } from '@/styles/designSystem';
@@ -259,8 +258,8 @@ export default function Home() {
                 data-index={sheets.length}
               />
             </PullToRefresh>
+            <div ref={setTarget} className={isReachingEnd ? undefined : `${styles['is-loading']}`} />
           </div>
-          <div ref={setTarget} className={isReachingEnd ? undefined : `${styles['is-loading']}`} />
         </>
       )}
       {isLoading && <div className={styles.loading}>기사를 불러오는 중입니다.</div>}
