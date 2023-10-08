@@ -6,13 +6,13 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Modal from 'react-modal';
 import axios from 'axios';
+import PullToRefresh from 'react-simple-pull-to-refresh';
 import { Article } from '@/types';
 import { modalContainer } from '@/components/ModalStyling';
 import Services from '@/components/Services';
 import Seo from '@/components/Seo';
 import ArticleDetail from '@/components/Article';
 import styles from '@/styles/articles.module.sass';
-import PullToRefresh from 'react-simple-pull-to-refresh';
 import AnchorLink from '@/components/AnchorLink';
 
 interface Metadata {
