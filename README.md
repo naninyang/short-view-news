@@ -35,7 +35,6 @@ YouTube 뉴스 목록과 NAVER 뉴스 목록은 Notion에서 관리됩니다.
 
 ## TO-DO
 
-- 공통: YouTube & NAVER 스크롤 내렸을 때 로딩 메시지 나오게 처리
 - NAVER News: sitemap.xml 작성
 
 ## 알림

@@ -89,7 +89,6 @@ const getKey = (pageIndex: number, previousPageData: any) => {
 
 export default function Home() {
   const router = useRouter();
-  const [loadedItems, setLoadedItems] = useState(0);
 
   const { data, error, size, setSize } = useSWRInfinite(getKey, fetcher, {
     revalidateOnFocus: false,
@@ -112,9 +111,7 @@ export default function Home() {
 
   useEffect(() => {
     if (!target) return;
-    const observer = new IntersectionObserver(onIntersect, {
-      rootMargin: '50% 0px',
-    });
+    const observer = new IntersectionObserver(onIntersect);
     observer.observe(target);
     return () => observer && observer.disconnect();
   }, [target]);
@@ -143,8 +140,6 @@ export default function Home() {
       window.removeEventListener('touchmove', preventScroll);
     };
   }, [watchId]);
-
-  const [isFetching, setIsFetching] = useState(false);
 
   const handleResize = () => {
     const width = window.innerWidth;
@@ -247,20 +242,22 @@ export default function Home() {
       </Modal>
       <Services />
       {!isLoading && (
-        <>
-          <div className={styles['watch-content']}>
-            <PullToRefresh onRefresh={handleRefresh}>
-              <Masonry
-                items={sheets || []}
-                columnCount={columnCount}
-                render={renderCard}
-                key={sheets.length}
-                data-index={sheets.length}
-              />
-            </PullToRefresh>
-            <div ref={setTarget} className={isReachingEnd ? undefined : `${styles['is-loading']}`} />
-          </div>
-        </>
+        <div className={styles['watch-content']}>
+          <PullToRefresh onRefresh={handleRefresh}>
+            <Masonry
+              items={sheets || []}
+              columnCount={columnCount}
+              render={renderCard}
+              key={sheets.length}
+              data-index={sheets.length}
+            />
+          </PullToRefresh>
+          {isReachingEnd !== undefined && (
+            <div ref={setTarget} className={styles.ref}>
+              {isReachingEnd === false && <p>기사를 불러오는 중입니다.</p>}
+            </div>
+          )}
+        </div>
       )}
       {isLoading && <div className={styles.loading}>기사를 불러오는 중입니다.</div>}
       {error && (

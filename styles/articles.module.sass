@@ -29,10 +29,24 @@
       text-decoration: underline
       color: $hex-accent
 
-  .is-loading
-    height: 10dvh
+  .ref
+    position: absolute
+    bottom: rem(-25)
+    left: 0
+    display: flex
+    justify-content: center
+    align-items: flex-end
+    width: 100%
+    height: rem(1000)
+
+    p
+      font-weight: 700
+      color: $hex-accent
+      text-align: center
 
   .article-content
+    position: relative
+    padding-bottom: rem(25)
     min-height: 100dvh
     background-color: var(--bg-primary-opacity)
 

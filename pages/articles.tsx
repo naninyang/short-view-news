@@ -57,9 +57,7 @@ function Articles() {
 
   useEffect(() => {
     if (!target) return;
-    const observer = new IntersectionObserver(onIntersect, {
-      rootMargin: '50% 0px',
-    });
+    const observer = new IntersectionObserver(onIntersect);
     observer.observe(target);
     return () => observer && observer.disconnect();
   }, [target]);
@@ -151,105 +149,97 @@ function Articles() {
       </Modal>
       <Services />
       {!isLoading && (
-        <>
-          <div className={styles['article-content']}>
-            <PullToRefresh onRefresh={handleRefresh}>
-              <div className={styles['article-list']}>
-                {articles.map((article: Article, index: number) => (
-                  <article key={article.idx} data-index={index}>
-                    <div className={styles.description}>
-                      <Link
-                        key={article.idx}
-                        href={`/articles?articleId=${article.idx}`}
-                        as={`/article/${article.idx}`}
-                        scroll={false}
-                        shallow={true}
-                      >
-                        <p className={styles.comment} dangerouslySetInnerHTML={{ __html: article.description }} />
-                      </Link>
-                      <Image
-                        src={`https://drive.google.com/uc?id=${article.thumbnail}`}
-                        width={640}
-                        height={480}
-                        unoptimized
-                        priority
-                        alt=""
-                      />
-                    </div>
-                    <div className={styles.opengraph}>
-                      {metadata && (
-                        <AnchorLink href={`https://n.news.naver.com/article/${article.oid}/${article.aid}`}>
-                          <div className={styles['og-container']}>
-                            <img
-                              src={
-                                metadata[
-                                  encodeURIComponent(`https://n.news.naver.com/article/${article.oid}/${article.aid}`)
-                                ]?.ogImage
-                              }
-                              alt=""
-                            />
-                            <div className={styles['og-info']}>
-                              <div className={styles.created}>
-                                <cite>
-                                  {
-                                    metadata[
-                                      encodeURIComponent(
-                                        `https://n.news.naver.com/article/${article.oid}/${article.aid}`,
-                                      )
-                                    ]?.ogCreator
-                                  }
-                                </cite>
-                                <time
-                                  dateTime={
-                                    metadata[
-                                      encodeURIComponent(
-                                        `https://n.news.naver.com/article/${article.oid}/${article.aid}`,
-                                      )
-                                    ]?.datestampTimeAttribute
-                                  }
-                                >
-                                  {
-                                    metadata[
-                                      encodeURIComponent(
-                                        `https://n.news.naver.com/article/${article.oid}/${article.aid}`,
-                                      )
-                                    ]?.datestampTimeContent
-                                  }
-                                </time>
-                              </div>
-                              <div className={styles.summary}>
-                                <strong>
-                                  {
-                                    metadata[
-                                      encodeURIComponent(
-                                        `https://n.news.naver.com/article/${article.oid}/${article.aid}`,
-                                      )
-                                    ]?.ogTitle
-                                  }
-                                </strong>
-                                <div className={styles.description}>
-                                  {
-                                    metadata[
-                                      encodeURIComponent(
-                                        `https://n.news.naver.com/article/${article.oid}/${article.aid}`,
-                                      )
-                                    ]?.ogDescription
-                                  }
-                                  ...
-                                </div>
+        <div className={styles['article-content']}>
+          <PullToRefresh onRefresh={handleRefresh}>
+            <div className={styles['article-list']}>
+              {articles.map((article: Article, index: number) => (
+                <article key={article.idx} data-index={index}>
+                  <div className={styles.description}>
+                    <Link
+                      key={article.idx}
+                      href={`/articles?articleId=${article.idx}`}
+                      as={`/article/${article.idx}`}
+                      scroll={false}
+                      shallow={true}
+                    >
+                      <p className={styles.comment} dangerouslySetInnerHTML={{ __html: article.description }} />
+                    </Link>
+                    <Image
+                      src={`https://drive.google.com/uc?id=${article.thumbnail}`}
+                      width={640}
+                      height={480}
+                      unoptimized
+                      priority
+                      alt=""
+                    />
+                  </div>
+                  <div className={styles.opengraph}>
+                    {metadata && (
+                      <AnchorLink href={`https://n.news.naver.com/article/${article.oid}/${article.aid}`}>
+                        <div className={styles['og-container']}>
+                          <img
+                            src={
+                              metadata[
+                                encodeURIComponent(`https://n.news.naver.com/article/${article.oid}/${article.aid}`)
+                              ]?.ogImage
+                            }
+                            alt=""
+                          />
+                          <div className={styles['og-info']}>
+                            <div className={styles.created}>
+                              <cite>
+                                {
+                                  metadata[
+                                    encodeURIComponent(`https://n.news.naver.com/article/${article.oid}/${article.aid}`)
+                                  ]?.ogCreator
+                                }
+                              </cite>
+                              <time
+                                dateTime={
+                                  metadata[
+                                    encodeURIComponent(`https://n.news.naver.com/article/${article.oid}/${article.aid}`)
+                                  ]?.datestampTimeAttribute
+                                }
+                              >
+                                {
+                                  metadata[
+                                    encodeURIComponent(`https://n.news.naver.com/article/${article.oid}/${article.aid}`)
+                                  ]?.datestampTimeContent
+                                }
+                              </time>
+                            </div>
+                            <div className={styles.summary}>
+                              <strong>
+                                {
+                                  metadata[
+                                    encodeURIComponent(`https://n.news.naver.com/article/${article.oid}/${article.aid}`)
+                                  ]?.ogTitle
+                                }
+                              </strong>
+                              <div className={styles.description}>
+                                {
+                                  metadata[
+                                    encodeURIComponent(`https://n.news.naver.com/article/${article.oid}/${article.aid}`)
+                                  ]?.ogDescription
+                                }
+                                ...
                               </div>
                             </div>
                           </div>
-                        </AnchorLink>
-                      )}
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </PullToRefresh>
-          </div>
-          <div ref={setTarget} className={isReachingEnd ? undefined : `${styles['is-loading']}`} />
-        </>
+                        </div>
+                      </AnchorLink>
+                    )}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </PullToRefresh>
+          {isReachingEnd !== undefined && (
+            <div ref={setTarget} className={styles.ref}>
+              {isReachingEnd === false && <p>기사를 불러오는 중입니다.</p>}
+            </div>
+          )}
+        </div>
       )}
       {isLoading && (
         <div className={styles.loading}>
