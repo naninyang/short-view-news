@@ -1,4 +1,5 @@
 import { notion } from './notion';
+import axios from 'axios';
 
 export async function getArticleData(start?: number, count?: number) {
   const response = await notion.databases.query({ database_id: process.env.NOTION_DATABASE_ID_NAVER! });
@@ -14,8 +15,29 @@ export async function getArticleData(start?: number, count?: number) {
   });
   const sortedRowsData = rowsData.sort((a, b) => b.idx.localeCompare(a.idx));
 
+  const fullData = await Promise.all(
+    sortedRowsData.map(async (article) => {
+      const url = `https://n.news.naver.com/article/${article.oid}/${article.aid}`;
+      const metaData = await fetchArticleMetadata(url);
+      return {
+        ...article,
+        metaData,
+      };
+    }),
+  );
+
   if (start !== undefined && count !== undefined) {
-    return sortedRowsData.slice(start, start + count);
+    return fullData.slice(start, start + count);
   }
-  return sortedRowsData;
+  return fullData;
+}
+
+async function fetchArticleMetadata(url: string) {
+  try {
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/naverScraping?url=${url}`);
+    return response.data;
+  } catch (error) {
+    console.error('Failed to fetch article metadata', error);
+    return {};
+  }
 }

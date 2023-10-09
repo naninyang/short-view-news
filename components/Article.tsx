@@ -1,26 +1,32 @@
-import { useState, useEffect, FC } from 'react';
 import { useRouter } from 'next/router';
-import axios from 'axios';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { Article } from '@/types';
 import AnchorLink from './AnchorLink';
 import { images } from '@/images';
 import styled from '@emotion/styled';
 import styles from '@/styles/article.module.sass';
 import Image from 'next/image';
+import 'react-perfect-scrollbar/dist/css/styles.css';
 
-interface Metadata {
-  ogTitle: string;
-  ogUrl: string;
-  ogImage: string;
-  ogDescription: string;
-  ogCreator: string;
-  datestampTimeContent: any;
-  datestampTimeAttribute: any;
-}
+type ArticleData = {
+  idx: string;
+  description: string;
+  thumbnail: string;
+  subject: string;
+  oid: string;
+  aid: string;
+  metaData?: {
+    ogTitle: string;
+    ogUrl: string;
+    ogImage: string;
+    ogDescription: string;
+    ogCreator: string;
+    datestampTimeContent: any;
+    datestampTimeAttribute: any;
+  };
+};
 
 interface articleProps {
-  articleItem: Article | undefined;
+  articleItem: ArticleData | undefined;
 }
 
 const CrossButton = styled.i({
@@ -35,24 +41,6 @@ const CrossButton = styled.i({
 
 const articleDetail: React.FC<articleProps> = ({ articleItem }) => {
   const router = useRouter();
-  const [metadata, setMetadata] = useState<any>({});
-
-  useEffect(() => {
-    if (articleItem) {
-      const fetchArticle = async () => {
-        try {
-          const metadataUrl = `https://n.news.naver.com/article/${articleItem.oid}/${articleItem.aid}`;
-          const metadataResponse = await axios.get(`/api/naverScraping?url=${metadataUrl}`);
-          setMetadata((prev: Record<string, Metadata>) => ({ ...prev, [metadataUrl]: metadataResponse.data }));
-        } catch (err) {
-          console.log('Failed to fetch article details.');
-        }
-      };
-
-      fetchArticle();
-    }
-  }, [articleItem]);
-
   const handleCloseModal = () => {
     router.push('/articles');
   };
@@ -81,53 +69,26 @@ const articleDetail: React.FC<articleProps> = ({ articleItem }) => {
                   alt=""
                 />
               </div>
-              {metadata && (
-                <>
-                  <AnchorLink href={`https://n.news.naver.com/article/${articleItem?.oid}/${articleItem?.aid}`}>
-                    <img
-                      src={
-                        metadata[`https://n.news.naver.com/article/${articleItem?.oid}/${articleItem?.aid}`]?.ogImage
-                      }
-                      alt=""
-                    />
-                    <div className={styles['og-info']}>
-                      <div className={styles.created}>
-                        <cite>
-                          {
-                            metadata[`https://n.news.naver.com/article/${articleItem?.oid}/${articleItem?.aid}`]
-                              ?.ogCreator
-                          }
-                        </cite>
-                        <time
-                          dateTime={
-                            metadata[`https://n.news.naver.com/article/${articleItem?.oid}/${articleItem?.aid}`]
-                              ?.datestampTimeAttribute
-                          }
-                        >
-                          {
-                            metadata[`https://n.news.naver.com/article/${articleItem?.oid}/${articleItem?.aid}`]
-                              ?.datestampTimeContent
-                          }
-                        </time>
-                      </div>
-                      <div className={styles.summary}>
-                        <strong>
-                          {metadata &&
-                            metadata[`https://n.news.naver.com/article/${articleItem?.oid}/${articleItem?.aid}`]
-                              ?.ogTitle}
-                        </strong>
-                        <p className={styles.description}>
-                          {
-                            metadata[`https://n.news.naver.com/article/${articleItem?.oid}/${articleItem?.aid}`]
-                              ?.ogDescription
-                          }
-                          ...
-                        </p>
+              <AnchorLink href={`https://n.news.naver.com/article/${articleItem.oid}/${articleItem.aid}`}>
+                <div className={styles['og-container']}>
+                  <img src={articleItem.metaData?.ogImage} alt="" />
+                  <div className={styles['og-info']}>
+                    <div className={styles.created}>
+                      <cite>{articleItem.metaData?.ogCreator}</cite>
+                      <time dateTime={articleItem.metaData?.datestampTimeAttribute}>
+                        {articleItem.metaData?.datestampTimeContent}
+                      </time>
+                    </div>
+                    <div className={styles.summary}>
+                      <strong>{articleItem.metaData?.ogTitle}</strong>
+                      <div className={styles.description}>
+                        {articleItem.metaData?.ogDescription}
+                        ...
                       </div>
                     </div>
-                  </AnchorLink>
-                </>
-              )}
+                  </div>
+                </div>
+              </AnchorLink>
             </PerfectScrollbar>
           </>
         ) : (

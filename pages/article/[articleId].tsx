@@ -30,7 +30,7 @@ const BackButton = styled.i({
   },
 });
 
-export default function ArticleDetail({ article, metaData }: { article: Article | null; metaData: any }) {
+export default function ArticleDetail({ article }: { article: Article | null }) {
   return (
     <main className={styles.article}>
       <div className={styles['top-link']}>
@@ -62,42 +62,26 @@ export default function ArticleDetail({ article, metaData }: { article: Article 
                 alt=""
               />
             </div>
-            {metaData ? (
-              <AnchorLink href={`https://n.news.naver.com/article/${article?.oid}/${article?.aid}`}>
-                <img
-                  src={metaData[`https://n.news.naver.com/article/${article?.oid}/${article?.aid}`]?.ogImage}
-                  alt=""
-                />
+            <AnchorLink href={`https://n.news.naver.com/article/${article.oid}/${article.aid}`}>
+              <div className={styles['og-container']}>
+                <img src={article.metaData?.ogImage} alt="" />
                 <div className={styles['og-info']}>
                   <div className={styles.created}>
-                    <cite>
-                      {metaData[`https://n.news.naver.com/article/${article?.oid}/${article?.aid}`]?.ogCreator}
-                    </cite>
-                    <time
-                      dateTime={
-                        metaData[`https://n.news.naver.com/article/${article?.oid}/${article?.aid}`]
-                          ?.datestampTimeAttribute
-                      }
-                    >
-                      {
-                        metaData[`https://n.news.naver.com/article/${article?.oid}/${article?.aid}`]
-                          ?.datestampTimeContent
-                      }
+                    <cite>{article.metaData?.ogCreator}</cite>
+                    <time dateTime={article.metaData?.datestampTimeAttribute}>
+                      {article.metaData?.datestampTimeContent}
                     </time>
                   </div>
                   <div className={styles.summary}>
-                    <strong>
-                      {metaData[`https://n.news.naver.com/article/${article?.oid}/${article?.aid}`]?.ogTitle}
-                    </strong>
+                    <strong>{article.metaData?.ogTitle}</strong>
                     <div className={styles.description}>
-                      {metaData[`https://n.news.naver.com/article/${article?.oid}/${article?.aid}`]?.ogDescription}...
+                      {article.metaData?.ogDescription}
+                      ...
                     </div>
                   </div>
                 </div>
-              </AnchorLink>
-            ) : (
-              <p className={styles.loading}>기사 불러오는 중...</p>
-            )}
+              </div>
+            </AnchorLink>
           </>
         ) : (
           <p className={styles.loading}>본문 불러오는 중</p>
@@ -115,9 +99,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
   if (articleId) {
     const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/articles?id=${articleId}`);
     articleData = response.data.find((article: any) => article.idx === articleId);
-    const metadataUrl = `https://n.news.naver.com/article/${articleData.oid}/${articleData.aid}`;
-    const metadataResponse = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/naverScraping?url=${metadataUrl}`);
-    metaData[metadataUrl] = metadataResponse.data;
   }
 
   return {

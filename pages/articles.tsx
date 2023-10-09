@@ -15,16 +15,6 @@ import ArticleDetail from '@/components/Article';
 import styles from '@/styles/articles.module.sass';
 import AnchorLink from '@/components/AnchorLink';
 
-interface Metadata {
-  ogTitle: string;
-  ogUrl: string;
-  ogImage: string;
-  ogDescription: string;
-  ogCreator: string;
-  datestampTimeContent: any;
-  datestampTimeAttribute: any;
-}
-
 export const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
 const getKey = (pageIndex: number, previousPageData: any) => {
@@ -34,7 +24,6 @@ const getKey = (pageIndex: number, previousPageData: any) => {
 
 function Articles() {
   const router = useRouter();
-  const [metadata, setMetadata] = useState<Record<string, Metadata>>({});
 
   const { data, error, size, setSize } = useSWRInfinite(getKey, fetcher, {
     revalidateOnFocus: false,
@@ -88,27 +77,6 @@ function Articles() {
       window.removeEventListener('touchmove', preventScroll);
     };
   }, [articleId]);
-
-  const fetchArticleMetadata = async (url: string) => {
-    if (metadata[url]) return;
-
-    try {
-      const { data } = await axios.get<Metadata>(`/api/naverScraping?url=${url}`);
-      if (metadata[url] !== data) {
-        setMetadata((prevData) => ({ ...prevData, [url]: data }));
-      }
-    } catch (err) {
-      console.error('Failed to fetch article metadata', err);
-    }
-  };
-
-  useEffect(() => {
-    if (articles) {
-      articles.forEach((article: Article) => {
-        fetchArticleMetadata(encodeURIComponent(`https://n.news.naver.com/article/${article.oid}/${article.aid}`));
-      });
-    }
-  }, [articles]);
 
   const handleRefresh = async () => {
     try {
@@ -174,61 +142,26 @@ function Articles() {
                     />
                   </div>
                   <div className={styles.opengraph}>
-                    {metadata && (
-                      <AnchorLink href={`https://n.news.naver.com/article/${article.oid}/${article.aid}`}>
-                        <div className={styles['og-container']}>
-                          <img
-                            src={
-                              metadata[
-                                encodeURIComponent(`https://n.news.naver.com/article/${article.oid}/${article.aid}`)
-                              ]?.ogImage
-                            }
-                            alt=""
-                          />
-                          <div className={styles['og-info']}>
-                            <div className={styles.created}>
-                              <cite>
-                                {
-                                  metadata[
-                                    encodeURIComponent(`https://n.news.naver.com/article/${article.oid}/${article.aid}`)
-                                  ]?.ogCreator
-                                }
-                              </cite>
-                              <time
-                                dateTime={
-                                  metadata[
-                                    encodeURIComponent(`https://n.news.naver.com/article/${article.oid}/${article.aid}`)
-                                  ]?.datestampTimeAttribute
-                                }
-                              >
-                                {
-                                  metadata[
-                                    encodeURIComponent(`https://n.news.naver.com/article/${article.oid}/${article.aid}`)
-                                  ]?.datestampTimeContent
-                                }
-                              </time>
-                            </div>
-                            <div className={styles.summary}>
-                              <strong>
-                                {
-                                  metadata[
-                                    encodeURIComponent(`https://n.news.naver.com/article/${article.oid}/${article.aid}`)
-                                  ]?.ogTitle
-                                }
-                              </strong>
-                              <div className={styles.description}>
-                                {
-                                  metadata[
-                                    encodeURIComponent(`https://n.news.naver.com/article/${article.oid}/${article.aid}`)
-                                  ]?.ogDescription
-                                }
-                                ...
-                              </div>
+                    <AnchorLink href={`https://n.news.naver.com/article/${article.oid}/${article.aid}`}>
+                      <div className={styles['og-container']}>
+                        <img src={article.metaData?.ogImage} alt="" />
+                        <div className={styles['og-info']}>
+                          <div className={styles.created}>
+                            <cite>{article.metaData?.ogCreator}</cite>
+                            <time dateTime={article.metaData?.datestampTimeAttribute}>
+                              {article.metaData?.datestampTimeContent}
+                            </time>
+                          </div>
+                          <div className={styles.summary}>
+                            <strong>{article.metaData?.ogTitle}</strong>
+                            <div className={styles.description}>
+                              {article.metaData?.ogDescription}
+                              ...
                             </div>
                           </div>
                         </div>
-                      </AnchorLink>
-                    )}
+                      </div>
+                    </AnchorLink>
                   </div>
                 </article>
               ))}

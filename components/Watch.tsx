@@ -4,6 +4,7 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import YouTubeController from './YouTubeController';
 import { images } from '@/images';
 import styles from '@/styles/watch.module.sass';
+import 'react-perfect-scrollbar/dist/css/styles.css';
 
 type WatchData = {
   idx: string;
@@ -34,33 +35,38 @@ const watchDetail: React.FC<watchProps> = ({ watchItem }) => {
     router.push('/');
   };
 
-  if (!watchItem)
-    return (
-      <main className={styles.watch}>
-        <p className={styles.loading}>기사 불러오는 중...</p>
-      </main>
-    );
-
   return (
     <div className={`${styles.watch} ${styles['watch-container']}`}>
       <article>
-        <header>
-          <button type="button" className="close-btn" onClick={handleCloseModal}>
-            <CrossButton />
-            <span>닫기</span>
-          </button>
-          <h1>{watchItem.subject}</h1>
-          <time>{watchItem.created}</time>
-        </header>
-        <div className={styles['watch-content']}>
-          <PerfectScrollbar className={styles['scrollbar-container']}>
-            <YouTubeController videoId={watchItem.video_id} />
-            <div className={styles.description}>
-              <p dangerouslySetInnerHTML={{ __html: watchItem.summary }} />
-              <p>{watchItem.blockquote}</p>
+        {watchItem ? (
+          <>
+            <header>
+              <button type="button" className="close-btn" onClick={handleCloseModal}>
+                <CrossButton />
+                <span>닫기</span>
+              </button>
+              <h1>{watchItem.subject}</h1>
+              <time>{watchItem.created}</time>
+            </header>
+            <div className={styles['watch-content']}>
+              <PerfectScrollbar className={styles['scrollbar-container']}>
+                <YouTubeController videoId={watchItem.video_id} />
+                <div className={styles.description}>
+                  <p dangerouslySetInnerHTML={{ __html: watchItem.summary }} />
+                  <p>{watchItem.blockquote}</p>
+                </div>
+              </PerfectScrollbar>
             </div>
-          </PerfectScrollbar>
-        </div>
+          </>
+        ) : (
+          <header>
+            <button type="button" className="close-btn" onClick={handleCloseModal}>
+              <CrossButton />
+              <span>닫기</span>
+            </button>
+            <h1>본문 불러오는 중</h1>
+          </header>
+        )}
       </article>
     </div>
   );
