@@ -29,10 +29,6 @@ YouTube 뉴스 목록과 NAVER 뉴스 목록은 Notion에서 관리됩니다.
 
 - pull-to-refresh 동작해도 20건을 불러오고 더 이상 새로운 데이터를 제대로 못 불러오는 현상 (테스트 중)
 
-### NAVER
-
-- NAVER News: Opengraph 내용 느리게 화면에 적용되는 현상
-
 ## TO-DO
 
 - NAVER News: sitemap.xml 작성
