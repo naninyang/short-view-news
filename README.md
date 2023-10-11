@@ -20,8 +20,15 @@ YouTube 뉴스 목록과 NAVER 뉴스 목록은 Notion에서 관리됩니다.
 - pull-to-refresh
 - PWA
 - SWR w/ mutate & useSWRInfinite
-- Notion Client
+- Notion Client - Netlify CMS 환경으로 교체 예정
 - cheerio
+- Vercel
+
+## Backend (private repo) - 적용 예정
+
+- Gatsby w/ React
+- Netlify CMS
+- Netlify
 
 ## Troubleshooting
 
