@@ -20,9 +20,9 @@ import Services from '@/components/Services';
 type SheetData = {
   idx: string;
   video_id: string;
-  subject: string;
-  summary: string;
-  blockquote: string;
+  title: string;
+  description: string;
+  comment: string;
   created: string;
 };
 
@@ -165,11 +165,11 @@ export default function Home() {
         <figcaption>
           <div>
             <Link key={data.idx} href={`/?watchId=${data.idx}`} as={`/watch/${data.idx}`} scroll={false} shallow={true}>
-              {data.subject} / <time>{data.created}</time>
+              {data.title} / <time>{data.created}</time>
             </Link>
-            <p dangerouslySetInnerHTML={{ __html: data.summary }} />
+            <p dangerouslySetInnerHTML={{ __html: data.description }} />
           </div>
-          <p>{data.blockquote}</p>
+          <p>{data.comment}</p>
         </figcaption>
       </figure>
     </div>
@@ -241,7 +241,14 @@ export default function Home() {
         <WatchDetail watchItem={selectedWatch} />
       </Modal>
       <Services />
-      {!isLoading && (
+      {isLoading && <div className={styles.loading}>기사를 불러오는 중입니다.</div>}
+      {error && (
+        <div className={styles.error}>
+          <p>데이터를 불러오는데 실패했습니다.</p>
+          <button onClick={() => window.location.reload()}>다시 시도</button>
+        </div>
+      )}
+      {!isLoading && !error && (
         <div className={styles['watch-content']}>
           <PullToRefresh onRefresh={handleRefresh}>
             <Masonry
@@ -257,13 +264,6 @@ export default function Home() {
               {isReachingEnd === false && <p>기사를 불러오는 중입니다.</p>}
             </div>
           )}
-        </div>
-      )}
-      {isLoading && <div className={styles.loading}>기사를 불러오는 중입니다.</div>}
-      {error && (
-        <div className={styles.error}>
-          <p>데이터를 불러오는데 실패했습니다. 네트워크가 느리거나 삭제된 기사입니다.</p>
-          <button onClick={() => window.location.reload()}>다시 시도</button>
         </div>
       )}
     </main>

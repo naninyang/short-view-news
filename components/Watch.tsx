@@ -9,9 +9,9 @@ import 'react-perfect-scrollbar/dist/css/styles.css';
 type WatchData = {
   idx: string;
   video_id: string;
-  subject: string;
-  summary: string;
-  blockquote: string;
+  title: string;
+  description: string;
+  comment: string;
   created: string;
 };
 
@@ -45,15 +45,15 @@ const watchDetail: React.FC<watchProps> = ({ watchItem }) => {
                 <CrossButton />
                 <span>닫기</span>
               </button>
-              <h1>{watchItem.subject}</h1>
+              <h1>{watchItem.title}</h1>
               <time>{watchItem.created}</time>
             </header>
             <div className={styles['watch-content']}>
               <PerfectScrollbar className={styles['scrollbar-container']}>
                 <YouTubeController videoId={watchItem.video_id} />
                 <div className={styles.description}>
-                  <p dangerouslySetInnerHTML={{ __html: watchItem.summary }} />
-                  <p>{watchItem.blockquote}</p>
+                  <p dangerouslySetInnerHTML={{ __html: watchItem.description }} />
+                  <p>{watchItem.comment}</p>
                 </div>
               </PerfectScrollbar>
             </div>

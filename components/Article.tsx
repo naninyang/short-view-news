@@ -11,7 +11,7 @@ type ArticleData = {
   idx: string;
   description: string;
   thumbnail: string;
-  subject: string;
+  title: string;
   oid: string;
   aid: string;
   metaData?: {
@@ -55,7 +55,7 @@ const articleDetail: React.FC<articleProps> = ({ articleItem }) => {
                 <CrossButton />
                 <span>닫기</span>
               </button>
-              <h1>{articleItem?.subject}</h1>
+              <h1>{articleItem?.title}</h1>
             </header>
             <PerfectScrollbar className={styles['scrollbar-container']}>
               <div className={styles.description}>
