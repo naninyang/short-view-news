@@ -18,7 +18,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       `https://api.github.com/repos/naninyang/short-view-news-db/contents/src/pages/youtube-${process.env.NODE_ENV}`,
       {
         headers: {
-          Authorization: `token ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       },
     );
