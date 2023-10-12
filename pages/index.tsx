@@ -248,7 +248,7 @@ export default function Home() {
           <button onClick={() => window.location.reload()}>다시 시도</button>
         </div>
       )}
-      {!isLoading && (
+      {!isLoading && !error && (
         <div className={styles['watch-content']}>
           <PullToRefresh onRefresh={handleRefresh}>
             <Masonry

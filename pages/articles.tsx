@@ -127,7 +127,7 @@ function Articles() {
           <button onClick={() => window.location.reload()}>다시 시도</button>
         </div>
       )}
-      {!isLoading && (
+      {!isLoading && !error && (
         <div className={styles['article-content']}>
           <PullToRefresh onRefresh={handleRefresh}>
             <div className={styles['article-list']}>
