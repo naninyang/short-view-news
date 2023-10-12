@@ -1,22 +1,30 @@
-import { GithubToken } from '@/utils/github';
+import { VercelRequest, VercelResponse } from '@vercel/node';
 import axios from 'axios';
-import { NextApiRequest, NextApiResponse } from 'next';
+import jwt from 'jsonwebtoken';
+import getGithubToken from './githubToken';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async (req: VercelRequest, res: VercelResponse) => {
+  let token = await getGithubToken();
+
+  if (token) {
+    const decodedToken: any = jwt.decode(token);
+    if (decodedToken.exp * 1000 < Date.now()) {
+      token = await getGithubToken();
+    }
+  }
+
   try {
     const response = await axios.get(
       `https://api.github.com/repos/naninyang/short-view-news-db/contents/src/pages/youtube-${process.env.NODE_ENV}`,
       {
         headers: {
-          Authorization: `bearer ${GithubToken}`,
-          Accept: 'application/vnd.github.v3.raw',
+          Authorization: `token ${token}`,
         },
       },
     );
 
-    res.status(200).json(response.data);
+    res.status(200).send(response.data);
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: 'Failed to fetch data from GitHub.' });
+    res.status(500).send('Failed to fetch data from GitHub');
   }
-}
+};
