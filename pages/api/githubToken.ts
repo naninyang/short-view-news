@@ -1,6 +1,5 @@
 import jwt from 'jsonwebtoken';
 import axios from 'axios';
-import { VercelRequest, VercelResponse } from '@vercel/node';
 
 const APP_ID = process.env.GITHUB_APP_ID;
 const PRIVATE_KEY = process.env.GITHUB_PRIVATE_KEY?.replace(/\\n/g, '\n') as string;
