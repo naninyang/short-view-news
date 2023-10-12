@@ -4,9 +4,9 @@ YouTube 및 NAVER 뉴스에 업로드 된 뉴스를 요약하고 큐레이터 �
 
 YouTube는 5분 미만의 짧은 뉴스를 가져오며, 아주 가끔 그 이상의 뉴스도 가져옵니다.
 
-YouTube 뉴스 목록과 NAVER 뉴스 목록은 Notion에서 관리됩니다.
+## 사용된 주요 기술
 
-## 사용된 주요 기술/기능 또는 패키지
+### Frontend - This repo
 
 - Next.js w/ React
 - react-device-detect
@@ -20,15 +20,16 @@ YouTube 뉴스 목록과 NAVER 뉴스 목록은 Notion에서 관리됩니다.
 - pull-to-refresh
 - PWA
 - SWR w/ mutate & useSWRInfinite
-- Notion Client - Netlify CMS 환경으로 교체 예정
 - cheerio
-- Vercel
+- Vercel w/ serverless
+- jsonwebtoken
 
-## Backend (private repo) - 적용 예정
+### Backend - Private repo for ONLY Database
 
-- Gatsby w/ React
 - Netlify CMS
 - Netlify
+- Git-gatway
+- Github App & Github OAuth
 
 ## Troubleshooting
 
@@ -54,7 +55,7 @@ cheerio를 사용하여 Opengraph 내용만 스크랩하여 가져옵니다. 단
 
 ## 주의사항 및 저작권
 
-이 서비스는 Vercel, Next.js, Notion, Google 그리고 NAVER와 관련이 없습니다.
+이 서비스는 Vercel, Netlify, Google 그리고 NAVER와 관련이 없습니다.
 
 큐레이터 본인의 생각이 들어간 부분은 언론사의 의견 또는 입장과 많이 다를 수 있으며, 큐레이터 본인의 생각은 큐레이터 개인의 사견입니다.
 
