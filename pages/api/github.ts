@@ -26,7 +26,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
 
     res.status(200).send(response.data);
   } catch (error) {
-    console.error('에러 발생:', error.message);
+    console.error('에러 발생:', (error as any).message);
     res.status(500).send('Failed to fetch data from GitHub');
   }
 };
