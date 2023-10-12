@@ -28,7 +28,7 @@ YouTube는 5분 미만의 짧은 뉴스를 가져오며, 아주 가끔 그 이�
 
 - Netlify CMS
 - Netlify
-- Git-gatway
+- Git-gateway
 - Github App & Github OAuth
 
 ## Troubleshooting
