@@ -20,9 +20,9 @@ import Services from '@/components/Services';
 type SheetData = {
   idx: string;
   video_id: string;
-  subject: string;
-  summary: string;
-  blockquote: string;
+  title: string;
+  description: string;
+  comment: string;
   created: string;
 };
 
@@ -165,11 +165,11 @@ export default function Home() {
         <figcaption>
           <div>
             <Link key={data.idx} href={`/?watchId=${data.idx}`} as={`/watch/${data.idx}`} scroll={false} shallow={true}>
-              {data.subject} / <time>{data.created}</time>
+              {data.title} / <time>{data.created}</time>
             </Link>
-            <p dangerouslySetInnerHTML={{ __html: data.summary }} />
+            <p dangerouslySetInnerHTML={{ __html: data.description }} />
           </div>
-          <p>{data.blockquote}</p>
+          <p>{data.comment}</p>
         </figcaption>
       </figure>
     </div>

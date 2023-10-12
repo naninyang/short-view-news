@@ -41,13 +41,13 @@ export default function ArticleDetail({ article }: { article: Article | null }) 
       </div>
       <article>
         <Seo
-          pageTitle={`${article?.subject}`}
+          pageTitle={`${article?.title}`}
           pageDescription={`${article?.description}`}
           pageImg={`https://drive.google.com/uc?id=${article?.thumbnail}`}
           pageOgType="article"
         />
         <header>
-          <h1>{article?.subject}</h1>
+          <h1>{article?.title}</h1>
         </header>
         {article ? (
           <>

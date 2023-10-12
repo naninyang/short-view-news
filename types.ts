@@ -36,7 +36,7 @@ export type Article = {
   idx: string;
   description: string;
   thumbnail: string;
-  subject: string;
+  title: string;
   oid: string;
   aid: string;
   metaData?: {

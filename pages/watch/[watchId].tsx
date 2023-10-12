@@ -11,9 +11,9 @@ import { useEffect, useState } from 'react';
 type SheetData = {
   idx: string;
   video_id: string;
-  subject: string;
-  summary: string;
-  blockquote: string;
+  title: string;
+  description: string;
+  comment: string;
   created: string;
 };
 
@@ -59,8 +59,8 @@ export default function watchDetail({ watchData }: { watchData: SheetData | null
   return (
     <main className={styles.watch}>
       <Seo
-        pageTitle={watchData.subject}
-        pageDescription={watchData.summary}
+        pageTitle={watchData.title}
+        pageDescription={watchData.description}
         pageImg={`https://i.ytimg.com/vi/${watchData.video_id}/maxresdefault.jpg`}
         pageOgType="video.other"
       />
@@ -72,13 +72,13 @@ export default function watchDetail({ watchData }: { watchData: SheetData | null
       </div>
       <article>
         <header>
-          <h1>{watchData.subject}</h1>
+          <h1>{watchData.title}</h1>
           <time>{watchData.created}</time>
         </header>
         <YouTubeController videoId={watchData.video_id} />
         <div className={styles.description}>
-          <p dangerouslySetInnerHTML={{ __html: watchData.summary }} />
-          <p>{watchData.blockquote}</p>
+          <p dangerouslySetInnerHTML={{ __html: watchData.description }} />
+          <p>{watchData.comment}</p>
         </div>
       </article>
     </main>
