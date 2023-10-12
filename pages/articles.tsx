@@ -123,7 +123,7 @@ function Articles() {
       )}
       {error && (
         <div className={styles.error}>
-          <p>데이터를 불러오는데 실패했습니다. 네트워크가 느리거나 삭제된 기사입니다.</p>
+          <p>데이터를 불러오는데 실패했습니다.</p>
           <button onClick={() => window.location.reload()}>다시 시도</button>
         </div>
       )}
