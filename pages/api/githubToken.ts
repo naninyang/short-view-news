@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import axios from 'axios';
 
 const APP_ID = process.env.GITHUB_APP_ID;
-const PRIVATE_KEY = process.env.GITHUB_PRIVATE_KEY?.replace(/\\n/g, '\n') as string;
+const PRIVATE_KEY = `${process.env.GITHUB_PRIVATE_KEY?.replace(/\\n/g, '\n') as any}`;
 const INSTALLATION_ID = process.env.GITHUB_INSTALLATION_ID;
 
 let tokenCache: string | null = null;

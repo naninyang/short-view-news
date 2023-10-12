@@ -16,7 +16,6 @@ export default async (req: VercelRequest, res: VercelResponse) => {
   try {
     const response = await axios.get(
       `https://api.github.com/repos/naninyang/short-view-news-db/contents/src/pages/youtube-${process.env.NODE_ENV}`,
-      // `https://api.github.com/repos/naninyang/short-view-news-db/contents/src/pages/youtube-production`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
