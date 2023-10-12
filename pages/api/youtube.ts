@@ -1,7 +1,8 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
-import getGithubToken from './githubToken';
+import getGithubToken from '@/utils/github';
+import matter from 'front-matter';
 
 export default async (req: VercelRequest, res: VercelResponse) => {
   let token = await getGithubToken();
@@ -14,7 +15,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
   }
 
   try {
-    const response = await axios.get(
+    const fileListResponse = await axios.get(
       `https://api.github.com/repos/naninyang/short-view-news-db/contents/src/pages/youtube-${process.env.NODE_ENV}`,
       {
         headers: {
@@ -22,10 +23,13 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         },
       },
     );
+    const mdFiles = fileListResponse.data.filter((file: any) => file.name.endsWith('.md'));
+    const fileContents = await Promise.all(mdFiles.map((file: any) => axios.get(file.download_url)));
+    const fileData = fileContents.map((contentResponse) => contentResponse.data);
+    const parsedData = fileData.map((content) => matter(content));
 
-    res.status(200).send(response.data);
+    res.status(200).send(parsedData);
   } catch (error) {
-    console.error('에러 발생:', (error as any).message);
     res.status(500).send('Failed to fetch data from GitHub');
   }
 };
