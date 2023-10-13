@@ -14,7 +14,7 @@ export async function getArticleData(start?: number, count?: number) {
   const filesData = response.data;
 
   const rowsData: RowData[] = filesData.map((data: any) => ({
-    idx: `${data.attributes.oid}${data.attributes.aid}`,
+    idx: data.attributes.created,
     title: data.attributes.title,
     description: data.attributes.description,
     oid: data.attributes.oid,
