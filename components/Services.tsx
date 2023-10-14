@@ -38,8 +38,8 @@ export default function Services() {
         <MenuItem currentRouter={router.pathname === '/' ? true : false}>
           <AnchorLink href="/">Home</AnchorLink>
         </MenuItem>
-        <MenuItem currentRouter={router.pathname === '/videos' ? true : false}>
-          <AnchorLink href="/videos">YouTube</AnchorLink>
+        <MenuItem currentRouter={router.pathname === '/watches' ? true : false}>
+          <AnchorLink href="/watches">YouTube</AnchorLink>
         </MenuItem>
         <MenuItem currentRouter={router.pathname === '/articles' ? true : false}>
           <AnchorLink href="/articles">NAVER</AnchorLink>

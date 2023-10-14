@@ -13,7 +13,7 @@ import { images } from '@/images';
 import { hex, rem } from '@/styles/designSystem';
 import { modalContainer } from '@/components/ModalStyling';
 import WatchDetail from '@/components/Watch';
-import styles from '@/styles/witches.module.sass';
+import styles from '@/styles/watches.module.sass';
 import Services from '@/components/Services';
 
 type SheetData = {
@@ -86,7 +86,7 @@ const getKey = (pageIndex: number, previousPageData: any) => {
   return `/api/sheets?start=${pageIndex * 20}&count=20`;
 };
 
-export default function witches() {
+export default function Watches() {
   const router = useRouter();
 
   const { data, error, size, setSize } = useSWRInfinite(getKey, fetcher, {
@@ -182,7 +182,7 @@ export default function witches() {
   const timestamp = Date.now();
 
   return (
-    <main className={styles.witches}>
+    <main className={styles.watches}>
       <Seo
         pageTitle="유튜브 쇼츠 뉴스"
         pageDescription="당신이 놓친 뉴스를 짧게 요약해 드려요"
