@@ -206,20 +206,7 @@ export default function Home() {
   }
 
   const handleRefresh = async () => {
-    try {
-      const count = 20;
-      const response = await axios.get(`/api/sheets?start=0&count=${count}`);
-      const newSheets = response.data;
-
-      mutate((currentSheets: any) => {
-        const updatedSheets = newSheets.filter(
-          (newSheet: any) => !currentSheets.some((sheet: any) => sheet.idx === newSheet.idx),
-        );
-        return [...updatedSheets, ...currentSheets];
-      }, false);
-    } catch (error) {
-      console.error('Failed to refresh:', error);
-    }
+    window.location.reload();
   };
   const [columnCount, setColumnCount] = useState(1);
 

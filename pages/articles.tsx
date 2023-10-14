@@ -79,23 +79,7 @@ function Articles() {
   }, [articleId]);
 
   const handleRefresh = async () => {
-    try {
-      const count = 20;
-      const response = await axios.get(`/api/articles?start=0&count=${count}`);
-      const newArticles = response.data;
-
-      mutate((currentArticles: any) => {
-        if (!Array.isArray(currentArticles)) {
-          return newArticles;
-        }
-        const updatedArticles = newArticles.filter(
-          (newSheet: any) => !currentArticles.some((article: any) => article.idx === newSheet.idx),
-        );
-        return [...updatedArticles, ...currentArticles];
-      }, false);
-    } catch (error) {
-      console.error('Failed to refresh:', error);
-    }
+    window.location.reload();
   };
 
   const timestamp = Date.now();
