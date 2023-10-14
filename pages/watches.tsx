@@ -83,7 +83,7 @@ export const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
 const getKey = (pageIndex: number, previousPageData: any) => {
   if (previousPageData && !previousPageData.length) return null;
-  return `/api/sheets?start=${pageIndex * 20}&count=20`;
+  return `${process.env.NEXT_PUBLIC_API_URL}/api/sheets?start=${pageIndex * 20}&count=20`;
 };
 
 export default function Watches() {
@@ -163,7 +163,13 @@ export default function Watches() {
         <YouTubeController videoId={data.video_id} />
         <figcaption>
           <div>
-            <Link key={data.idx} href={`/?watchId=${data.idx}`} as={`/watch/${data.idx}`} scroll={false} shallow={true}>
+            <Link
+              key={data.idx}
+              href={`/watches?watchId=${data.idx}`}
+              as={`/watch/${data.idx}`}
+              scroll={false}
+              shallow={true}
+            >
               {data.title} / <time>{data.created}</time>
             </Link>
             <p dangerouslySetInnerHTML={{ __html: data.description }} />
@@ -190,7 +196,7 @@ export default function Watches() {
       />
       <Modal
         isOpen={!!watchId}
-        onRequestClose={() => router.push('/witches', undefined, { scroll: false })}
+        onRequestClose={() => router.push('/watches', undefined, { scroll: false })}
         contentLabel="Watch Modal"
         style={modalContainer}
       >

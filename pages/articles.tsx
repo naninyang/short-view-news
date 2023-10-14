@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { mutate } from 'swr';
 import useSWRInfinite from 'swr/infinite';
 import Image from 'next/image';
 import Link from 'next/link';

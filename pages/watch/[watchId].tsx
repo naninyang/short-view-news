@@ -43,7 +43,7 @@ export default function watchDetail({ watchData }: { watchData: SheetData | null
         <main className={styles.watch}>
           <p className={styles.error}>
             기사를 불러오지 못했습니다. 삭제된 기사이거나 인터넷 속도가 느립니다.{' '}
-            <AnchorLink href="/">뒤로가기</AnchorLink>
+            <AnchorLink href="/watches">뒤로가기</AnchorLink>
           </p>
         </main>
       );
@@ -65,7 +65,7 @@ export default function watchDetail({ watchData }: { watchData: SheetData | null
         pageOgType="video.other"
       />
       <div className={styles['top-link']}>
-        <AnchorLink href="/">
+        <AnchorLink href="/watches">
           <BackButton />
           <span>뒤로가기</span>
         </AnchorLink>

@@ -16,11 +16,21 @@ export const images = {
   misc: {
     play: require('./misc/play.svg'),
     error: require('./misc/error.svg'),
+    menu: require('./misc/menu.svg'),
+    close: require('./misc/close.svg'),
   },
   arrow: {
     backDark: require('./arrow/backDark.svg'),
     backLight: require('./arrow/backLight.svg'),
     crossDark: require('./arrow/crossDark.svg'),
     crossLight: require('./arrow/crossLight.svg'),
+  },
+  services: {
+    githubLight: require('./services/githubLight.svg'),
+    postypeLight: require('./services/postypeLight.svg'),
+    blogLight: require('./services/blogLight.svg'),
+    githubDark: require('./services/githubDark.svg'),
+    postypeDark: require('./services/postypeDark.svg'),
+    blogDark: require('./services/blogDark.svg'),
   },
 };
