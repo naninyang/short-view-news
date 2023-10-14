@@ -17,12 +17,12 @@ YouTube는 5분 미만의 짧은 뉴스를 가져오며, 아주 가끔 그 이�
 - Google YouTube iframe API
 - Masonry w/ Masonic
 - Perfect Scrollbar
-- pull-to-refresh
+- pull-to-refresh (without Mutate Caching)
 - PWA
-- SWR w/ mutate & useSWRInfinite
+- SWR w/ useSWRInfinite
 - cheerio
 - Vercel w/ serverless
-- jsonwebtoken
+- jsonwebtoken (for Github API Bearer)
 
 ### Backend - Private repo for ONLY Database
 
