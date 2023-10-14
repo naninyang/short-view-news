@@ -32,7 +32,7 @@ const CrossButton = styled.i({
 const watchDetail: React.FC<watchProps> = ({ watchItem }) => {
   const router = useRouter();
   const handleCloseModal = () => {
-    router.push('/');
+    router.push('/witches');
   };
 
   return (

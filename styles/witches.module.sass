@@ -1,0 +1,106 @@
+@import './designSystem'
+
+.main
+  padding: rem(15) env(safe-area-inset-right) rem(15) env(safe-area-inset-left)
+  font-size: rem(16)
+
+  +mq(minLarge)
+    padding: rem(25) env(safe-area-inset-right) rem(25) env(safe-area-inset-left)
+
+  .loading, .error
+    display: flex
+    justify-content: center
+    align-items: center
+    font-weight: 700
+    color: $hex-accent
+    text-align: center
+
+  .loading
+    min-height: calc(100dvh - rem(140) - env(safe-area-inset-top) - env(safe-area-inset-bottom))
+
+    +mq(minLarge)
+      min-height: calc(100dvh - rem(162) - env(safe-area-inset-top) - env(safe-area-inset-bottom))
+
+  .error
+    gap: rem(15)
+
+    button
+      background: none
+      text-decoration: underline
+      color: $hex-accent
+
+  .ref
+    position: absolute
+    bottom: rem(-25)
+    left: 0
+    display: flex
+    justify-content: center
+    align-items: flex-end
+    width: 100%
+    height: rem(1000)
+
+    p
+      font-weight: 700
+      color: $hex-accent
+      text-align: center
+
+  .watch-content
+    position: relative
+    padding-bottom: rem(25)
+    min-height: 100dvh
+    background-color: var(--bg-primary-opacity)
+
+  div[role="gridcell"]
+    transition: all .4s cubic-bezier(.4,0,.2,1)
+
+  .item
+    padding: rem(10)
+
+  figure
+    transition: all .4s cubic-bezier(.4,0,.2,1)
+    display: flex
+    flex-direction: column
+    gap: rem(15)
+    background-color: var(--bg-secondary)
+    overflow: hidden
+    border-radius: rem(15)
+    padding-bottom: rem(15)
+
+    figcaption
+      display: flex
+      flex-direction: column
+      gap: rem(15)
+      padding: 0 rem(15)
+
+      > div
+        display: flex
+        flex-direction: column
+        gap: rem(5)
+
+        a
+          transition: all .4s cubic-bezier(.4,0,.2,1)
+          font-size: rem(16)
+          font-weight: 700
+          line-height: 1.5625
+          color: var(--txt-subject)
+
+          &:hover
+            color: var(--txt-blockquote)
+
+        p
+          transition: all .4s cubic-bezier(.4,0,.2,1)
+          font-size: rem(14)
+          font-weight: 400
+          line-height: 1.57142857
+          color: var(--txt-summary)
+
+          strong
+            transition: all .4s cubic-bezier(.4,0,.2,1)
+            font-weight: 700
+            color: var(--txt-blockquote)
+
+      > p
+        transition: all .4s cubic-bezier(.4,0,.2,1)
+        border-top: 1px solid var(--border)
+        padding-top: rem(15)
+        color: var(--txt-blockquote)

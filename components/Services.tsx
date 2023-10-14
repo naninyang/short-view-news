@@ -36,7 +36,10 @@ export default function Services() {
     <Nav>
       <ol>
         <MenuItem currentRouter={router.pathname === '/' ? true : false}>
-          <AnchorLink href="/">YouTube</AnchorLink>
+          <AnchorLink href="/">Home</AnchorLink>
+        </MenuItem>
+        <MenuItem currentRouter={router.pathname === '/videos' ? true : false}>
+          <AnchorLink href="/videos">YouTube</AnchorLink>
         </MenuItem>
         <MenuItem currentRouter={router.pathname === '/articles' ? true : false}>
           <AnchorLink href="/articles">NAVER</AnchorLink>
