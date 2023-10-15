@@ -13,7 +13,7 @@ type DataResponse = {
 
 export default function Home() {
   const [data, setData] = useState<DataResponse | null>(null);
-  const title = 'Home';
+  const title = 'Notice';
 
   useEffect(() => {
     async function fetchData() {
@@ -33,7 +33,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <Seo
-        pageTitle="숏뷰 뉴스 {short.view: news}"
+        pageTitle="안내사항"
         pageDescription="당신이 놓친 뉴스를 짧게 요약해 드려요"
         pageImg={`https://news.dev1stud.io/og-image.png?ts=${timestamp}`}
       />

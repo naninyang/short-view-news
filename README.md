@@ -23,6 +23,7 @@ YouTube는 5분 미만의 짧은 뉴스를 가져오며, 아주 가끔 그 이�
 - cheerio
 - Vercel w/ serverless
 - jsonwebtoken (for Github API Bearer)
+- Notion Client (페이지 관리에 사용)
 
 ### Backend - Private repo for ONLY Database
 
