@@ -23,6 +23,7 @@ YouTube는 5분 미만의 짧은 뉴스를 가져오며, 아주 가끔 그 이�
 - cheerio
 - Vercel w/ serverless
 - jsonwebtoken (for Github API Bearer)
+- Notion Client (페이지 관리에 사용)
 
 ### Backend - Private repo for ONLY Database
 
@@ -35,10 +36,11 @@ YouTube는 5분 미만의 짧은 뉴스를 가져오며, 아주 가끔 그 이�
 
 ### 공통
 
-- pull-to-refresh 동작해도 20건을 불러오고 더 이상 새로운 데이터를 제대로 못 불러오는 현상 (테스트 중)
+- 하단 탭 눌렀을 때 무조건 상단으로 이동하는 현상
 
 ## TO-DO
 
+- 탭 눌렀을 때 스크롤 위치 기억하기
 - NAVER News: sitemap.xml 작성
 
 ## 알림

@@ -1,0 +1,150 @@
+@import './designSystem'
+
+.contact_us
+  display: flex
+  align-items: center
+  flex-direction: column
+  padding: rem(15) env(safe-area-inset-right) rem(15) env(safe-area-inset-left)
+  font-size: rem(16)
+
+  +mq(minLarge)
+    padding: rem(25) env(safe-area-inset-right) rem(25) env(safe-area-inset-left)
+
+  h1
+    margin-top: rem(25)
+    position: relative
+    font-size: vw(24, 380)
+    font-weight: 900
+    text-align: center
+
+    +mq(minLarge)
+      font-size: rem(70)
+
+    &::before
+      content: '문의사항 Contact Us.'
+      position: absolute
+      top: 0
+      left: 0
+      width: 100%
+      height: 100%
+
+      body &,
+      body[data-theme="dark"] &
+        background: linear-gradient(180deg,#fff,hsla(0,0%,100%,.75))
+        -webkit-background-clip: text
+        -webkit-text-fill-color: transparent
+
+      body[data-theme="light"] &
+        background: linear-gradient(180deg,rgba(0,0,0,.8),#000)
+        -webkit-background-clip: text
+        -webkit-text-fill-color: transparent
+
+    span
+      background: linear-gradient(90deg,oklch(49.07% 0.272 300.45),oklch(64.53% 0.292 2.47))
+      -webkit-background-clip: text
+      -webkit-text-fill-color: transparent
+      animation: foreground 8s infinite
+
+  .contact_us-content
+    display: flex
+    flex-direction: column
+    gap: rem(25)
+    margin-bottom: calc(env(safe-area-inset-bottom) + rem(68))
+    padding: rem(15)
+    width: 100%
+    max-width: rem(722)
+    color: var(--txt-blockquote)
+
+    +mq(minLarge)
+      gap: rem(50)
+      padding: rem(25)
+
+    fieldset
+      display: flex
+      flex-direction: column
+      gap: rem(15)
+
+    .field-group
+      display: flex
+      flex-direction: column
+      gap: rem(5)
+
+    label
+      font-size: rem(14)
+      line-height: 1.57142857
+
+    textarea
+      height: rem(270)
+
+    input, textarea
+      transition: all .4s cubic-bezier(.4,0,.2,1)
+      background-color: var(--bg-primary-opacity)
+      border: 1px solid var(--border)
+      border-radius: rem(5)
+      padding: rem(10)
+      font-size: rem(14)
+      color: var(--txt-blockquote)
+
+      &:focus-within, &:focus, &:hover
+        outline: 1px solid var(--txt-blockquote)
+
+    button[type="submit"]
+      transition: all .4s cubic-bezier(.4,0,.2,1)
+      background: var(--txt-subject)
+      border: none
+      border-radius: rem(5)
+      padding: rem(25)
+      font-size: rem(20)
+      font-weight: 900
+
+      &:focus, &:hover
+        background: var(--txt-blockquote)
+        outline: 2px solid $hex-accent
+
+  .top-link
+    padding: 0 rem(15)
+    width: 100%
+    max-width: rem(722)
+
+    +mq(minLarge)
+      padding: 0 rem(25)
+
+    a
+      display: inline-flex
+      gap: rem(2)
+      border: 1px solid var(--border)
+      border-radius: rem(10)
+      padding: rem(10)
+
+      +mq(minLarge)
+        gap: rem(5)
+
+      i
+        width: rem(18)
+        height: rem(18)
+
+        +mq(minLarge)
+          width: rem(20)
+          height: rem(20)
+
+      span
+        font-size: rem(14)
+        line-height: rem(18)
+        color: var(--txt-summary)
+
+        +mq(minLarge)
+          font-size: rem(16)
+          line-height: rem(20)
+
+      &:hover span
+        color: var(--txt-blockquote)
+
+@keyframes foreground
+  0%
+    opacity: 0
+
+  33.333%,50%
+    opacity: 1
+
+  16.667%,66.667%
+    opacity: 0

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { mutate } from 'swr';
 import useSWRInfinite from 'swr/infinite';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -77,6 +76,11 @@ function Articles() {
       window.removeEventListener('touchmove', preventScroll);
     };
   }, [articleId]);
+
+  useEffect(() => {
+    localStorage.removeItem('currentPage');
+    localStorage.setItem('currentPage', 'articles');
+  }, []);
 
   const handleRefresh = async () => {
     window.location.reload();
