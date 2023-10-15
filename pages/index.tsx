@@ -27,7 +27,6 @@ export default function Home() {
 
   useEffect(() => {
     localStorage.removeItem('currentPage');
-    localStorage.setItem('currentPage', title);
   }, []);
 
   const timestamp = Date.now();

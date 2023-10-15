@@ -20,7 +20,7 @@ const BackButton = styled.i({
   },
 });
 
-export default function Home() {
+export default function Notice() {
   const [data, setData] = useState<DataResponse | null>(null);
   const title = 'Notice';
 
