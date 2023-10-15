@@ -1,5 +1,7 @@
-import axios from 'axios';
 import React, { useState } from 'react';
+import axios from 'axios';
+import Seo from '@/components/Seo';
+import styles from '@/styles/contact.module.sass';
 
 function ContactForm() {
   const [formData, setFormData] = useState({
@@ -25,45 +27,59 @@ function ContactForm() {
       console.log('오류가 발생했습니다.');
     }
   };
+
+  const timestamp = Date.now();
+
   return (
-    <form onSubmit={handleSubmit}>
-      <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
-      <div>
-        <label>
-          제목:
-          <input
-            type="text"
-            value={formData.title}
-            onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-          />
-        </label>
-      </div>
-      <div>
-        <label>
-          이름:
-          <input
-            type="text"
-            value={formData.name}
-            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          />
-        </label>
-      </div>
-      <input
-        type="hidden"
-        value={formData.created}
-        onChange={(e) => setFormData({ ...formData, created: e.target.value })}
+    <main className={styles.contact_us}>
+      <Seo
+        pageTitle="문의사항"
+        pageDescription="당신이 놓친 뉴스를 짧게 요약해 드려요"
+        pageImg={`https://news.dev1stud.io/og-image.png?ts=${timestamp}`}
       />
-      <div>
-        <label>
-          설명:
-          <textarea
-            value={formData.description}
-            onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-          />
-        </label>
+      <div className={styles['contact_us-content']}>
+        <h1>
+          <span>문의사항 Contact Us.</span>
+        </h1>
+        <form onSubmit={handleSubmit}>
+          <fieldset>
+            <legend>문의 질의</legend>
+            <input
+              type="hidden"
+              value={formData.created}
+              onChange={(e) => setFormData({ ...formData, created: e.target.value })}
+            />
+            <div className={styles['field-group']}>
+              <label htmlFor="title">제목</label>
+              <input
+                type="text"
+                id="title"
+                value={formData.title}
+                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+              />
+            </div>
+            <div className={styles['field-group']}>
+              <label htmlFor="name">이름</label>
+              <input
+                type="text"
+                id="name"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              />
+            </div>
+            <div className={styles['field-group']}>
+              <label htmlFor="description">내용</label>
+              <textarea
+                id="description"
+                value={formData.description}
+                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+              />
+            </div>
+            <button type="submit">문의하기</button>
+          </fieldset>
+        </form>
       </div>
-      <button type="submit">제출</button>
-    </form>
+    </main>
   );
 }
 

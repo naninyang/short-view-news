@@ -11,11 +11,14 @@ body
   font-size: 16px
   word-break: keep-all
   -webkit-text-size-adjust: none
-  transition: all .4s cubic-bezier(.4,0,.2,1),
+  transition: all .4s cubic-bezier(.4,0,.2,1)
 
 body, pre, input, button, textarea, select
   font-size: 1rem
   font-weight: 400
+  text-size-adjust: 100%
+  text-rendering: optimizeLegibility
+  -webkit-font-smoothing: antialiased
 
 body, body[data-theme="dark"]
   --txt-subject: #{$hex-light-subject}
