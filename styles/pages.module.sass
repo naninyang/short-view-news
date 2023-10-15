@@ -1,0 +1,76 @@
+@import './designSystem'
+
+.pages
+  padding: rem(15) env(safe-area-inset-right) rem(15) env(safe-area-inset-left)
+  font-size: rem(16)
+
+  +mq(minLarge)
+    padding: rem(25) env(safe-area-inset-right) rem(25) env(safe-area-inset-left)
+
+  h1
+    margin-top: rem(25)
+    position: relative
+    font-size: vw(24, 380)
+    font-weight: 900
+    text-align: center
+
+    +mq(minLarge)
+      font-size: rem(70)
+
+    &::before
+      position: absolute
+      top: 0
+      left: 0
+      width: 100%
+      height: 100%
+      background: linear-gradient(180deg,#fff,hsla(0,0%,100%,.75))
+      -webkit-background-clip: text
+      -webkit-text-fill-color: transparent
+
+    span
+      background: linear-gradient(90deg,oklch(49.07% 0.272 300.45),oklch(64.53% 0.292 2.47))
+      -webkit-background-clip: text
+      -webkit-text-fill-color: transparent
+      animation: foreground 8s infinite
+
+  &.home h1::before
+    content: '숏뷰 뉴스 {short.view: news}'
+
+  &.notice h1::before
+    content: '안내사항 Notice.'
+
+  .pages-content
+    display: flex
+    flex-direction: column
+    gap: rem(25)
+    margin-bottom: calc(env(safe-area-inset-bottom) + rem(50))
+    padding: rem(15)
+    color: var(--txt-blockquote)
+
+    +mq(minLarge)
+      gap: rem(50)
+      padding: rem(25)
+
+    > div
+      p
+        margin: rem(5) 0
+
+        +mq(minLarge)
+          margin: rem(7) 0
+
+    hr
+      margin: rem(20) 0
+      border: 1px solid var(--border)
+
+      +mq(minLarge)
+        margin: rem(25) 0
+
+@keyframes foreground
+  0%
+    opacity: 0
+
+  33.333%,50%
+    opacity: 1
+
+  16.667%,66.667%
+    opacity: 0

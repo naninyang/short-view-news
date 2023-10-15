@@ -4,7 +4,6 @@ import { Lato, Noto_Sans_KR } from 'next/font/google';
 import { AppProps } from 'next/app';
 import Script from 'next/script';
 import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { GA_TRACKING_ID, pageview } from '@/lib/gtag';
 import 'styles/globals.sass';
 
@@ -68,7 +67,6 @@ export default function App({ Component, pageProps }: AppProps) {
       </style>
       <Header />
       <Component {...pageProps} />
-      <Footer />
     </>
   );
 }

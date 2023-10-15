@@ -1,30 +1,38 @@
 import styled from '@emotion/styled';
 import AnchorLink from './AnchorLink';
-import { hex, rem } from '@/styles/designSystem';
+import { hex, rem, mixIn } from '@/styles/designSystem';
 import { useRouter } from 'next/router';
 
 const Nav = styled.nav({
+  position: 'fixed',
+  bottom: 0,
+  left: 0,
   display: 'flex',
   justifyContent: 'center',
-  paddingBottom: rem(15),
+  borderTop: `${rem(2)} solid var(--border)`,
+  paddingBottom: 'env(safe-area-inset-bottom)',
+  width: '100%',
   '& ol': {
     display: 'flex',
-    justifyContent: 'center',
     gap: rem(15),
     width: '100%',
-    maxWidth: rem(575),
+  },
+  '& li': {
+    ...mixIn.col,
   },
   '& a': {
-    display: 'inline-flex',
-    padding: rem(5),
+    display: 'flex',
+    justifyContent: 'center',
+    padding: rem(15),
     fontSize: rem(16),
     lineHeight: 1,
+    textAlign: 'center',
   },
 });
 
 const MenuItem = styled.li<{ currentRouter?: boolean }>(({ currentRouter }) => ({
   '& a': {
-    borderBottom: currentRouter ? `${rem(2)} solid ${hex.accent}` : `${rem(2)} solid transparent`,
+    borderTop: currentRouter ? `${rem(2)} solid ${hex.accent}` : `${rem(2)} solid transparent`,
     color: currentRouter ? hex.accent : 'var(--txt-subject)',
     fontWeight: currentRouter ? '700' : '400',
   },
