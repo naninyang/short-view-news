@@ -25,6 +25,11 @@ export default function Home() {
     fetchData();
   }, [title]);
 
+  useEffect(() => {
+    localStorage.removeItem('currentPage');
+    localStorage.setItem('currentPage', title);
+  }, []);
+
   const timestamp = Date.now();
 
   return (

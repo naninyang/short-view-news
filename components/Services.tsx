@@ -8,8 +8,10 @@ const Nav = styled.nav({
   bottom: 0,
   left: 0,
   display: 'flex',
+  zIndex: 1020,
   justifyContent: 'center',
-  borderTop: `${rem(2)} solid var(--border)`,
+  backdropFilter: `saturate(180%) blur(${rem(20)})`,
+  backgroundColor: 'var(--bg-primary-opacity)',
   paddingBottom: 'env(safe-area-inset-bottom)',
   width: '100%',
   '& ol': {
@@ -23,7 +25,7 @@ const Nav = styled.nav({
   '& a': {
     display: 'flex',
     justifyContent: 'center',
-    padding: rem(15),
+    padding: `${rem(25)} 0`,
     fontSize: rem(16),
     lineHeight: 1,
     textAlign: 'center',
@@ -34,7 +36,7 @@ const MenuItem = styled.li<{ currentRouter?: boolean }>(({ currentRouter }) => (
   '& a': {
     borderTop: currentRouter ? `${rem(2)} solid ${hex.accent}` : `${rem(2)} solid transparent`,
     color: currentRouter ? hex.accent : 'var(--txt-subject)',
-    fontWeight: currentRouter ? '700' : '400',
+    fontWeight: currentRouter ? '900' : '400',
   },
 }));
 

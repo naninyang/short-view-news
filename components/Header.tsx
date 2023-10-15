@@ -126,7 +126,7 @@ const Menu = styled.nav({
   height: '100dvh',
   backdropFilter: `saturate(180%) blur(${rem(20)})`,
   transition: 'all .4s cubic-bezier(.4,0,.2,1)',
-  background: 'rgba(0, 0, 0, .9)',
+  background: 'var(--bg-primary-opacity)',
   opacity: 0,
   '&.expanded': {
     opacity: 1,
@@ -349,13 +349,19 @@ export default function Header() {
             </Close>
             <ol>
               <li>
-                <AnchorLink href="/notice">안내사항</AnchorLink>
+                <AnchorLink href="/notice" onClick={closeMenu}>
+                  안내사항
+                </AnchorLink>
               </li>
               <li>
-                <AnchorLink href="/contact-us">문의사항</AnchorLink>
+                <AnchorLink href="/contact-us" onClick={closeMenu}>
+                  문의사항
+                </AnchorLink>
               </li>
               <li>
-                <AnchorLink href="/open-sources">오픈소스</AnchorLink>
+                <AnchorLink href="/open-sources" onClick={closeMenu}>
+                  오픈소스
+                </AnchorLink>
               </li>
             </ol>
             <ul>

@@ -157,6 +157,11 @@ export default function Watches() {
     };
   }, []);
 
+  useEffect(() => {
+    localStorage.removeItem('currentPage');
+    localStorage.setItem('currentPage', 'watches');
+  }, []);
+
   const renderCard = ({ data }: { data: SheetData }) => (
     <div className={styles.item}>
       <figure>

@@ -1,11 +1,8 @@
 @import './designSystem'
 
 .watches
-  padding: rem(15) env(safe-area-inset-right) rem(15) env(safe-area-inset-left)
+  padding: 0 env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)
   font-size: rem(16)
-
-  +mq(minLarge)
-    padding: rem(25) env(safe-area-inset-right) rem(25) env(safe-area-inset-left)
 
   .loading, .error
     display: flex
@@ -16,7 +13,7 @@
     text-align: center
 
   .loading
-    min-height: calc(100dvh - rem(140) - env(safe-area-inset-top) - env(safe-area-inset-bottom))
+    min-height: calc(100dvh - rem(138) - env(safe-area-inset-top) - env(safe-area-inset-bottom))
 
     +mq(minLarge)
       min-height: calc(100dvh - rem(162) - env(safe-area-inset-top) - env(safe-area-inset-bottom))
@@ -31,7 +28,7 @@
 
   .ref
     position: absolute
-    bottom: rem(-25)
+    bottom: calc(env(safe-area-inset-top) + rem(93))
     left: 0
     display: flex
     justify-content: center
@@ -46,9 +43,13 @@
 
   .watch-content
     position: relative
-    padding-bottom: rem(25)
+    margin-bottom: calc(env(safe-area-inset-bottom) + rem(68))
+    padding: rem(25) rem(5)
     min-height: 100dvh
     background-color: var(--bg-primary-opacity)
+
+    +mq(minLarge)
+      padding: rem(25) rem(15)
 
   div[role="gridcell"]
     transition: all .4s cubic-bezier(.4,0,.2,1)
