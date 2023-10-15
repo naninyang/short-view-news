@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Seo from '@/components/Seo';
-import styles from '@/styles/pages.module.sass';
 import Services from '@/components/Services';
+import styles from '@/styles/pages.module.sass';
+import content from '@/styles/content.module.sass';
 
 type DataResponse = {
   description: string;
@@ -32,7 +33,7 @@ export default function Home() {
   const timestamp = Date.now();
 
   return (
-    <main className={`${styles.pages} ${styles.home}`}>
+    <main className={`${content.content} ${styles.pages} ${styles.home}`}>
       <Seo
         pageTitle="숏뷰 뉴스 {short.view: news}"
         pageDescription="당신이 놓친 뉴스를 짧게 요약해 드려요"

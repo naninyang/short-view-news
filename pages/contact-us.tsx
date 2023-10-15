@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import Seo from '@/components/Seo';
 import AnchorLink from '@/components/AnchorLink';
 import { images } from '@/images';
+import content from '@/styles/content.module.sass';
 import styles from '@/styles/contact.module.sass';
 
 const BackButton = styled.i({
@@ -51,7 +52,7 @@ function ContactForm() {
   const timestamp = Date.now();
 
   return (
-    <main className={styles.contact_us}>
+    <main className={`${content.content} ${styles.contact_us}`}>
       <Seo
         pageTitle="문의사항"
         pageDescription="당신이 놓친 뉴스를 짧게 요약해 드려요"

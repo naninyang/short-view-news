@@ -4,46 +4,6 @@
   display: flex
   align-items: center
   flex-direction: column
-  padding: rem(15) env(safe-area-inset-right) rem(15) env(safe-area-inset-left)
-  font-size: rem(16)
-
-  +mq(minLarge)
-    padding: rem(25) env(safe-area-inset-right) rem(25) env(safe-area-inset-left)
-
-  h1
-    margin-top: rem(25)
-    position: relative
-    font-size: vw(24, 380)
-    font-weight: 900
-    text-align: center
-
-    +mq(minLarge)
-      font-size: rem(70)
-
-    &::before
-      content: '문의사항 Contact Us.'
-      position: absolute
-      top: 0
-      left: 0
-      width: 100%
-      height: 100%
-
-      body &,
-      body[data-theme="dark"] &
-        background: linear-gradient(180deg,#fff,hsla(0,0%,100%,.75))
-        -webkit-background-clip: text
-        -webkit-text-fill-color: transparent
-
-      body[data-theme="light"] &
-        background: linear-gradient(180deg,rgba(0,0,0,.8),#000)
-        -webkit-background-clip: text
-        -webkit-text-fill-color: transparent
-
-    span
-      background: linear-gradient(90deg,oklch(49.07% 0.272 300.45),oklch(64.53% 0.292 2.47))
-      -webkit-background-clip: text
-      -webkit-text-fill-color: transparent
-      animation: foreground 8s infinite
 
   .contact_us-content
     display: flex
@@ -139,12 +99,5 @@
       &:hover span
         color: var(--txt-blockquote)
 
-@keyframes foreground
-  0%
-    opacity: 0
-
-  33.333%,50%
-    opacity: 1
-
-  16.667%,66.667%
-    opacity: 0
+  h1:before
+    content: '문의사항 Contact Us.'

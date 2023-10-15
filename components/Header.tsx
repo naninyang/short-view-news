@@ -48,7 +48,6 @@ const Primary = styled.div<{ isDesktop?: boolean }>(({ isDesktop }) => ({
     gap: rem(25),
   },
   '& h1 a': {
-    transition: 'all .4s cubic-bezier(.4,0,.2,1)',
     display: 'block',
     width: rem(196),
     height: rem(39),
@@ -67,7 +66,6 @@ const Primary = styled.div<{ isDesktop?: boolean }>(({ isDesktop }) => ({
     },
   },
   '& button': {
-    transition: isDesktop ? 'all .4s cubic-bezier(.4,0,.2,1)' : undefined,
     display: 'block',
     border: 0,
     borderRadius: rem(39),
@@ -93,12 +91,21 @@ const Primary = styled.div<{ isDesktop?: boolean }>(({ isDesktop }) => ({
 const Secondary = styled.div();
 
 const MenuButton = styled.button({
+  display: 'flex',
+  transition: 'background-color .4s cubic-bezier(.4,0,.2,1)',
   background: 'none',
+  alignItems: 'center',
+  justifyContent: 'center',
+  border: '1px solid var(--border)',
+  borderRadius: rem(5),
   width: rem(39),
   height: rem(39),
   [mq.minLarge]: {
     width: rem(52),
     height: rem(52),
+  },
+  '&:hover, &:focus': {
+    backgroundColor: 'var(--txt-blockquote)',
   },
   '& i': {
     background: `url(${images.misc.menu}) no-repeat 50% 50%/contain`,
@@ -141,7 +148,9 @@ const MenuContainer = styled.div({
   transition: 'all .4s cubic-bezier(.4,0,.2,1)',
   transform: `translateX(${rem(270)})`,
   opacity: 0,
-  padding: rem(15),
+  padding: `calc(env(safe-area-inset-top) + ${rem(15)}) calc(env(safe-area-inset-right) + ${rem(
+    15,
+  )}) calc(env(safe-area-inset-bottom) + ${rem(15)}) ${rem(15)}`,
   width: rem(270),
   '.expanded &': {
     transform: `translateX(0)`,

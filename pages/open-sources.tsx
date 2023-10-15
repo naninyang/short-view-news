@@ -5,6 +5,7 @@ import styled from '@emotion/styled';
 import Seo from '@/components/Seo';
 import AnchorLink from '@/components/AnchorLink';
 import { images } from '@/images';
+import content from '@/styles/content.module.sass';
 import styles from '@/styles/open.module.sass';
 
 const BackButton = styled.i({
@@ -28,7 +29,7 @@ function OpenSources({ licenses }: { licenses: string[] }) {
   const timestamp = Date.now();
 
   return (
-    <main className={styles['open_sources']}>
+    <main className={`${content.content} ${styles['open_sources']}`}>
       <Seo
         pageTitle="오픈소스"
         pageDescription="당신이 놓친 뉴스를 짧게 요약해 드려요"
