@@ -74,6 +74,11 @@
       height: auto
 
     .description
+      a
+        &:hover, &:focus
+          color: var(--default-text)
+          text-decoration: underline
+
       .comment
         padding: rem(15)
         font-size: rem(16)
@@ -81,6 +86,12 @@
 
     .opengraph
       padding: rem(15)
+
+      a
+        &:hover, &:focus
+          strong
+            color: var(--default-text)
+            text-decoration: underline
 
       img
         aspect-ratio: 1200 / 630

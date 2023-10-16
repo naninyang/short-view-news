@@ -84,8 +84,9 @@
           line-height: 1.5625
           color: var(--txt-subject)
 
-          &:hover
-            color: var(--txt-blockquote)
+          &:hover, &:focus
+            color: var(--default-text)
+            text-decoration: underline
 
         p
           transition: all .4s cubic-bezier(.4,0,.2,1)
