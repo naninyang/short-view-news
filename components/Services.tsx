@@ -12,9 +12,17 @@ const Nav = styled.nav({
   justifyContent: 'center',
   backdropFilter: `saturate(180%) blur(${rem(20)})`,
   backgroundColor: 'var(--bg-primary-opacity)',
-  borderTop: '1px solid var(--border)',
   paddingBottom: 'env(safe-area-inset-bottom)',
   width: '100%',
+  '&::before': {
+    content: "''",
+    position: 'absolute',
+    top: 0,
+    display: 'block',
+    width: '100%',
+    height: '1px',
+    backgroundColor: 'var(--border)',
+  },
   '& ol': {
     display: 'flex',
     gap: rem(15),
@@ -24,6 +32,7 @@ const Nav = styled.nav({
     ...mixIn.col,
   },
   '& a': {
+    position: 'relative',
     display: 'flex',
     justifyContent: 'center',
     padding: `${rem(25)} 0`,
