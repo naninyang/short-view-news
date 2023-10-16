@@ -38,7 +38,7 @@ const Nav = styled.nav({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    gap: rem(2),
+    gap: rem(5),
     padding: `${rem(25)} 0`,
     textAlign: 'center',
     '& i': {
