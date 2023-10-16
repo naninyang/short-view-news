@@ -33,4 +33,21 @@ export const images = {
     postypeDark: require('./services/postypeDark.svg'),
     blogDark: require('./services/blogDark.svg'),
   },
+  tab: {
+    home: {
+      active: require('./tab/home/active.svg'),
+      dark: require('./tab/home/dark.svg'),
+      light: require('./tab/home/light.svg'),
+    },
+    naver: {
+      active: require('./tab/naver/active.svg'),
+      dark: require('./tab/naver/dark.svg'),
+      light: require('./tab/naver/light.svg'),
+    },
+    youtube: {
+      active: require('./tab/youtube/active.svg'),
+      dark: require('./tab/youtube/dark.svg'),
+      light: require('./tab/youtube/light.svg'),
+    },
+  },
 };
