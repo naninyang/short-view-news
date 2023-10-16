@@ -3,7 +3,7 @@ import { rem } from '@/styles/designSystem';
 export const modalContainer = {
   overlay: {
     zIndex: 1070,
-    backgroundColor: `var(--bg-primary-opacity)`,
+    backgroundColor: `rgba(0, 0, 0, .7)`,
     backdropFilter: `saturate(180%) blur(${rem(20)})`,
     WebkitBackdropFilter: `saturate(180%) blur(${rem(20)})`,
     display: 'flex',
