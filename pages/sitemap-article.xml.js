@@ -1,6 +1,6 @@
 const ArticleAPI = 'https://news.dev1stud.io/api/sitemapArticle';
 
-function formatData(dateString) {
+function formatDate(dateString) {
   const matches = dateString.match(/(\d+)-(\d+)-(\d+)-(\d+)-(\d+)-(\d+)-/);
   if (!matches) return '';
 
@@ -25,7 +25,7 @@ function generateSiteMap(articles) {
           return `
             <url>
               <loc>https://news.dev1stud.io/article/${idx}</loc>
-              <lastmod>${formatData(idx)}</lastmod>
+              <lastmod>${formatDate(idx)}</lastmod>
             </url>
           `;
         })
