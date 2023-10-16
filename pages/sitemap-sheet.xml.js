@@ -1,25 +1,11 @@
 const SheetAPI = 'https://news.dev1stud.io/api/sitemapSheet';
-const ArticleAPI = 'https://news.dev1stud.io/api/sitemapArticle';
 
-function formatSheet(dateString) {
+function formatDate(dateString) {
   const matches = dateString.match(/(\d+)년 (\d+)월 (\d+)일/);
   if (!matches) return '';
-
   const year = matches[1];
   const month = matches[2].padStart(2, '0');
   const day = matches[3].padStart(2, '0');
-
-  return `${year}-${month}-${day}`;
-}
-
-function formatArticle(dateString) {
-  const matches = dateString.match(/(\d+)-(\d+)-(\d+)-(\d+)-(\d+)-(\d+)-/);
-  if (!matches) return '';
-
-  const year = matches[1];
-  const month = matches[2];
-  const day = matches[3];
-
   return `${year}-${month}-${day}`;
 }
 
@@ -30,21 +16,11 @@ function generateSiteMap(sheets) {
         <loc>https://news.dev1stud.io/</loc>
       </url>
       ${sheets
-        .map(({ idx, created }) => {
-          return `
-            <url>
-              <loc>https://news.dev1stud.io/watch/${idx}</loc>
-              <lastmod>${formatSheet(created)}</lastmod>
-            </url>
-          `;
-        })
-        .join('')}
-      ${articles
         .map(({ idx }) => {
           return `
             <url>
-              <loc>https://news.dev1stud.io/article/${idx}</loc>
-              <lastmod>${formatArticle(idx)}</lastmod>
+              <loc>https://news.dev1stud.io/sheet/${idx}</loc>
+              <lastmod>${formatDate(idx)}</lastmod>
             </url>
           `;
         })
