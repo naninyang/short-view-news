@@ -16,11 +16,11 @@ function generateSiteMap(sheets) {
         <loc>https://news.dev1stud.io/</loc>
       </url>
       ${sheets
-        .map(({ idx }) => {
+        .map(({ idx, created }) => {
           return `
             <url>
-              <loc>https://news.dev1stud.io/sheet/${idx}</loc>
-              <lastmod>${formatDate(idx)}</lastmod>
+              <loc>https://news.dev1stud.io/watch/${idx}</loc>
+              <lastmod>${formatDate(created)}</lastmod>
             </url>
           `;
         })

@@ -7,8 +7,11 @@ function formatData(dateString) {
   const year = matches[1];
   const month = matches[2];
   const day = matches[3];
+  const hour = matches[4];
+  const minute = matches[5];
+  const second = matches[6];
 
-  return `${year}-${month}-${day}`;
+  return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
 }
 
 function generateSiteMap(articles) {
