@@ -45,7 +45,8 @@
     position: relative
     margin-bottom: calc(env(safe-area-inset-bottom) + rem(68))
     min-height: 100dvh
-    background-color: var(--bg-primary-opacity)
+    background-color: var(--default-bg)
+    transition: all .4s cubic-bezier(.4,0,.2,1)
 
   .article-list
     display: flex
@@ -86,11 +87,18 @@
       img
         aspect-ratio: 1200 / 630
         object-fit: cover
+        border-radius: rem(10)
+
+        +mq(minLarge)
+          border-radius: rem(20)
 
       .og-container
-        background-color: var(--border)
+        background-color: var(--bg-secondary)
         border-radius: rem(15)
-        padding: rem(25)
+        padding: rem(15)
+
+        +mq(minLarge)
+          padding: rem(25)
 
         .og-info
           display: flex

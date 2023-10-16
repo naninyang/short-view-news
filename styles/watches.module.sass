@@ -13,10 +13,10 @@
     text-align: center
 
   .loading
-    min-height: calc(100dvh - rem(69))
+    min-height: calc(100dvh - rem(138))
 
     +mq(minLarge)
-      min-height: calc(100dvh - rem(102))
+      min-height: calc(100dvh - rem(171))
 
   .error
     gap: rem(15)
@@ -45,8 +45,9 @@
     position: relative
     margin-bottom: calc(env(safe-area-inset-bottom) + rem(68))
     padding: rem(25) rem(5)
-    min-height: 100dvh
+    min-height: calc(100dvh - rem(69))
     background-color: var(--bg-primary-opacity)
+    transition: all .4s cubic-bezier(.4,0,.2,1)
 
     +mq(minLarge)
       padding: rem(25) rem(15)

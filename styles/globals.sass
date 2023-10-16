@@ -31,7 +31,9 @@ body, body[data-theme="dark"]
   --bg-primary: #{$hex-dark-summary}
   --bg-secondary: #{$hex-dark-background}
   --border: #{$hex-dark-border}
-  --bg-primary-opacity: rgba(0, 0, 0, .5)
+  --bg-primary-opacity: rgba(0, 0, 0, .7)
+  --default-text: #{$hex-white}
+  --default-bg: #{$hex-black}
 
 body[data-theme="light"]
   --txt-subject: #{$hex-dark-subject}
@@ -40,10 +42,12 @@ body[data-theme="light"]
   --bg-primary: #{$hex-light-summary}
   --bg-secondary: #{$hex-light-background}
   --border: #{$hex-light-border}
-  --bg-primary-opacity: rgba(255, 255, 255, .5)
+  --bg-primary-opacity: rgba(255, 255, 255, .7)
+  --default-text: #{$hex-black}
+  --default-bg: #{$hex-white}
 
 body
-  background-color: var(--bg-primary)
+  background-color: var(--default-bg)
 
 main
   margin-top: calc(env(safe-area-inset-top) + rem(69))
@@ -129,3 +133,52 @@ address, cite
   a
     touch-action: none
     user-select: none
+
+.ptr__pull-down--pull-more
+  text-align: center
+
+.top-link
+  padding: 0 rem(15)
+  width: 100%
+
+  +mq(minLarge)
+    padding: 0 rem(25)
+
+  a
+    transition: border .4s cubic-bezier(.4,0,.2,1)
+    display: inline-flex
+    gap: rem(2)
+    border: 1px solid var(--txt-subject)
+    border-radius: rem(10)
+    padding: rem(10)
+
+    +mq(minLarge)
+      gap: rem(5)
+
+    i
+      transition: transform .4s cubic-bezier(.4,0,.2,1)
+      width: rem(18)
+      height: rem(18)
+
+      +mq(minLarge)
+        width: rem(20)
+        height: rem(20)
+
+    span
+      transition: color .4s cubic-bezier(.4,0,.2,1)
+      font-size: rem(14)
+      line-height: rem(18)
+      color: var(--txt-summary)
+
+      +mq(minLarge)
+        font-size: rem(16)
+        line-height: rem(20)
+
+    &:hover, &:focus
+      border: 1px solid var(--default-text)
+
+      i
+        transform: translateX(rem(-3))
+
+      span
+        color: var(--default-text)

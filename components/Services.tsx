@@ -12,6 +12,7 @@ const Nav = styled.nav({
   justifyContent: 'center',
   backdropFilter: `saturate(180%) blur(${rem(20)})`,
   backgroundColor: 'var(--bg-primary-opacity)',
+  borderTop: '1px solid var(--border)',
   paddingBottom: 'env(safe-area-inset-bottom)',
   width: '100%',
   '& ol': {

@@ -33,7 +33,7 @@ const BackButton = styled.i({
 export default function ArticleDetail({ article }: { article: Article | null }) {
   return (
     <main className={styles.article}>
-      <div className={styles['top-link']}>
+      <div className={`top-link ${styles['top-link']}`}>
         <AnchorLink href="/articles">
           <BackButton />
           <span>뒤로가기</span>
