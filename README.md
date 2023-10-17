@@ -37,7 +37,14 @@ YouTube는 5분 미만의 짧은 뉴스를 가져오며, 아주 가끔 그 이�
 ### 공통
 
 - 하단 탭 눌렀을 때 무조건 상단으로 이동하는 현상
-- 목록에서 캐시가 없을 때 서버 에러가 뜨는 현상 (5초 정도 가만 있으면 데이터 가져옴)
+- 네이버 뉴스 목록에서 캐시가 없을 때 간혈적으로 서버 에러가 뜨는 현상
+  - Console Error:
+    ```
+    code: "504"
+    message: "An error occurred with your deployment"
+    ```
+  - Vercel serverless 문제인 것 까지는 파악함
+  - 임시로 에러 메시지를 다르게 보여주게 처리함
 
 ## TO-DO
 
