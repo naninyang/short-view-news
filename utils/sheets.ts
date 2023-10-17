@@ -10,7 +10,12 @@ interface RowData {
 }
 
 export async function getSheetData(start?: number, count?: number) {
-  const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/youtube`);
+  const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/youtube`, {
+    params: {
+      start,
+      count,
+    },
+  });
   const filesData = response.data;
 
   const rowsData: RowData[] = filesData.map((data: any) => ({
