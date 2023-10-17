@@ -38,8 +38,8 @@ const Nav = styled.nav({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    gap: rem(5),
-    padding: `${rem(25)} 0`,
+    gap: rem(3),
+    padding: `${rem(15)} 0`,
     textAlign: 'center',
     '& i': {
       display: 'inline-block',
@@ -71,7 +71,7 @@ const Nav = styled.nav({
       },
     },
     '& span': {
-      fontSize: rem(16),
+      fontSize: rem(14),
       lineHeight: 1,
     },
   },

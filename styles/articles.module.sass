@@ -2,19 +2,24 @@
 
 .articles
   padding: 0 env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)
+  min-height: calc(100dvh - rem(69))
   font-size: rem(16)
+
+  +mq(minLarge)
+    min-height: calc(100dvh - rem(102))
 
   .loading, .error
     display: flex
     justify-content: center
     align-items: center
+    margin-bottom: rem(71)
+    min-height: calc(100dvh - rem(232))
     font-weight: 700
     color: $hex-accent
     text-align: center
-    min-height: calc(100dvh - rem(164))
 
     +mq(minLarge)
-      min-height: calc(100dvh - rem(197))
+      min-height: calc(100dvh - rem(216))
 
   .error
     gap: rem(15)
@@ -26,7 +31,7 @@
 
   .ref
     position: absolute
-    bottom: calc(env(safe-area-inset-top) + rem(93))
+    bottom: rem(71)
     left: 0
     display: flex
     justify-content: center
@@ -41,7 +46,7 @@
 
   .article-content
     position: relative
-    margin-bottom: calc(env(safe-area-inset-bottom) + rem(68))
+    margin-bottom: rem(71)
     min-height: 100dvh
     background-color: var(--default-bg)
     transition: all .4s cubic-bezier(.4,0,.2,1)
