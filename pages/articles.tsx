@@ -122,12 +122,8 @@ function Articles() {
           <p>기사를 가져오는 중입니다.</p>
         </div>
       )}
-      {error && (
-        <div className={styles.error}>
-          <p>데이터를 불러오는데 실패했습니다.</p>
-          <button onClick={() => window.location.reload()}>다시 시도</button>
-        </div>
-      )}
+      {console.log('error: ', error)}
+      {console.log('waitingFor504: ', waitingFor504)}
       {waitingFor504 && (
         <div className={styles.error}>
           <p>
@@ -135,6 +131,12 @@ function Articles() {
             <br />
             <button onClick={() => window.location.reload()}>다시 시도</button> 해 주세요.
           </p>
+        </div>
+      )}
+      {error && (
+        <div className={styles.error}>
+          <p>데이터를 불러오는데 실패했습니다.</p>
+          <button onClick={() => window.location.reload()}>다시 시도</button>
         </div>
       )}
       {!isLoading && !error && (
