@@ -53,7 +53,7 @@ export default function Notice() {
         pageDescription="당신이 놓친 뉴스를 짧게 요약해 드려요"
         pageImg={`https://news.dev1stud.io/og-image.png?ts=${timestamp}`}
       />
-      <div className={`top-link ${styles['top-link']}`}>
+      <div className={`top-link ${content['top-link']}`}>
         {currentPage ? (
           <AnchorLink href={`/${currentPage}`}>
             <BackButton />

@@ -1,16 +1,15 @@
 @import './designSystem'
 
 .content
-  padding: rem(15) env(safe-area-inset-right) rem(15) env(safe-area-inset-left)
-  min-height: calc(100dvh - rem(69))
+  padding: 0 env(safe-area-inset-right) 0 env(safe-area-inset-left)
+  min-height: calc(100dvh - rem(119))
   font-size: rem(16)
   line-height: 1.58333333
   background-color: var(--default-bg)
   transition: all .4s cubic-bezier(.4,0,.2,1)
 
   +mq(minLarge)
-    padding: rem(25) env(safe-area-inset-right) rem(25) env(safe-area-inset-left)
-    min-height: calc(100dvh - rem(102))
+    min-height: calc(100dvh - rem(125))
     font-size: rem(24)
 
   h1
@@ -48,6 +47,12 @@
       -webkit-background-clip: text
       -webkit-text-fill-color: transparent
       animation: foreground 8s infinite
+
+  .top-link
+    padding: rem(15)
+
+    +mq(minLarge)
+      padding: rem(25)
 
 @keyframes foreground
   0%
