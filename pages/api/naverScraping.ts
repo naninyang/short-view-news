@@ -1,8 +1,8 @@
+import { VercelRequest, VercelResponse } from '@vercel/node';
 import axios from 'axios';
 import cheerio from 'cheerio';
-import { NextApiRequest, NextApiResponse } from 'next';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async (req: VercelRequest, res: VercelResponse) => {
   const { url } = req.query;
 
   try {
@@ -35,4 +35,4 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch data' });
   }
-}
+};
