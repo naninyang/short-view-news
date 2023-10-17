@@ -122,8 +122,6 @@ function Articles() {
           <p>기사를 가져오는 중입니다.</p>
         </div>
       )}
-      {console.log('error: ', error)}
-      {console.log('waitingFor504: ', waitingFor504)}
       {waitingFor504 && (
         <div className={styles.error}>
           <p>
