@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Modal from 'react-modal';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import PullToRefresh from 'react-simple-pull-to-refresh';
 import { Article } from '@/types';
 import { modalContainer } from '@/components/ModalStyling';
@@ -14,15 +14,28 @@ import ArticleDetail from '@/components/Article';
 import styles from '@/styles/articles.module.sass';
 import AnchorLink from '@/components/AnchorLink';
 
-export const fetcher = (url: string) => axios.get(url).then((res) => res.data);
-
-const getKey = (pageIndex: number, previousPageData: any) => {
-  if (previousPageData && !previousPageData.length) return null;
-  return `${process.env.NEXT_PUBLIC_API_URL}/api/articles?start=${pageIndex * 20}&count=20`;
-};
-
 function Articles() {
   const router = useRouter();
+
+  const [waitingFor504, setWaitingFor504] = useState(false);
+
+  const fetcher = async (url: string) => {
+    try {
+      const response = await axios.get(url);
+      setWaitingFor504(false);
+      return response.data;
+    } catch (error) {
+      if ((error as AxiosError).response?.status === 504) {
+        setWaitingFor504(true);
+      }
+      throw error;
+    }
+  };
+
+  const getKey = (pageIndex: number, previousPageData: any) => {
+    if (previousPageData && !previousPageData.length) return null;
+    return `${process.env.NEXT_PUBLIC_API_URL}/api/articles?start=${pageIndex * 20}&count=20`;
+  };
 
   const { data, error, size, setSize } = useSWRInfinite(getKey, fetcher, {
     revalidateOnFocus: false,
@@ -113,6 +126,15 @@ function Articles() {
         <div className={styles.error}>
           <p>데이터를 불러오는데 실패했습니다.</p>
           <button onClick={() => window.location.reload()}>다시 시도</button>
+        </div>
+      )}
+      {waitingFor504 && (
+        <div className={styles.error}>
+          <p>
+            임시로 데이터를 불러 올 수 없는 상태입니다.
+            <br />
+            <button onClick={() => window.location.reload()}>다시 시도</button> 해 주세요.
+          </p>
         </div>
       )}
       {!isLoading && !error && (
