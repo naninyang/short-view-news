@@ -81,20 +81,19 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       `https://n.news.naver.com/article/${responseData.oid}/${responseData.aid}`,
     )}`;
 
-    axios
-      .get(naverUrl)
-      .then((response) => {
-        const metaData = response.data;
-        const mergedData = {
-          ...responseData,
-          metaData,
-        };
+    try {
+      const response = await axios.get(naverUrl);
+      const metaData = response.data;
 
-        console.log(mergedData);
-      })
-      .catch((error) => {
-        console.error('Failed to fetch metadata:', error);
-      });
+      const mergedData = {
+        ...responseData,
+        metaData,
+      };
+      res.status(200).json(mergedData);
+    } catch (error) {
+      res.status(500).send('Failed to fetch data from Scraper');
+    }
+    res.status(200).json(responseData);
   } catch (error) {
     res.status(500).send('Failed to fetch data from GitHub');
   }

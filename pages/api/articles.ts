@@ -1,5 +1,5 @@
-import { getArticleData } from '@/utils/articles';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { getArticleData } from '@/utils/articles';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {
