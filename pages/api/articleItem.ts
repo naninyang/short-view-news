@@ -92,6 +92,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       res.status(200).json(mergedData);
     } catch (error) {
       res.status(500).send('Failed to fetch data from Scraper');
+      return;
     }
     res.status(200).json(responseData);
   } catch (error) {
