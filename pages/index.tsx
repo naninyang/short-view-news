@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Seo from '@/components/Seo';
-import Services from '@/components/Services';
 import styles from '@/styles/pages.module.sass';
 import content from '@/styles/content.module.sass';
 
@@ -47,7 +46,6 @@ export default function Home() {
           <div dangerouslySetInnerHTML={{ __html: data.description }} />
         </div>
       )}
-      <Services />
     </main>
   );
 }

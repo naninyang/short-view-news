@@ -8,11 +8,10 @@ import axios, { AxiosError } from 'axios';
 import PullToRefresh from 'react-simple-pull-to-refresh';
 import { Article } from '@/types';
 import { modalContainer } from '@/components/ModalStyling';
-import Services from '@/components/Services';
 import Seo from '@/components/Seo';
 import ArticleDetail from '@/components/Article';
-import styles from '@/styles/articles.module.sass';
 import AnchorLink from '@/components/AnchorLink';
+import styles from '@/styles/articles.module.sass';
 
 function Articles() {
   const router = useRouter();
@@ -116,7 +115,6 @@ function Articles() {
       >
         <ArticleDetail articleItem={selectedArticle} />
       </Modal>
-      <Services />
       {isLoading && (
         <div className={styles.loading}>
           <p>기사를 가져오는 중입니다.</p>

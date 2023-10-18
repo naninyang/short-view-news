@@ -6,15 +6,11 @@ import Modal from 'react-modal';
 import axios from 'axios';
 import PullToRefresh from 'react-simple-pull-to-refresh';
 import { Masonry } from 'masonic';
-import styled from '@emotion/styled';
 import Seo from '@/components/Seo';
 import YouTubeController from '@/components/YouTubeController';
-import { images } from '@/images';
-import { hex, rem } from '@/styles/designSystem';
 import { modalContainer } from '@/components/ModalStyling';
 import WatchDetail from '@/components/Watch';
 import styles from '@/styles/watches.module.sass';
-import Services from '@/components/Services';
 
 type SheetData = {
   idx: string;
@@ -155,7 +151,6 @@ export default function Watches() {
       >
         <WatchDetail watchItem={selectedWatch} />
       </Modal>
-      <Services />
       {isLoading && <div className={styles.loading}>기사를 불러오는 중입니다.</div>}
       {error && (
         <div className={styles.error}>

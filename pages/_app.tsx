@@ -6,6 +6,7 @@ import Script from 'next/script';
 import Header from '@/components/Header';
 import { GA_TRACKING_ID, pageview } from '@/lib/gtag';
 import 'styles/globals.sass';
+import Services from '@/components/Services';
 
 const fontLato = Lato({
   weight: ['100', '300', '400', '700', '900'],
@@ -39,6 +40,10 @@ export default function App({ Component, pageProps }: AppProps) {
       registInit();
     }
   }, []);
+  const noticePage = router.pathname.includes('/notice');
+  const contactPage = router.pathname.includes('/contact-us');
+  const openPage = router.pathname.includes('/open-sources');
+
   return (
     <>
       <Script id="google-analytics">
@@ -67,6 +72,7 @@ export default function App({ Component, pageProps }: AppProps) {
       </style>
       <Header />
       <Component {...pageProps} />
+      {noticePage || contactPage || openPage ? undefined : <Services />}
     </>
   );
 }

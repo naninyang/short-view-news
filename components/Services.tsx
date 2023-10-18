@@ -108,13 +108,15 @@ export default function Services() {
             <span>Home</span>
           </AnchorLink>
         </MenuItem>
-        <MenuItem currentRouter={router.pathname === '/watches' ? true : false}>
+        <MenuItem currentRouter={router.pathname === '/watches' || router.pathname.includes('/watch') ? true : false}>
           <AnchorLink href="/watches">
             <i data-icon="youtube" />
             <span>YouTube</span>
           </AnchorLink>
         </MenuItem>
-        <MenuItem currentRouter={router.pathname === '/articles' ? true : false}>
+        <MenuItem
+          currentRouter={router.pathname === '/articles' || router.pathname.includes('/article') ? true : false}
+        >
           <AnchorLink href="/articles">
             <i data-icon="naver" />
             <span>NAVER</span>
