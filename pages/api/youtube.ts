@@ -10,8 +10,6 @@ export default async (req: VercelRequest, res: VercelResponse) => {
 
   let token = await getGithubToken();
 
-  console.log('start:', start + ' count:', count);
-
   if (token) {
     const decodedToken: any = jwt.decode(token);
     if (decodedToken && decodedToken.exp * 1000 < Date.now()) {

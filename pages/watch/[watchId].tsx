@@ -90,8 +90,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
   let watchData = null;
 
   if (watchId) {
-    const response = await axios.get<SheetData[]>(`${process.env.NEXT_PUBLIC_API_URL}/api/sheets`);
-    watchData = response.data.find((watch) => watch.idx === watchId);
+    const response = await axios.get<SheetData[]>(`${process.env.NEXT_PUBLIC_API_URL}/api/sheetItem?idx=${watchId}`);
+    watchData = response.data;
   }
 
   if (!watchData) {

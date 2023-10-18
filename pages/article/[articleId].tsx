@@ -94,17 +94,15 @@ export default function ArticleDetail({ article }: { article: Article | null }) 
 export const getStaticProps: GetStaticProps = async (context) => {
   const articleId = context.params?.articleId;
   let articleData = null;
-  let metaData: MetaDataMap = {};
 
   if (articleId) {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/articles?id=${articleId}`);
-    articleData = response.data.find((article: any) => article.idx === articleId);
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/articleItem?idx=${articleId}`);
+    articleData = response.data;
   }
 
   return {
     props: {
       article: articleData,
-      metaData,
     },
     revalidate: 1,
   };
