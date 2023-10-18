@@ -29,8 +29,5 @@ export async function getSheetData(start?: number, count?: number) {
 
   const sortedRowsData = rowsData.sort((a: RowData, b: RowData) => b.idx.localeCompare(a.idx));
 
-  if (start !== undefined && count !== undefined) {
-    return sortedRowsData.slice(start, start + count);
-  }
   return sortedRowsData;
 }
