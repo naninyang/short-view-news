@@ -40,9 +40,6 @@ export async function getArticleData(start?: number, count?: number) {
     }),
   );
 
-  if (start !== undefined && count !== undefined) {
-    return fullData.slice(start, start + count);
-  }
   return fullData;
 }
 
