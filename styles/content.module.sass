@@ -1,7 +1,7 @@
 @import './designSystem'
 
 .content
-  padding: 0 env(safe-area-inset-right) 0 env(safe-area-inset-left)
+  padding: 0 env(safe-area-inset-right) rem(71) env(safe-area-inset-left)
   min-height: calc(100dvh - rem(119))
   font-size: rem(16)
   line-height: 1.58333333
@@ -45,10 +45,12 @@
       background: linear-gradient(90deg,oklch(49.07% 0.272 300.45),oklch(64.53% 0.292 2.47))
       -webkit-background-clip: text
       -webkit-text-fill-color: transparent
-      animation: foreground 8s infinite
+      animation: foreground 7s cubic-bezier(.4,0,.2,1) infinite
 
   .top-link
     padding: rem(15)
+    margin: 0 auto
+    max-width: rem(722)
 
     +mq(minLarge)
       padding: rem(25)
@@ -57,8 +59,8 @@
   0%
     opacity: 0
 
-  33.333%,50%
+  33.333%, 50%, 88.888%
     opacity: 1
 
-  16.667%,66.667%
+  16.667%, 66.667%, 100%
     opacity: 0
