@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { isDesktop } from 'react-device-detect';
 import styled from '@emotion/styled';
 import AnchorLink from './AnchorLink';
 import { hex, mixIn, mq, rem } from '@/styles/designSystem';
@@ -41,7 +40,7 @@ const ThemeChangeButton = styled.button<{ themeMode?: boolean }>(({ themeMode })
   },
 }));
 
-const Primary = styled.div<{ isDesktop?: boolean }>(({ isDesktop }) => ({
+const Primary = styled.div({
   display: 'flex',
   gap: rem(15),
   [mq.minLarge]: {
@@ -86,7 +85,7 @@ const Primary = styled.div<{ isDesktop?: boolean }>(({ isDesktop }) => ({
       ...mixIn.screenReaderOnly,
     },
   },
-}));
+});
 
 const Secondary = styled.div();
 
@@ -162,31 +161,98 @@ const MenuContainer = styled.div({
     gap: rem(10),
     flexGrow: '1',
     padding: `0 ${rem(10)}`,
-    '& li a': {
-      position: 'relative',
-      display: 'block',
-      padding: `${rem(10)} 0`,
-      fontSize: rem(20),
-      fontWeight: '700',
-      color: 'var(--txt-blockquote)',
-      transition: 'all .4s cubic-bezier(.4,0,.2,1)',
-      '&::before': {
-        content: "''",
+    '& li': {
+      '& a': {
+        position: 'relative',
         display: 'block',
-        position: 'absolute',
-        opacity: 0,
-        bottom: 0,
-        left: 0,
-        width: 0,
-        height: rem(2),
+        padding: `${rem(10)} 0`,
+        fontSize: rem(20),
+        fontWeight: '700',
+        color: 'var(--txt-blockquote)',
         transition: 'all .4s cubic-bezier(.4,0,.2,1)',
-      },
-      '&:hover, &:focus': {
-        color: hex.accent,
         '&::before': {
-          backgroundColor: hex.accent,
-          opacity: 1,
-          width: '100%',
+          content: "''",
+          display: 'block',
+          position: 'absolute',
+          opacity: 0,
+          bottom: 0,
+          left: 0,
+          width: 0,
+          height: rem(2),
+          transition: 'all .4s cubic-bezier(.4,0,.2,1)',
+        },
+        '&:hover, &:focus': {
+          color: hex.accent,
+          '&::before': {
+            backgroundColor: hex.accent,
+            opacity: 1,
+            width: '100%',
+          },
+        },
+      },
+      '& button': {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: rem(2),
+        transition: 'all .4s cubic-bezier(.4,0,.2,1)',
+        background: 'transparent',
+        marginTop: rem(20),
+        border: `1px solid ${hex.accent}`,
+        borderRadius: rem(5),
+        padding: `${rem(10)} 0`,
+        width: '100%',
+        fontSize: rem(16),
+        fontWeight: 700,
+        color: hex.accent,
+        '& s': {
+          display: 'block',
+          position: 'relative',
+          width: rem(22),
+          height: rem(22),
+        },
+        '& i': {
+          transition: 'all .4s cubic-bezier(.4,0,.2,1)',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          display: 'block',
+          width: rem(22),
+          height: rem(22),
+        },
+        '&:focus, &:hover': {
+          background: hex.accent,
+          color: hex.white,
+          outline: '2px solid var(--default-text)',
+        },
+        '& .before': {
+          background: `url(${images.home.downloadDefaultBefore}) no-repeat 50% 50%/contain`,
+        },
+        '&:hover, &:focus': {
+          '& .before': {
+            background: `url(${images.home.downloadHoverBefore}) no-repeat 50% 50%/contain`,
+          },
+        },
+        '&.before': {
+          '& .after': {
+            background: `url(${images.home.downloadDefaultAfter}) no-repeat 50% 50%/contain`,
+          },
+          '&:hover, &:focus': {
+            '& .after': {
+              background: `url(${images.home.downloadHoverAfter}) no-repeat 50% 50%/contain`,
+            },
+          },
+        },
+        '&.after': {
+          '& .after': {
+            top: rem(-5),
+            background: `url(${images.home.downloadDefaultAfter}) no-repeat 50% 50%/contain`,
+          },
+          '&:hover, &:focus': {
+            '& .after': {
+              background: `url(${images.home.downloadHoverAfter}) no-repeat 50% 50%/contain`,
+            },
+          },
         },
       },
     },
@@ -265,7 +331,7 @@ const Postype = styled.i({
   },
 });
 
-const Blog = styled.i<{ isDesktop?: boolean }>({
+const Blog = styled.i({
   'body &, body[data-theme="dark"] &': {
     background: `url(${images.services.blogLight}) no-repeat 50% 50%/contain`,
   },
@@ -342,10 +408,50 @@ export default function Header() {
     };
   }, [menuState]);
 
+  const [deferredPrompt, setDeferredPrompt] = useState<Event | null>(null);
+
+  useEffect(() => {
+    const handleBeforeInstallPrompt = (e: any) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    };
+  }, []);
+
+  const onInstallPWA = () => {
+    if (deferredPrompt) {
+      const promptEvent = deferredPrompt as any;
+      promptEvent.prompt();
+      promptEvent.userChoice.then((choiceResult: any) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('User accepted the install prompt');
+        } else {
+          console.log('User dismissed the install prompt');
+        }
+        setDeferredPrompt(null);
+      });
+    }
+  };
+
+  const [buttonClass, setButtonClass] = useState('before');
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setButtonClass((prevClass) => (prevClass === 'before' ? 'after' : 'before'));
+    }, 500);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
   return (
     <>
       <Container>
-        <Primary isDesktop={isDesktop}>
+        <Primary>
           <h1>
             <AnchorLink href="/">
               <span>short view news</span>
@@ -390,6 +496,17 @@ export default function Header() {
                   오픈소스
                 </AnchorLink>
               </li>
+              {deferredPrompt && (
+                <li>
+                  <button type="button" className={buttonClass} onClick={onInstallPWA}>
+                    <span>숏뷰 뉴스 앱 내려받기</span>
+                    <s>
+                      <i className="before" />
+                      <i className="after" />
+                    </s>
+                  </button>
+                </li>
+              )}
             </ol>
             <ul>
               <li>

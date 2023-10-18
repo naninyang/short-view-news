@@ -1,0 +1,76 @@
+@import './designSystem'
+
+.main
+  .main-content
+    gap: rem(50)
+    padding-bottom: rem(75)
+
+    .description
+      display: flex
+      flex-direction: column
+      gap: rem(75)
+
+      > div
+        display: flex
+        flex-direction: column
+        align-items: center
+        gap: rem(15)
+
+        &::before
+          content: ''
+          display: inline-block
+          width: rem(75)
+          height: rem(75)
+
+    .button-group
+      display: flex
+      align-items: center
+
+    button
+      display: flex
+      justify-content: center
+      align-items: center
+      gap: rem(5)
+      transition: all .4s cubic-bezier(.4,0,.2,1)
+      background: transparent
+      border: 1px solid $hex-accent
+      border-radius: rem(5)
+      padding: rem(10)
+      width: rem(200)
+      font-size: rem(14)
+      font-weight: 400
+      color: $hex-accent
+
+      +mq(minLarge)
+        gap: rem(7)
+        padding: rem(15)
+        width: rem(270)
+        font-size: rem(16)
+
+      s
+        display: block
+        position: relative
+        width: rem(20)
+        height: rem(20)
+
+        +mq(minLarge)
+          width: rem(25)
+          height: rem(25)
+
+      i
+        transition: all .4s cubic-bezier(.4,0,.2,1)
+        position: absolute
+        top: 0
+        left: 0
+        display: block
+        width: rem(20)
+        height: rem(20)
+
+        +mq(minLarge)
+          width: rem(25)
+          height: rem(25)
+
+      &:focus, &:hover
+        background: $hex-accent
+        color: $hex-white
+        outline: 2px solid var(--default-text)

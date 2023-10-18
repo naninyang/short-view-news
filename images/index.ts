@@ -33,6 +33,14 @@ export const images = {
     postypeDark: require('./services/postypeDark.svg'),
     blogDark: require('./services/blogDark.svg'),
   },
+  home: {
+    downloadDefaultBefore: require('./home/download-default-before.svg'),
+    downloadDefaultAfter: require('./home/download-default-after.svg'),
+    downloadHoverBefore: require('./home/download-hover-before.svg'),
+    downloadHoverAfter: require('./home/download-hover-after.svg'),
+    primary: require('./home/primary.svg'),
+    secondary: require('./home/secondary.svg'),
+  },
   tab: {
     home: {
       active: require('./tab/home/active.svg'),
