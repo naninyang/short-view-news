@@ -5,11 +5,9 @@
   flex-direction: column
   gap: rem(25)
   padding: 0 calc(env(safe-area-inset-right) + rem(15)) calc(env(safe-area-inset-left) + rem(15))
-  min-height: calc(100dvh - rem(119))
 
   +mq(minLarge)
     padding: 0 calc(env(safe-area-inset-right) + rem(25)) 0 calc(env(safe-area-inset-left) + rem(25))
-    min-height: calc(100dvh - rem(125))
 
   .loading, .error
     display: flex
@@ -28,11 +26,10 @@
     &:not(.watch-container)
       align-items: center
       padding: rem(15) rem(15) rem(121)
-      min-height: calc(100dvh - rem(140) - env(safe-area-inset-top) - env(safe-area-inset-bottom))
+      min-height: calc(100dvh - rem(50) - env(safe-area-inset-top) - env(safe-area-inset-bottom))
 
       +mq(minLarge)
         padding: rem(25) rem(25) rem(141)
-        min-height: calc(100dvh - rem(162) - env(safe-area-inset-top) - env(safe-area-inset-bottom))
 
       article
         max-width: rem(767)
