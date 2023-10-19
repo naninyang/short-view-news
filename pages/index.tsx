@@ -2,24 +2,43 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { isIOS } from 'react-device-detect';
 import Seo from '@/components/Seo';
-import { images } from '@/images';
 import styled from '@emotion/styled';
+import { rem } from '@/styles/designSystem';
 import styles from '@/styles/pages.module.sass';
 import content from '@/styles/content.module.sass';
 import main from '@/styles/main.module.sass';
+import { images } from '@/images';
 
-const Container = styled.div({
-  '& div[data-primary]::before': {
-    background: `url(${images.home.primary}) no-repeat 50% 50%/contain`,
-  },
-  '& div[data-secondary]::before': {
-    background: `url(${images.home.secondary}) no-repeat 50% 50%/contain`,
-  },
-});
+interface Counts {
+  youtube: number;
+  naver: number;
+}
 
 type DataResponse = {
   description: string;
 };
+
+const Container = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: rem(25),
+  '& div[data-youtube] h2 i': {
+    'body &, body[data-theme="dark"] &': {
+      background: `url(${images.tab.youtube.light}) no-repeat 50% 50%/contain`,
+    },
+    'body[data-theme="light"] &': {
+      background: `url(${images.tab.youtube.dark}) no-repeat 50% 50%/contain`,
+    },
+  },
+  '& div[data-naver] h2 i': {
+    'body &, body[data-theme="dark"] &': {
+      background: `url(${images.tab.naver.light}) no-repeat 50% 50%/contain`,
+    },
+    'body[data-theme="light"] &': {
+      background: `url(${images.tab.naver.dark}) no-repeat 50% 50%/contain`,
+    },
+  },
+});
 
 export default function Home() {
   const [data, setData] = useState<DataResponse | null>(null);
@@ -42,6 +61,27 @@ export default function Home() {
     localStorage.removeItem('currentPage');
   }, []);
 
+  const [count, setCount] = useState<Counts | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get<Counts>(`${process.env.NEXT_PUBLIC_API_URL}/api/contentTotalCount`);
+        setCount(response.data);
+        setLoading(false);
+      } catch (err: any) {
+        setError(err.message);
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  if (!count || loading || error) return null;
+
   const timestamp = Date.now();
 
   return (
@@ -52,13 +92,25 @@ export default function Home() {
         pageImg={`https://news.dev1stud.io/og-image.png?ts=${timestamp}`}
       />
       {data && (
-        <Container className={`${styles['pages-content']} ${main['main-content']}`}>
+        <div className={`${styles['pages-content']} ${main['main-content']}`}>
           <h1>
             <span>{`숏뷰 뉴스 {short.view: news}`}</span>
           </h1>
-          <div className={main.description} dangerouslySetInnerHTML={{ __html: data.description }} />
+          <Container className={main.description} dangerouslySetInnerHTML={{ __html: data.description }} />
+          {!loading && (
+            <dl>
+              <div>
+                <dt>가져온 YouTube 뉴스</dt>
+                <dd>{count.youtube} 건</dd>
+              </div>
+              <div>
+                <dt>가져온 NAVER 뉴스</dt>
+                <dd>{count.naver} 건</dd>
+              </div>
+            </dl>
+          )}
           {/* {isIOS && <div className={styles.iOS}>아이폰과 아이패드에서 앱 내려받는 방법</div>} */}
-        </Container>
+        </div>
       )}
     </main>
   );
