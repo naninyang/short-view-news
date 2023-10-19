@@ -159,6 +159,9 @@ address, cite
       line-height: 1
       color: var(--txt-summary)
 
+      +mq(maxExtraSmall)
+        +screen-reader-only
+
     &:hover, &:focus
       i
         transform: translateX(rem(-5))
