@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 import AnchorLink from './AnchorLink';
-import { hex, mixIn, mq, rem } from '@/styles/designSystem';
+import { hex, mixIn, rem } from '@/styles/designSystem';
 import { images } from '@/images';
 
 const Container = styled.header({
@@ -14,46 +15,29 @@ const Container = styled.header({
   display: 'flex',
   justifyContent: 'space-between',
   padding: `
-    calc(env(safe-area-inset-top) + ${rem(15)})
-    calc(env(safe-area-inset-right) + ${rem(15)})
-    ${rem(15)}
-    calc(env(safe-area-inset-left) + ${rem(15)})
+    calc(env(safe-area-inset-top) + ${rem(10)})
+    calc(env(safe-area-inset-right) + ${rem(25)})
+    ${rem(10)}
+    calc(env(safe-area-inset-left) + ${rem(25)})
   `,
   width: '100%',
-  [mq.minLarge]: {
-    padding: `
-      calc(env(safe-area-inset-top) + ${rem(25)})
-      calc(env(safe-area-inset-right) + ${rem(25)})
-      ${rem(25)}
-      calc(env(safe-area-inset-left) + ${rem(25)})
-    `,
-  },
 });
 
 const ThemeChangeButton = styled.button<{ themeMode?: boolean }>(({ themeMode }) => ({
   backgroundRepeat: 'no-repeat',
   backgroundPosition: '50% 50%',
-  backgroundSize: `${rem(27)} ${rem(27)}`,
+  backgroundSize: `${rem(20)} ${rem(20)}`,
   backgroundImage: themeMode ? `url(${images.mode.dark.nighttime})` : `url(${images.mode.light.daytime})`,
-  [mq.minLarge]: {
-    backgroundSize: `${rem(36)} ${rem(36)}`,
-  },
 }));
 
 const Primary = styled.div({
   display: 'flex',
+  alignItems: 'center',
   gap: rem(15),
-  [mq.minLarge]: {
-    gap: rem(25),
-  },
   '& h1 a': {
     display: 'block',
-    width: rem(196),
-    height: rem(39),
-    [mq.minLarge]: {
-      width: rem(262),
-      height: rem(52),
-    },
+    width: rem(151),
+    height: rem(30),
     'body &, body[data-theme="dark"] &': {
       background: `url(${images.logo.light}) no-repeat 50% 50%/contain`,
     },
@@ -67,14 +51,9 @@ const Primary = styled.div({
   '& button': {
     display: 'block',
     border: 0,
-    borderRadius: rem(39),
-    width: rem(39),
-    height: rem(39),
-    [mq.minLarge]: {
-      borderRadius: rem(52),
-      width: rem(52),
-      height: rem(52),
-    },
+    borderRadius: rem(25),
+    width: rem(25),
+    height: rem(25),
     'body &, body[data-theme="dark"] &': {
       backgroundColor: hex.darkBackground,
     },
@@ -92,28 +71,22 @@ const Secondary = styled.div();
 const MenuButton = styled.button({
   display: 'flex',
   transition: 'background-color .4s cubic-bezier(.4,0,.2,1)',
-  background: 'none',
+  backgroundColor: 'var(--default-bg)',
   alignItems: 'center',
   justifyContent: 'center',
   border: '1px solid var(--border)',
   borderRadius: rem(5),
-  width: rem(39),
-  height: rem(39),
-  [mq.minLarge]: {
-    width: rem(52),
-    height: rem(52),
-  },
-  '&:hover, &:focus': {
-    backgroundColor: 'var(--txt-blockquote)',
-  },
+  width: rem(30),
+  height: rem(30),
   '& i': {
-    background: `url(${images.misc.menu}) no-repeat 50% 50%/contain`,
     display: 'inline-block',
-    width: rem(27),
-    height: rem(27),
-    [mq.minLarge]: {
-      width: rem(36),
-      height: rem(36),
+    width: rem(25),
+    height: rem(25),
+    'body &, body[data-theme="dark"] &': {
+      background: `url(${images.misc.menuLight}) no-repeat 50% 50%/contain`,
+    },
+    'body[data-theme="light"] &': {
+      background: `url(${images.misc.menuDark}) no-repeat 50% 50%/contain`,
     },
   },
   '& span': {
@@ -147,9 +120,9 @@ const MenuContainer = styled.div({
   transition: 'all .4s cubic-bezier(.4,0,.2,1)',
   transform: `translateX(${rem(270)})`,
   opacity: 0,
-  padding: `calc(env(safe-area-inset-top) + ${rem(15)}) calc(env(safe-area-inset-right) + ${rem(
-    15,
-  )}) calc(env(safe-area-inset-bottom) + ${rem(15)}) ${rem(15)}`,
+  padding: `calc(env(safe-area-inset-top) + ${rem(10)}) calc(env(safe-area-inset-right) + ${rem(
+    25,
+  )}) calc(env(safe-area-inset-bottom) + ${rem(25)}) ${rem(25)}`,
   width: rem(270),
   '.expanded &': {
     transform: `translateX(0)`,
@@ -266,18 +239,10 @@ const MenuContainer = styled.div({
       alignItems: 'center',
       width: rem(25),
       height: rem(25),
-      [mq.minLarge]: {
-        width: rem(35),
-        height: rem(35),
-      },
       '& i': {
         display: 'inline-block',
         width: rem(20),
         height: rem(20),
-        [mq.minLarge]: {
-          width: rem(30),
-          height: rem(30),
-        },
       },
       '& span': {
         ...mixIn.screenReaderOnly,
@@ -287,10 +252,10 @@ const MenuContainer = styled.div({
   '& p': {
     fontSize: rem(14),
     'body &, body[data-theme="dark"] &': {
-      color: 'rgba(255, 255, 255, .2)',
+      color: 'rgba(255, 255, 255, .5)',
     },
     'body[data-theme="light"] &': {
-      color: 'rgba(0, 0, 0, .7)',
+      color: 'rgba(0, 0, 0, .5)',
     },
   },
 });
@@ -300,21 +265,13 @@ const Close = styled.div({
   justifyContent: 'flex-end',
   '& button': {
     background: 'none',
-    width: rem(39),
-    height: rem(39),
-    [mq.minLarge]: {
-      width: rem(52),
-      height: rem(52),
-    },
+    width: rem(30),
+    height: rem(30),
     '& i': {
       background: `url(${images.misc.close}) no-repeat 50% 50%/contain`,
       display: 'inline-block',
       width: rem(27),
       height: rem(27),
-      [mq.minLarge]: {
-        width: rem(36),
-        height: rem(36),
-      },
     },
     '& span': {
       ...mixIn.screenReaderOnly,
@@ -448,9 +405,13 @@ export default function Header() {
     return () => clearInterval(intervalId);
   }, []);
 
+  const router = useRouter();
   return (
     <>
       <Container>
+        {router.pathname === '/' || router.pathname === '/watches' || router.pathname === '/articles' ? undefined : (
+          <s />
+        )}
         <Primary>
           <h1>
             <AnchorLink href="/">

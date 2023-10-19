@@ -38,13 +38,13 @@ const Nav = styled.nav({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    gap: rem(3),
-    padding: `${rem(15)} 0`,
+    gap: rem(2),
+    padding: `${rem(7)} 0`,
     textAlign: 'center',
     '& i': {
       display: 'inline-block',
-      width: rem(24),
-      height: rem(24),
+      width: rem(20),
+      height: rem(20),
       '&[data-icon="home"]': {
         'body &, body[data-theme="dark"] &': {
           background: `url(${images.tab.home.light}) no-repeat 50% 50%/contain`,
@@ -71,7 +71,7 @@ const Nav = styled.nav({
       },
     },
     '& span': {
-      fontSize: rem(14),
+      fontSize: rem(12),
       lineHeight: 1,
     },
   },

@@ -16,7 +16,8 @@ export const images = {
   misc: {
     play: require('./misc/play.svg'),
     error: require('./misc/error.svg'),
-    menu: require('./misc/menu.svg'),
+    menuLight: require('./misc/menuLight.svg'),
+    menuDark: require('./misc/menuDark.svg'),
     close: require('./misc/close.svg'),
   },
   arrow: {

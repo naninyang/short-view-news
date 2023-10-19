@@ -7,7 +7,6 @@ import styled from '@emotion/styled';
 import styles from '@/styles/pages.module.sass';
 import content from '@/styles/content.module.sass';
 import main from '@/styles/main.module.sass';
-import { rem } from '@/styles/designSystem';
 
 const Container = styled.div({
   '& div[data-primary]::before': {

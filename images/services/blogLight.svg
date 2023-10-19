@@ -1,27 +1,10 @@
-<svg width="28" height="27" viewBox="0 0 28 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <g clip-path="url(#clip0_2706_144)">
-    <path d="M0.320312 0H5.72031V5.4H0.320312V0Z" fill="white" fill-opacity="0.7"/>
-    <path d="M0.320312 10.8H5.72031V16.2H0.320312V10.8Z" fill="white" fill-opacity="0.7"/>
-    <path d="M0.320312 16.2H5.72031V21.6H0.320312V16.2Z" fill="white" fill-opacity="0.7"/>
-    <path d="M16.5195 16.2H21.9195V21.6H16.5195V16.2Z" fill="white" fill-opacity="0.7"/>
-    <path d="M16.5195 21.6001H21.9195V27.0001H16.5195V21.6001Z" fill="white" fill-opacity="0.7"/>
-    <path d="M5.7207 21.6001H11.1207V27.0001H5.7207V21.6001Z" fill="white" fill-opacity="0.7"/>
-    <path d="M5.7207 0H11.1207V5.4H5.7207V0Z" fill="white" fill-opacity="0.7"/>
-    <path d="M5.7207 10.8H11.1207V16.2H5.7207V10.8Z" fill="white" fill-opacity="0.7"/>
-    <path d="M5.7207 16.2H11.1207V21.6H5.7207V16.2Z" fill="white" fill-opacity="0.7"/>
-    <path d="M21.9199 16.2H27.3199V21.6H21.9199V16.2Z" fill="white" fill-opacity="0.7"/>
-    <path d="M11.1211 0H16.5211V5.4H11.1211V0Z" fill="white" fill-opacity="0.7"/>
-    <path d="M11.1211 10.8H16.5211V16.2H11.1211V10.8Z" fill="white" fill-opacity="0.7"/>
-    <path d="M16.5195 0H21.9195V5.4H16.5195V0Z" fill="white" fill-opacity="0.7"/>
-    <path d="M16.5195 10.8H21.9195V16.2H16.5195V10.8Z" fill="white" fill-opacity="0.7"/>
-    <path d="M21.9199 0H27.3199V5.4H21.9199V0Z" fill="white" fill-opacity="0.7"/>
-    <path d="M21.9199 10.8H27.3199V16.2H21.9199V10.8Z" fill="white" fill-opacity="0.7"/>
-    <path d="M21.9199 5.3999H27.3199V10.7999H21.9199V5.3999Z" fill="white" fill-opacity="0.7"/>
-    <path d="M0.320312 5.3999H5.72031V10.7999H0.320312V5.3999Z" fill="white" fill-opacity="0.7"/>
+<svg width="70" height="70" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g clip-path="url(#clip0_2755_213)">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M56 55.9999V70H42V42H28V70H14V56L0 55.9942V0H70V56L56 55.9999ZM56 14H14V28H56V14Z" fill="white" fill-opacity="0.5"/>
   </g>
   <defs>
-    <clipPath id="clip0_2706_144">
-      <rect width="27" height="27" fill="white" transform="translate(0.320312)"/>
+    <clipPath id="clip0_2755_213">
+      <rect width="70" height="70" fill="white"/>
     </clipPath>
   </defs>
 </svg>

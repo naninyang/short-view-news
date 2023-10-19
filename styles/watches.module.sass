@@ -2,24 +2,18 @@
 
 .watches
   padding: 0 env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)
-  min-height: calc(100dvh - rem(69))
+  min-height: calc(100dvh - rem(50))
   font-size: rem(16)
-
-  +mq(minLarge)
-    min-height: calc(100dvh - rem(102))
 
   .loading, .error
     display: flex
     justify-content: center
     align-items: center
     margin-bottom: rem(71)
-    min-height: calc(100dvh - rem(232))
+    min-height: calc(100dvh - rem(50))
     font-weight: 700
     color: $hex-accent
     text-align: center
-
-    +mq(minLarge)
-      min-height: calc(100dvh - rem(216))
 
   .error
     gap: rem(15)
@@ -49,13 +43,13 @@
   .watch-content
     position: relative
     margin-bottom: rem(71)
-    padding: rem(25) rem(5)
+    padding: rem(5) rem(5)
     min-height: 100dvh
     background-color: var(--bg-primary-opacity)
     transition: all .4s cubic-bezier(.4,0,.2,1)
 
     +mq(minLarge)
-      padding: rem(25) rem(15)
+      padding: rem(5) rem(15)
 
   div[role="gridcell"]
     transition: all .4s cubic-bezier(.4,0,.2,1)

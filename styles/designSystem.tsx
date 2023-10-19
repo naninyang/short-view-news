@@ -1,4 +1,5 @@
 export const hex: { [key: string]: string } = {
+  black: '#000',
   white: '#fff',
   dark: '#332C29',
   light: '#CBCBCB',

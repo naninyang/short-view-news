@@ -50,10 +50,7 @@ body
   background-color: var(--default-bg)
 
 main
-  margin-top: calc(env(safe-area-inset-top) + rem(69))
-
-  +mq(minLarge)
-    margin-top: calc(env(safe-area-inset-top) + rem(102))
+  margin-top: calc(env(safe-area-inset-top) + rem(50))
 
 h1, h2, h3, h4, h5, h6
   margin-top: 0
@@ -138,41 +135,31 @@ address, cite
   text-align: center
 
 .top-link
-  width: 100%
+  position: fixed
+  top: calc(env(safe-area-inset-top) + rem(10))
+  left: calc(env(safe-area-inset-left) + rem(25))
+  z-index: 1050
 
   a
     transition: border .4s cubic-bezier(.4,0,.2,1)
     display: inline-flex
-    gap: rem(2)
-    border: 1px solid var(--txt-subject)
-    border-radius: rem(10)
-    padding: rem(10)
-
-    +mq(minLarge)
-      gap: rem(5)
+    align-items: center
+    gap: rem(5)
+    padding: 0 rem(5)
+    height: rem(30)
 
     i
       transition: transform .4s cubic-bezier(.4,0,.2,1)
       width: rem(18)
       height: rem(18)
 
-      +mq(minLarge)
-        width: rem(20)
-        height: rem(20)
-
     span
       transition: color .4s cubic-bezier(.4,0,.2,1)
       font-size: rem(14)
-      line-height: rem(18)
+      line-height: 1
       color: var(--txt-summary)
 
-      +mq(minLarge)
-        font-size: rem(16)
-        line-height: rem(20)
-
     &:hover, &:focus
-      border: 1px solid var(--default-text)
-
       i
         transform: translateX(rem(-5))
 

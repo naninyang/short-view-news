@@ -1,15 +1,14 @@
 @import './designSystem'
 
 .content
-  padding: 0 env(safe-area-inset-right) rem(71) env(safe-area-inset-left)
-  min-height: calc(100dvh - rem(119))
+  padding: 0 env(safe-area-inset-right) rem(48) env(safe-area-inset-left)
+  min-height: calc(100dvh - rem(98))
   font-size: rem(16)
   line-height: 1.58333333
   background-color: var(--default-bg)
 
   +mq(minLarge)
-    min-height: calc(100dvh - rem(125))
-    font-size: rem(24)
+    font-size: rem(20)
 
   h1
     margin-top: rem(25)
@@ -46,14 +45,6 @@
       -webkit-background-clip: text
       -webkit-text-fill-color: transparent
       animation: foreground 7s cubic-bezier(.4,0,.2,1) infinite
-
-  .top-link
-    padding: rem(15)
-    margin: 0 auto
-    max-width: rem(722)
-
-    +mq(minLarge)
-      padding: rem(25)
 
 @keyframes foreground
   0%
