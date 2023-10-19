@@ -106,10 +106,10 @@ address, cite
   font-style: normal
 
 .ReactModal__Overlay
-  padding: rem(25)
+  padding: calc(env(safe-area-inset-top) + rem(25)) calc(env(safe-area-inset-right) + rem(25)) calc(env(safe-area-inset-bottom) + rem(25)) calc(env(safe-area-inset-left) + rem(25))
 
   +mq(minLarge)
-    padding: rem(50)
+    padding: calc(env(safe-area-inset-top) + rem(50)) calc(env(safe-area-inset-right) + rem(50)) calc(env(safe-area-inset-bottom) + rem(50)) calc(env(safe-area-inset-left) + rem(50))
 
 .ReactModal__Content
   border-radius: rem(15)
