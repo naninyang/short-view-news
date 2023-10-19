@@ -80,7 +80,21 @@ export default function Home() {
     fetchData();
   }, []);
 
-  if (!count || loading || error) return null;
+  const renderCountInfo = () => {
+    if (loading || error || !count) return <div>..</div>;
+    return (
+      <dl>
+        <div>
+          <dt>가져온 YouTube 뉴스</dt>
+          <dd>{count.youtube} 건</dd>
+        </div>
+        <div>
+          <dt>가져온 NAVER 뉴스</dt>
+          <dd>{count.naver} 건</dd>
+        </div>
+      </dl>
+    );
+  };
 
   const timestamp = Date.now();
 
@@ -91,27 +105,14 @@ export default function Home() {
         pageDescription="당신이 놓친 뉴스를 짧게 요약해 드려요"
         pageImg={`https://news.dev1stud.io/og-image.png?ts=${timestamp}`}
       />
-      {data && (
-        <div className={`${styles['pages-content']} ${main['main-content']}`}>
-          <h1>
-            <span>{`숏뷰 뉴스 {short.view: news}`}</span>
-          </h1>
-          <Container className={main.description} dangerouslySetInnerHTML={{ __html: data.description }} />
-          {!loading && (
-            <dl>
-              <div>
-                <dt>가져온 YouTube 뉴스</dt>
-                <dd>{count.youtube} 건</dd>
-              </div>
-              <div>
-                <dt>가져온 NAVER 뉴스</dt>
-                <dd>{count.naver} 건</dd>
-              </div>
-            </dl>
-          )}
-          {/* {isIOS && <div className={styles.iOS}>아이폰과 아이패드에서 앱 내려받는 방법</div>} */}
-        </div>
-      )}
+      <div className={`${styles['pages-content']} ${main['main-content']}`}>
+        <h1>
+          <span>{`숏뷰 뉴스 {short.view: news}`}</span>
+        </h1>
+        {data && <Container className={main.description} dangerouslySetInnerHTML={{ __html: data.description }} />}
+        {renderCountInfo()}
+        {/* {isIOS && <div className={styles.iOS}>아이폰과 아이패드에서 앱 내려받는 방법</div>} */}
+      </div>
     </main>
   );
 }

@@ -13,7 +13,6 @@ const Nav = styled.nav({
   justifyContent: 'center',
   backdropFilter: `saturate(180%) blur(${rem(20)})`,
   backgroundColor: 'var(--bg-primary-opacity)',
-  paddingBottom: 'env(safe-area-inset-bottom)',
   width: '100%',
   '&::before': {
     content: "''",
@@ -27,6 +26,7 @@ const Nav = styled.nav({
   '& ol': {
     display: 'flex',
     gap: rem(15),
+    marginBottom: 'env(safe-area-inset-bottom)',
     width: '100%',
   },
   '& li': {
