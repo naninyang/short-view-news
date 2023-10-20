@@ -3,6 +3,7 @@
   "scripts": {
     "build": "next build",
     "dev": "node server.js",
+    "vercel": "vercel dev",
     "lint": "next lint",
     "lint-staged": "lint-staged",
     "prettier": "prettier --write --ignore-unknown .",
