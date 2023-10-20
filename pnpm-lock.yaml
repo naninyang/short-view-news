@@ -53,6 +53,9 @@ dependencies:
   next-images:
     specifier: ^1.8.5
     version: 1.8.5(webpack@5.88.2)
+  open-graph-scraper:
+    specifier: ^6.3.0
+    version: 6.3.0
   react:
     specifier: 18.2.0
     version: 18.2.0
@@ -1629,6 +1632,12 @@ packages:
       '@essentials/raf': 1.2.0
     dev: false
 
+  /@fastify/busboy@2.0.0:
+    resolution:
+      { integrity: sha512-JUFJad5lv7jxj926GPgymrWQxxjPYuJNiNjNMzqT+HiuP6Vl3dk5xzG+8sTX96np0ZAluvaMzPsjhHZ5rNuNQQ== }
+    engines: { node: '>=14' }
+    dev: false
+
   /@humanwhocodes/config-array@0.11.11:
     resolution:
       { integrity: sha512-N2brEuAadi0CcdeMXUkhbZB84eskAc8MEX1By6qEchoVywSgXPIjou4rYsl0V3Hj0ZnuGycGCjdNgockbzeWNA== }
@@ -3114,6 +3123,11 @@ packages:
       { integrity: sha512-dLitG79d+GV1Nb/VYcCDFivJeK1hiukt9QjRNVOsUtTy1rR1YJsmpGGTZ3qJos+uw7WmWF4wUwBd9jxjocFC2w== }
     engines: { node: ^12.17.0 || ^14.13 || >=16.0.0 }
     dev: true
+
+  /chardet@2.0.0:
+    resolution:
+      { integrity: sha512-xVgPpulCooDjY6zH4m9YW3jbkaBe3FKIAvF5sj5t7aBNsVl2ljIE+xwJ4iNgiDZHFQvNIpjdKdVOQvvk5ZfxbQ== }
+    dev: false
 
   /cheerio-select@2.1.0:
     resolution:
@@ -6188,6 +6202,17 @@ packages:
       mimic-fn: 4.0.0
     dev: true
 
+  /open-graph-scraper@6.3.0:
+    resolution:
+      { integrity: sha512-Kl8Xkigvw20ZppXt1m2RCucGo/L3ZsgtThZyE5CS4GJr5MrxDz7wQN7iaO/wkM3JuiP5XzblZ3gIpLIsC9dhQw== }
+    engines: { node: '>=18.0.0' }
+    dependencies:
+      chardet: 2.0.0
+      cheerio: 1.0.0-rc.12
+      undici: 5.26.4
+      validator: 13.11.0
+    dev: false
+
   /optionator@0.9.3:
     resolution:
       { integrity: sha512-JjCoypp+jKn1ttEFExxhetCKeJt9zhAgAve5FXHixTvFDW/5aEktX9bufBKLRRMdU7bNtpLfcGu94B3cdEJgjg== }
@@ -7618,6 +7643,14 @@ packages:
       busboy: 1.6.0
     dev: false
 
+  /undici@5.26.4:
+    resolution:
+      { integrity: sha512-OG+QOf0fTLtazL9P9X7yqWxQ+Z0395Wk6DSkyTxtaq3wQEjIroVe7Y4asCX/vcCxYpNGMnwz8F0qbRYUoaQVMw== }
+    engines: { node: '>=14.0' }
+    dependencies:
+      '@fastify/busboy': 2.0.0
+    dev: false
+
   /unicode-canonical-property-names-ecmascript@2.0.0:
     resolution:
       { integrity: sha512-yY5PpDlfVIU5+y/BSCxAJRBIS1Zc2dDG3Ujq+sR0U+JjUevW2JhocOF+soROYDSaAezOzOKuyyixhD6mBknSmQ== }
@@ -7735,6 +7768,12 @@ packages:
   /v8-compile-cache-lib@3.0.1:
     resolution:
       { integrity: sha512-wa7YjyUGfNZngI/vtK0UHAN+lgDCxBPCylVXGp0zu59Fz5aiGtNXaq3DhIov063MorB+VfufLh3JlF2KdTK3xg== }
+    dev: false
+
+  /validator@13.11.0:
+    resolution:
+      { integrity: sha512-Ii+sehpSfZy+At5nPdnyMhx78fEoPDkR2XW/zimHEL3MyGJQOCQ7WeP20jPYRz7ZCpcKLB21NxuXHF3bxjStBQ== }
+    engines: { node: '>= 0.10' }
     dev: false
 
   /vercel@32.4.1:

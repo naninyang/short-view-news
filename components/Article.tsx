@@ -75,9 +75,9 @@ const articleDetail: React.FC<articleProps> = ({ articleItem }) => {
                   <div className={styles['og-info']}>
                     <div className={styles.created}>
                       <cite>{articleItem.metaData?.ogCreator}</cite>
-                      <time dateTime={articleItem.metaData?.datestampTimeAttribute}>
+                      {/* <time dateTime={articleItem.metaData?.datestampTimeAttribute}>
                         {articleItem.metaData?.datestampTimeContent}
-                      </time>
+                      </time> */}
                     </div>
                     <div className={styles.summary}>
                       <strong>{articleItem.metaData?.ogTitle}</strong>

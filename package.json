@@ -34,6 +34,7 @@
     "masonic": "^3.7.0",
     "next": "latest",
     "next-images": "^1.8.5",
+    "open-graph-scraper": "^6.3.0",
     "react": "18.2.0",
     "react-device-detect": "^2.2.3",
     "react-dom": "18.2.0",

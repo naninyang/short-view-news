@@ -68,9 +68,9 @@ export default function ArticleDetail({ article }: { article: Article | null }) 
                 <div className={styles['og-info']}>
                   <div className={styles.created}>
                     <cite>{article.metaData?.ogCreator}</cite>
-                    <time dateTime={article.metaData?.datestampTimeAttribute}>
+                    {/* <time dateTime={article.metaData?.datestampTimeAttribute}>
                       {article.metaData?.datestampTimeContent}
-                    </time>
+                    </time> */}
                   </div>
                   <div className={styles.summary}>
                     <strong>{article.metaData?.ogTitle}</strong>
