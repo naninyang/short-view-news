@@ -45,9 +45,7 @@ export async function getArticleData(start?: number, count?: number) {
 
 async function fetchArticleMetadata(url: string) {
   try {
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/naverScraping?url=${encodeURIComponent(url)}`,
-    );
+    const response = await axios.get(`https://naver-news-opengraph.vercel.app/api/og?url=${encodeURIComponent(url)}`);
     return response.data;
   } catch (error) {
     console.error('Failed to fetch article metadata', error);
