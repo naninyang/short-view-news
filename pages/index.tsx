@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { isIOS } from 'react-device-detect';
+import { isIOS, isSafari } from 'react-device-detect';
 import Seo from '@/components/Seo';
 import styled from '@emotion/styled';
 import { rem } from '@/styles/designSystem';
@@ -96,6 +96,8 @@ export default function Home() {
     );
   };
 
+  const appleDevice = isIOS || isSafari;
+
   const timestamp = Date.now();
 
   return (
@@ -111,7 +113,7 @@ export default function Home() {
         </h1>
         {data && <Container className={main.description} dangerouslySetInnerHTML={{ __html: data.description }} />}
         {renderCountInfo()}
-        {/* {isIOS && <div className={styles.iOS}>아이폰과 아이패드에서 앱 내려받는 방법</div>} */}
+        {/* {appleDevice && <div className={styles.iOS}>아이폰과 아이패드에서 앱 내려받는 방법</div>} */}
       </div>
     </main>
   );

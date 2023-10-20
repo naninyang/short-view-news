@@ -29,6 +29,8 @@ export async function getArticleData(start?: number, count?: number) {
 
   const sortedRowsData = rowsData.sort((a: RowData, b: RowData) => b.idx.localeCompare(a.idx));
 
+  console.log('sortedRowsData: ', sortedRowsData);
+
   const fullData = await Promise.all(
     sortedRowsData.map(async (article) => {
       const url = `https://n.news.naver.com/article/${article.oid}/${article.aid}`;
@@ -39,6 +41,8 @@ export async function getArticleData(start?: number, count?: number) {
       };
     }),
   );
+
+  console.log('fullData: ', fullData);
 
   return fullData;
 }
