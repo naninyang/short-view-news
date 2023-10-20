@@ -125,7 +125,9 @@ function Articles() {
           <p>
             임시로 데이터를 불러 올 수 없는 상태입니다.
             <br />
-            <button onClick={() => window.location.reload()}>다시 시도</button> 해 주세요.
+            <button onClick={() => window.location.reload()}>다시 시도</button> 해 주세요 ㅠㅠ
+            <br />
+            (두어번 누르고 기다리시면 자동으로 불러옵니다.)
           </p>
         </div>
       )}

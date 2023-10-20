@@ -77,7 +77,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       thumbnail: parsedData.attributes.thumbnail,
     };
 
-    const naverUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/naverScraping?url=${encodeURIComponent(
+    const naverUrl = `https://naver-news-opengraph.vercel.app/api/og?url=${encodeURIComponent(
       `https://n.news.naver.com/article/${responseData.oid}/${responseData.aid}`,
     )}`;
 
