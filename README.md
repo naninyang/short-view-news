@@ -20,10 +20,13 @@ YouTube는 5분 미만의 짧은 뉴스를 가져오며, 아주 가끔 그 이�
 - pull-to-refresh (without Mutate Caching)
 - PWA
 - SWR w/ useSWRInfinite
-- cheerio
 - Vercel w/ serverless
 - jsonwebtoken (for Github API Bearer)
 - Notion Client (페이지 관리에 사용)
+
+### NAVER News Opengraph API Server
+
+- open-graph-scraper
 
 ### Backend - Private repo for ONLY Database
 
@@ -38,14 +41,12 @@ YouTube는 5분 미만의 짧은 뉴스를 가져오며, 아주 가끔 그 이�
   - 디버깅을 해보고 해결이 안되면 `더보기` 버튼 만들어서 해결
 - 하단 탭 눌렀을 때 무조건 상단으로 이동하는 현상
 - 네이버 뉴스 목록에서 캐시가 없을 때 간혈적으로 서버 에러가 뜨는 현상 (유튜브는 정상 동작)
-  - Console Error:
-    ```
-    code: "504"
-    message: "An error occurred with your deployment"
-    ```
-  - Vercel serverless 문제인 것 까지는 파악함
   - 임시로 에러 메시지를 다르게 보여주게 처리함
   - 유튜브와 네이버 뉴스의 차이는 메타 데이터를 추가로 불러오냐의 차이일 뿐인데 왜 이런 현상이 네이버에서만 발생하는지 원인을 알 수 없음
+  - 네이버 뉴스 Opengraph 크롤링 API를 외부 서버로 따로 빼냄
+    - 웹브라우저에서 에러 뜨는 현상은 사라짐
+    - PWA 앱에서만 발생하고 `Service Worker`에서 발생한다고 에러가 뜸 (실제로 PWA 앱에서만 발생함)
+    - 원인과 해결책은 여전히 오리무중. (수정해주실 Collaborator 찾습니다)
 
 ## TO-DO
 
