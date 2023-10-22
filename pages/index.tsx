@@ -12,6 +12,7 @@ import { images } from '@/images';
 interface Counts {
   youtube: number;
   naver: number;
+  twitter: number;
 }
 
 type DataResponse = {
@@ -102,7 +103,7 @@ export default function Home() {
         </div>
         <div>
           <dt>가져온 Twitter 인용</dt>
-          <dd>{count.naver} 건</dd>
+          <dd>{count.twitter} 건</dd>
         </div>
       </dl>
     );
