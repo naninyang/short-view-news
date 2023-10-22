@@ -409,7 +409,10 @@ export default function Header() {
   return (
     <>
       <Container>
-        {router.pathname === '/' || router.pathname === '/watches' || router.pathname === '/articles' ? undefined : (
+        {router.pathname === '/' ||
+        router.pathname === '/watches' ||
+        router.pathname === '/articles' ||
+        router.pathname === '/periodt' ? undefined : (
           <s />
         )}
         <Primary>

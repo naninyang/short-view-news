@@ -98,6 +98,15 @@
               aspect-ratio: 1146 / 960
               background: url('/desktop-naver.webp') no-repeat 50% 50%/contain
 
+        &[data-twitter]
+          &::before
+            aspect-ratio: 645 / 653
+            background: url('/mobile-twitter.webp') no-repeat 50% 50%/contain
+
+            +mq(minLarge)
+              aspect-ratio: 964 / 616
+              background: url('/desktop-twitter.webp') no-repeat 50% 50%/contain
+
   dl
     border-top: 1px solid var(--border)
     padding-top: rem(75)

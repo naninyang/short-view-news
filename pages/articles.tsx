@@ -9,9 +9,12 @@ import PullToRefresh from 'react-simple-pull-to-refresh';
 import { Article } from '@/types';
 import { modalContainer } from '@/components/ModalStyling';
 import Seo from '@/components/Seo';
+import PageName from '@/components/PageName';
 import ArticleDetail from '@/components/Article';
 import AnchorLink from '@/components/AnchorLink';
 import styles from '@/styles/articles.module.sass';
+
+Modal.setAppElement('#__next');
 
 function Articles() {
   const router = useRouter();
@@ -115,6 +118,7 @@ function Articles() {
       >
         <ArticleDetail articleItem={selectedArticle} />
       </Modal>
+      <PageName pageName="네이버 뉴스" />
       {isLoading && (
         <div className={styles.loading}>
           <p>기사를 가져오는 중입니다.</p>
@@ -141,8 +145,8 @@ function Articles() {
         <div className={styles['article-content']}>
           <PullToRefresh onRefresh={handleRefresh}>
             <div className={styles['article-list']}>
-              {articles.map((article: Article, index: number) => (
-                <article key={article.idx} data-index={index}>
+              {articles.map((article: Article) => (
+                <article key={article.idx}>
                   <div className={styles.description}>
                     <Link
                       key={article.idx}
