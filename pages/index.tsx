@@ -38,6 +38,14 @@ const Container = styled.div({
       background: `url(${images.tab.naver.dark}) no-repeat 50% 50%/contain`,
     },
   },
+  '& div[data-twitter] h2 i': {
+    'body &, body[data-theme="dark"] &': {
+      background: `url(${images.tab.twitter.light}) no-repeat 50% 50%/contain`,
+    },
+    'body[data-theme="light"] &': {
+      background: `url(${images.tab.twitter.dark}) no-repeat 50% 50%/contain`,
+    },
+  },
 });
 
 export default function Home() {
@@ -90,6 +98,10 @@ export default function Home() {
         </div>
         <div>
           <dt>가져온 NAVER 뉴스</dt>
+          <dd>{count.naver} 건</dd>
+        </div>
+        <div>
+          <dt>가져온 Twitter 인용</dt>
           <dd>{count.naver} 건</dd>
         </div>
       </dl>

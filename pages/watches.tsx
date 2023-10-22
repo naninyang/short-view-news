@@ -9,6 +9,7 @@ import { Masonry } from 'masonic';
 import Seo from '@/components/Seo';
 import YouTubeController from '@/components/YouTubeController';
 import { modalContainer } from '@/components/ModalStyling';
+import PageName from '@/components/PageName';
 import WatchDetail from '@/components/Watch';
 import styles from '@/styles/watches.module.sass';
 
@@ -151,6 +152,7 @@ export default function Watches() {
       >
         <WatchDetail watchItem={selectedWatch} />
       </Modal>
+      <PageName pageName="유튜브 뉴스" />
       {isLoading && <div className={styles.loading}>기사를 불러오는 중입니다.</div>}
       {error && (
         <div className={styles.error}>

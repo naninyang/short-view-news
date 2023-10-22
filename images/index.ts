@@ -58,5 +58,10 @@ export const images = {
       dark: require('./tab/youtube/dark.svg'),
       light: require('./tab/youtube/light.svg'),
     },
+    twitter: {
+      active: require('./tab/twitter/active.svg'),
+      dark: require('./tab/twitter/dark.svg'),
+      light: require('./tab/twitter/light.svg'),
+    },
   },
 };

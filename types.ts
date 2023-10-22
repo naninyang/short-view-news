@@ -49,3 +49,22 @@ export type Article = {
     datestampTimeAttribute: any;
   };
 };
+
+export interface Periodt {
+  idx: string;
+  user: string;
+  twit: string;
+  title: string;
+  thumbnail1?: string;
+  thumbnail2?: string;
+  thumbnail3?: string;
+  thumbnail4?: string;
+  userOrigin: string;
+  twitOrigin: string;
+  description: string;
+  thumbnailOrigin1?: string;
+  thumbnailOrigin2?: string;
+  thumbnailOrigin3?: string;
+  thumbnailOrigin4?: string;
+  [key: string]: any;
+}

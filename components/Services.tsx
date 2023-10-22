@@ -69,6 +69,14 @@ const Nav = styled.nav({
           background: `url(${images.tab.naver.dark}) no-repeat 50% 50%/contain`,
         },
       },
+      '&[data-icon="twitter"]': {
+        'body &, body[data-theme="dark"] &': {
+          background: `url(${images.tab.twitter.light}) no-repeat 50% 50%/contain`,
+        },
+        'body[data-theme="light"] &': {
+          background: `url(${images.tab.twitter.dark}) no-repeat 50% 50%/contain`,
+        },
+      },
     },
     '& span': {
       fontSize: rem(12),
@@ -92,6 +100,11 @@ const MenuItem = styled.li<{ currentRouter?: boolean }>(({ currentRouter }) => (
       },
       '&[data-icon="naver"]': {
         background: currentRouter ? `url(${images.tab.naver.active}) no-repeat 50% 50%/contain !important` : undefined,
+      },
+      '&[data-icon="twitter"]': {
+        background: currentRouter
+          ? `url(${images.tab.twitter.active}) no-repeat 50% 50%/contain !important`
+          : undefined,
       },
     },
   },
@@ -120,6 +133,12 @@ export default function Services() {
           <AnchorLink href="/articles">
             <i data-icon="naver" />
             <span>NAVER</span>
+          </AnchorLink>
+        </MenuItem>
+        <MenuItem currentRouter={router.pathname === '/periodt' ? true : false}>
+          <AnchorLink href="/periodt">
+            <i data-icon="twitter" />
+            <span>Twitter</span>
           </AnchorLink>
         </MenuItem>
       </ol>

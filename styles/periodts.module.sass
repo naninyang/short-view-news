@@ -1,0 +1,288 @@
+@import './designSystem'
+
+.periodts
+  padding: 0 env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)
+  min-height: calc(100dvh - rem(50))
+  font-size: rem(16)
+
+  h2
+    padding-right: rem(20)
+    padding-left: rem(20)
+    max-width: rem(575)
+    margin: 0 auto
+
+    +mq(minSmall)
+      padding-right: 0
+      padding-left: 0
+
+  .loading, .error
+    display: flex
+    justify-content: center
+    align-items: center
+    margin-bottom: rem(71)
+    min-height: calc(100dvh - rem(50))
+    font-weight: 700
+    color: $hex-accent
+    text-align: center
+
+  .error
+    gap: rem(15)
+
+    button
+      background: none
+      text-decoration: underline
+      color: $hex-accent
+
+  .ref
+    position: absolute
+    top: auto!important
+    right: auto!important
+    bottom: rem(-96)
+    left: 0
+    display: flex
+    justify-content: center
+    align-items: flex-end
+    width: 100%
+    height: rem(1000)
+
+    p
+      font-weight: 700
+      color: $hex-accent
+      text-align: center
+
+  .periodt-content
+    position: relative
+    min-height: 100dvh
+    background-color: var(--default-bg)
+    transition: all .4s cubic-bezier(.4,0,.2,1)
+
+  .periodt-list
+    display: flex
+    flex-direction: column
+    margin: 0 auto
+    width: 100%
+
+    +mq(minSmall)
+      border: 1px solid var(--border)
+      border-radius: rem(5)
+      max-width: rem(575)
+
+  article
+    display: flex
+    flex-direction: column
+    gap: rem(20)
+    border-bottom: 1px solid var(--border)
+    padding: rem(25)
+
+    &:last-of-type
+      border-bottom: 0
+
+    img
+      display: block
+      width: 100%
+      height: auto
+
+    .quadThumbnail
+      display: block
+
+    .thumbnails
+      display: grid
+      gap: rem(5)
+      grid-template-areas: "single single" "single single"
+      overflow: hidden
+      border-radius: rem(15)
+
+    .thumbnail-item
+      &:nth-child(1):nth-last-child(1)
+        grid-area: single
+
+      &:nth-child(1):nth-last-child(2)
+        grid-area: 1 / 1 / 2 / 2
+
+      &:nth-child(2):nth-last-child(1)
+        grid-area: 1 / 2 / 2 / 3
+
+      &:nth-child(1):nth-last-child(3)
+        grid-area: 1 / 1 / 3 / 3
+
+      &:nth-child(2):nth-last-child(2)
+        grid-area: 1 / 2 / 2 / 3
+
+      &:nth-child(3):nth-last-child(1)
+        grid-area: 2 / 2 / 3 / 3
+
+      img
+        height: 100%
+        object-fit: cover
+        aspect-ratio: 1920 / 1080
+
+    .profile
+      position: relative
+
+      cite
+        display: block
+        margin-right: rem(80)
+        overflow: hidden
+        white-space: nowrap
+        font-size: rem(12)
+        font-weight: 900
+        text-overflow: ellipsis
+        word-break: break-all
+        color: var(--txt-summary)
+
+      a
+        position: absolute
+        top: 0
+        right: 0
+        background-color: var(--default-text)
+        border-radius: rem(24)
+        padding: rem(5) rem(10)
+        font-size: rem(12)
+        line-height: 1
+        color: var(--default-bg)
+        white-space: nowrap
+
+    .description
+      > p
+        line-height: 1.7
+
+      > p:empty, br
+        display: none
+
+      a
+        word-break: break-all
+
+      .og-card
+        display: flex
+        flex-direction: column
+        overflow: hidden
+        margin-top: rem(15)
+        border-radius: rem(15)
+
+        img
+          aspect-ratio: 1200 / 630
+          object-fit: cover
+
+        .og-info
+          display: flex
+          flex-direction: column
+          gap: rem(2)
+          background-color: var(--bg-primary)
+          padding: rem(15)
+
+        cite
+          font-size: rem(10)
+          font-weight: 30000
+          text-transform: uppercase
+          color: var(--txt-summary)
+
+        strong
+          margin-top: rem(7)
+          font-size: rem(12)
+          font-weight: 900
+          color: $hex-accent
+
+        p
+          margin: 0
+          font-size: rem(12)
+          color: var(--default-text)
+
+    .content
+      display: flex
+      flex-direction: column
+      gap: rem(25)
+
+      .retweet
+        display: flex
+        flex-direction: column
+        gap: rem(20)
+
+        p
+          font-size: rem(14)
+          color: var(--default-text)
+
+          a
+            color: var(--default-text)
+            text-decoration: underline
+
+        .thumbnail
+          overflow: hidden
+          border-radius: rem(15)
+
+      .origin
+        display: flex
+        flex-direction: column
+        gap: rem(20)
+        overflow: hidden
+        border: 1px solid var(--border)
+        border-radius: rem(15)
+
+        .profile
+          margin: rem(20) rem(20) 0
+
+        .context
+          display: flex
+          flex-direction: column
+          font-size: rem(16)
+          color: var(--default-text)
+
+          .description
+            > p
+              margin: 0
+              padding: 0 rem(20)
+              font-size: rem(12)
+              line-height: 1.7
+
+              &:last-of-type
+                margin-bottom: rem(15)
+
+              a
+                color: var(--default-text)
+                text-decoration: underline
+
+          .og-card
+            margin: rem(15)
+
+          .thumbnails
+            margin: 0 rem(15) rem(15)
+            gap: rem(3)
+
+            button
+              display: block
+              width: 100%
+
+.modal-thumbnail
+  padding: 0
+  overflow: hidden
+  height: calc(100dvh - rem(191))
+
+  img
+    display: block
+    width: 100%
+    height: 100%
+    object-fit: contain
+
+  button
+    position: absolute
+    top: rem(15)
+    right: rem(15)
+    background: none
+    width: rem(26)
+    height: rem(26)
+
+    +mq(minLarge)
+      top: rem(25)
+      right: rem(25)
+      width: rem(50)
+      height: rem(50)
+
+    i
+      width: rem(26)
+      height: rem(26)
+
+      +mq(minLarge)
+        width: rem(50)
+        height: rem(50)
+
+    span
+      +screen-reader-only
