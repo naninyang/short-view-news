@@ -19,6 +19,7 @@ export const images = {
     menuLight: require('./misc/menuLight.svg'),
     menuDark: require('./misc/menuDark.svg'),
     close: require('./misc/close.svg'),
+    outlink: require('./misc/outlink.svg'),
   },
   arrow: {
     backDark: require('./arrow/backDark.svg'),

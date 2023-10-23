@@ -25,7 +25,7 @@
   .og-info
     display: flex
     flex-direction: column
-    gap: rem(5)
+    gap: rem(7)
     margin-top: rem(15)
 
     .created
@@ -34,8 +34,9 @@
       color: var(--txt-summary)
 
       cite
-        font-size: rem(14)
-        font-weight: 700
+        font-size: rem(12)
+        font-weight: 300
+        line-height: 1
 
       time
         font-size: rem(12)
@@ -43,15 +44,24 @@
     .summary
       display: flex
       flex-direction: column
-      gap: rem(5)
+      gap: rem(2)
 
       strong
-        font-size: rem(16)
-        color: var(--txt-summary)
+        font-size: rem(14)
+        font-weight: 900
+        line-height: 1.5
+        color: $hex-accent
+
+        +mq(minLarge)
+          font-size: rem(16)
 
       .description
-        font-size: rem(14)
+        font-size: rem(12)
+        line-height: 1.5
         color: var(--txt-summary)
+
+        +mq(minLarge)
+          font-size: rem(14)
 
   &.article
     &:not(.article-container)
@@ -90,20 +100,14 @@
         flex-direction: column
         flex: 1
         overflow: hidden
-        padding: rem(15)
         gap: rem(15)
 
         +mq(minLarge)
           gap: rem(25)
-          padding: 0 rem(25)
 
   article
     display: flex
     flex-direction: column
-    gap: rem(15)
-
-    +mq(minLarge)
-      gap: rem(25)
 
     header
       display: flex
@@ -156,17 +160,25 @@
 
   .description
     p
+      padding: 0 rem(15)
       margin-bottom: rem(15)
-      font-size: rem(20)
+      font-size: rem(14)
+      line-height: 1.5
       color: var(--txt-blockquote)
+
+      +mq(minLarge)
+        font-size: rem(16)
 
     img
       overflow: hidden
       aspect-ratio: auto
-      border-radius: rem(25)
 
     & ~ a
       display: block
-      background-color: var(--border)
+      background-color: var(--default-bg)
+      margin: rem(15) rem(15) 0
       border-radius: rem(15)
-      padding: rem(25)
+      padding: rem(15)
+
+      img
+        aspect-ratio: 1200 / 630

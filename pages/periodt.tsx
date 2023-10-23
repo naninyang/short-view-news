@@ -18,6 +18,11 @@ interface ContentComponentProps {
   text: string;
 }
 
+const LinkButton = styled.i({
+  display: 'block',
+  background: `url(${images.misc.outlink}) no-repeat 50% 50%/contain`,
+});
+
 const CrossButton = styled.i({
   display: 'block',
   'body[data-theme="dark"] &': {
@@ -278,7 +283,8 @@ function Periodt() {
                     <div className={styles.profile}>
                       <cite>@{periodt.user}</cite>
                       <AnchorLink href={`https://twitter.com/${periodt.user}/status/${periodt.twit}`}>
-                        원본 링크
+                        <span>원본 링크</span>
+                        <LinkButton />
                       </AnchorLink>
                     </div>
                     <div className={styles.content}>
@@ -302,7 +308,8 @@ function Periodt() {
                         <div className={styles.profile}>
                           <cite>@{periodt.userOrigin}</cite>
                           <AnchorLink href={`https://twitter.com/${periodt.userOrigin}/status/${periodt.twitOrigin}`}>
-                            원본 링크
+                            <span>원본 링크</span>
+                            <LinkButton />
                           </AnchorLink>
                         </div>
                         <div className={styles.context}>

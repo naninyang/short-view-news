@@ -120,7 +120,7 @@ export default function Watches() {
               scroll={false}
               shallow={true}
             >
-              {data.title} / <time>{data.created}</time>
+              {data.title} <time>{data.created}</time>
             </Link>
             <p dangerouslySetInnerHTML={{ __html: data.description }} />
           </div>

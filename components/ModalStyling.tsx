@@ -14,7 +14,7 @@ export const modalContainer = {
     inset: undefined,
     overflow: undefined,
     position: undefined,
-    background: 'var(--bg-secondary)',
+    background: 'var(--bg-primary)',
     margin: 0,
     border: undefined,
     borderRadius: undefined,

@@ -86,20 +86,24 @@
 
     .description
       a
-        &:hover, &:focus
+        &:focus
           color: var(--default-text)
           text-decoration: underline
 
       .comment
         padding: rem(15)
-        font-size: rem(16)
+        font-size: rem(14)
+        line-height: 1.6
         color: var(--txt-blockquote)
+
+        +mq(minLarge)
+          font-size: rem(16)
 
     .opengraph
       padding: rem(15)
 
       a
-        &:hover, &:focus
+        &:focus
           strong
             color: var(--default-text)
             text-decoration: underline
@@ -113,17 +117,14 @@
           border-radius: rem(20)
 
       .og-container
-        background-color: var(--bg-secondary)
+        background-color: var(--bg-primary)
         border-radius: rem(15)
         padding: rem(15)
-
-        +mq(minLarge)
-          padding: rem(25)
 
         .og-info
           display: flex
           flex-direction: column
-          gap: rem(5)
+          gap: rem(10)
           margin-top: rem(15)
 
           .created
@@ -132,8 +133,9 @@
             color: var(--txt-summary)
 
             cite
-              font-size: rem(14)
-              font-weight: 700
+              font-size: rem(12)
+              font-weight: 300
+              line-height: 1
 
             time
               font-size: rem(12)
@@ -141,12 +143,21 @@
           .summary
             display: flex
             flex-direction: column
-            gap: rem(5)
+            gap: rem(2)
 
             strong
-              font-size: rem(16)
-              color: var(--txt-summary)
+              font-size: rem(14)
+              font-weight: 900
+              line-height: 1.5
+              color: $hex-accent
+
+              +mq(minLarge)
+                font-size: rem(16)
 
             .description
-              font-size: rem(14)
+              font-size: rem(12)
+              line-height: 1.5
               color: var(--txt-summary)
+
+              +mq(minLarge)
+                font-size: rem(14)

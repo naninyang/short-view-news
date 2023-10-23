@@ -90,11 +90,25 @@
       gap: rem(5)
       grid-template-areas: "single single" "single single"
       overflow: hidden
-      border-radius: rem(15)
+
+      button
+        background: none
+        display: block
+        width: 100%
+
+      img
+        overflow: hidden
+        border-radius: rem(15)
 
     .thumbnail-item
       &:nth-child(1):nth-last-child(1)
         grid-area: single
+
+        img
+          margin: 0 auto
+          width: auto
+          max-width: 100%
+          aspect-ratio: auto
 
       &:nth-child(1):nth-last-child(2)
         grid-area: 1 / 1 / 2 / 2
@@ -131,25 +145,36 @@
         color: var(--txt-summary)
 
       a
+        display: flex
+        gap: rem(5)
         position: absolute
         top: 0
         right: 0
-        background-color: var(--default-text)
-        border-radius: rem(24)
-        padding: rem(5) rem(10)
         font-size: rem(12)
         line-height: 1
-        color: var(--default-bg)
+        color: $hex-accent
         white-space: nowrap
+
+        i
+          display: block
+          width: rem(10)
+          height: rem(10)
+
+        &:focus
+          border-bottom: 1px solid
 
     .description
       > p
         line-height: 1.7
+        white-space: break-spaces
+        word-wrap: break-word
+        word-break: keep-all
 
       > p:empty, br
         display: none
 
       a
+        overflow-wrap: break-word
         word-break: break-all
 
       .og-card
@@ -186,6 +211,7 @@
           margin: 0
           font-size: rem(12)
           color: var(--default-text)
+          +line-abbr(3, 54, 1.5)
 
     .content
       display: flex
@@ -199,6 +225,7 @@
 
         p
           font-size: rem(14)
+          line-height: 1.5
           color: var(--default-text)
 
           a
@@ -246,10 +273,6 @@
           .thumbnails
             margin: 0 rem(15) rem(15)
             gap: rem(3)
-
-            button
-              display: block
-              width: 100%
 
 .modal-thumbnail
   padding: 0

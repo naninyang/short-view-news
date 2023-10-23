@@ -30,7 +30,7 @@
         > div
           display: flex
           flex-direction: column
-          gap: rem(15)
+          gap: rem(10)
 
         &::before
           content: ''
@@ -50,6 +50,7 @@
           flex-direction: column
           align-items: center
           font-size: rem(20)
+          line-height: 1
 
           +mq(minLarge)
             flex-direction: row
@@ -62,6 +63,7 @@
 
         p
           font-size: rem(14)
+          line-height: 1.7
 
           +mq(minLarge)
             text-align: left
@@ -71,8 +73,8 @@
             display: none
 
           p
-            font-size: rem(16)
             text-align: center
+            line-height: 1.5
 
           +mq(minLarge)
             justify-content: center
@@ -135,13 +137,14 @@
           left: 0
           width: 1px
           height: 100%
-          background-color: var(--txt-subject)
+          background-color: var(--border)
 
         &:first-of-type::before
           display: none
 
     dt
       font-size: rem(14)
+      font-weight: 300
       color: var(--txt-subject)
 
       +mq(minLarge)
