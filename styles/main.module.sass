@@ -84,30 +84,60 @@
 
         &[data-youtube]
           &::before
-            aspect-ratio: 644 / 756
-            background: url('/mobile-youtube.webp') no-repeat 50% 50%/contain
+            aspect-ratio: 645 / 646.5
+
+            body[data-theme="dark"] &
+              background: url('/mobile-youtube-dark.webp') no-repeat 50% 50%/contain
+
+            body &, body[data-theme="light"] &
+              background: url('/mobile-youtube-light.webp') no-repeat 50% 50%/contain
 
             +mq(minLarge)
-              aspect-ratio: 964 / 583
-              background: url('/desktop-youtube.webp') no-repeat 50% 50%/contain
+              aspect-ratio: 964 / 584
+
+              body[data-theme="dark"] &
+                background: url('/desktop-youtube-dark.webp') no-repeat 50% 50%/contain
+
+              body &, body[data-theme="light"] &
+                background: url('/desktop-youtube-light.webp') no-repeat 50% 50%/contain
 
         &[data-naver]
           &::before
-            aspect-ratio: 645 / 1153
-            background: url('/mobile-naver.webp') no-repeat 50% 50%/contain
+            aspect-ratio: 645 / 1006
+
+            body[data-theme="dark"] &
+              background: url('/mobile-naver-dark.webp') no-repeat 50% 50%/contain
+
+            body &, body[data-theme="light"] &
+              background: url('/mobile-naver-light.webp') no-repeat 50% 50%/contain
 
             +mq(minLarge)
-              aspect-ratio: 1146 / 960
-              background: url('/desktop-naver.webp') no-repeat 50% 50%/contain
+              aspect-ratio: 1166 / 939
+
+              body[data-theme="dark"] &
+                background: url('/desktop-naver-dark.webp') no-repeat 50% 50%/contain
+
+              body &, body[data-theme="light"] &
+                background: url('/desktop-naver-light.webp') no-repeat 50% 50%/contain
 
         &[data-twitter]
           &::before
-            aspect-ratio: 645 / 653
-            background: url('/mobile-twitter.webp') no-repeat 50% 50%/contain
+            aspect-ratio: 645 / 912.5
+
+            body[data-theme="dark"] &
+              background: url('/mobile-twitter-dark.webp') no-repeat 50% 50%/contain
+
+            body &, body[data-theme="light"] &
+              background: url('/mobile-twitter-light.webp') no-repeat 50% 50%/contain
 
             +mq(minLarge)
-              aspect-ratio: 964 / 616
-              background: url('/desktop-twitter.webp') no-repeat 50% 50%/contain
+              aspect-ratio: 1121 / 753
+
+              body[data-theme="dark"] &
+                background: url('/desktop-twitter-dark.webp') no-repeat 50% 50%/contain
+
+              body &, body[data-theme="light"] &
+                background: url('/desktop-twitter-light.webp') no-repeat 50% 50%/contain
 
   dl
     border-top: 1px solid var(--border)
