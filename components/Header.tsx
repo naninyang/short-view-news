@@ -311,7 +311,11 @@ const Dimmed = styled.div({
 });
 
 export default function Header() {
-  const [themeMode, setThemeMode] = useState<string>('dark');
+  const [themeMode, setThemeMode] = useState<string>('light');
+  useEffect(() => {
+    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    setThemeMode(systemTheme);
+  }, []);
 
   useEffect(() => {
     const savedTheme = window.localStorage.getItem('theme');
@@ -325,6 +329,7 @@ export default function Header() {
   useEffect(() => {
     document.body.dataset.theme = themeMode;
     window.localStorage.setItem('theme', themeMode);
+    console.log(window.localStorage.getItem('theme'));
   }, [themeMode]);
 
   const themeModeHandle = (event: React.MouseEvent) => {
