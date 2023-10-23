@@ -21,10 +21,10 @@ interface watchProps {
 
 const CrossButton = styled.i({
   display: 'block',
-  'body &, body[data-theme="dark"] &': {
+  'body[data-theme="dark"] &': {
     background: `url(${images.arrow.crossLight}) no-repeat 50% 50%/contain`,
   },
-  'body[data-theme="light"] &': {
+  'body &, body[data-theme="light"] &': {
     background: `url(${images.arrow.crossDark}) no-repeat 50% 50%/contain`,
   },
 });

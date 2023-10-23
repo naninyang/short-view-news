@@ -52,16 +52,22 @@ export const images = {
       active: require('./tab/naver/active.svg'),
       dark: require('./tab/naver/dark.svg'),
       light: require('./tab/naver/light.svg'),
+      defaultDark: require('./tab/naver/defaultDark.svg'),
+      defaultLight: require('./tab/naver/defaultLight.svg'),
     },
     youtube: {
       active: require('./tab/youtube/active.svg'),
       dark: require('./tab/youtube/dark.svg'),
       light: require('./tab/youtube/light.svg'),
+      defaultDark: require('./tab/youtube/defaultDark.svg'),
+      defaultLight: require('./tab/youtube/defaultLight.svg'),
     },
     twitter: {
       active: require('./tab/twitter/active.svg'),
       dark: require('./tab/twitter/dark.svg'),
       light: require('./tab/twitter/light.svg'),
+      defaultDark: require('./tab/twitter/defaultDark.svg'),
+      defaultLight: require('./tab/twitter/defaultLight.svg'),
     },
   },
 };

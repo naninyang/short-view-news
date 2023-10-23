@@ -38,10 +38,10 @@ const Primary = styled.div({
     display: 'block',
     width: rem(151),
     height: rem(30),
-    'body &, body[data-theme="dark"] &': {
+    'body[data-theme="dark"] &': {
       background: `url(${images.logo.light}) no-repeat 50% 50%/contain`,
     },
-    'body[data-theme="light"] &': {
+    'body &, body[data-theme="light"] &': {
       background: `url(${images.logo.dark}) no-repeat 50% 50%/contain`,
     },
     '& span': {
@@ -54,10 +54,10 @@ const Primary = styled.div({
     borderRadius: rem(25),
     width: rem(25),
     height: rem(25),
-    'body &, body[data-theme="dark"] &': {
+    'body[data-theme="dark"] &': {
       backgroundColor: hex.darkBackground,
     },
-    'body[data-theme="light"] &': {
+    'body &, body[data-theme="light"] &': {
       backgroundColor: hex.lightBackground,
     },
     '& span': {
@@ -82,10 +82,10 @@ const MenuButton = styled.button({
     display: 'inline-block',
     width: rem(25),
     height: rem(25),
-    'body &, body[data-theme="dark"] &': {
+    'body[data-theme="dark"] &': {
       background: `url(${images.misc.menuLight}) no-repeat 50% 50%/contain`,
     },
-    'body[data-theme="light"] &': {
+    'body &, body[data-theme="light"] &': {
       background: `url(${images.misc.menuDark}) no-repeat 50% 50%/contain`,
     },
   },
@@ -251,10 +251,10 @@ const MenuContainer = styled.div({
   },
   '& p': {
     fontSize: rem(14),
-    'body &, body[data-theme="dark"] &': {
+    'body[data-theme="dark"] &': {
       color: 'rgba(255, 255, 255, .5)',
     },
-    'body[data-theme="light"] &': {
+    'body &, body[data-theme="light"] &': {
       color: 'rgba(0, 0, 0, .5)',
     },
   },
@@ -280,28 +280,28 @@ const Close = styled.div({
 });
 
 const Postype = styled.i({
-  'body &, body[data-theme="dark"] &': {
+  'body[data-theme="dark"] &': {
     background: `url(${images.services.postypeLight}) no-repeat 50% 50%/contain`,
   },
-  'body[data-theme="light"] &': {
+  'body &, body[data-theme="light"] &': {
     background: `url(${images.services.postypeDark}) no-repeat 50% 50%/contain`,
   },
 });
 
 const Blog = styled.i({
-  'body &, body[data-theme="dark"] &': {
+  'body[data-theme="dark"] &': {
     background: `url(${images.services.blogLight}) no-repeat 50% 50%/contain`,
   },
-  'body[data-theme="light"] &': {
+  'body &, body[data-theme="light"] &': {
     background: `url(${images.services.blogDark}) no-repeat 50% 50%/contain`,
   },
 });
 
 const Github = styled.i({
-  'body &, body[data-theme="dark"] &': {
+  'body[data-theme="dark"] &': {
     background: `url(${images.services.githubLight}) no-repeat 50% 50%/contain`,
   },
-  'body[data-theme="light"] &': {
+  'body &, body[data-theme="light"] &': {
     background: `url(${images.services.githubDark}) no-repeat 50% 50%/contain`,
   },
 });

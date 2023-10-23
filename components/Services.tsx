@@ -46,34 +46,34 @@ const Nav = styled.nav({
       width: rem(20),
       height: rem(20),
       '&[data-icon="home"]': {
-        'body &, body[data-theme="dark"] &': {
+        'body[data-theme="dark"] &': {
           background: `url(${images.tab.home.light}) no-repeat 50% 50%/contain`,
         },
-        'body[data-theme="light"] &': {
+        'body &, body[data-theme="light"] &': {
           background: `url(${images.tab.home.dark}) no-repeat 50% 50%/contain`,
         },
       },
       '&[data-icon="youtube"]': {
-        'body &, body[data-theme="dark"] &': {
+        'body[data-theme="dark"] &': {
           background: `url(${images.tab.youtube.light}) no-repeat 50% 50%/contain`,
         },
-        'body[data-theme="light"] &': {
+        'body &, body[data-theme="light"] &': {
           background: `url(${images.tab.youtube.dark}) no-repeat 50% 50%/contain`,
         },
       },
       '&[data-icon="naver"]': {
-        'body &, body[data-theme="dark"] &': {
+        'body[data-theme="dark"] &': {
           background: `url(${images.tab.naver.light}) no-repeat 50% 50%/contain`,
         },
-        'body[data-theme="light"] &': {
+        'body &, body[data-theme="light"] &': {
           background: `url(${images.tab.naver.dark}) no-repeat 50% 50%/contain`,
         },
       },
       '&[data-icon="twitter"]': {
-        'body &, body[data-theme="dark"] &': {
+        'body[data-theme="dark"] &': {
           background: `url(${images.tab.twitter.light}) no-repeat 50% 50%/contain`,
         },
-        'body[data-theme="light"] &': {
+        'body &, body[data-theme="light"] &': {
           background: `url(${images.tab.twitter.dark}) no-repeat 50% 50%/contain`,
         },
       },

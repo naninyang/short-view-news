@@ -24,7 +24,7 @@ body, pre, input, button, textarea, select
   text-rendering: optimizeLegibility
   -webkit-font-smoothing: antialiased
 
-body, body[data-theme="dark"]
+body[data-theme="dark"]
   --txt-subject: #{$hex-light-subject}
   --txt-summary: #{$hex-light-summary}
   --txt-blockquote: #{$hex-white}
@@ -35,7 +35,7 @@ body, body[data-theme="dark"]
   --default-text: #{$hex-white}
   --default-bg: #{$hex-black}
 
-body[data-theme="light"]
+body, body[data-theme="light"]
   --txt-subject: #{$hex-dark-subject}
   --txt-summary: #{$hex-dark-summary}
   --txt-blockquote: #{$hex-black}

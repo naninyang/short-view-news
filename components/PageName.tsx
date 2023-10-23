@@ -22,27 +22,27 @@ const Container = styled.h2({
     width: rem(25),
     height: rem(25),
     '&[data-page="/periodt"]': {
-      'body &, body[data-theme="dark"] &': {
-        background: `url(${images.tab.twitter.light}) no-repeat 50% 50%/contain`,
+      'body[data-theme="dark"] &': {
+        background: `url(${images.tab.twitter.defaultLight}) no-repeat 50% 50%/contain`,
       },
-      'body[data-theme="light"] &': {
-        background: `url(${images.tab.twitter.dark}) no-repeat 50% 50%/contain`,
+      'body &, body[data-theme="light"] &': {
+        background: `url(${images.tab.twitter.defaultDark}) no-repeat 50% 50%/contain`,
       },
     },
     '&[data-page="/articles"]': {
-      'body &, body[data-theme="dark"] &': {
-        background: `url(${images.tab.naver.light}) no-repeat 50% 50%/contain`,
+      'body[data-theme="dark"] &': {
+        background: `url(${images.tab.naver.defaultLight}) no-repeat 50% 50%/contain`,
       },
-      'body[data-theme="light"] &': {
-        background: `url(${images.tab.naver.dark}) no-repeat 50% 50%/contain`,
+      'body &, body[data-theme="light"] &': {
+        background: `url(${images.tab.naver.defaultDark}) no-repeat 50% 50%/contain`,
       },
     },
     '&[data-page="/watches"]': {
-      'body &, body[data-theme="dark"] &': {
-        background: `url(${images.tab.youtube.light}) no-repeat 50% 50%/contain`,
+      'body[data-theme="dark"] &': {
+        background: `url(${images.tab.youtube.defaultLight}) no-repeat 50% 50%/contain`,
       },
-      'body[data-theme="light"] &': {
-        background: `url(${images.tab.youtube.dark}) no-repeat 50% 50%/contain`,
+      'body &, body[data-theme="light"] &': {
+        background: `url(${images.tab.youtube.defaultDark}) no-repeat 50% 50%/contain`,
       },
     },
   },
