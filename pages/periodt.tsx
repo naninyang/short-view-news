@@ -237,7 +237,7 @@ function Periodt() {
               <CrossButton />
               <span>닫기</span>
             </button>
-            <img src={selectedThumbnail} alt="" />
+            <img src={selectedThumbnail} alt="" onClick={closeModal} />
           </div>
         )}
       </Modal>
