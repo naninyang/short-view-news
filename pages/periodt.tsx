@@ -151,7 +151,7 @@ function Periodt() {
                   <AnchorLink href={part}>
                     <img src={ogData.ogImage} alt="" />
                     <div className={styles['og-info']}>
-                      <cite>{ogData.ogSiteName}</cite>
+                      {ogData.ogCreator ? <cite>{ogData.ogCreator}</cite> : <cite>{ogData.ogSiteName}</cite>}
                       <strong>{ogData.ogTitle}</strong>
                       <p>{ogData.ogDescription}</p>
                     </div>
