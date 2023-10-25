@@ -65,7 +65,6 @@ function Periodt() {
   });
 
   const [target, setTarget] = useState<HTMLElement | null | undefined>(null);
-  const periodtId = Array.isArray(router.query.periodtId) ? router.query.periodtId[0] : router.query.periodtId;
 
   const periodts = data ? [].concat(...data) : [];
   const isLoading = !data && !error;
@@ -87,13 +86,14 @@ function Periodt() {
   useEffect(() => {
     if (!target || isLoading) return;
   }, [target, isLoading]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const preventScroll = (e: Event) => {
       e.preventDefault();
     };
 
-    if (periodtId !== undefined) {
+    if (isModalOpen) {
       window.addEventListener('wheel', preventScroll, { passive: false });
       window.addEventListener('touchmove', preventScroll, { passive: false });
     } else {
@@ -105,7 +105,7 @@ function Periodt() {
       window.removeEventListener('wheel', preventScroll);
       window.removeEventListener('touchmove', preventScroll);
     };
-  }, [periodtId]);
+  }, [isModalOpen]);
 
   useEffect(() => {
     localStorage.removeItem('currentPage');
@@ -183,7 +183,6 @@ function Periodt() {
     return <>{renderedContent}</>;
   };
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedThumbnail, setSelectedThumbnail] = useState(null);
 
   const handleThumbnailClick = (thumbnailUrl: any) => {

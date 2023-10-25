@@ -329,7 +329,6 @@ export default function Header() {
   useEffect(() => {
     document.body.dataset.theme = themeMode;
     window.localStorage.setItem('theme', themeMode);
-    console.log(window.localStorage.getItem('theme'));
   }, [themeMode]);
 
   const themeModeHandle = (event: React.MouseEvent) => {
