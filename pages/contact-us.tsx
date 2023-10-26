@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import axios from 'axios';
 import styled from '@emotion/styled';
 import Seo from '@/components/Seo';
@@ -18,9 +19,11 @@ const BackButton = styled.i({
 });
 
 function ContactForm() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     title: '',
     name: '',
+    email: '',
     created: new Date().toISOString(),
     description: '',
   });
@@ -33,6 +36,7 @@ function ContactForm() {
 
       if (response.status === 200) {
         alert('성공적으로 제출되었습니다!');
+        router.push('/');
       } else {
         console.log('오류가 발생했습니다: ' + response.data.error);
       }
@@ -79,6 +83,7 @@ function ContactForm() {
           <fieldset>
             <legend>문의 질의</legend>
             <input
+              required
               type="hidden"
               value={formData.created}
               onChange={(e) => setFormData({ ...formData, created: e.target.value })}
@@ -86,6 +91,7 @@ function ContactForm() {
             <div className={styles['field-group']}>
               <label htmlFor="title">제목</label>
               <input
+                required
                 type="text"
                 id="title"
                 value={formData.title}
@@ -95,6 +101,7 @@ function ContactForm() {
             <div className={styles['field-group']}>
               <label htmlFor="name">이름</label>
               <input
+                required
                 type="text"
                 id="name"
                 value={formData.name}
@@ -102,8 +109,19 @@ function ContactForm() {
               />
             </div>
             <div className={styles['field-group']}>
+              <label htmlFor="email">이메일</label>
+              <input
+                required
+                type="email"
+                id="email"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              />
+            </div>
+            <div className={styles['field-group']}>
               <label htmlFor="description">내용</label>
               <textarea
+                required
                 id="description"
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}

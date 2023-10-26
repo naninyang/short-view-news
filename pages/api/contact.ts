@@ -8,7 +8,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).end();
   }
 
-  const { title, name, created, description } = req.body;
+  const { title, name, email, created, description } = req.body;
 
   try {
     const pageData = {
@@ -19,6 +19,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         },
         name: {
           rich_text: [{ text: { content: name } }],
+        },
+        email: {
+          email: email,
         },
         created: {
           date: { start: created },
