@@ -18,14 +18,19 @@
       gap: rem(50)
       padding: rem(25)
 
-    p
-      text-align: center
-      font-weight: 300
-      text-wrap: balance
+    > div
+      display: flex
+      flex-direction: column
+      gap: rem(15)
 
-      +mq(minLarge)
-        display: flex
-        flex-direction: column
+      p
+        text-align: center
+        font-weight: 300
+        text-wrap: balance
+
+        +mq(minLarge)
+          display: flex
+          flex-direction: column
 
     fieldset
       display: flex
