@@ -26,6 +26,8 @@ export const images = {
     backLight: require('./arrow/backLight.svg'),
     crossDark: require('./arrow/crossDark.svg'),
     crossLight: require('./arrow/crossLight.svg'),
+    downDark: require('./arrow/downDark.svg'),
+    downLight: require('./arrow/downLight.svg'),
   },
   services: {
     githubLight: require('./services/githubLight.svg'),

@@ -1,0 +1,159 @@
+@import './designSystem'
+
+.history
+  padding: 0 env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)
+  min-height: calc(100dvh - rem(50))
+  font-size: rem(16)
+
+  h2
+    padding-right: rem(20)
+    padding-left: rem(20)
+    max-width: rem(1350)
+    margin: 0 auto
+
+    +mq(minSmall)
+      padding-right: 0
+      padding-left: 0
+
+  .content
+    display: flex
+    justify-content: center
+
+  .list
+    display: flex
+    gap: rem(15)
+    width: 100%
+    max-width: rem(1350)
+
+    > div
+      +col
+
+  .accordion
+    .item
+      display: flex
+      flex-direction: column
+      border-top: 1px solid #B8B8B8
+
+      &:last-of-type
+        border-bottom: 1px solid #B8B8B8
+
+      &.item-entering
+        .content
+          opacity: 1 !important
+
+      &.item-exiting
+        .content
+          opacity: 0 !important
+
+      &.item-entered
+        .content
+          opacity: 1
+
+      > button
+        transition: color .75s cubic-bezier(0, 0, 0, 1), opacity .75s cubic-bezier(0, 0, 0, 1)
+        display: flex
+        background-color: transparent
+        justify-content: space-between
+        align-items: center
+        padding: rem(15)
+        font-size: rem(14)
+        font-weight: 700
+        line-height: 1
+        color: var(--default-text)
+
+        span
+          display: flex
+          gap: rem(15)
+
+        em
+          display: flex
+          align-items: center
+          background-color: $hex-accent
+          border-radius: rem(3)
+          padding: 0 rem(5)
+          height: rem(14)
+          font-size: rem(12)
+          font-weight: 400
+          font-style: normal
+          line-height: 1
+
+        +mq(minLarge)
+          padding: rem(25)
+          font-size: rem(16)
+
+        &[aria-expanded="false"]
+          color: var(--default-text)
+
+        i
+          display: block
+          width: rem(14)
+          height: rem(14)
+
+          +mq(minLarge)
+            width: rem(16)
+            height: rem(16)
+
+      .content
+        transition: height .75s cubic-bezier(0, 0, 0, 1), opacity .75s cubic-bezier(0, 0, 0, 1)
+        opacity: 0
+
+        .item
+          padding-bottom: rem(15)
+          font-size: rem(14)
+          line-height: 1.5
+          color: var(--default-text)
+
+          +mq(minLarge)
+            padding-bottom: rem(25)
+            font-size: rem(16)
+
+          figure
+            display: flex
+            flex-direction: column-reverse
+            gap: rem(15)
+            border-top: 1px solid var(--border)
+            margin: 0 rem(15)
+            padding: rem(15) 0
+
+            +mq(minLarge)
+              gap: rem(25)
+              margin: 0 rem(25)
+              padding: rem(25)
+
+            figcaption
+              display: flex
+              flex-direction: column
+
+              time
+                font-size: rem(20)
+                font-weight: 300
+                line-height: 1
+
+                +mq(minDesktop)
+                  font-size: rem(24)
+
+              strong
+                margin: rem(3) 0 rem(5)
+                font-size: rem(20)
+                font-weight: 700
+                line-height: 1.3
+
+                +mq(minDesktop)
+                  margin: rem(5) 0 rem(15)
+                  font-size: rem(16)
+
+              p
+                font-size: rem(14)
+                line-height: 1.5
+
+                +mq(minLarge)
+                  font-size: rem(16)
+
+                a
+                  font-size: rem(12)
+                  color: $hex-accent
+                  line-height: 1
+                  text-decoration: underline
+
+                  +mq(minDesktop)
+                    font-size: rem(14)

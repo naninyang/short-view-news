@@ -20,6 +20,9 @@ dependencies:
   '@notionhq/client':
     specifier: ^2.2.13
     version: 2.2.13
+  '@szhsin/react-accordion':
+    specifier: ^1.2.3
+    version: 1.2.3(react-dom@18.2.0)(react@18.2.0)
   '@types/lodash':
     specifier: ^4.14.199
     version: 4.14.199
@@ -2026,6 +2029,18 @@ packages:
       { integrity: sha512-E4KcWTpoLHqwPHLxidpOqQbcrZVgi0rsmmZXUle1jXmJfuIf/UWpczUJ7MZZ5tlxytgJXyp0w4PGkkeLiuIdZw== }
     dependencies:
       tslib: 2.6.2
+
+  /@szhsin/react-accordion@1.2.3(react-dom@18.2.0)(react@18.2.0):
+    resolution:
+      { integrity: sha512-KsDmaYsv4+Rnla+fSdZMIMonzuvXlDRPaFeIa7Je0dnwY4iFry5eiw27GQ6276+tYkVRgUyfS/mEcL48efSivA== }
+    peerDependencies:
+      react: ^16.14 || ^17.0 || ^18.0
+      react-dom: ^16.14 || ^17.0 || ^18.0
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      react-transition-state: 2.1.1(react-dom@18.2.0)(react@18.2.0)
+    dev: false
 
   /@tootallnate/once@2.0.0:
     resolution:
@@ -6767,6 +6782,17 @@ packages:
     peerDependencies:
       react: ^16.10.2 || ^17.0.0 || ^18.0.0
       react-dom: ^16.10.2 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /react-transition-state@2.1.1(react-dom@18.2.0)(react@18.2.0):
+    resolution:
+      { integrity: sha512-kQx5g1FVu9knoz1T1WkapjUgFz08qQ/g1OmuWGi3/AoEFfS0kStxrPlZx81urjCXdz2d+1DqLpU6TyLW/Ro04Q== }
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
     dependencies:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)

@@ -68,3 +68,12 @@ export interface Periodt {
   thumbnailOrigin4?: string;
   [key: string]: any;
 }
+
+export interface NotionRichText {
+  plain_text: string;
+  href?: string | null;
+}
+
+export interface NotionDate {
+  start: string;
+}
