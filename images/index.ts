@@ -72,5 +72,12 @@ export const images = {
       defaultDark: require('./tab/twitter/defaultDark.svg'),
       defaultLight: require('./tab/twitter/defaultLight.svg'),
     },
+    history: {
+      active: require('./tab/history/active.svg'),
+      dark: require('./tab/history/dark.svg'),
+      light: require('./tab/history/light.svg'),
+      defaultDark: require('./tab/history/defaultDark.svg'),
+      defaultLight: require('./tab/history/defaultLight.svg'),
+    },
   },
 };

@@ -77,6 +77,14 @@ const Nav = styled.nav({
           background: `url(${images.tab.twitter.dark}) no-repeat 50% 50%/contain`,
         },
       },
+      '&[data-icon="history"]': {
+        'body[data-theme="dark"] &': {
+          background: `url(${images.tab.history.light}) no-repeat 50% 50%/contain`,
+        },
+        'body &, body[data-theme="light"] &': {
+          background: `url(${images.tab.history.dark}) no-repeat 50% 50%/contain`,
+        },
+      },
     },
     '& span': {
       fontSize: rem(12),
@@ -104,6 +112,11 @@ const MenuItem = styled.li<{ currentRouter?: boolean }>(({ currentRouter }) => (
       '&[data-icon="twitter"]': {
         background: currentRouter
           ? `url(${images.tab.twitter.active}) no-repeat 50% 50%/contain !important`
+          : undefined,
+      },
+      '&[data-icon="history"]': {
+        background: currentRouter
+          ? `url(${images.tab.history.active}) no-repeat 50% 50%/contain !important`
           : undefined,
       },
     },
@@ -139,6 +152,12 @@ export default function Services() {
           <AnchorLink href="/periodt">
             <i data-icon="twitter" />
             <span>Twitter</span>
+          </AnchorLink>
+        </MenuItem>
+        <MenuItem currentRouter={router.pathname === '/history' ? true : false}>
+          <AnchorLink href="/history">
+            <i data-icon="history" />
+            <span>History</span>
           </AnchorLink>
         </MenuItem>
       </ol>

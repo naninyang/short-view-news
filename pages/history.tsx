@@ -7,10 +7,10 @@ import { NaverAPIResponse } from '@/utils/historyNaver';
 import Accordion from '@/components/Accordion';
 import AccordionItem from '@/components/AccordionItem';
 import YouTubeController from '@/components/YouTubeController';
-import styles from '@/styles/history.module.sass';
 import Opengraph from '@/components/Opengraph';
 import Seo from '@/components/Seo';
 import PageName from '@/components/PageName';
+import styles from '@/styles/history.module.sass';
 
 export default function History() {
   const [youTubeData, setYouTubeData] = useState<YouTubeAPIResponse | null>(null);
@@ -53,9 +53,9 @@ export default function History() {
         pageImg={`https://news.dev1stud.io/og-image.png?ts=${timestamp}`}
       />
       <PageName pageName="사건/사고 히스토리" />
-      <div className={styles.content}>
+      <div className={styles.container}>
         <div className={styles.list}>
-          <div className={styles.item}>
+          <div className={styles.articles}>
             {youTubeData && (
               <Accordion>
                 {youTubeData.results
@@ -119,7 +119,7 @@ export default function History() {
               </Accordion>
             )}
           </div>
-          <div className={styles.item}>
+          <div className={styles.articles}>
             {naverData && (
               <Accordion>
                 {naverData.results
