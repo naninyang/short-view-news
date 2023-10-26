@@ -17,6 +17,9 @@ const Container = styled.h2({
   [mq.minSmall]: {
     padding: `${rem(15)} ${rem(25)}`,
   },
+  '& span': {
+    lineHeight: 1,
+  },
   '& i': {
     display: 'block',
     width: rem(25),
@@ -43,6 +46,14 @@ const Container = styled.h2({
       },
       'body &, body[data-theme="light"] &': {
         background: `url(${images.tab.youtube.defaultDark}) no-repeat 50% 50%/contain`,
+      },
+    },
+    '&[data-page="/history"]': {
+      'body[data-theme="dark"] &': {
+        background: `url(${images.tab.history.defaultLight}) no-repeat 50% 50%/contain`,
+      },
+      'body &, body[data-theme="light"] &': {
+        background: `url(${images.tab.history.defaultDark}) no-repeat 50% 50%/contain`,
       },
     },
   },

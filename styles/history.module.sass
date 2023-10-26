@@ -1,0 +1,213 @@
+@import './designSystem'
+
+.history
+  padding: 0 env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)
+  min-height: calc(100dvh - rem(50))
+  font-size: rem(16)
+
+  h2
+    padding-right: rem(25)
+    padding-left: rem(25)
+    max-width: rem(1350)
+    margin: 0 auto
+
+  .container
+    display: flex
+    justify-content: center
+    padding: rem(25) rem(25) rem(125)
+
+  .list
+    display: flex
+    width: 100%
+    max-width: rem(1350)
+
+    +mq(maxSmall)
+      flex-direction: column
+
+    +mq(minMedium)
+      gap: rem(15)
+
+    nav
+      width: 100%
+      position: relative
+      z-index: 1
+
+      ul
+        display: flex
+
+        li
+          +col
+
+          button
+            background-color: transparent
+            padding: 0
+            width: 100%
+
+            &.active
+              span
+                border-bottom-color: $hex-accent
+                font-weight: 900
+                color: $hex-accent
+
+            span
+              display: inline-flex
+              justify-content: center
+              align-items: center
+              border-bottom: rem(1) solid transparent
+              padding: 0 rem(15)
+              height: rem(37)
+              font-size: rem(16)
+              font-weight: 300
+              line-height: 1
+              color: var(--default-text)
+
+    .articles
+      h3
+        padding-bottom: rem(15)
+        font-size: rem(20)
+        font-weight: 300
+        color: var(--default-text)
+        letter-spacing: -.025em
+
+      +mq(minMedium)
+        +col
+        font-size: rem(24)
+
+.accordion
+  +mq(maxSmall)
+    margin-top: -1px
+
+  .item
+    display: flex
+    flex-direction: column
+    border-top: 1px solid #B8B8B8
+    transition: height .75s cubic-bezier(0, 0, 0, 1)
+
+    &:last-of-type
+      border-bottom: 1px solid #B8B8B8
+
+    &.item-entering
+      .content
+        opacity: 1 !important
+
+    &.item-exiting
+      .content
+        opacity: 0 !important
+
+    &.item-entered
+      .content
+        opacity: 1
+
+    > button
+      transition: all .75s cubic-bezier(0, 0, 0, 1)
+      display: flex
+      background-color: transparent
+      justify-content: space-between
+      align-items: center
+      padding: rem(15)
+      font-size: rem(14)
+      font-weight: 700
+      line-height: 1
+      color: var(--default-text)
+
+      +mq(minSmall)
+        padding: rem(25)
+        font-size: rem(16)
+
+      span
+        display: flex
+        align-items: center
+        gap: rem(15)
+        text-align: left
+        line-height: 1.3
+
+      em
+        display: flex
+        align-items: center
+        background-color: $hex-accent
+        border-radius: rem(3)
+        padding: 0 rem(5)
+        height: rem(14)
+        font-size: rem(12)
+        font-weight: 400
+        font-style: normal
+        line-height: 1
+        color: $hex-white
+
+      &[aria-expanded="false"]
+        color: var(--default-text)
+
+      i
+        display: block
+        width: rem(14)
+        height: rem(14)
+
+        +mq(minLarge)
+          width: rem(16)
+          height: rem(16)
+
+    .content
+      transition: height .75s cubic-bezier(0, 0, 0, 1), opacity .75s cubic-bezier(0, 0, 0, 1)
+      opacity: 0
+
+      > div
+        padding-bottom: rem(15)
+        font-size: rem(14)
+        line-height: 1.5
+        color: var(--default-text)
+
+        +mq(minDesktop)
+          padding-bottom: rem(25)
+          font-size: rem(16)
+
+      figure
+        display: flex
+        flex-direction: column-reverse
+        gap: rem(15)
+        border-top: 1px solid var(--border)
+        padding: rem(15)
+
+        +mq(minLarge)
+          gap: rem(25)
+          padding: rem(25)
+
+        figcaption
+          display: flex
+          flex-direction: column
+
+          time
+            font-size: rem(20)
+            font-weight: 300
+            line-height: 1
+            color: var(--txt-subject)
+
+            +mq(minDesktop)
+              font-size: rem(24)
+
+          strong
+            margin: rem(3) 0 rem(5)
+            font-size: rem(20)
+            font-weight: 700
+            line-height: 1.3
+            color: var(--txt-summary)
+
+            +mq(minDesktop)
+              margin: rem(5) 0 rem(15)
+              font-size: rem(16)
+
+          p
+            font-size: rem(14)
+            line-height: 1.5
+            color: var(--txt-blockquote)
+
+            +mq(minLarge)
+              font-size: rem(16)
+
+            a
+              font-size: rem(12)
+              color: $hex-accent
+              line-height: 1
+              text-decoration: underline
+
+              +mq(minDesktop)
+                font-size: rem(14)

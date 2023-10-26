@@ -26,6 +26,8 @@ export const images = {
     backLight: require('./arrow/backLight.svg'),
     crossDark: require('./arrow/crossDark.svg'),
     crossLight: require('./arrow/crossLight.svg'),
+    downDark: require('./arrow/downDark.svg'),
+    downLight: require('./arrow/downLight.svg'),
   },
   services: {
     githubLight: require('./services/githubLight.svg'),
@@ -69,6 +71,13 @@ export const images = {
       light: require('./tab/twitter/light.svg'),
       defaultDark: require('./tab/twitter/defaultDark.svg'),
       defaultLight: require('./tab/twitter/defaultLight.svg'),
+    },
+    history: {
+      active: require('./tab/history/active.svg'),
+      dark: require('./tab/history/dark.svg'),
+      light: require('./tab/history/light.svg'),
+      defaultDark: require('./tab/history/defaultDark.svg'),
+      defaultLight: require('./tab/history/defaultLight.svg'),
     },
   },
 };

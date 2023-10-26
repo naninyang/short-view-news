@@ -20,6 +20,9 @@ dependencies:
   '@notionhq/client':
     specifier: ^2.2.13
     version: 2.2.13
+  '@szhsin/react-accordion':
+    specifier: ^1.2.3
+    version: 1.2.3(react-dom@18.2.0)(react@18.2.0)
   '@types/lodash':
     specifier: ^4.14.199
     version: 4.14.199
@@ -68,6 +71,9 @@ dependencies:
   react-perfect-scrollbar:
     specifier: ^1.5.8
     version: 1.5.8(react-dom@18.2.0)(react@18.2.0)
+  react-responsive:
+    specifier: ^9.0.2
+    version: 9.0.2(react@18.2.0)
   react-simple-pull-to-refresh:
     specifier: ^1.3.3
     version: 1.3.3(react-dom@18.2.0)(react@18.2.0)
@@ -2027,6 +2033,18 @@ packages:
     dependencies:
       tslib: 2.6.2
 
+  /@szhsin/react-accordion@1.2.3(react-dom@18.2.0)(react@18.2.0):
+    resolution:
+      { integrity: sha512-KsDmaYsv4+Rnla+fSdZMIMonzuvXlDRPaFeIa7Je0dnwY4iFry5eiw27GQ6276+tYkVRgUyfS/mEcL48efSivA== }
+    peerDependencies:
+      react: ^16.14 || ^17.0 || ^18.0
+      react-dom: ^16.14 || ^17.0 || ^18.0
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      react-transition-state: 2.1.1(react-dom@18.2.0)(react@18.2.0)
+    dev: false
+
   /@tootallnate/once@2.0.0:
     resolution:
       { integrity: sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A== }
@@ -3449,6 +3467,11 @@ packages:
       { integrity: sha512-v1plID3y9r/lPhviJ1wrXpLeyUIGAZ2SHNYTEapm7/8A9nLPoyvVp3RK/EPFqn5kEznyWgYZNsRtYYIWbuG8KA== }
     engines: { node: '>=8' }
     dev: true
+
+  /css-mediaquery@0.1.2:
+    resolution:
+      { integrity: sha512-COtn4EROW5dBGlE/4PiKnh6rZpAPxDeFLaEEwt4i10jpDMFt2EhQGS79QmmrO+iKCHv0PU/HrOWEhijFd1x99Q== }
+    dev: false
 
   /csstype@3.1.2:
     resolution:
@@ -5070,6 +5093,11 @@ packages:
     engines: { node: '>=14.18.0' }
     dev: true
 
+  /hyphenate-style-name@1.0.4:
+    resolution:
+      { integrity: sha512-ygGZLjmXfPHj+ZWh6LwbC37l43MhfztxetbFCoYTM2VjkIUpeHgSNn7QIyVFj7YQ1Wl9Cbw5sholVJPzWvC2MQ== }
+    dev: false
+
   /iconv-lite@0.4.24:
     resolution:
       { integrity: sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA== }
@@ -5852,6 +5880,13 @@ packages:
       raf-schd: 4.0.3
       react: 18.2.0
       trie-memoize: 1.2.0
+    dev: false
+
+  /matchmediaquery@0.3.1:
+    resolution:
+      { integrity: sha512-Hlk20WQHRIm9EE9luN1kjRjYXAQToHOIAHPJn9buxBwuhfTHoKUcX+lXBbxc85DVQfXYbEQ4HcwQdd128E3qHQ== }
+    dependencies:
+      css-mediaquery: 0.1.2
     dev: false
 
   /merge-stream@2.0.0:
@@ -6761,12 +6796,37 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
+  /react-responsive@9.0.2(react@18.2.0):
+    resolution:
+      { integrity: sha512-+4CCab7z8G8glgJoRjAwocsgsv6VA2w7JPxFWHRc7kvz8mec1/K5LutNC2MG28Mn8mu6+bu04XZxHv5gyfT7xQ== }
+    engines: { node: '>=0.10' }
+    peerDependencies:
+      react: '>=16.8.0'
+    dependencies:
+      hyphenate-style-name: 1.0.4
+      matchmediaquery: 0.3.1
+      prop-types: 15.8.1
+      react: 18.2.0
+      shallow-equal: 1.2.1
+    dev: false
+
   /react-simple-pull-to-refresh@1.3.3(react-dom@18.2.0)(react@18.2.0):
     resolution:
       { integrity: sha512-6qXsa5RtNVmKJhLWvDLIX8UK51HFtCEGjdqQGf+M1Qjrcc4qH4fki97sgVpGEFBRwbY7DiVDA5N5p97kF16DTw== }
     peerDependencies:
       react: ^16.10.2 || ^17.0.0 || ^18.0.0
       react-dom: ^16.10.2 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
+  /react-transition-state@2.1.1(react-dom@18.2.0)(react@18.2.0):
+    resolution:
+      { integrity: sha512-kQx5g1FVu9knoz1T1WkapjUgFz08qQ/g1OmuWGi3/AoEFfS0kStxrPlZx81urjCXdz2d+1DqLpU6TyLW/Ro04Q== }
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
     dependencies:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -7146,6 +7206,11 @@ packages:
   /setprototypeof@1.1.1:
     resolution:
       { integrity: sha512-JvdAWfbXeIGaZ9cILp38HntZSFSo3mWg6xGcJJsd+d4aRMOqauag1C63dJfDw7OaMYwEbHMOxEZ1lqVRYP2OAw== }
+    dev: false
+
+  /shallow-equal@1.2.1:
+    resolution:
+      { integrity: sha512-S4vJDjHHMBaiZuT9NPb616CSmLf618jawtv3sufLl6ivK8WocjAo58cXwbRV1cgqxH0Qbv+iUt6m05eqEa2IRA== }
     dev: false
 
   /shebang-command@2.0.0:
