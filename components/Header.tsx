@@ -416,7 +416,8 @@ export default function Header() {
         {router.pathname === '/' ||
         router.pathname === '/watches' ||
         router.pathname === '/articles' ||
-        router.pathname === '/periodt' ? undefined : (
+        router.pathname === '/periodt' ||
+        router.pathname === '/history' ? undefined : (
           <s />
         )}
         <Primary>

@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from '@emotion/styled';
 import AnchorLink from './AnchorLink';
-import { rem } from '@/styles/designSystem';
 
 interface Props {
   article_id: string;
@@ -47,9 +46,9 @@ const Opengraph = ({ article_id, datetime }: Props) => {
     <Container>
       {openGraph && (
         <>
+          <img src={openGraph.ogImage} alt="" />
           <figcaption>
             <time>{datetime}</time>
-            <img src={openGraph.ogImage} alt="" />
             <strong>
               {openGraph.ogCreator} / {openGraph.ogTitle}
             </strong>

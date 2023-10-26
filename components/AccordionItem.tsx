@@ -6,7 +6,13 @@ import styles from '@/styles/history.module.sass';
 
 const Chevron = styled.i({
   transition: 'transform .75s cubic-bezier(0, 0, 0, 1)',
-  background: `url(${images.arrow.downLight}) no-repeat 50% 50%/contain`,
+  'body[data-theme="dark"] &': {
+    background: `url(${images.arrow.downLight}) no-repeat 50% 50%/contain`,
+  },
+  'body &, body[data-theme="light"] &': {
+    background: `url(${images.arrow.downDark}) no-repeat 50% 50%/contain`,
+  },
+
   '&.icon-entered': {
     transform: 'rotate(-180deg)',
   },

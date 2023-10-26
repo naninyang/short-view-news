@@ -17,6 +17,9 @@ const Container = styled.h2({
   [mq.minSmall]: {
     padding: `${rem(15)} ${rem(25)}`,
   },
+  '& span': {
+    lineHeight: 1,
+  },
   '& i': {
     display: 'block',
     width: rem(25),

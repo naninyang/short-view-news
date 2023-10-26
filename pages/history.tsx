@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
+import { useMediaQuery } from 'react-responsive';
 import { YouTubeAPIResponse } from '@/utils/historyYouTube';
 import { NaverAPIResponse } from '@/utils/historyNaver';
 import Accordion from '@/components/Accordion';
@@ -11,6 +12,15 @@ import Opengraph from '@/components/Opengraph';
 import Seo from '@/components/Seo';
 import PageName from '@/components/PageName';
 import styles from '@/styles/history.module.sass';
+
+export function useDesktop() {
+  const [isDesktop, setIsDesktop] = useState(false);
+  const desktop = useMediaQuery({ query: '(min-width: 768px)' });
+  useEffect(() => {
+    setIsDesktop(desktop);
+  }, [desktop]);
+  return isDesktop;
+}
 
 export default function History() {
   const [youTubeData, setYouTubeData] = useState<YouTubeAPIResponse | null>(null);
@@ -43,6 +53,9 @@ export default function History() {
     return format(date, 'yyyy년 M월 d일', { locale: ko });
   }
 
+  const isDesktop = useDesktop();
+  const [activeArea, setActiveArea] = useState<number | null>(null);
+
   const timestamp = Date.now();
 
   return (
@@ -55,185 +68,215 @@ export default function History() {
       <PageName pageName="사건/사고 히스토리" />
       <div className={styles.container}>
         <div className={styles.list}>
-          <div className={styles.articles}>
-            {youTubeData && (
-              <Accordion>
-                {youTubeData.results
-                  .sort(
-                    (a: any, b: any) =>
-                      new Date(b.properties.update).getTime() - new Date(a.properties.update).getTime(),
-                  )
-                  .map((item: any, index: number) => (
-                    <AccordionItem header={item.properties.title} stat={item.properties.due} key={index}>
-                      <figure>
-                        <YouTubeController videoId={item.properties.video_id1} />
-                        <figcaption>
-                          <time>{formatDate(item.properties.datetime1)}</time>
-                          <strong>{item.properties.subject1}</strong>
-                          <p dangerouslySetInnerHTML={{ __html: item.properties.description1 }} />
-                        </figcaption>
-                      </figure>
+          {!isDesktop && (
+            <nav>
+              <ul>
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => setActiveArea(1)}
+                    className={`${activeArea === null || activeArea === 1 ? styles.active : ''}`}
+                  >
+                    <span>YouTube 기사</span>
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => setActiveArea(2)}
+                    className={`${activeArea === 2 ? styles.active : ''}`}
+                  >
+                    <span>NAVER 기사</span>
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          )}
+          {(activeArea === null || activeArea === 1 || isDesktop) && (
+            <div className={styles.articles}>
+              {isDesktop && <h3>YouTube 기사</h3>}
+              {youTubeData && (
+                <Accordion>
+                  {youTubeData.results
+                    .sort(
+                      (a: any, b: any) =>
+                        new Date(b.properties.update).getTime() - new Date(a.properties.update).getTime(),
+                    )
+                    .map((item: any, index: number) => (
+                      <AccordionItem header={item.properties.title} stat={item.properties.due} key={index}>
+                        <figure>
+                          <YouTubeController videoId={item.properties.video_id1} />
+                          <figcaption>
+                            <time>{formatDate(item.properties.datetime1)}</time>
+                            <strong>{item.properties.subject1}</strong>
+                            <p dangerouslySetInnerHTML={{ __html: item.properties.description1 }} />
+                          </figcaption>
+                        </figure>
 
-                      {item.properties.video_id2 && (
-                        <figure>
-                          <YouTubeController videoId={item.properties.video_id2} />
-                          <figcaption>
-                            <time>{formatDate(item.properties.datetime2)}</time>
-                            <strong>{item.properties.subject2}</strong>
-                            <p dangerouslySetInnerHTML={{ __html: item.properties.description2 }} />
-                          </figcaption>
-                        </figure>
-                      )}
-                      {item.properties.video_id3 && (
-                        <figure>
-                          <YouTubeController videoId={item.properties.video_id3} />
-                          <figcaption>
-                            <time>{formatDate(item.properties.datetime3)}</time>
-                            <strong>{item.properties.subject3}</strong>
-                            <p dangerouslySetInnerHTML={{ __html: item.properties.description3 }} />
-                          </figcaption>
-                        </figure>
-                      )}
-                      {item.properties.video_id4 && (
-                        <figure>
-                          <YouTubeController videoId={item.properties.video_id4} />
-                          <figcaption>
-                            <time>{formatDate(item.properties.datetime4)}</time>
-                            <strong>{item.properties.subject4}</strong>
-                            <p dangerouslySetInnerHTML={{ __html: item.properties.description4 }} />
-                          </figcaption>
-                        </figure>
-                      )}
-                      {item.properties.video_id5 && (
-                        <figure>
-                          <YouTubeController videoId={item.properties.video_id5} />
-                          <figcaption>
-                            <time>{formatDate(item.properties.datetime5)}</time>
-                            <strong>{item.properties.subject5}</strong>
-                            <p dangerouslySetInnerHTML={{ __html: item.properties.description5 }} />
-                          </figcaption>
-                        </figure>
-                      )}
-                    </AccordionItem>
-                  ))}
-              </Accordion>
-            )}
-          </div>
-          <div className={styles.articles}>
-            {naverData && (
-              <Accordion>
-                {naverData.results
-                  .sort(
-                    (a: any, b: any) =>
-                      new Date(b.properties.update).getTime() - new Date(a.properties.update).getTime(),
-                  )
-                  .map((item: any, index: number) => (
-                    <AccordionItem header={item.properties.title} stat={item.properties.due} key={index}>
-                      <Opengraph
-                        article_id={item.properties.article_id1}
-                        datetime={formatDate(item.properties.datetime1)}
-                      />
-                      {item.properties.article_id2 && (
+                        {item.properties.video_id2 && (
+                          <figure>
+                            <YouTubeController videoId={item.properties.video_id2} />
+                            <figcaption>
+                              <time>{formatDate(item.properties.datetime2)}</time>
+                              <strong>{item.properties.subject2}</strong>
+                              <p dangerouslySetInnerHTML={{ __html: item.properties.description2 }} />
+                            </figcaption>
+                          </figure>
+                        )}
+                        {item.properties.video_id3 && (
+                          <figure>
+                            <YouTubeController videoId={item.properties.video_id3} />
+                            <figcaption>
+                              <time>{formatDate(item.properties.datetime3)}</time>
+                              <strong>{item.properties.subject3}</strong>
+                              <p dangerouslySetInnerHTML={{ __html: item.properties.description3 }} />
+                            </figcaption>
+                          </figure>
+                        )}
+                        {item.properties.video_id4 && (
+                          <figure>
+                            <YouTubeController videoId={item.properties.video_id4} />
+                            <figcaption>
+                              <time>{formatDate(item.properties.datetime4)}</time>
+                              <strong>{item.properties.subject4}</strong>
+                              <p dangerouslySetInnerHTML={{ __html: item.properties.description4 }} />
+                            </figcaption>
+                          </figure>
+                        )}
+                        {item.properties.video_id5 && (
+                          <figure>
+                            <YouTubeController videoId={item.properties.video_id5} />
+                            <figcaption>
+                              <time>{formatDate(item.properties.datetime5)}</time>
+                              <strong>{item.properties.subject5}</strong>
+                              <p dangerouslySetInnerHTML={{ __html: item.properties.description5 }} />
+                            </figcaption>
+                          </figure>
+                        )}
+                      </AccordionItem>
+                    ))}
+                </Accordion>
+              )}
+            </div>
+          )}
+          {(activeArea === 2 || isDesktop) && (
+            <div className={styles.articles}>
+              {isDesktop && <h3>NAVER 기사</h3>}
+              {naverData && (
+                <Accordion>
+                  {naverData.results
+                    .sort(
+                      (a: any, b: any) =>
+                        new Date(b.properties.update).getTime() - new Date(a.properties.update).getTime(),
+                    )
+                    .map((item: any, index: number) => (
+                      <AccordionItem header={item.properties.title} stat={item.properties.due} key={index}>
                         <Opengraph
-                          article_id={item.properties.article_id2}
-                          datetime={formatDate(item.properties.datetime2)}
+                          article_id={item.properties.article_id1}
+                          datetime={formatDate(item.properties.datetime1)}
                         />
-                      )}
-                      {item.properties.article_id3 && (
-                        <Opengraph
-                          article_id={item.properties.article_id3}
-                          datetime={formatDate(item.properties.datetime3)}
-                        />
-                      )}
-                      {item.properties.article_id4 && (
-                        <Opengraph
-                          article_id={item.properties.article_id4}
-                          datetime={formatDate(item.properties.datetime4)}
-                        />
-                      )}
-                      {item.properties.article_id5 && (
-                        <Opengraph
-                          article_id={item.properties.article_id5}
-                          datetime={formatDate(item.properties.datetime5)}
-                        />
-                      )}
-                      {item.properties.article_id6 && (
-                        <Opengraph
-                          article_id={item.properties.article_id6}
-                          datetime={formatDate(item.properties.datetime6)}
-                        />
-                      )}
-                      {item.properties.article_id7 && (
-                        <Opengraph
-                          article_id={item.properties.article_id7}
-                          datetime={formatDate(item.properties.datetime7)}
-                        />
-                      )}
-                      {item.properties.article_id8 && (
-                        <Opengraph
-                          article_id={item.properties.article_id8}
-                          datetime={formatDate(item.properties.datetime8)}
-                        />
-                      )}
-                      {item.properties.article_id9 && (
-                        <Opengraph
-                          article_id={item.properties.article_id9}
-                          datetime={formatDate(item.properties.datetime9)}
-                        />
-                      )}
-                      {item.properties.article_id10 && (
-                        <Opengraph
-                          article_id={item.properties.article_id10}
-                          datetime={formatDate(item.properties.datetime10)}
-                        />
-                      )}
-                      {item.properties.article_id11 && (
-                        <Opengraph
-                          article_id={item.properties.article_id11}
-                          datetime={formatDate(item.properties.datetime11)}
-                        />
-                      )}
-                      {item.properties.article_id12 && (
-                        <Opengraph
-                          article_id={item.properties.article_id12}
-                          datetime={formatDate(item.properties.datetime12)}
-                        />
-                      )}
-                      {item.properties.article_id13 && (
-                        <Opengraph
-                          article_id={item.properties.article_id13}
-                          datetime={formatDate(item.properties.datetime13)}
-                        />
-                      )}
-                      {item.properties.article_id14 && (
-                        <Opengraph
-                          article_id={item.properties.article_id14}
-                          datetime={formatDate(item.properties.datetime14)}
-                        />
-                      )}
-                      {item.properties.article_id15 && (
-                        <Opengraph
-                          article_id={item.properties.article_id15}
-                          datetime={formatDate(item.properties.datetime15)}
-                        />
-                      )}
-                      {item.properties.article_id16 && (
-                        <Opengraph
-                          article_id={item.properties.article_id16}
-                          datetime={formatDate(item.properties.datetime16)}
-                        />
-                      )}
-                      {item.properties.article_id17 && (
-                        <Opengraph
-                          article_id={item.properties.article_id17}
-                          datetime={formatDate(item.properties.datetime17)}
-                        />
-                      )}
-                    </AccordionItem>
-                  ))}
-              </Accordion>
-            )}
-          </div>
+                        {item.properties.article_id2 && (
+                          <Opengraph
+                            article_id={item.properties.article_id2}
+                            datetime={formatDate(item.properties.datetime2)}
+                          />
+                        )}
+                        {item.properties.article_id3 && (
+                          <Opengraph
+                            article_id={item.properties.article_id3}
+                            datetime={formatDate(item.properties.datetime3)}
+                          />
+                        )}
+                        {item.properties.article_id4 && (
+                          <Opengraph
+                            article_id={item.properties.article_id4}
+                            datetime={formatDate(item.properties.datetime4)}
+                          />
+                        )}
+                        {item.properties.article_id5 && (
+                          <Opengraph
+                            article_id={item.properties.article_id5}
+                            datetime={formatDate(item.properties.datetime5)}
+                          />
+                        )}
+                        {item.properties.article_id6 && (
+                          <Opengraph
+                            article_id={item.properties.article_id6}
+                            datetime={formatDate(item.properties.datetime6)}
+                          />
+                        )}
+                        {item.properties.article_id7 && (
+                          <Opengraph
+                            article_id={item.properties.article_id7}
+                            datetime={formatDate(item.properties.datetime7)}
+                          />
+                        )}
+                        {item.properties.article_id8 && (
+                          <Opengraph
+                            article_id={item.properties.article_id8}
+                            datetime={formatDate(item.properties.datetime8)}
+                          />
+                        )}
+                        {item.properties.article_id9 && (
+                          <Opengraph
+                            article_id={item.properties.article_id9}
+                            datetime={formatDate(item.properties.datetime9)}
+                          />
+                        )}
+                        {item.properties.article_id10 && (
+                          <Opengraph
+                            article_id={item.properties.article_id10}
+                            datetime={formatDate(item.properties.datetime10)}
+                          />
+                        )}
+                        {item.properties.article_id11 && (
+                          <Opengraph
+                            article_id={item.properties.article_id11}
+                            datetime={formatDate(item.properties.datetime11)}
+                          />
+                        )}
+                        {item.properties.article_id12 && (
+                          <Opengraph
+                            article_id={item.properties.article_id12}
+                            datetime={formatDate(item.properties.datetime12)}
+                          />
+                        )}
+                        {item.properties.article_id13 && (
+                          <Opengraph
+                            article_id={item.properties.article_id13}
+                            datetime={formatDate(item.properties.datetime13)}
+                          />
+                        )}
+                        {item.properties.article_id14 && (
+                          <Opengraph
+                            article_id={item.properties.article_id14}
+                            datetime={formatDate(item.properties.datetime14)}
+                          />
+                        )}
+                        {item.properties.article_id15 && (
+                          <Opengraph
+                            article_id={item.properties.article_id15}
+                            datetime={formatDate(item.properties.datetime15)}
+                          />
+                        )}
+                        {item.properties.article_id16 && (
+                          <Opengraph
+                            article_id={item.properties.article_id16}
+                            datetime={formatDate(item.properties.datetime16)}
+                          />
+                        )}
+                        {item.properties.article_id17 && (
+                          <Opengraph
+                            article_id={item.properties.article_id17}
+                            datetime={formatDate(item.properties.datetime17)}
+                          />
+                        )}
+                      </AccordionItem>
+                    ))}
+                </Accordion>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </main>

@@ -25,7 +25,6 @@ const Nav = styled.nav({
   },
   '& ol': {
     display: 'flex',
-    gap: rem(15),
     marginBottom: 'env(safe-area-inset-bottom)',
     width: '100%',
   },
