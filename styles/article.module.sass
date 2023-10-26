@@ -75,6 +75,11 @@
       article
         max-width: rem(767)
 
+        a
+          margin-right: 0
+          margin-left: 0
+          background-color: var(--bg-primary)
+
   &.article-container
     padding: 0
     overflow: hidden
@@ -88,12 +93,6 @@
 
       +mq(minLarge)
         padding-bottom: rem(25)
-
-      header
-        padding: rem(15)
-
-        +mq(minLarge)
-          padding: rem(25)
 
       .scrollbar-container
         display: flex
@@ -114,9 +113,11 @@
       flex-direction: column
       gap: rem(5)
       position: relative
+      padding: rem(15)
 
       +mq(minLarge)
         gap: rem(15)
+        padding: rem(25)
 
       button
         position: absolute
@@ -160,13 +161,15 @@
 
   .description
     p
-      padding: 0 rem(15)
       margin-bottom: rem(15)
+      padding: 0 rem(15)
       font-size: rem(14)
       line-height: 1.5
       color: var(--txt-blockquote)
 
       +mq(minLarge)
+        margin-bottom: rem(25)
+        padding: 0 rem(25)
         font-size: rem(16)
 
     img

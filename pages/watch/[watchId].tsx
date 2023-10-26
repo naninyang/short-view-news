@@ -64,7 +64,7 @@ export default function watchDetail({ watchData }: { watchData: SheetData | null
         pageImg={`https://i.ytimg.com/vi/${watchData.video_id}/maxresdefault.jpg`}
         pageOgType="video.other"
       />
-      <div className={`top-link ${styles['top-link']}`}>
+      <div className="top-link">
         <AnchorLink href="/watches">
           <BackButton />
           <span>뒤로가기</span>
