@@ -8,6 +8,10 @@ import { images } from '@/images';
 import content from '@/styles/content.module.sass';
 import styles from '@/styles/contact.module.sass';
 
+type DataResponse = {
+  description: string;
+};
+
 const BackButton = styled.i({
   display: 'block',
   'body[data-theme="dark"] &': {
@@ -46,6 +50,21 @@ function ContactForm() {
     }
   };
 
+  const [data, setData] = useState<DataResponse | null>(null);
+  const title = 'ContactUs';
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get(`/api/pages?title=${title}`);
+        setData(response.data);
+      } catch (error) {
+        console.error('Error fetching page info:', error);
+      }
+    }
+    fetchData();
+  }, [title]);
+
   const [currentPage, setCurrentPage] = useState<string | null>(null);
 
   useEffect(() => {
@@ -79,6 +98,7 @@ function ContactForm() {
         <h1>
           <span>문의사항 Contact Us.</span>
         </h1>
+        {data && <div dangerouslySetInnerHTML={{ __html: data.description }} />}
         <form onSubmit={handleSubmit}>
           <fieldset>
             <legend>문의 질의</legend>
