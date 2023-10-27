@@ -89,21 +89,25 @@ export default function Home() {
     fetchData();
   }, []);
 
+  function formatNumber(value: number): string {
+    return value.toLocaleString();
+  }
+
   const renderCountInfo = () => {
     if (loading || error || !count) return <div>..</div>;
     return (
       <dl>
         <div>
           <dt>가져온 YouTube 뉴스</dt>
-          <dd>{count.youtube} 건</dd>
+          <dd>{formatNumber(count.youtube)} 건</dd>
         </div>
         <div>
           <dt>가져온 NAVER 뉴스</dt>
-          <dd>{count.naver} 건</dd>
+          <dd>{formatNumber(count.naver)} 건</dd>
         </div>
         <div>
           <dt>가져온 Twitter 인용</dt>
-          <dd>{count.twitter} 건</dd>
+          <dd>{formatNumber(count.twitter)} 건</dd>
         </div>
       </dl>
     );
