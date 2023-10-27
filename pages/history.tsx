@@ -56,6 +56,11 @@ export default function History() {
   const isDesktop = useDesktop();
   const [activeArea, setActiveArea] = useState<number | null>(null);
 
+  useEffect(() => {
+    localStorage.removeItem('currentPage');
+    localStorage.setItem('currentPage', 'history');
+  }, []);
+
   const timestamp = Date.now();
 
   return (
