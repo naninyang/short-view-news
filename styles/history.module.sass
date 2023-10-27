@@ -29,8 +29,11 @@
 
     nav
       width: 100%
-      position: relative
+      position: sticky
       z-index: 1
+      top: rem(50)
+      backdrop-filter: saturate(180%) blur(1.25rem)
+      background-color: var(--bg-primary-opacity)
 
       ul
         display: flex
