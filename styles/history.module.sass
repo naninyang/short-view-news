@@ -27,43 +27,6 @@
     +mq(minMedium)
       gap: rem(15)
 
-    nav
-      width: 100%
-      position: sticky
-      z-index: 1
-      top: rem(50)
-      backdrop-filter: saturate(180%) blur(1.25rem)
-      background-color: var(--bg-primary-opacity)
-
-      ul
-        display: flex
-
-        li
-          +col
-
-          button
-            background-color: transparent
-            padding: 0
-            width: 100%
-
-            &.active
-              span
-                border-bottom-color: $hex-accent
-                font-weight: 900
-                color: $hex-accent
-
-            span
-              display: inline-flex
-              justify-content: center
-              align-items: center
-              border-bottom: rem(1) solid transparent
-              padding: 0 rem(15)
-              height: rem(37)
-              font-size: rem(16)
-              font-weight: 300
-              line-height: 1
-              color: var(--default-text)
-
     .articles
       h3
         padding-bottom: rem(15)

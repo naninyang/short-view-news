@@ -18,8 +18,8 @@ interface RowData {
   thumbnailOrigin4?: string;
 }
 
-export async function getPeriodtData(start?: number, count?: number) {
-  const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/twitter`, {
+export async function getPeriodtOmtData(start?: number, count?: number) {
+  const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/twitterOmt`, {
     params: {
       start,
       count,

@@ -12,6 +12,7 @@ import Opengraph from '@/components/Opengraph';
 import Seo from '@/components/Seo';
 import PageName from '@/components/PageName';
 import styles from '@/styles/history.module.sass';
+import tabs from '@/styles/tabs.module.sass';
 
 export function useDesktop() {
   const [isDesktop, setIsDesktop] = useState(false);
@@ -74,13 +75,13 @@ export default function History() {
       <div className={styles.container}>
         <div className={styles.list}>
           {!isDesktop && (
-            <nav>
+            <nav className={tabs.nav}>
               <ul>
                 <li>
                   <button
                     type="button"
                     onClick={() => setActiveArea(1)}
-                    className={`${activeArea === null || activeArea === 1 ? styles.active : ''}`}
+                    className={`${activeArea === null || activeArea === 1 ? tabs.active : ''}`}
                   >
                     <span>YouTube 기사</span>
                   </button>
@@ -89,7 +90,7 @@ export default function History() {
                   <button
                     type="button"
                     onClick={() => setActiveArea(2)}
-                    className={`${activeArea === 2 ? styles.active : ''}`}
+                    className={`${activeArea === 2 ? tabs.active : ''}`}
                   >
                     <span>NAVER 기사</span>
                   </button>

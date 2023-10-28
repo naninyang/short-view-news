@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import useSWRInfinite from 'swr/infinite';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import Modal from 'react-modal';
 import axios, { AxiosError } from 'axios';
 import PullToRefresh from 'react-simple-pull-to-refresh';
-import { Periodt } from '@/types';
-import Seo from '@/components/Seo';
-import PageName from '@/components/PageName';
+import { PeriodtTimeline } from '@/types';
 import AnchorLink from '@/components/AnchorLink';
 import styled from '@emotion/styled';
 import styles from '@/styles/periodts.module.sass';
@@ -35,9 +32,7 @@ const CrossButton = styled.i({
 
 Modal.setAppElement('#__next');
 
-function Periodt() {
-  const router = useRouter();
-
+function PeriodtTimeline() {
   const [waitingFor504, setWaitingFor504] = useState(false);
 
   const fetcher = async (url: string) => {
@@ -55,7 +50,7 @@ function Periodt() {
 
   const getKey = (pageIndex: number, previousPageData: any) => {
     if (previousPageData && !previousPageData.length) return null;
-    return `${process.env.NEXT_PUBLIC_API_URL}/api/periodt?start=${pageIndex * 20}&count=20`;
+    return `/api/periodtTimeline?start=${pageIndex * 20}&count=20`;
   };
 
   const { data, error, size, setSize } = useSWRInfinite(getKey, fetcher, {
@@ -149,7 +144,15 @@ function Periodt() {
               ogContent.push(
                 <div className={styles['og-card']} key={`og-${part}`}>
                   <AnchorLink href={part}>
-                    <img src={ogData.ogImage} alt="" />
+                    <Image
+                      src={ogData.ogImage}
+                      width={640}
+                      height={480}
+                      unoptimized
+                      priority
+                      alt=""
+                      onClick={closeModal}
+                    />
                     <div className={styles['og-info']}>
                       {ogData.ogCreator ? <cite>{ogData.ogCreator}</cite> : <cite>{ogData.ogSiteName}</cite>}
                       <strong>{ogData.ogTitle}</strong>
@@ -220,15 +223,8 @@ function Periodt() {
     },
   };
 
-  const timestamp = Date.now();
-
   return (
-    <main className={styles.periodts}>
-      <Seo
-        pageTitle="트위터 베댓"
-        pageDescription="당신이 놓친 뉴스를 짧게 요약해 드려요"
-        pageImg={`https://news.dev1stud.io/og-image.png?ts=${timestamp}`}
-      />
+    <>
       <Modal isOpen={isModalOpen} onRequestClose={closeModal} contentLabel="Thumbnail Modal" style={modalContainer}>
         {selectedThumbnail && (
           <div className={styles['modal-thumbnail']}>
@@ -236,11 +232,10 @@ function Periodt() {
               <CrossButton />
               <span>닫기</span>
             </button>
-            <img src={selectedThumbnail} alt="" onClick={closeModal} />
+            <Image src={selectedThumbnail} width={640} height={480} unoptimized priority alt="" onClick={closeModal} />
           </div>
         )}
       </Modal>
-      <PageName pageName="트위터 베댓" />
       {isLoading && (
         <div className={styles.loading}>
           <p>트윗을 가져오는 중입니다.</p>
@@ -266,30 +261,46 @@ function Periodt() {
       {!isLoading && !error && (
         <div className={styles['periodt-content']}>
           <PullToRefresh onRefresh={handleRefresh}>
-            <div className={styles['periodt-list']}>
-              {periodts.map((periodt: Periodt) => {
+            <div className={`${styles['periodt-list']} ${styles['timeline-list']}`}>
+              {periodts.map((periodt: PeriodtTimeline) => {
                 const thumbnails = ['thumbnail1', 'thumbnail2', 'thumbnail3', 'thumbnail4'].filter(
                   (key) => periodt[key],
                 );
-                const originThumbnails = [
-                  'thumbnailOrigin1',
-                  'thumbnailOrigin2',
-                  'thumbnailOrigin3',
-                  'thumbnailOrigin4',
-                ].filter((key) => periodt[key]);
+                const thumbnails1 = ['thumbnail11', 'thumbnail21', 'thumbnail31', 'thumbnail41'].filter(
+                  (key) => periodt[key],
+                );
+                const thumbnails2 = ['thumbnail12', 'thumbnail22', 'thumbnail32', 'thumbnail42'].filter(
+                  (key) => periodt[key],
+                );
+                const thumbnails3 = ['thumbnail13', 'thumbnail23', 'thumbnail33', 'thumbnail43'].filter(
+                  (key) => periodt[key],
+                );
+                const thumbnails4 = ['thumbnail14', 'thumbnail24', 'thumbnail34', 'thumbnail44'].filter(
+                  (key) => periodt[key],
+                );
+                const thumbnails5 = ['thumbnail15', 'thumbnail25', 'thumbnail35', 'thumbnail45'].filter(
+                  (key) => periodt[key],
+                );
                 return (
                   <article key={periodt.idx}>
                     <div className={styles.profile}>
                       <cite>@{periodt.user}</cite>
-                      <AnchorLink href={`https://twitter.com/${periodt.user}/status/${periodt.twit}`}>
-                        <span>원본 링크</span>
-                        <LinkButton />
-                      </AnchorLink>
+                      {periodt.quote ? (
+                        <AnchorLink href={`https://twitter.com/${periodt.user}/status/${periodt.twit}/quotes`}>
+                          <span>모든 인용보기</span>
+                          <LinkButton />
+                        </AnchorLink>
+                      ) : (
+                        <AnchorLink href={`https://twitter.com/${periodt.user}/status/${periodt.twit}`}>
+                          <span>모든 멘션보기</span>
+                          <LinkButton />
+                        </AnchorLink>
+                      )}
                     </div>
                     <div className={styles.content}>
-                      <div className={styles.retweet}>
+                      <div className={styles.origin}>
                         <div className={styles.description}>
-                          <ContentComponent text={periodt.title} />
+                          <ContentComponent text={periodt.content} />
                         </div>
                         {thumbnails.length > 0 && (
                           <div className={styles.thumbnails}>
@@ -303,27 +314,124 @@ function Periodt() {
                           </div>
                         )}
                       </div>
-                      <div className={styles.origin}>
+                      <div className={styles.retweet}>
                         <div className={styles.profile}>
-                          <cite>@{periodt.userOrigin}</cite>
-                          <AnchorLink href={`https://twitter.com/${periodt.userOrigin}/status/${periodt.twitOrigin}`}>
+                          <cite>@{periodt.user1}</cite>
+                          <AnchorLink href={`https://twitter.com/${periodt.user1}/status/${periodt.tweet1}`}>
                             <span>원본 링크</span>
                             <LinkButton />
                           </AnchorLink>
                         </div>
                         <div className={styles.context}>
                           <div className={styles.description}>
-                            <ContentComponent text={periodt.description} />
+                            <ContentComponent text={periodt.content1} />
                           </div>
-                          {originThumbnails.length > 0 && (
+                          {thumbnails1.length > 0 && (
                             <div className={styles.thumbnails}>
-                              {originThumbnails.map((originThumbnailKey) => (
-                                <div key={originThumbnailKey} className={styles['thumbnail-item']}>
-                                  <button
-                                    type="button"
-                                    onClick={() => handleThumbnailClick(periodt[originThumbnailKey])}
-                                  >
-                                    <img src={periodt[originThumbnailKey]} alt="" />
+                              {thumbnails1.map((thumbnailKey) => (
+                                <div key={thumbnailKey} className={styles['thumbnail-item']}>
+                                  <button type="button" onClick={() => handleThumbnailClick(periodt[thumbnailKey])}>
+                                    <img src={periodt[thumbnailKey]} alt="" />
+                                  </button>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      <div className={styles.retweet}>
+                        <div className={styles.profile}>
+                          <cite>@{periodt.user2}</cite>
+                          <AnchorLink href={`https://twitter.com/${periodt.user2}/status/${periodt.tweet2}`}>
+                            <span>원본 링크</span>
+                            <LinkButton />
+                          </AnchorLink>
+                        </div>
+                        <div className={styles.context}>
+                          <div className={styles.description}>
+                            <ContentComponent text={periodt.content2} />
+                          </div>
+                          {thumbnails2.length > 0 && (
+                            <div className={styles.thumbnails}>
+                              {thumbnails2.map((thumbnailKey) => (
+                                <div key={thumbnailKey} className={styles['thumbnail-item']}>
+                                  <button type="button" onClick={() => handleThumbnailClick(periodt[thumbnailKey])}>
+                                    <img src={periodt[thumbnailKey]} alt="" />
+                                  </button>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      <div className={styles.retweet}>
+                        <div className={styles.profile}>
+                          <cite>@{periodt.user3}</cite>
+                          <AnchorLink href={`https://twitter.com/${periodt.user3}/status/${periodt.tweet3}`}>
+                            <span>원본 링크</span>
+                            <LinkButton />
+                          </AnchorLink>
+                        </div>
+                        <div className={styles.context}>
+                          <div className={styles.description}>
+                            <ContentComponent text={periodt.content3} />
+                          </div>
+                          {thumbnails3.length > 0 && (
+                            <div className={styles.thumbnails}>
+                              {thumbnails3.map((thumbnailKey) => (
+                                <div key={thumbnailKey} className={styles['thumbnail-item']}>
+                                  <button type="button" onClick={() => handleThumbnailClick(periodt[thumbnailKey])}>
+                                    <img src={periodt[thumbnailKey]} alt="" />
+                                  </button>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      <div className={styles.retweet}>
+                        <div className={styles.profile}>
+                          <cite>@{periodt.user4}</cite>
+                          <AnchorLink href={`https://twitter.com/${periodt.user4}/status/${periodt.tweet4}`}>
+                            <span>원본 링크</span>
+                            <LinkButton />
+                          </AnchorLink>
+                        </div>
+                        <div className={styles.context}>
+                          <div className={styles.description}>
+                            <ContentComponent text={periodt.content4} />
+                          </div>
+                          {thumbnails4.length > 0 && (
+                            <div className={styles.thumbnails}>
+                              {thumbnails4.map((thumbnailKey) => (
+                                <div key={thumbnailKey} className={styles['thumbnail-item']}>
+                                  <button type="button" onClick={() => handleThumbnailClick(periodt[thumbnailKey])}>
+                                    <img src={periodt[thumbnailKey]} alt="" />
+                                  </button>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      <div className={styles.retweet}>
+                        <div className={styles.profile}>
+                          <cite>@{periodt.user5}</cite>
+                          <AnchorLink href={`https://twitter.com/${periodt.user5}/status/${periodt.tweet5}`}>
+                            <span>원본 링크</span>
+                            <LinkButton />
+                          </AnchorLink>
+                        </div>
+                        <div className={styles.context}>
+                          <div className={styles.description}>
+                            <ContentComponent text={periodt.content5} />
+                          </div>
+                          {thumbnails5.length > 0 && (
+                            <div className={styles.thumbnails}>
+                              {thumbnails5.map((thumbnailKey) => (
+                                <div key={thumbnailKey} className={styles['thumbnail-item']}>
+                                  <button type="button" onClick={() => handleThumbnailClick(periodt[thumbnailKey])}>
+                                    <img src={periodt[thumbnailKey]} alt="" />
                                   </button>
                                 </div>
                               ))}
@@ -344,8 +452,8 @@ function Periodt() {
           )}
         </div>
       )}
-    </main>
+    </>
   );
 }
 
-export default Periodt;
+export default PeriodtTimeline;
