@@ -14,7 +14,16 @@ type ArticleData = {
   title: string;
   oid: string;
   aid: string;
-  metaData?: {
+  newsMetaData?: {
+    ogTitle: string;
+    ogUrl: string;
+    ogImage: string;
+    ogDescription: string;
+    ogCreator: string;
+    datestampTimeContent: any;
+    datestampTimeAttribute: any;
+  };
+  entertainmentMetaData?: {
     ogTitle: string;
     ogUrl: string;
     ogImage: string;
@@ -69,26 +78,49 @@ const articleDetail: React.FC<articleProps> = ({ articleItem }) => {
                   alt=""
                 />
               </div>
-              <AnchorLink href={`https://n.news.naver.com/article/${articleItem.oid}/${articleItem.aid}`}>
-                <div className={styles['og-container']}>
-                  <img src={articleItem.metaData?.ogImage} alt="" />
-                  <div className={styles['og-info']}>
-                    <div className={styles.created}>
-                      <cite>{articleItem.metaData?.ogCreator}</cite>
-                      {/* <time dateTime={articleItem.metaData?.datestampTimeAttribute}>
-                        {articleItem.metaData?.datestampTimeContent}
+              {articleItem.newsMetaData ? (
+                <AnchorLink href={`https://n.news.naver.com/article/${articleItem.oid}/${articleItem.aid}`}>
+                  <div className={styles['og-container']}>
+                    <img src={articleItem.newsMetaData?.ogImage} alt="" />
+                    <div className={styles['og-info']}>
+                      <div className={styles.created}>
+                        <cite>{articleItem.newsMetaData?.ogCreator}</cite>
+                        {/* <time dateTime={articleItem.newsMetaData?.datestampTimeAttribute}>
+                        {articleItem.newsMetaData?.datestampTimeContent}
                       </time> */}
-                    </div>
-                    <div className={styles.summary}>
-                      <strong>{articleItem.metaData?.ogTitle}</strong>
-                      <div className={styles.description}>
-                        {articleItem.metaData?.ogDescription}
-                        ...
+                      </div>
+                      <div className={styles.summary}>
+                        <strong>{articleItem.newsMetaData?.ogTitle}</strong>
+                        <div className={styles.description}>
+                          {articleItem.newsMetaData?.ogDescription}
+                          ...
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </AnchorLink>
+                </AnchorLink>
+              ) : (
+                <AnchorLink href={`https://n.news.naver.com/article/${articleItem.oid}/${articleItem.aid}`}>
+                  <div className={styles['og-container']}>
+                    <img src={articleItem.entertainmentMetaData?.ogImage} alt="" />
+                    <div className={styles['og-info']}>
+                      <div className={styles.created}>
+                        <cite>{articleItem.entertainmentMetaData?.ogCreator}</cite>
+                        {/* <time dateTime={articleItem.entertainmentMetaData?.datestampTimeAttribute}>
+                        {articleItem.entertainmentMetaData?.datestampTimeContent}
+                      </time> */}
+                      </div>
+                      <div className={styles.summary}>
+                        <strong>{articleItem.entertainmentMetaData?.ogTitle}</strong>
+                        <div className={styles.description}>
+                          {articleItem.entertainmentMetaData?.ogDescription}
+                          ...
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </AnchorLink>
+              )}
             </PerfectScrollbar>
           </>
         ) : (

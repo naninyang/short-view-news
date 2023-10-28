@@ -32,10 +32,10 @@ export async function getArticleEntertainmentData(start?: number, count?: number
   const fullData = await Promise.all(
     sortedRowsData.map(async (article) => {
       const url = `https://n.news.naver.com/entertain/article/${article.oid}/${article.aid}`;
-      const metaData = await fetchArticleMetadata(url);
+      const entertainmentMetaData = await fetchArticleMetadata(url);
       return {
         ...article,
-        metaData,
+        entertainmentMetaData,
       };
     }),
   );

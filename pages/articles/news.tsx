@@ -161,18 +161,18 @@ function ArticlesNews() {
                   <div className={styles.opengraph}>
                     <AnchorLink href={`https://n.news.naver.com/article/${article.oid}/${article.aid}`}>
                       <div className={styles['og-container']}>
-                        <img src={article.metaData?.ogImage} alt="" />
+                        <img src={article.newsMetaData?.ogImage} alt="" />
                         <div className={styles['og-info']}>
                           <div className={styles.created}>
-                            <cite>{article.metaData?.ogCreator}</cite>
-                            {/* <time dateTime={article.metaData?.datestampTimeAttribute}>
-                              {article.metaData?.datestampTimeContent}
+                            <cite>{article.newsMetaData?.ogCreator}</cite>
+                            {/* <time dateTime={article.newsMetaData?.datestampTimeAttribute}>
+                              {article.newsMetaData?.datestampTimeContent}
                             </time> */}
                           </div>
                           <div className={styles.summary}>
-                            <strong>{article.metaData?.ogTitle}</strong>
+                            <strong>{article.newsMetaData?.ogTitle}</strong>
                             <div className={styles.description}>
-                              {article.metaData?.ogDescription}
+                              {article.newsMetaData?.ogDescription}
                               ...
                             </div>
                           </div>

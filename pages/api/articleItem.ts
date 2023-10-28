@@ -51,50 +51,95 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       },
     );
 
-    const mdFile = treeResponse.data.tree.find(
-      (file: any) => file.path === `src/pages/naver-${process.env.NODE_ENV}/${idx}.md`,
+    const mdNews = treeResponse.data.tree.find(
+      (file: any) => file.path === `src/pages/naver-news-${process.env.NODE_ENV}/${idx}.md`,
     );
 
-    if (!mdFile) {
+    const mdEntertainment = treeResponse.data.tree.find(
+      (file: any) => file.path === `src/pages/naver-entertainment-${process.env.NODE_ENV}/${idx}.md`,
+    );
+
+    if (!mdNews && !mdEntertainment) {
       return res.status(404).send('File not found.');
     }
 
-    const contentResponse = await axios.get(mdFile.url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    if (mdNews) {
+      const contentNewsResponse = await axios.get(mdNews.url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-    const content = contentResponse.data.content;
-    const parsedData: RowData = matter(Buffer.from(content, 'base64').toString('utf-8'));
+      const contentNews = contentNewsResponse.data.content;
+      const parsedNewsData: RowData = matter(Buffer.from(contentNews, 'base64').toString('utf-8'));
 
-    const responseData = {
-      idx: parsedData.attributes.created,
-      title: parsedData.attributes.title,
-      description: parsedData.attributes.description,
-      oid: parsedData.attributes.oid,
-      aid: parsedData.attributes.aid,
-      thumbnail: parsedData.attributes.thumbnail,
-    };
-
-    const naverUrl = `https://naver-news-opengraph.vercel.app/api/og?url=${encodeURIComponent(
-      `https://n.news.naver.com/article/${responseData.oid}/${responseData.aid}`,
-    )}`;
-
-    try {
-      const response = await axios.get(naverUrl);
-      const metaData = response.data;
-
-      const mergedData = {
-        ...responseData,
-        metaData,
+      const responseNewsData = {
+        idx: parsedNewsData.attributes.created,
+        title: parsedNewsData.attributes.title,
+        description: parsedNewsData.attributes.description,
+        oid: parsedNewsData.attributes.oid,
+        aid: parsedNewsData.attributes.aid,
+        thumbnail: parsedNewsData.attributes.thumbnail,
       };
-      res.status(200).json(mergedData);
-    } catch (error) {
-      res.status(500).send('Failed to fetch data from Scraper');
-      return;
+
+      const naverNewsUrl = `https://naver-news-opengraph.vercel.app/api/og?url=${encodeURIComponent(
+        `https://n.news.naver.com/article/${responseNewsData.oid}/${responseNewsData.aid}`,
+      )}`;
+
+      try {
+        const responseNews = await axios.get(naverNewsUrl);
+        const newsMetaData = responseNews.data;
+
+        const mergedData = {
+          ...responseNewsData,
+          newsMetaData,
+        };
+        return res.status(200).json(mergedData);
+      } catch (error) {
+        res.status(500).send('Failed to fetch data from Scraper');
+        return;
+      }
+    }
+
+    if (mdEntertainment) {
+      const contentEntertainmentResponse = await axios.get(mdEntertainment.url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const contentEntertainment = contentEntertainmentResponse.data.content;
+      const parsedEntertainmentData: RowData = matter(Buffer.from(contentEntertainment, 'base64').toString('utf-8'));
+
+      const responseEntertainmentData = {
+        idx: parsedEntertainmentData.attributes.created,
+        title: parsedEntertainmentData.attributes.title,
+        description: parsedEntertainmentData.attributes.description,
+        oid: parsedEntertainmentData.attributes.oid,
+        aid: parsedEntertainmentData.attributes.aid,
+        thumbnail: parsedEntertainmentData.attributes.thumbnail,
+      };
+
+      const naverEntertainmentUrl = `https://naver-news-opengraph.vercel.app/api/og?url=${encodeURIComponent(
+        `https://n.news.naver.com/entertain/article/${responseEntertainmentData.oid}/${responseEntertainmentData.aid}`,
+      )}`;
+
+      try {
+        const responseEntertainment = await axios.get(naverEntertainmentUrl);
+        const entertainmentMetaData = responseEntertainment.data;
+
+        const mergedData = {
+          ...responseEntertainmentData,
+          entertainmentMetaData,
+        };
+        return res.status(200).json(mergedData);
+      } catch (error) {
+        res.status(500).send('Failed to fetch data from Scraper');
+        return;
+      }
     }
   } catch (error) {
+    console.error('GitHub Error:', error);
     res.status(500).send('Failed to fetch data from GitHub');
   }
 };

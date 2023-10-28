@@ -161,18 +161,18 @@ function ArticlesEntertainment() {
                   <div className={styles.opengraph}>
                     <AnchorLink href={`https://entertain.naver.com/read?oid=${article.oid}&aid=${article.aid}`}>
                       <div className={styles['og-container']}>
-                        <img src={article.metaData?.ogImage} alt="" />
+                        <img src={article.entertainmentMetaData?.ogImage} alt="" />
                         <div className={styles['og-info']}>
                           <div className={styles.created}>
-                            <cite>{article.metaData?.ogCreator}</cite>
-                            {/* <time dateTime={article.metaData?.datestampTimeAttribute}>
-                              {article.metaData?.datestampTimeContent}
+                            <cite>{article.entertainmentMetaData?.ogCreator}</cite>
+                            {/* <time dateTime={article.entertainmentMetaData?.datestampTimeAttribute}>
+                              {article.entertainmentMetaData?.datestampTimeContent}
                             </time> */}
                           </div>
                           <div className={styles.summary}>
-                            <strong>{article.metaData?.ogTitle}</strong>
+                            <strong>{article.entertainmentMetaData?.ogTitle}</strong>
                             <div className={styles.description}>
-                              {article.metaData?.ogDescription}
+                              {article.entertainmentMetaData?.ogDescription}
                               ...
                             </div>
                           </div>

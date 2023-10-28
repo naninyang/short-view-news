@@ -8,18 +8,6 @@ import { Article } from '@/types';
 import styled from '@emotion/styled';
 import styles from '@/styles/article.module.sass';
 
-interface Metadata {
-  ogTitle: string;
-  ogUrl: string;
-  ogImage: string;
-  ogDescription: string;
-  ogCreator: string;
-  datestampTimeContent: any;
-  datestampTimeAttribute: any;
-}
-
-type MetaDataMap = { [key: string]: Metadata };
-
 const BackButton = styled.i({
   display: 'block',
   'body[data-theme="dark"] &': {
@@ -62,26 +50,49 @@ export default function ArticleDetail({ article }: { article: Article | null }) 
                 alt=""
               />
             </div>
-            <AnchorLink href={`https://n.news.naver.com/article/${article.oid}/${article.aid}`}>
-              <div className={styles['og-container']}>
-                <img src={article.metaData?.ogImage} alt="" />
-                <div className={styles['og-info']}>
-                  <div className={styles.created}>
-                    <cite>{article.metaData?.ogCreator}</cite>
-                    {/* <time dateTime={article.metaData?.datestampTimeAttribute}>
-                      {article.metaData?.datestampTimeContent}
+            {article.newsMetaData ? (
+              <AnchorLink href={`https://n.news.naver.com/article/${article.oid}/${article.aid}`}>
+                <div className={styles['og-container']}>
+                  <img src={article.newsMetaData?.ogImage} alt="" />
+                  <div className={styles['og-info']}>
+                    <div className={styles.created}>
+                      <cite>{article.newsMetaData?.ogCreator}</cite>
+                      {/* <time dateTime={article.newsMetaData?.datestampTimeAttribute}>
+                      {article.newsMetaData?.datestampTimeContent}
                     </time> */}
-                  </div>
-                  <div className={styles.summary}>
-                    <strong>{article.metaData?.ogTitle}</strong>
-                    <div className={styles.description}>
-                      {article.metaData?.ogDescription}
-                      ...
+                    </div>
+                    <div className={styles.summary}>
+                      <strong>{article.newsMetaData?.ogTitle}</strong>
+                      <div className={styles.description}>
+                        {article.newsMetaData?.ogDescription}
+                        ...
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </AnchorLink>
+              </AnchorLink>
+            ) : (
+              <AnchorLink href={`https://n.news.naver.com/article/${article.oid}/${article.aid}`}>
+                <div className={styles['og-container']}>
+                  <img src={article.entertainmentMetaData?.ogImage} alt="" />
+                  <div className={styles['og-info']}>
+                    <div className={styles.created}>
+                      <cite>{article.entertainmentMetaData?.ogCreator}</cite>
+                      {/* <time dateTime={article.entertainmentMetaData?.datestampTimeAttribute}>
+                      {article.entertainmentMetaData?.datestampTimeContent}
+                    </time> */}
+                    </div>
+                    <div className={styles.summary}>
+                      <strong>{article.entertainmentMetaData?.ogTitle}</strong>
+                      <div className={styles.description}>
+                        {article.entertainmentMetaData?.ogDescription}
+                        ...
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </AnchorLink>
+            )}
           </>
         ) : (
           <p className={styles.loading}>본문 불러오는 중</p>
