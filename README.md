@@ -24,12 +24,12 @@ YouTube는 5분 미만의 짧은 뉴스를 가져오며, 아주 가끔 그 이�
 - jsonwebtoken (for Github API Bearer)
 - Notion Client (페이지 관리 및 History 페이지용으로 사용)
 
-### NAVER News Opengraph API Server
+### Web Opengraph Scrap API Server
 
 - iconv (for EUC-KR)
 - cheerio (EUC-KR 사용하는 웹사이트를 위해서 open-graph-scraper 사용 중지)
 
-### Backend - Private repo for ONLY Database
+### Backend - Private repo
 
 - Netlify CMS
 - Netlify
