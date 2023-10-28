@@ -156,7 +156,7 @@ function PeriodtOmt() {
                     <div className={styles['og-info']}>
                       {ogData.ogCreator ? <cite>{ogData.ogCreator}</cite> : <cite>{ogData.ogSiteName}</cite>}
                       <strong>{ogData.ogTitle}</strong>
-                      <p>{ogData.ogDescription}</p>
+                      <p>{ogData.ogDescription}...</p>
                     </div>
                   </AnchorLink>
                 </div>,
