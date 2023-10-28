@@ -1,0 +1,64 @@
+@import './designSystem'
+
+nav.nav
+  position: sticky
+  z-index: 1050
+  top: calc(env(safe-area-inset-top) + rem(50))
+  background-color: var(--bg-primary-opacity)
+  backdrop-filter: saturate(180%) blur(1.25rem)
+  display: flex
+  justify-content: center
+  width: 100%
+
+  &::before
+    content: ''
+    position: absolute
+    bottom: 0
+    left: 0
+    display: block
+    background-color: var(--border)
+    width: 100%
+    height: rem(2)
+
+  ul
+    display: flex
+    width: 100%
+    max-width: rem(575)
+
+    li
+      +col
+
+      button
+        position: relative
+        background-color: transparent
+        padding: 0
+        width: 100%
+
+        &::before
+          content: ''
+          position: absolute
+          bottom: 0
+          left: 0
+          display: block
+          background-color: var(--border)
+          width: 100%
+          height: rem(2)
+
+        &.active
+          span
+            position: relative
+            border-bottom-color: $hex-accent
+            font-weight: 900
+            color: $hex-accent
+
+        span
+          display: inline-flex
+          justify-content: center
+          align-items: center
+          border-bottom: rem(2) solid transparent
+          padding: 0 rem(15)
+          height: rem(37)
+          font-size: rem(16)
+          font-weight: 300
+          line-height: 1
+          color: var(--default-text)

@@ -8,15 +8,13 @@ import axios, { AxiosError } from 'axios';
 import PullToRefresh from 'react-simple-pull-to-refresh';
 import { Article } from '@/types';
 import { modalContainer } from '@/components/ModalStyling';
-import Seo from '@/components/Seo';
-import PageName from '@/components/PageName';
 import ArticleDetail from '@/components/Article';
 import AnchorLink from '@/components/AnchorLink';
 import styles from '@/styles/articles.module.sass';
 
 Modal.setAppElement('#__next');
 
-function Articles() {
+function ArticlesEntertainment() {
   const router = useRouter();
 
   const [waitingFor504, setWaitingFor504] = useState(false);
@@ -36,7 +34,7 @@ function Articles() {
 
   const getKey = (pageIndex: number, previousPageData: any) => {
     if (previousPageData && !previousPageData.length) return null;
-    return `${process.env.NEXT_PUBLIC_API_URL}/api/articles?start=${pageIndex * 20}&count=20`;
+    return `/api/articlesEntertainment?start=${pageIndex * 20}&count=20`;
   };
 
   const { data, error, size, setSize } = useSWRInfinite(getKey, fetcher, {
@@ -104,12 +102,7 @@ function Articles() {
   const timestamp = Date.now();
 
   return (
-    <main className={styles.articles}>
-      <Seo
-        pageTitle="네이버 쇼츠 뉴스"
-        pageDescription="당신이 놓친 뉴스를 짧게 요약해 드려요"
-        pageImg={`https://news.dev1stud.io/og-image.png?ts=${timestamp}`}
-      />
+    <>
       <Modal
         isOpen={!!articleId}
         onRequestClose={() => router.push('/articles', undefined, { scroll: false })}
@@ -118,7 +111,6 @@ function Articles() {
       >
         <ArticleDetail articleItem={selectedArticle} />
       </Modal>
-      <PageName pageName="네이버 뉴스" />
       {isLoading && (
         <div className={styles.loading}>
           <p>기사를 가져오는 중입니다.</p>
@@ -167,7 +159,7 @@ function Articles() {
                     />
                   </div>
                   <div className={styles.opengraph}>
-                    <AnchorLink href={`https://n.news.naver.com/article/${article.oid}/${article.aid}`}>
+                    <AnchorLink href={`https://entertain.naver.com/read?oid=${article.oid}&aid=${article.aid}`}>
                       <div className={styles['og-container']}>
                         <img src={article.metaData?.ogImage} alt="" />
                         <div className={styles['og-info']}>
@@ -199,8 +191,8 @@ function Articles() {
           )}
         </div>
       )}
-    </main>
+    </>
   );
 }
 
-export default Articles;
+export default ArticlesEntertainment;

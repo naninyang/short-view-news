@@ -9,8 +9,8 @@ interface RowData {
   thumbnail: string;
 }
 
-export async function getArticleData(start?: number, count?: number) {
-  const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/naver`, {
+export async function getArticleNewsData(start?: number, count?: number) {
+  const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/naverNews`, {
     params: {
       start,
       count,

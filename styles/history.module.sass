@@ -14,7 +14,10 @@
   .container
     display: flex
     justify-content: center
-    padding: rem(25) rem(25) rem(125)
+    padding: rem(25) 0 rem(125)
+
+    +mq(minSmall)
+      padding: 0 0 rem(125)
 
   .list
     display: flex
@@ -25,46 +28,15 @@
       flex-direction: column
 
     +mq(minMedium)
-      gap: rem(15)
-
-    nav
-      width: 100%
-      position: sticky
-      z-index: 1
-      top: rem(50)
-      backdrop-filter: saturate(180%) blur(1.25rem)
-      background-color: var(--bg-primary-opacity)
-
-      ul
-        display: flex
-
-        li
-          +col
-
-          button
-            background-color: transparent
-            padding: 0
-            width: 100%
-
-            &.active
-              span
-                border-bottom-color: $hex-accent
-                font-weight: 900
-                color: $hex-accent
-
-            span
-              display: inline-flex
-              justify-content: center
-              align-items: center
-              border-bottom: rem(1) solid transparent
-              padding: 0 rem(15)
-              height: rem(37)
-              font-size: rem(16)
-              font-weight: 300
-              line-height: 1
-              color: var(--default-text)
+      gap: rem(25)
+      padding: 0 rem(25)
 
     .articles
+      padding: rem(25) rem(25) 0
+
+      +mq(minMedium)
+        max-height: calc(100dvh - rem(190))
+
       h3
         padding-bottom: rem(15)
         font-size: rem(20)
@@ -74,6 +46,7 @@
 
       +mq(minMedium)
         +col
+        padding: rem(25) 0
         font-size: rem(24)
 
 .accordion
