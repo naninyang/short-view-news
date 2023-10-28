@@ -33,9 +33,10 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       },
     );
 
-    const mdFiles = treeResponse.data.tree
+    const mdNews = treeResponse.data.tree
       .filter(
-        (file: any) => file.path.startsWith(`src/pages/naver-${process.env.NODE_ENV}`) && file.path.endsWith('.md'),
+        (file: any) =>
+          file.path.startsWith(`src/pages/naver-news-${process.env.NODE_ENV}`) && file.path.endsWith('.md'),
       )
       .map((file: any) => {
         const filename = file.path.split('/').pop().replace('.md', '');
@@ -48,7 +49,25 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         };
       });
 
-    res.status(200).send(mdFiles);
+    const mdEntertainment = treeResponse.data.tree
+      .filter(
+        (file: any) =>
+          file.path.startsWith(`src/pages/naver-entertainment-${process.env.NODE_ENV}`) && file.path.endsWith('.md'),
+      )
+      .map((file: any) => {
+        const filename = file.path.split('/').pop().replace('.md', '');
+        const parts = filename.split('-');
+        const date = `${parts[0]}-${parts[1]}-${parts[2]}`;
+        const time = `${parts[3]}:${parts[4]}:${parts[5]}`;
+        return {
+          idx: filename,
+          created: `${date} ${time}`,
+        };
+      });
+
+    const mergeMd = [...mdNews, ...mdEntertainment];
+
+    res.status(200).send(mergeMd);
   } catch (error) {
     res.status(500).send('Failed to fetch filenames from GitHub');
   }
