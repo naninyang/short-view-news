@@ -12,7 +12,7 @@ function Articles() {
   return (
     <main className={styles.articles}>
       <Seo
-        pageTitle="네이버 쇼츠 기사"
+        pageTitle="네이버 기사"
         pageDescription="당신이 놓친 뉴스를 짧게 요약해 드려요"
         pageImg={`https://news.dev1stud.io/og-image.png?ts=${timestamp}`}
       />

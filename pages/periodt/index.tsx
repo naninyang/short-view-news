@@ -16,7 +16,7 @@ function Periodt() {
         pageDescription="당신이 놓친 뉴스를 짧게 요약해 드려요"
         pageImg={`https://news.dev1stud.io/og-image.png?ts=${timestamp}`}
       />
-      <PageName pageName="Twitter 인용/멘션" />
+      <PageName pageName="트위터 인용/멘션" />
       <div className={styles.list}>
         <nav className={tabs.nav}>
           <ul>

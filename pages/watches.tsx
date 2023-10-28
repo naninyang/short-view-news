@@ -140,7 +140,7 @@ export default function Watches() {
   return (
     <main className={styles.watches}>
       <Seo
-        pageTitle="유튜브 쇼츠 뉴스"
+        pageTitle="유튜브 쇼츠 기사"
         pageDescription="당신이 놓친 뉴스를 짧게 요약해 드려요"
         pageImg={`https://news.dev1stud.io/og-image.png?ts=${timestamp}`}
       />
@@ -152,7 +152,7 @@ export default function Watches() {
       >
         <WatchDetail watchItem={selectedWatch} />
       </Modal>
-      <PageName pageName="유튜브 뉴스" />
+      <PageName pageName="유튜브 쇼츠 기사" />
       {isLoading && <div className={styles.loading}>기사를 불러오는 중입니다.</div>}
       {error && (
         <div className={styles.error}>
