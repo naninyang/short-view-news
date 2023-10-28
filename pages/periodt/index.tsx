@@ -12,11 +12,11 @@ function Periodt() {
   return (
     <main className={styles.periodts}>
       <Seo
-        pageTitle="트위터 인용/멘션"
+        pageTitle="트위터 인용/멘션 및 타임라인"
         pageDescription="당신이 놓친 뉴스를 짧게 요약해 드려요"
         pageImg={`https://news.dev1stud.io/og-image.png?ts=${timestamp}`}
       />
-      <PageName pageName="트위터 인용/멘션" />
+      <PageName pageName="트위터 인용/멘션 및 타임라인" />
       <div className={styles.list}>
         <nav className={tabs.nav}>
           <ul>
@@ -26,7 +26,7 @@ function Periodt() {
                 onClick={() => setActiveArea(1)}
                 className={`${activeArea === null || activeArea === 1 ? tabs.active : ''}`}
               >
-                <span>One More Thing</span>
+                <span>인용/멘션</span>
               </button>
             </li>
             <li>
@@ -35,7 +35,7 @@ function Periodt() {
                 onClick={() => setActiveArea(2)}
                 className={`${activeArea === 2 ? tabs.active : ''}`}
               >
-                <span>Timeline</span>
+                <span>타임라인</span>
               </button>
             </li>
           </ul>

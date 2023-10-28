@@ -12,11 +12,11 @@ function Articles() {
   return (
     <main className={styles.articles}>
       <Seo
-        pageTitle="네이버 기사"
+        pageTitle="네이버 뉴스"
         pageDescription="당신이 놓친 뉴스를 짧게 요약해 드려요"
         pageImg={`https://news.dev1stud.io/og-image.png?ts=${timestamp}`}
       />
-      <PageName pageName="네이버 기사" />
+      <PageName pageName="네이버 뉴스" />
       <div className={styles.list}>
         <nav className={tabs.nav}>
           <ul>
@@ -26,7 +26,7 @@ function Articles() {
                 onClick={() => setActiveArea(1)}
                 className={`${activeArea === null || activeArea === 1 ? tabs.active : ''}`}
               >
-                <span>News</span>
+                <span>일반 뉴스</span>
               </button>
             </li>
             <li>
@@ -35,7 +35,7 @@ function Articles() {
                 onClick={() => setActiveArea(2)}
                 className={`${activeArea === 2 ? tabs.active : ''}`}
               >
-                <span>Entertainment</span>
+                <span>연예 뉴스</span>
               </button>
             </li>
           </ul>
