@@ -113,7 +113,7 @@ function ArticlesEntertainment() {
       </Modal>
       {isLoading && (
         <div className={styles.loading}>
-          <p>기사를 가져오는 중입니다.</p>
+          <p>뉴스를 가져오는 중입니다.</p>
         </div>
       )}
       {waitingFor504 && (
@@ -186,7 +186,7 @@ function ArticlesEntertainment() {
           </PullToRefresh>
           {isReachingEnd !== undefined && (
             <div ref={setTarget} className={styles.ref}>
-              {isReachingEnd === false && <p>기사를 불러오는 중입니다.</p>}
+              {isReachingEnd === false && <p>뉴스를 불러오는 중입니다.</p>}
             </div>
           )}
         </div>

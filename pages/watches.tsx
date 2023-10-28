@@ -140,7 +140,7 @@ export default function Watches() {
   return (
     <main className={styles.watches}>
       <Seo
-        pageTitle="유튜브 쇼츠 기사"
+        pageTitle="유튜브 쇼츠 뉴스"
         pageDescription="당신이 놓친 뉴스를 짧게 요약해 드려요"
         pageImg={`https://news.dev1stud.io/og-image.png?ts=${timestamp}`}
       />
@@ -152,8 +152,8 @@ export default function Watches() {
       >
         <WatchDetail watchItem={selectedWatch} />
       </Modal>
-      <PageName pageName="유튜브 쇼츠 기사" />
-      {isLoading && <div className={styles.loading}>기사를 불러오는 중입니다.</div>}
+      <PageName pageName="유튜브 쇼츠 뉴스" />
+      {isLoading && <div className={styles.loading}>뉴스를 불러오는 중입니다.</div>}
       {error && (
         <div className={styles.error}>
           <p>데이터를 불러오는데 실패했습니다.</p>
@@ -173,7 +173,7 @@ export default function Watches() {
           </PullToRefresh>
           {isReachingEnd !== undefined && (
             <div ref={setTarget} className={styles.ref}>
-              {isReachingEnd === false && <p>기사를 불러오는 중입니다.</p>}
+              {isReachingEnd === false && <p>뉴스를 불러오는 중입니다.</p>}
             </div>
           )}
         </div>

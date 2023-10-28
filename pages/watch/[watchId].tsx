@@ -42,7 +42,7 @@ export default function watchDetail({ watchData }: { watchData: SheetData | null
       return (
         <main className={styles.watch}>
           <p className={styles.error}>
-            기사를 불러오지 못했습니다. 삭제된 기사이거나 인터넷 속도가 느립니다.{' '}
+            뉴스를 불러오지 못했습니다. 삭제된 기사이거나 인터넷 속도가 느립니다.{' '}
             <AnchorLink href="/watches">뒤로가기</AnchorLink>
           </p>
         </main>

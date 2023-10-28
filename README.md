@@ -22,11 +22,12 @@ YouTube는 5분 미만의 짧은 뉴스를 가져오며, 아주 가끔 그 이�
 - SWR w/ useSWRInfinite
 - Vercel w/ serverless
 - jsonwebtoken (for Github API Bearer)
-- Notion Client (페이지 관리에 사용)
+- Notion Client (페이지 관리 및 History 페이지용으로 사용)
 
 ### NAVER News Opengraph API Server
 
-- open-graph-scraper
+- iconv (for EUC-KR)
+- cheerio (EUC-KR 사용하는 웹사이트를 위해서 open-graph-scraper 사용 중지)
 
 ### Backend - Private repo for ONLY Database
 
@@ -45,7 +46,7 @@ YouTube는 5분 미만의 짧은 뉴스를 가져오며, 아주 가끔 그 이�
 
 ### YouTube
 
-각 기사의 제목은 YouTube 영상의 제목에서 직접 가져오며, 기사 내용은 '더보기'란을 참조하거나 자막/캡션 참조 또는 큐레이터 본인이 직접 기사를 듣고 일부를 발췌하여 작성됩니다.
+각 기사의 제목은 YouTube 영상의 제목에서 직접 가져오며, 기사 내용은 '더보기'란을 참조하거나 자막/캡션 참조 또는 큐레이터 본인이 직접 뉴스를 듣고 일부를 발췌하여 작성됩니다.
 
 ### NAVER
 
