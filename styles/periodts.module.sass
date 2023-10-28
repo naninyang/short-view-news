@@ -52,10 +52,12 @@
 
   .periodt-content
     position: relative
-    padding-top: rem(25)
     min-height: 100dvh
     background-color: var(--default-bg)
     transition: all .4s cubic-bezier(.4,0,.2,1)
+
+    +mq(minSmall)
+      padding-top: rem(25)
 
   .periodt-list
     display: flex

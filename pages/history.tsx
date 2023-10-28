@@ -3,6 +3,7 @@ import axios from 'axios';
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { useMediaQuery } from 'react-responsive';
+import PerfectScrollbar from 'react-perfect-scrollbar';
 import { YouTubeAPIResponse } from '@/utils/historyYouTube';
 import { NaverAPIResponse } from '@/utils/historyNaver';
 import Accordion from '@/components/Accordion';
@@ -13,6 +14,7 @@ import Seo from '@/components/Seo';
 import PageName from '@/components/PageName';
 import styles from '@/styles/history.module.sass';
 import tabs from '@/styles/tabs.module.sass';
+import 'react-perfect-scrollbar/dist/css/styles.css';
 
 export function useDesktop() {
   const [isDesktop, setIsDesktop] = useState(false);
@@ -99,7 +101,7 @@ export default function History() {
             </nav>
           )}
           {(activeArea === null || activeArea === 1 || isDesktop) && (
-            <div className={styles.articles}>
+            <PerfectScrollbar className={styles.articles}>
               {isDesktop && <h3>YouTube 기사</h3>}
               {youTubeData && (
                 <Accordion>
@@ -163,10 +165,10 @@ export default function History() {
                     ))}
                 </Accordion>
               )}
-            </div>
+            </PerfectScrollbar>
           )}
           {(activeArea === 2 || isDesktop) && (
-            <div className={styles.articles}>
+            <PerfectScrollbar className={styles.articles}>
               {isDesktop && <h3>NAVER 기사</h3>}
               {naverData && (
                 <Accordion>
@@ -281,7 +283,7 @@ export default function History() {
                     ))}
                 </Accordion>
               )}
-            </div>
+            </PerfectScrollbar>
           )}
         </div>
       </div>
