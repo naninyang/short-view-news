@@ -33,8 +33,14 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       },
     );
 
-    const youtubeCount = treeResponse.data.tree.filter(
-      (file: any) => file.path.startsWith(`src/pages/youtube-${process.env.NODE_ENV}`) && file.path.endsWith('.md'),
+    const youtubeNewsCount = treeResponse.data.tree.filter(
+      (file: any) =>
+        file.path.startsWith(`src/pages/youtube-news-${process.env.NODE_ENV}`) && file.path.endsWith('.md'),
+    ).length;
+
+    const youtubePlaylistCount = treeResponse.data.tree.filter(
+      (file: any) =>
+        file.path.startsWith(`src/pages/youtube-playlist-${process.env.NODE_ENV}`) && file.path.endsWith('.md'),
     ).length;
 
     const naverNewsCount = treeResponse.data.tree.filter(
@@ -55,6 +61,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         file.path.startsWith(`src/pages/twitter-timeline-${process.env.NODE_ENV}`) && file.path.endsWith('.md'),
     ).length;
 
+    const youtubeCount = youtubeNewsCount + youtubePlaylistCount;
     const naverCount = naverNewsCount + naverEntertainmentCount;
     const twitterCount = twitterOmtCount + twitterTimelineCount;
 

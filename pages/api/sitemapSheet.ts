@@ -36,7 +36,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
     const mdNews = treeResponse.data.tree
       .filter(
         (file: any) =>
-          file.path.startsWith(`src/pages/youtube-news${process.env.NODE_ENV}`) && file.path.endsWith('.md'),
+          file.path.startsWith(`src/pages/youtube-news-${process.env.NODE_ENV}`) && file.path.endsWith('.md'),
       )
       .map((file: any) => {
         const filename = file.path.split('/').pop().replace('.md', '');
@@ -48,7 +48,8 @@ export default async (req: VercelRequest, res: VercelResponse) => {
 
     const mdPlaylist = treeResponse.data.tree
       .filter(
-        (file: any) => file.path.startsWith(`src/pages/youtube-${process.env.NODE_ENV}`) && file.path.endsWith('.md'),
+        (file: any) =>
+          file.path.startsWith(`src/pages/youtube-playlist-${process.env.NODE_ENV}`) && file.path.endsWith('.md'),
       )
       .map((file: any) => {
         const filename = file.path.split('/').pop().replace('.md', '');
