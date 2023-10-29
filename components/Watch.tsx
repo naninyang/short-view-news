@@ -50,7 +50,7 @@ const watchDetail: React.FC<watchProps> = ({ watchItem }) => {
             </header>
             <div className={styles['watch-content']}>
               <PerfectScrollbar className={styles['scrollbar-container']}>
-                <YouTubeController videoId={watchItem.video_id} />
+                <YouTubeController videoId={watchItem.video_id} isPlaylist={false} />
                 <div className={styles.description}>
                   <p dangerouslySetInnerHTML={{ __html: watchItem.description }} />
                   <p>{watchItem.comment}</p>

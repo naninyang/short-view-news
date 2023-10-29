@@ -20,6 +20,10 @@ export const images = {
     menuDark: require('./misc/menuDark.svg'),
     close: require('./misc/close.svg'),
     outlink: require('./misc/outlink.svg'),
+    commentDark: require('./misc/commentDark.svg'),
+    commentLight: require('./misc/commentLight.svg'),
+    seemoreDark: require('./misc/seemoreDark.svg'),
+    seemoreLight: require('./misc/seemoreLight.svg'),
   },
   arrow: {
     backDark: require('./arrow/backDark.svg'),
