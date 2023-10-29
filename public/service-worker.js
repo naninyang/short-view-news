@@ -3,7 +3,8 @@ const CACHE_NAME = 'news-data';
 self.addEventListener('fetch', (event) => {
   if (
     event.request.url.includes('/api/pages') ||
-    event.request.url.includes('/api/sheets') ||
+    event.request.url.includes('/api/sheetsNews') ||
+    event.request.url.includes('/api/sheetsPlaylist') ||
     event.request.url.includes('/api/articlesNews') ||
     event.request.url.includes('/api/articlesEntertainment') ||
     event.request.url.includes('/api/periodtOmt') ||
