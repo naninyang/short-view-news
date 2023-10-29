@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Seo from '@/components/Seo';
 import PageName from '@/components/PageName';
 import ArticlesNews from './news';
@@ -9,6 +9,10 @@ import styles from '@/styles/articles.module.sass';
 function Articles() {
   const [activeArea, setActiveArea] = useState<number | null>(null);
   const timestamp = Date.now();
+  useEffect(() => {
+    localStorage.removeItem('currentPage');
+    localStorage.setItem('currentPage', 'articles');
+  }, []);
   return (
     <main className={styles.articles}>
       <Seo

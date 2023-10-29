@@ -90,16 +90,9 @@ function ArticlesNews() {
     };
   }, [articleId]);
 
-  useEffect(() => {
-    localStorage.removeItem('currentPage');
-    localStorage.setItem('currentPage', 'articles');
-  }, []);
-
   const handleRefresh = async () => {
     window.location.reload();
   };
-
-  const timestamp = Date.now();
 
   return (
     <>

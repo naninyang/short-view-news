@@ -9,8 +9,8 @@ interface RowData {
   title: string;
 }
 
-export async function getSheetData(start?: number, count?: number) {
-  const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/youtube`, {
+export async function getSheetNewsData(start?: number, count?: number) {
+  const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/youtubeNews`, {
     params: {
       start,
       count,

@@ -102,11 +102,6 @@ function PeriodtOmt() {
     };
   }, [isModalOpen]);
 
-  useEffect(() => {
-    localStorage.removeItem('currentPage');
-    localStorage.setItem('currentPage', 'periodt');
-  }, []);
-
   const handleRefresh = async () => {
     window.location.reload();
   };

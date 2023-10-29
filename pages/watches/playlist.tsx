@@ -1,37 +1,89 @@
 import React, { useEffect, useState } from 'react';
-import useSWRInfinite from 'swr/infinite';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import Modal from 'react-modal';
+import useSWRInfinite from 'swr/infinite';
 import axios from 'axios';
 import PullToRefresh from 'react-simple-pull-to-refresh';
 import { Masonry } from 'masonic';
-import Seo from '@/components/Seo';
 import YouTubeController from '@/components/YouTubeController';
 import { modalContainer } from '@/components/ModalStyling';
-import PageName from '@/components/PageName';
 import WatchDetail from '@/components/Watch';
+import { images } from '@/images';
+import styled from '@emotion/styled';
 import styles from '@/styles/watches.module.sass';
 
 type SheetData = {
   idx: string;
-  video_id: string;
+  titles: string;
+  video_ids: string;
   title: string;
   description: string;
-  comment: string;
   created: string;
+  title1: string;
+  description1: string;
+  comment1: string;
+  title2?: string;
+  description2?: string;
+  comment2?: string;
+  title3?: string;
+  description3?: string;
+  comment3?: string;
+  title4?: string;
+  description4?: string;
+  comment4?: string;
+  title5?: string;
+  description5?: string;
+  comment5?: string;
+  title6?: string;
+  description6?: string;
+  comment6?: string;
+  title7?: string;
+  description7?: string;
+  comment7?: string;
+  title8?: string;
+  description8?: string;
+  comment8?: string;
+  title9?: string;
+  description9?: string;
+  comment9?: string;
+  title10?: string;
+  description10?: string;
+  comment10?: string;
 };
 
 Modal.setAppElement('#__next');
+
+const Comment = styled.p({
+  '&::before': {
+    'body[data-theme="dark"] &': {
+      background: `url(${images.misc.commentLight}) no-repeat 50% 50%/contain`,
+    },
+    'body &, body[data-theme="light"] &': {
+      background: `url(${images.misc.commentDark}) no-repeat 50% 50%/contain`,
+    },
+  },
+});
+
+const Seemore = styled.em({
+  '&::after': {
+    'body[data-theme="dark"] &': {
+      background: `url(${images.misc.seemoreLight}) no-repeat 50% 50%/contain`,
+    },
+    'body &, body[data-theme="light"] &': {
+      background: `url(${images.misc.seemoreDark}) no-repeat 50% 50%/contain`,
+    },
+  },
+});
 
 export const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
 const getKey = (pageIndex: number, previousPageData: any) => {
   if (previousPageData && !previousPageData.length) return null;
-  return `${process.env.NEXT_PUBLIC_API_URL}/api/sheets?start=${pageIndex * 20}&count=20`;
+  return `${process.env.NEXT_PUBLIC_API_URL}/api/sheetsPlaylist?start=${pageIndex * 20}&count=20`;
 };
 
-export default function Watches() {
+export default function WatchesPlaylist() {
   const router = useRouter();
 
   const { data, error, size, setSize } = useSWRInfinite(getKey, fetcher, {
@@ -102,29 +154,28 @@ export default function Watches() {
     };
   }, []);
 
-  useEffect(() => {
-    localStorage.removeItem('currentPage');
-    localStorage.setItem('currentPage', 'watches');
-  }, []);
-
   const renderCard = ({ data }: { data: SheetData }) => (
     <div className={styles.item}>
       <figure>
-        <YouTubeController videoId={data.video_id} />
+        <YouTubeController videoId={data.video_ids} titles={data.titles} isPlaylist={true} />
         <figcaption>
-          <div>
-            <Link
-              key={data.idx}
-              href={`/watches?watchId=${data.idx}`}
-              as={`/watch/${data.idx}`}
-              scroll={false}
-              shallow={true}
-            >
-              {data.title} <time>{data.created}</time>
-            </Link>
-            <p dangerouslySetInnerHTML={{ __html: data.description }} />
-          </div>
-          <p>{data.comment}</p>
+          <Link
+            key={data.idx}
+            href={`/watches?watchId=${data.idx}`}
+            as={`/watch/${data.idx}`}
+            scroll={false}
+            shallow={true}
+          >
+            {/* {console.log(data.idx)} */}
+            <div className={styles['playlist-description']}>
+              <strong>{data.title1}</strong>
+              <p dangerouslySetInnerHTML={{ __html: data.description1 }} />
+              <Comment>{data.comment1}</Comment>
+              <Seemore>
+                <span>더보기</span>
+              </Seemore>
+            </div>
+          </Link>
         </figcaption>
       </figure>
     </div>
@@ -135,15 +186,8 @@ export default function Watches() {
   };
   const [columnCount, setColumnCount] = useState(1);
 
-  const timestamp = Date.now();
-
   return (
-    <main className={styles.watches}>
-      <Seo
-        pageTitle="유튜브 쇼츠 뉴스"
-        pageDescription="당신이 놓친 뉴스를 짧게 요약해 드려요"
-        pageImg={`https://news.dev1stud.io/og-image.png?ts=${timestamp}`}
-      />
+    <>
       <Modal
         isOpen={!!watchId}
         onRequestClose={() => router.push('/watches', undefined, { scroll: false })}
@@ -152,7 +196,6 @@ export default function Watches() {
       >
         <WatchDetail watchItem={selectedWatch} />
       </Modal>
-      <PageName pageName="유튜브 쇼츠 뉴스" />
       {isLoading && <div className={styles.loading}>뉴스를 불러오는 중입니다.</div>}
       {error && (
         <div className={styles.error}>
@@ -178,6 +221,6 @@ export default function Watches() {
           )}
         </div>
       )}
-    </main>
+    </>
   );
 }

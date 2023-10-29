@@ -1,26 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import Seo from '@/components/Seo';
 import PageName from '@/components/PageName';
-import PeriodtOmt from './omt';
-import PeriodtTimeline from './timeline';
+import WatchesNewsItem from './newsItem';
+import WatchesPlaylist from './playlist';
 import tabs from '@/styles/tabs.module.sass';
-import styles from '@/styles/periodts.module.sass';
+import styles from '@/styles/watches.module.sass';
 
-function Periodt() {
+export default function Watches() {
   const [activeArea, setActiveArea] = useState<number | null>(null);
   const timestamp = Date.now();
   useEffect(() => {
     localStorage.removeItem('currentPage');
-    localStorage.setItem('currentPage', 'periodt');
+    localStorage.setItem('currentPage', 'watches');
   }, []);
   return (
-    <main className={styles.periodts}>
+    <main className={styles.watches}>
       <Seo
-        pageTitle="트위터 인용/멘션 및 타임라인"
+        pageTitle="유튜브 쇼츠 뉴스"
         pageDescription="당신이 놓친 뉴스를 짧게 요약해 드려요"
         pageImg={`https://news.dev1stud.io/og-image.png?ts=${timestamp}`}
       />
-      <PageName pageName="트위터 인용/멘션 및 타임라인" />
+      <PageName pageName="유튜브 쇼츠 뉴스" />
       <div className={styles.list}>
         <nav className={tabs.nav}>
           <ul>
@@ -30,7 +30,7 @@ function Periodt() {
                 onClick={() => setActiveArea(1)}
                 className={`${activeArea === null || activeArea === 1 ? tabs.active : ''}`}
               >
-                <span>인용/멘션</span>
+                <span>뉴스 아이템</span>
               </button>
             </li>
             <li>
@@ -39,16 +39,14 @@ function Periodt() {
                 onClick={() => setActiveArea(2)}
                 className={`${activeArea === 2 ? tabs.active : ''}`}
               >
-                <span>타임라인</span>
+                <span>플레이리스트</span>
               </button>
             </li>
           </ul>
         </nav>
-        {(activeArea === null || activeArea === 1) && <PeriodtOmt />}
-        {activeArea === 2 && <PeriodtTimeline />}
+        {(activeArea === null || activeArea === 1) && <WatchesNewsItem />}
+        {activeArea === 2 && <WatchesPlaylist />}
       </div>
     </main>
   );
 }
-
-export default Periodt;

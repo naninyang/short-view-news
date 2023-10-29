@@ -37,13 +37,26 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       (file: any) => file.path.startsWith(`src/pages/youtube-${process.env.NODE_ENV}`) && file.path.endsWith('.md'),
     ).length;
 
-    const naverCount = treeResponse.data.tree.filter(
-      (file: any) => file.path.startsWith(`src/pages/naver-${process.env.NODE_ENV}`) && file.path.endsWith('.md'),
+    const naverNewsCount = treeResponse.data.tree.filter(
+      (file: any) => file.path.startsWith(`src/pages/naver-news-${process.env.NODE_ENV}`) && file.path.endsWith('.md'),
     ).length;
 
-    const twitterCount = treeResponse.data.tree.filter(
-      (file: any) => file.path.startsWith(`src/pages/twitter-${process.env.NODE_ENV}`) && file.path.endsWith('.md'),
+    const naverEntertainmentCount = treeResponse.data.tree.filter(
+      (file: any) =>
+        file.path.startsWith(`src/pages/naver-entertainment-${process.env.NODE_ENV}`) && file.path.endsWith('.md'),
     ).length;
+
+    const twitterOmtCount = treeResponse.data.tree.filter(
+      (file: any) => file.path.startsWith(`src/pages/twitter-omt-${process.env.NODE_ENV}`) && file.path.endsWith('.md'),
+    ).length;
+
+    const twitterTimelineCount = treeResponse.data.tree.filter(
+      (file: any) =>
+        file.path.startsWith(`src/pages/twitter-timeline-${process.env.NODE_ENV}`) && file.path.endsWith('.md'),
+    ).length;
+
+    const naverCount = naverNewsCount + naverEntertainmentCount;
+    const twitterCount = twitterOmtCount + twitterTimelineCount;
 
     res.status(200).send({ youtube: youtubeCount, naver: naverCount, twitter: twitterCount });
   } catch (error) {

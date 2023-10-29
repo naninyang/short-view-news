@@ -35,6 +35,10 @@
         gap: rem(15)
         max-width: rem(767)
 
+        > div[class^="css"]
+          position: sticky
+          top: rem(50)
+
   &.watch-container
     padding: 0
     overflow: hidden
@@ -83,16 +87,29 @@
     display: flex
     flex-direction: column
 
-    div[class^="css"]
-      transition: all .4s cubic-bezier(.4,0,.2,1)
-      border-radius: rem(15)
-      overflow: hidden
+    > div[class^="css"]
+      > div iframe
+        overflow: hidden
+        transition: all .4s cubic-bezier(.4,0,.2,1)
+        border-radius: rem(15)
+        overflow: hidden
 
-      &:hover
-        border-radius: 0
+        &:hover
+          border-radius: 0
 
-      +mq(minLarge)
-        border-radius: rem(25)
+        +mq(minLarge)
+          border-radius: rem(25)
+
+      .controller
+        backdrop-filter: saturate(180%) blur(rem(20))
+        maxHeight: rem(187)
+        overflow: auto
+
+        body[data-theme="dark"] &
+          background: rgba(0, 0, 0, .2)
+
+        body &, body[data-theme="light"] &
+          background: 'rgba(255, 255, 255, .7)',
 
     header
       display: flex
@@ -167,3 +184,54 @@
             margin-top: rem(25)
             padding-top: rem(25)
             font-size: rem(16)
+
+    .playlist-description
+      display: flex
+      flex-direction: column
+      gap: rem(5)
+      border-bottom: 1px solid var(--border)
+      padding: rem(15) 0
+
+      > strong
+        font-weight: 900
+        font-size: rem(20)
+
+        +mq(minLarge)
+          font-size: rem(24)
+
+      p
+        transition: all .4s cubic-bezier(.4,0,.2,1)
+        font-size: rem(14)
+        font-weight: 400
+        line-height: 1.5
+        color: var(--txt-summary)
+
+        +mq(minLarge)
+          font-size: rem(16)
+
+        strong
+          transition: all .4s cubic-bezier(.4,0,.2,1)
+          font-weight: 700
+          color: var(--txt-blockquote)
+
+        &:nth-of-type(2)
+          display: flex
+          gap: rem(7)
+          transition: all .4s cubic-bezier(.4,0,.2,1)
+          padding: rem(5) 0
+          font-size: rem(14)
+          line-height: 1.3
+          color: var(--txt-blockquote)
+
+          +mq(minLarge)
+            font-size: rem(16)
+
+          &::before
+            content: ''
+            display: block
+            +coln
+            width: rem(36)
+            height: rem(36)
+
+          +mq(minLarge)
+            padding-top: rem(10)
