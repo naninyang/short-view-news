@@ -51,7 +51,16 @@ nav.nav
             font-weight: 900
             color: $hex-accent
 
+        &:hover, &:focus
+          span
+            position: relative
+            border-bottom-color: $hex-accent
+            padding: 0 rem(50)
+            font-weight: 900
+            color: $hex-accent
+
         span
+          transition: all .4s cubic-bezier(.4,0,.2,1)
           display: inline-flex
           justify-content: center
           align-items: center

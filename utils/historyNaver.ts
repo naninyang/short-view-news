@@ -114,6 +114,24 @@ interface NaverProperties {
   datetime17: {
     date: NotionDate | null;
   };
+  article_id18: {
+    rich_text: NotionRichText[];
+  };
+  datetime18: {
+    date: NotionDate | null;
+  };
+  article_id19: {
+    rich_text: NotionRichText[];
+  };
+  datetime19: {
+    date: NotionDate | null;
+  };
+  article_id20: {
+    rich_text: NotionRichText[];
+  };
+  datetime20: {
+    date: NotionDate | null;
+  };
 }
 
 export interface NaverResult {
@@ -179,6 +197,12 @@ export async function getHistoryNaver(): Promise<NaverAPIResponse> {
           datetime16: item.properties.datetime16?.date?.start,
           article_id17: item.properties.article_id17?.rich_text[0]?.plain_text,
           datetime17: item.properties.datetime17?.date?.start,
+          article_id18: item.properties.article_id18?.rich_text[0]?.plain_text,
+          datetime18: item.properties.datetime18?.date?.start,
+          article_id19: item.properties.article_id19?.rich_text[0]?.plain_text,
+          datetime19: item.properties.datetime19?.date?.start,
+          article_id20: item.properties.article_id20?.rich_text[0]?.plain_text,
+          datetime20: item.properties.datetime20?.date?.start,
         };
 
         return {
