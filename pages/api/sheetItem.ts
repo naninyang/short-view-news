@@ -93,7 +93,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
     );
 
     const mdNews = treeResponse.data.tree.find(
-      (file: any) => file.path === `src/pages/youtube-${process.env.NODE_ENV}/${idx}.md`,
+      (file: any) => file.path === `src/pages/youtube-news-${process.env.NODE_ENV}/${idx}.md`,
     );
 
     const mdPlaylist = treeResponse.data.tree.find(

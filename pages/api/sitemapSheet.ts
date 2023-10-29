@@ -33,7 +33,20 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       },
     );
 
-    const mdFiles = treeResponse.data.tree
+    const mdNews = treeResponse.data.tree
+      .filter(
+        (file: any) =>
+          file.path.startsWith(`src/pages/youtube-news${process.env.NODE_ENV}`) && file.path.endsWith('.md'),
+      )
+      .map((file: any) => {
+        const filename = file.path.split('/').pop().replace('.md', '');
+        return {
+          idx: filename,
+          created: filename.split('-').slice(0, 3).join('-'),
+        };
+      });
+
+    const mdPlaylist = treeResponse.data.tree
       .filter(
         (file: any) => file.path.startsWith(`src/pages/youtube-${process.env.NODE_ENV}`) && file.path.endsWith('.md'),
       )
@@ -45,7 +58,9 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         };
       });
 
-    res.status(200).send(mdFiles);
+    const mergeMd = [...mdNews, ...mdPlaylist];
+
+    res.status(200).send(mergeMd);
   } catch (error) {
     res.status(500).send('Failed to fetch filenames from GitHub');
   }

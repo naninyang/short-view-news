@@ -26,7 +26,7 @@ export const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
 const getKey = (pageIndex: number, previousPageData: any) => {
   if (previousPageData && !previousPageData.length) return null;
-  return `${process.env.NEXT_PUBLIC_API_URL}/api/sheets?start=${pageIndex * 20}&count=20`;
+  return `${process.env.NEXT_PUBLIC_API_URL}/api/sheetsNews?start=${pageIndex * 20}&count=20`;
 };
 
 export default function WatchesNewsItem() {

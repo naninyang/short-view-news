@@ -39,7 +39,8 @@ export default async (req: VercelRequest, res: VercelResponse) => {
 
     const mdFiles = treeResponse.data.tree
       .filter(
-        (file: any) => file.path.startsWith(`src/pages/youtube-${process.env.NODE_ENV}`) && file.path.endsWith('.md'),
+        (file: any) =>
+          file.path.startsWith(`src/pages/youtube-news-${process.env.NODE_ENV}`) && file.path.endsWith('.md'),
       )
       .sort((a: any, b: any) => b.path.localeCompare(a.path))
       .slice(start, start + count);
