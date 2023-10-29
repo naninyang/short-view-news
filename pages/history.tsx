@@ -279,6 +279,24 @@ export default function History() {
                             datetime={formatDate(item.properties.datetime17)}
                           />
                         )}
+                        {item.properties.article_id18 && (
+                          <Opengraph
+                            article_id={item.properties.article_id18}
+                            datetime={formatDate(item.properties.datetime18)}
+                          />
+                        )}
+                        {item.properties.article_id19 && (
+                          <Opengraph
+                            article_id={item.properties.article_id19}
+                            datetime={formatDate(item.properties.datetime19)}
+                          />
+                        )}
+                        {item.properties.article_id110 && (
+                          <Opengraph
+                            article_id={item.properties.article_id120}
+                            datetime={formatDate(item.properties.datetime120)}
+                          />
+                        )}
                       </AccordionItem>
                     ))}
                 </Accordion>
