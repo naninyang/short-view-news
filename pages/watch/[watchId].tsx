@@ -71,17 +71,6 @@ const Comment = styled.p({
   },
 });
 
-const Seemore = styled.em({
-  '&::after': {
-    'body[data-theme="dark"] &': {
-      background: `url(${images.misc.seemoreLight}) no-repeat 50% 50%/contain`,
-    },
-    'body &, body[data-theme="light"] &': {
-      background: `url(${images.misc.seemoreDark}) no-repeat 50% 50%/contain`,
-    },
-  },
-});
-
 export default function watchDetail({ watchData }: { watchData: SheetData | null }) {
   const [timeoutReached, setTimeoutReached] = useState(false);
   useEffect(() => {

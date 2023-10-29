@@ -154,11 +154,6 @@ export default function WatchesPlaylist() {
     };
   }, []);
 
-  useEffect(() => {
-    localStorage.removeItem('currentPage');
-    localStorage.setItem('currentPage', 'watches');
-  }, []);
-
   const renderCard = ({ data }: { data: SheetData }) => (
     <div className={styles.item}>
       <figure>
@@ -171,6 +166,7 @@ export default function WatchesPlaylist() {
             scroll={false}
             shallow={true}
           >
+            {/* {console.log(data.idx)} */}
             <div className={styles['playlist-description']}>
               <strong>{data.title1}</strong>
               <p dangerouslySetInnerHTML={{ __html: data.description1 }} />

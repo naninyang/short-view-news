@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Seo from '@/components/Seo';
 import PageName from '@/components/PageName';
 import PeriodtOmt from './omt';
@@ -9,6 +9,10 @@ import styles from '@/styles/periodts.module.sass';
 function Periodt() {
   const [activeArea, setActiveArea] = useState<number | null>(null);
   const timestamp = Date.now();
+  useEffect(() => {
+    localStorage.removeItem('currentPage');
+    localStorage.setItem('currentPage', 'periodt');
+  }, []);
   return (
     <main className={styles.periodts}>
       <Seo
