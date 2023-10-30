@@ -35,7 +35,10 @@ export default function ArticleDetail({ article }: { article: Article | null }) 
     <main className={styles.article}>
       <div className="top-link">
         {savedScrollPosition ? (
-          <button onClick={handleBackClick}>뒤로가기</button>
+          <button onClick={handleBackClick}>
+            <BackButton />
+            <span>뒤로가기</span>
+          </button>
         ) : (
           <AnchorLink href="/articles">
             <BackButton />

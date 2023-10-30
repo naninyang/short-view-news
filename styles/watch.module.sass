@@ -33,11 +33,115 @@
 
       article
         gap: rem(15)
-        max-width: rem(767)
 
-        > div[class^="css"]
-          position: sticky
-          top: rem(50)
+        &.article-news
+          max-width: rem(767)
+
+        &.article-playlist
+          +mq(minLarge)
+            margin: 0 auto
+            max-width: rem(1370)
+            width: 100%
+
+          > div[class^=" css"]:not(.youtube-playlist)
+            padding-bottom: rem(50)
+
+            body[data-theme="dark"] &
+              background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 90%, rgba(0,0,0,0) 100%)
+
+            body &, body[data-theme="light"] &
+              background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 90%, rgba(255,255,255,0) 100%)
+
+            img
+              margin: 0 auto
+              max-width: rem(1000)
+              width: 100%
+
+          .youtube-playlist
+            +mq(maxMedium)
+              flex-direction: column
+
+            +mq(minLarge)
+              position: sticky
+              top: rem(50)
+              margin: 0 auto
+              padding-right: rem(370)
+              padding-bottom: rem(50)
+              max-width: rem(1370)
+              width: 100%
+
+              body[data-theme="dark"] &
+                background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 90%, rgba(0,0,0,0) 100%)
+
+              body &, body[data-theme="light"] &
+                background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 90%, rgba(255,255,255,0) 100%)
+
+            > div:first-of-type
+              border-radius: rem(15)
+              overflow: hidden
+
+              +mq(minLarge)
+                border-radius: rem(25)
+
+            .controller
+              +mq(maxMedium)
+                backdrop-filter: saturate(180%) blur(rem(20))
+                max-height: rem(187)
+                overflow: auto
+
+                body[data-theme="dark"] &
+                  background: rgba(0, 0, 0, .2)
+
+                body &, body[data-theme="light"] &
+                  background: rgba(255, 255, 255, .7)
+
+              +mq(minLarge)
+                position: absolute
+                top: 0
+                right: 0
+                border: 1px solid var(--border)
+                border-radius: rem(25)
+                padding: rem(15)
+                width: 100%
+                max-width: rem(350)
+                height: calc(100% - rem(50))
+                overflow: auto
+
+                strong
+                  padding-bottom: rem(15)
+
+                button
+                  border-bottom: 1px solid var(--border)
+                  padding: rem(15)
+                  overflow: visible
+                  white-space: normal
+                  text-overflow: clip
+
+                  &:hover, &:focus
+                    background-color: var(--bg-primary)
+
+                  &:first-of-type
+                    border-top: 1px solid var(--border)
+
+                  span
+                    border-bottom: 0
+                    overflow: visible
+                    white-space: normal
+                    text-overflow: clip
+
+          > div[class^=" css"]
+            position: sticky
+            top: rem(50)
+
+            > img
+              border-radius: rem(15)
+              overflow: hidden
+
+              +mq(minLarge)
+                border-radius: rem(25)
+
+              &:hover
+                border-radius: 0
 
   &.watch-container
     padding: 0
@@ -87,29 +191,13 @@
     display: flex
     flex-direction: column
 
-    > div[class^="css"]
-      > div iframe
-        overflow: hidden
-        transition: all .4s cubic-bezier(.4,0,.2,1)
+    > div[class^=" css"], .scrollbar-container > div[class^=" css"]
+      > div:first-of-type, > img
         border-radius: rem(15)
         overflow: hidden
 
-        &:hover
-          border-radius: 0
-
         +mq(minLarge)
           border-radius: rem(25)
-
-      .controller
-        backdrop-filter: saturate(180%) blur(rem(20))
-        maxHeight: rem(187)
-        overflow: auto
-
-        body[data-theme="dark"] &
-          background: rgba(0, 0, 0, .2)
-
-        body &, body[data-theme="light"] &
-          background: 'rgba(255, 255, 255, .7)',
 
     header
       display: flex

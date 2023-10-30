@@ -2,14 +2,11 @@ import React, { useEffect, useState } from 'react';
 import useSWRInfinite from 'swr/infinite';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useMediaQuery } from 'react-responsive';
 import Modal from 'react-modal';
 import axios from 'axios';
 import PullToRefresh from 'react-simple-pull-to-refresh';
 import { Masonry } from 'masonic';
-import { modalContainer } from '@/components/ModalStyling';
 import YouTubeController from '@/components/YouTubeController';
-import WatchDetail from '@/components/Watch';
 import { images } from '@/images';
 import styled from '@emotion/styled';
 import styles from '@/styles/watches.module.sass';
@@ -76,15 +73,6 @@ const Seemore = styled.em({
     },
   },
 });
-
-export function useDesktop() {
-  const [isDesktop, setIsDesktop] = useState(false);
-  const desktop = useMediaQuery({ query: '(min-width: 768px)' });
-  useEffect(() => {
-    setIsDesktop(desktop);
-  }, [desktop]);
-  return isDesktop;
-}
 
 export const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
@@ -164,44 +152,21 @@ export default function WatchesPlaylist() {
     };
   }, []);
 
-  const isDesktop = useDesktop();
-
   const renderCard = ({ data }: { data: SheetData }) => (
     <div className={styles.item}>
       <figure>
         <YouTubeController videoId={data.video_ids} titles={data.titles} isPlaylist={true} />
         <figcaption>
-          {isDesktop ? (
-            <Link
-              key={data.idx}
-              href={`/watches?watchId=${data.idx}`}
-              as={`/watch/${data.idx}`}
-              scroll={false}
-              shallow={true}
-            >
-              {/* {console.log(data.idx)} */}
-              <div className={styles['playlist-description']}>
-                <strong>{data.title1}</strong>
-                <p dangerouslySetInnerHTML={{ __html: data.description1 }} />
-                <Comment>{data.comment1}</Comment>
-                <Seemore>
-                  <span>더보기</span>
-                </Seemore>
-              </div>
-            </Link>
-          ) : (
-            <Link key={data.idx} href={`/watch/${data.idx}`} scroll={false} shallow={true}>
-              {/* {console.log(data.idx)} */}
-              <div className={styles['playlist-description']}>
-                <strong>{data.title1}</strong>
-                <p dangerouslySetInnerHTML={{ __html: data.description1 }} />
-                <Comment>{data.comment1}</Comment>
-                <Seemore>
-                  <span>더보기</span>
-                </Seemore>
-              </div>
-            </Link>
-          )}
+          <Link key={data.idx} href={`/watch/${data.idx}`} scroll={false} shallow={true}>
+            <div className={styles['playlist-description']}>
+              <strong>{data.title1}</strong>
+              <p dangerouslySetInnerHTML={{ __html: data.description1 }} />
+              <Comment>{data.comment1}</Comment>
+              <Seemore>
+                <span>더보기</span>
+              </Seemore>
+            </div>
+          </Link>
         </figcaption>
       </figure>
     </div>
@@ -214,14 +179,6 @@ export default function WatchesPlaylist() {
 
   return (
     <>
-      <Modal
-        isOpen={!!watchId}
-        onRequestClose={() => router.push('/watches', undefined, { scroll: false })}
-        contentLabel="Watch Modal"
-        style={modalContainer}
-      >
-        <WatchDetail watchItem={selectedWatch} />
-      </Modal>
       {isLoading && <div className={styles.loading}>뉴스를 불러오는 중입니다.</div>}
       {error && (
         <div className={styles.error}>

@@ -1,8 +1,8 @@
-import { rem } from '@/styles/designSystem';
-import styled from '@emotion/styled';
 import React, { useRef } from 'react';
+import styled from '@emotion/styled';
 import YouTube, { YouTubeProps } from 'react-youtube';
 import styles from '@/styles/watch.module.sass';
+import { rem } from '@/styles/designSystem';
 
 interface Props {
   videoId: string;

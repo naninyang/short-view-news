@@ -5,6 +5,7 @@ import { isDesktop } from 'react-device-detect';
 import { mixIn, rem } from '@/styles/designSystem';
 import { images } from '@/images';
 import YouTubePlayer from './YouTubePlayer';
+import styles from '@/styles/watch.module.sass';
 
 interface Props {
   videoId: string;
@@ -16,7 +17,7 @@ const Container = styled.div<{ isDesktop?: boolean }>(({ isDesktop }) => ({
   position: 'relative',
   overflow: 'hidden',
   '&:hover img': {
-    transform: isDesktop ? 'scale(1.05)' : undefined,
+    transform: isDesktop ? 'scale(1.02)' : undefined,
   },
   '& img': {
     transition: 'all .4s cubic-bezier(.4,0,.2,1)',
@@ -83,7 +84,7 @@ const YouTubeController = ({ videoId, isPlaylist, titles }: Props) => {
   };
 
   return (
-    <Container isDesktop={isDesktop}>
+    <Container isDesktop={isDesktop} className={isPlaying && isPlaylist ? `${styles['youtube-playlist']}` : ''}>
       {!isPlaying ? (
         <>
           {isPlaylist ? (
