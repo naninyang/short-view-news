@@ -15,7 +15,7 @@ function Articles() {
 
     if (currentTab === 'news') {
       setActiveArea(1);
-    } else if (currentTab === 'playlist') {
+    } else if (currentTab === 'entertainment') {
       setActiveArea(2);
     }
 
@@ -29,7 +29,7 @@ function Articles() {
     if (tabNumber === 1) {
       localStorage.setItem('currentArticles', 'news');
     } else if (tabNumber === 2) {
-      localStorage.setItem('currentArticles', 'playlist');
+      localStorage.setItem('currentArticles', 'entertainment');
     } else {
       localStorage.removeItem('currentArticles');
     }
