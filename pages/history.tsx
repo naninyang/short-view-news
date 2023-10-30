@@ -105,7 +105,7 @@ export default function History() {
                     onClick={() => handleTabChange(1)}
                     className={`${activeArea === null || activeArea === 1 ? tabs.active : ''}`}
                   >
-                    <span>YouTube 기사</span>
+                    <span>YouTube 뉴스</span>
                   </button>
                 </li>
                 <li>
@@ -114,7 +114,7 @@ export default function History() {
                     onClick={() => handleTabChange(2)}
                     className={`${activeArea === 2 ? tabs.active : ''}`}
                   >
-                    <span>NAVER 기사</span>
+                    <span>NAVER 뉴스</span>
                   </button>
                 </li>
               </ul>
