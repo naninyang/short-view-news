@@ -212,8 +212,7 @@
             padding: rem(15)
 
           cite
-            font-size: rem(10)
-            font-weight: 30000
+            font-size: rem(12)
             text-transform: uppercase
             color: var(--txt-summary)
 
@@ -227,7 +226,7 @@
             margin: 0
             font-size: rem(12)
             color: var(--default-text)
-            +line-abbr(3, 54, 1.5)
+            +line-abbr(3, 63, 1.5)
             white-space: break-spaces
             word-wrap: break-word
             word-break: keep-all
@@ -310,8 +309,15 @@
               color: var(--default-text)
 
               a
+                display: inline-block
+                width: rem(170)
+                overflow: hidden
                 color: var(--default-text)
                 text-decoration: underline
+                white-space: nowrap
+                text-overflow: ellipsis
+                word-break: break-all
+                vertical-align: text-bottom
 
               .thumbnail
                 overflow: hidden
