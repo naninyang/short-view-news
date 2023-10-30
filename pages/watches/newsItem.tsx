@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import useSWRInfinite from 'swr/infinite';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useMediaQuery } from 'react-responsive';
 import Modal from 'react-modal';
 import axios from 'axios';
 import PullToRefresh from 'react-simple-pull-to-refresh';
 import { Masonry } from 'masonic';
-import YouTubeController from '@/components/YouTubeController';
 import { modalContainer } from '@/components/ModalStyling';
+import YouTubeController from '@/components/YouTubeController';
 import WatchDetail from '@/components/Watch';
 import styles from '@/styles/watches.module.sass';
 
@@ -21,6 +22,15 @@ type SheetData = {
 };
 
 Modal.setAppElement('#__next');
+
+export function useDesktop() {
+  const [isDesktop, setIsDesktop] = useState(false);
+  const desktop = useMediaQuery({ query: '(min-width: 768px)' });
+  useEffect(() => {
+    setIsDesktop(desktop);
+  }, [desktop]);
+  return isDesktop;
+}
 
 export const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
@@ -100,21 +110,29 @@ export default function WatchesNewsItem() {
     };
   }, []);
 
+  const isDesktop = useDesktop();
+
   const renderCard = ({ data }: { data: SheetData }) => (
     <div className={styles.item}>
       <figure>
         <YouTubeController videoId={data.video_id} isPlaylist={false} />
         <figcaption>
           <div>
-            <Link
-              key={data.idx}
-              href={`/watches?watchId=${data.idx}`}
-              as={`/watch/${data.idx}`}
-              scroll={false}
-              shallow={true}
-            >
-              {data.title} <time>{data.created}</time>
-            </Link>
+            {isDesktop ? (
+              <Link
+                key={data.idx}
+                href={`/watches?watchId=${data.idx}`}
+                as={`/watch/${data.idx}`}
+                scroll={false}
+                shallow={true}
+              >
+                {data.title} <time>{data.created}</time>
+              </Link>
+            ) : (
+              <Link key={data.idx} href={`/watch/${data.idx}`} scroll={false} shallow={true}>
+                {data.title} <time>{data.created}</time>
+              </Link>
+            )}
             <p dangerouslySetInnerHTML={{ __html: data.description }} />
           </div>
           <p>{data.comment}</p>
@@ -127,8 +145,6 @@ export default function WatchesNewsItem() {
     window.location.reload();
   };
   const [columnCount, setColumnCount] = useState(1);
-
-  const timestamp = Date.now();
 
   return (
     <>

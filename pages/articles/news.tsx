@@ -3,6 +3,7 @@ import useSWRInfinite from 'swr/infinite';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useMediaQuery } from 'react-responsive';
 import Modal from 'react-modal';
 import axios, { AxiosError } from 'axios';
 import PullToRefresh from 'react-simple-pull-to-refresh';
@@ -13,6 +14,15 @@ import AnchorLink from '@/components/AnchorLink';
 import styles from '@/styles/articles.module.sass';
 
 Modal.setAppElement('#__next');
+
+export function useDesktop() {
+  const [isDesktop, setIsDesktop] = useState(false);
+  const desktop = useMediaQuery({ query: '(min-width: 768px)' });
+  useEffect(() => {
+    setIsDesktop(desktop);
+  }, [desktop]);
+  return isDesktop;
+}
 
 function ArticlesNews() {
   const router = useRouter();
@@ -94,6 +104,8 @@ function ArticlesNews() {
     window.location.reload();
   };
 
+  const isDesktop = useDesktop();
+
   return (
     <>
       <Modal
@@ -133,15 +145,21 @@ function ArticlesNews() {
               {articles.map((article: Article) => (
                 <article key={article.idx}>
                   <div className={styles.description}>
-                    <Link
-                      key={article.idx}
-                      href={`/articles?articleId=${article.idx}`}
-                      as={`/article/${article.idx}`}
-                      scroll={false}
-                      shallow={true}
-                    >
-                      <p className={styles.comment} dangerouslySetInnerHTML={{ __html: article.description }} />
-                    </Link>
+                    {isDesktop ? (
+                      <Link
+                        key={article.idx}
+                        href={`/articles?articleId=${article.idx}`}
+                        as={`/article/${article.idx}`}
+                        scroll={false}
+                        shallow={true}
+                      >
+                        <p className={styles.comment} dangerouslySetInnerHTML={{ __html: article.description }} />
+                      </Link>
+                    ) : (
+                      <Link key={article.idx} href={`/article/${article.idx}`} scroll={false} shallow={true}>
+                        <p className={styles.comment} dangerouslySetInnerHTML={{ __html: article.description }} />
+                      </Link>
+                    )}
                     <Image
                       src={`https://drive.google.com/uc?id=${article.thumbnail}`}
                       width={640}

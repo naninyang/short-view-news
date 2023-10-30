@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
+import { useRouter } from 'next/router';
 import Image from 'next/image';
 import axios from 'axios';
 import AnchorLink from '@/components/AnchorLink';
@@ -19,13 +21,27 @@ const BackButton = styled.i({
 });
 
 export default function ArticleDetail({ article }: { article: Article | null }) {
+  const router = useRouter();
+  let savedScrollPosition;
+
+  const handleBackClick = () => {
+    const savedScrollPosition = sessionStorage.getItem('scrollPosition_' + router.asPath);
+    if (savedScrollPosition) {
+      router.back();
+    }
+  };
+
   return (
     <main className={styles.article}>
       <div className="top-link">
-        <AnchorLink href="/articles">
-          <BackButton />
-          <span>뒤로가기</span>
-        </AnchorLink>
+        {savedScrollPosition ? (
+          <button onClick={handleBackClick}>뒤로가기</button>
+        ) : (
+          <AnchorLink href="/articles">
+            <BackButton />
+            <span>뒤로가기</span>
+          </AnchorLink>
+        )}
       </div>
       <article>
         <Seo

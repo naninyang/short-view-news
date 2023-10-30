@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
+import { useRouter } from 'next/router';
 import axios from 'axios';
 import { images } from '@/images';
 import Seo from '@/components/Seo';
@@ -72,6 +73,16 @@ const Comment = styled.p({
 });
 
 export default function watchDetail({ watchData }: { watchData: SheetData | null }) {
+  const router = useRouter();
+  let savedScrollPosition;
+
+  const handleBackClick = () => {
+    const savedScrollPosition = sessionStorage.getItem('scrollPosition_' + router.asPath);
+    if (savedScrollPosition) {
+      router.back();
+    }
+  };
+
   const [timeoutReached, setTimeoutReached] = useState(false);
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -122,10 +133,14 @@ export default function watchDetail({ watchData }: { watchData: SheetData | null
         />
       )}
       <div className="top-link">
-        <AnchorLink href="/watches">
-          <BackButton />
-          <span>뒤로가기</span>
-        </AnchorLink>
+        {savedScrollPosition ? (
+          <button onClick={handleBackClick}>뒤로가기</button>
+        ) : (
+          <AnchorLink href="/watches">
+            <BackButton />
+            <span>뒤로가기</span>
+          </AnchorLink>
+        )}
       </div>
       <article>
         {watchData.type === 'playlist' ? (
