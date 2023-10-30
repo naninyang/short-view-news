@@ -311,7 +311,7 @@ export default function History() {
                             datetime={formatDate(item.properties.datetime19)}
                           />
                         )}
-                        {item.properties.article_id110 && (
+                        {item.properties.article_id120 && (
                           <Opengraph
                             article_id={item.properties.article_id120}
                             datetime={formatDate(item.properties.datetime120)}
