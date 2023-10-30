@@ -60,9 +60,29 @@ export default function History() {
   const [activeArea, setActiveArea] = useState<number | null>(null);
 
   useEffect(() => {
+    const currentTab = localStorage.getItem('currentHistory');
+
+    if (currentTab === 'youTube') {
+      setActiveArea(1);
+    } else if (currentTab === 'naver') {
+      setActiveArea(2);
+    }
+
     localStorage.removeItem('currentPage');
     localStorage.setItem('currentPage', 'history');
   }, []);
+
+  const handleTabChange = (tabNumber: number) => {
+    setActiveArea(tabNumber);
+
+    if (tabNumber === 1) {
+      localStorage.setItem('currentHistory', 'youTube');
+    } else if (tabNumber === 2) {
+      localStorage.setItem('currentHistory', 'naver');
+    } else {
+      localStorage.removeItem('currentHistory');
+    }
+  };
 
   const timestamp = Date.now();
 
@@ -82,7 +102,7 @@ export default function History() {
                 <li>
                   <button
                     type="button"
-                    onClick={() => setActiveArea(1)}
+                    onClick={() => handleTabChange(1)}
                     className={`${activeArea === null || activeArea === 1 ? tabs.active : ''}`}
                   >
                     <span>YouTube 기사</span>
@@ -91,7 +111,7 @@ export default function History() {
                 <li>
                   <button
                     type="button"
-                    onClick={() => setActiveArea(2)}
+                    onClick={() => handleTabChange(2)}
                     className={`${activeArea === 2 ? tabs.active : ''}`}
                   >
                     <span>NAVER 기사</span>

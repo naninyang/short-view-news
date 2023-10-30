@@ -9,10 +9,32 @@ import styles from '@/styles/watches.module.sass';
 export default function Watches() {
   const [activeArea, setActiveArea] = useState<number | null>(null);
   const timestamp = Date.now();
+
   useEffect(() => {
+    const currentTab = localStorage.getItem('currentWatches');
+
+    if (currentTab === 'news') {
+      setActiveArea(1);
+    } else if (currentTab === 'playlist') {
+      setActiveArea(2);
+    }
+
     localStorage.removeItem('currentPage');
     localStorage.setItem('currentPage', 'watches');
   }, []);
+
+  const handleTabChange = (tabNumber: number) => {
+    setActiveArea(tabNumber);
+
+    if (tabNumber === 1) {
+      localStorage.setItem('currentWatches', 'news');
+    } else if (tabNumber === 2) {
+      localStorage.setItem('currentWatches', 'playlist');
+    } else {
+      localStorage.removeItem('currentWatches');
+    }
+  };
+
   return (
     <main className={styles.watches}>
       <Seo
@@ -27,7 +49,7 @@ export default function Watches() {
             <li>
               <button
                 type="button"
-                onClick={() => setActiveArea(1)}
+                onClick={() => handleTabChange(1)}
                 className={`${activeArea === null || activeArea === 1 ? tabs.active : ''}`}
               >
                 <span>뉴스 아이템</span>
@@ -36,7 +58,7 @@ export default function Watches() {
             <li>
               <button
                 type="button"
-                onClick={() => setActiveArea(2)}
+                onClick={() => handleTabChange(2)}
                 className={`${activeArea === 2 ? tabs.active : ''}`}
               >
                 <span>플레이리스트</span>

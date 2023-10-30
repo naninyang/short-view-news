@@ -9,10 +9,32 @@ import styles from '@/styles/articles.module.sass';
 function Articles() {
   const [activeArea, setActiveArea] = useState<number | null>(null);
   const timestamp = Date.now();
+
   useEffect(() => {
+    const currentTab = localStorage.getItem('currentArticles');
+
+    if (currentTab === 'news') {
+      setActiveArea(1);
+    } else if (currentTab === 'playlist') {
+      setActiveArea(2);
+    }
+
     localStorage.removeItem('currentPage');
     localStorage.setItem('currentPage', 'articles');
   }, []);
+
+  const handleTabChange = (tabNumber: number) => {
+    setActiveArea(tabNumber);
+
+    if (tabNumber === 1) {
+      localStorage.setItem('currentArticles', 'news');
+    } else if (tabNumber === 2) {
+      localStorage.setItem('currentArticles', 'playlist');
+    } else {
+      localStorage.removeItem('currentArticles');
+    }
+  };
+
   return (
     <main className={styles.articles}>
       <Seo
@@ -27,7 +49,7 @@ function Articles() {
             <li>
               <button
                 type="button"
-                onClick={() => setActiveArea(1)}
+                onClick={() => handleTabChange(1)}
                 className={`${activeArea === null || activeArea === 1 ? tabs.active : ''}`}
               >
                 <span>일반 뉴스</span>
@@ -36,7 +58,7 @@ function Articles() {
             <li>
               <button
                 type="button"
-                onClick={() => setActiveArea(2)}
+                onClick={() => handleTabChange(2)}
                 className={`${activeArea === 2 ? tabs.active : ''}`}
               >
                 <span>연예 뉴스</span>
