@@ -27,6 +27,7 @@ History 페이지의 콘텐츠는 사건/사고 위주로 가져옵니다.
 - Vercel w/ serverless
 - jsonwebtoken (for Github API Bearer)
 - Notion Client (페이지 관리 및 History 페이지용으로 사용)
+- baselime.io (for Vercel Serverless Console Notofication)
 
 ### Web Opengraph Scrap API Server
 
@@ -48,6 +49,14 @@ History 페이지의 콘텐츠는 사건/사고 위주로 가져옵니다.
 
 - 데이터 불러올 때 텍스트가 세로 가운데 정렬이 안되는 현상 해결 (최소 세로폭 설정 문제)
   - iOS, iPadOS 의 안전 공간 계산 문제로 복잡함
+
+## Supported PWA App. Download
+
+PWA 형태의 앱 다운로드를 지원합니다.
+
+Google Chrome에서는 메뉴에 다운로드 링크가 있으며, Safari에서는 메인 화면에 내려받는 방법이 안내되어 있습니다.
+
+MS Windows, Apple macOS, Android, iOS, iPadOS 등 대부분의 모던 디바이스를 지원합니다.
 
 ## 광고제안
 
