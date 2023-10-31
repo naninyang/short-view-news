@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { isIOS, isSafari } from 'react-device-detect';
+import { isSafari } from 'react-device-detect';
 import Seo from '@/components/Seo';
 import styled from '@emotion/styled';
+import { images } from '@/images';
 import { rem } from '@/styles/designSystem';
 import styles from '@/styles/pages.module.sass';
 import content from '@/styles/content.module.sass';
 import main from '@/styles/main.module.sass';
-import { images } from '@/images';
 
 interface Counts {
   youtube: number;
@@ -45,6 +45,17 @@ const Container = styled.div({
     },
     'body &, body[data-theme="light"] &': {
       background: `url(${images.tab.twitter.defaultDark}) no-repeat 50% 50%/contain`,
+    },
+  },
+});
+
+const Apple = styled.div({
+  '& i': {
+    'body[data-theme="dark"] &': {
+      background: `url(${images.misc.symbolLight}) no-repeat 50% 50%/contain`,
+    },
+    'body &, body[data-theme="light"] &': {
+      background: `url(${images.misc.symbolDark}) no-repeat 50% 50%/contain`,
     },
   },
 });
@@ -113,7 +124,23 @@ export default function Home() {
     );
   };
 
-  const appleDevice = isIOS || isSafari;
+  const renderSafari = () => {
+    if (isSafari) {
+      return (
+        <Apple className={main.apple}>
+          <h2>애플 디바이스에서 앱 내려받기</h2>
+          <p>아이폰, 아이패드, 맥에서 앱을 내려받을 수 있습니다.</p>
+          <p>
+            <span>
+              아이폰, 아이패드에서는 사파리에서 <i />를 누르신 뒤,
+            </span>{' '}
+            <span>'홈 화면에 추가'를 누르시고</span>{' '}
+            <span>맥의 사파리에서는 '파일' 메뉴 &gt; 'Dock에 추가'를 누르세요.</span>
+          </p>
+        </Apple>
+      );
+    } else return null;
+  };
 
   const timestamp = Date.now();
 
@@ -130,7 +157,7 @@ export default function Home() {
         </h1>
         {data && <Container className={main.description} dangerouslySetInnerHTML={{ __html: data.description }} />}
         {renderCountInfo()}
-        {/* {appleDevice && <div className={styles.iOS}>아이폰과 아이패드에서 앱 내려받는 방법</div>} */}
+        {renderSafari()}
       </div>
     </main>
   );

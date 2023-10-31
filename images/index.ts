@@ -24,6 +24,8 @@ export const images = {
     commentLight: require('./misc/commentLight.svg'),
     seemoreDark: require('./misc/seemoreDark.svg'),
     seemoreLight: require('./misc/seemoreLight.svg'),
+    symbolDark: require('./misc/symbolDark.svg'),
+    symbolLight: require('./misc/symbolLight.svg'),
   },
   arrow: {
     backDark: require('./arrow/backDark.svg'),
