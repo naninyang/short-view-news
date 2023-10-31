@@ -27,7 +27,7 @@ History 페이지의 콘텐츠는 사건/사고 위주로 가져옵니다.
 - Vercel w/ serverless
 - jsonwebtoken (for Github API Bearer)
 - Notion Client (페이지 관리 및 History 페이지용으로 사용)
-- baselime.io (for Vercel Serverless Console Notofication)
+- baselime.io (for Vercel Serverless Console Notification)
 
 ### Web Opengraph Scrap API Server
 
