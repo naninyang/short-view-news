@@ -111,8 +111,8 @@ function PeriodtOmt() {
 
     useEffect(() => {
       const fetchContentComponent = async () => {
-        let tempContent = [];
-        let ogContent = [];
+        const tempContent = [];
+        const ogContent = [];
         const parts = text.split(/(https?:\/\/[^\s]+|\n)/g);
 
         let currentTextGroup = [];
