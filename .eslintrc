@@ -16,12 +16,19 @@
   ],
   "ignorePatterns": ["node_modules/", "**.js"],
   "rules": {
-    "@typescript-eslint/no-explicit-any": "off",
+    "no-unused-vars": "off",
+    "no-explicit-any": "off",
     "no-unused-variable": "off"
   },
   "settings": {
     "import/parsers": {
       "@typescript-eslint/parser": [".ts", ".tsx", ".js"]
     }
-  }
+  },
+  "overrides": [
+    {
+      "files": ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[jt]s?(x)"],
+      "extends": ["plugin:testing-library/react"]
+    }
+  ]
 }
