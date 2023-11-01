@@ -60,7 +60,7 @@
     "@storybook/testing-library": "^0.2.2",
     "@testing-library/jest-dom": "^6.1.4",
     "@testing-library/react": "^14.0.0",
-    "@types/gtag.js": "^0.0.14",
+    "@types/gtag.js": "^0.0.17",
     "@types/jest": "^29.5.7",
     "@types/jsonwebtoken": "^9.0.3",
     "@types/node": "18.11.17",
