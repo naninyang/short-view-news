@@ -1,4 +1,4 @@
-import { NotionDate, NotionRichText } from '@/types';
+import { NotionDate, NotionRichText } from 'types';
 import { notion } from './notion';
 
 interface YouTubeProperties {
