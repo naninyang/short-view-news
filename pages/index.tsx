@@ -49,7 +49,7 @@ const Container = styled.div({
   },
 });
 
-const Apple = styled.div({
+const Apple = styled.article({
   '& i': {
     'body[data-theme="dark"] &': {
       background: `url(${images.misc.symbolLight}) no-repeat 50% 50%/contain`,
