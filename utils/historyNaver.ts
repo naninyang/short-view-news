@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { NotionDate, NotionRichText } from 'types';
 import { notion } from './notion';
 
