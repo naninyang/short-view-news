@@ -5,8 +5,8 @@ import Image from 'next/image';
 import axios from 'axios';
 import AnchorLink from '@/components/AnchorLink';
 import Seo from '@/components/Seo';
-import { images } from '@/images';
-import { Article } from '@/types';
+import { images } from '@/components/images';
+import { Article } from 'types';
 import styled from '@emotion/styled';
 import styles from '@/styles/article.module.sass';
 

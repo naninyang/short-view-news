@@ -4,7 +4,7 @@ import axios from 'axios';
 import styled from '@emotion/styled';
 import Seo from '@/components/Seo';
 import AnchorLink from '@/components/AnchorLink';
-import { images } from '@/images';
+import { images } from '@/components/images';
 import content from '@/styles/content.module.sass';
 import styles from '@/styles/contact.module.sass';
 

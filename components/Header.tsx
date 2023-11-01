@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 import AnchorLink from './AnchorLink';
 import { hex, mixIn, rem } from '@/styles/designSystem';
-import { images } from '@/images';
+import { images } from './images';
 
 const Container = styled.header({
   backgroundColor: 'var(--bg-primary-opacity)',

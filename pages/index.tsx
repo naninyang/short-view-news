@@ -3,7 +3,7 @@ import axios from 'axios';
 import { isSafari } from 'react-device-detect';
 import Seo from '@/components/Seo';
 import styled from '@emotion/styled';
-import { images } from '@/images';
+import { images } from '@/components/images';
 import { rem } from '@/styles/designSystem';
 import styles from '@/styles/pages.module.sass';
 import content from '@/styles/content.module.sass';

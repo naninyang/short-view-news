@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import YouTubeController from './YouTubeController';
-import { images } from '@/images';
+import { images } from './images';
 import styles from '@/styles/watch.module.sass';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 

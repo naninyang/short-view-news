@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import { isDesktop } from 'react-device-detect';
 import { mixIn, rem } from '@/styles/designSystem';
-import { images } from '@/images';
+import { images } from './images';
 import YouTubePlayer from './YouTubePlayer';
 import styles from '@/styles/watch.module.sass';
 

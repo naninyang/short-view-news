@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import AnchorLink from './AnchorLink';
-import { images } from '@/images';
+import { images } from './images';
 import styled from '@emotion/styled';
 import styles from '@/styles/article.module.sass';
 import Image from 'next/image';

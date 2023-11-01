@@ -7,7 +7,7 @@ import axios from 'axios';
 import PullToRefresh from 'react-simple-pull-to-refresh';
 import { Masonry } from 'masonic';
 import YouTubeController from '@/components/YouTubeController';
-import { images } from '@/images';
+import { images } from '@/components/images';
 import styled from '@emotion/styled';
 import styles from '@/styles/watches.module.sass';
 

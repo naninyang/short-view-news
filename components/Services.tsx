@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import AnchorLink from './AnchorLink';
 import { hex, rem, mixIn } from '@/styles/designSystem';
 import { useRouter } from 'next/router';
-import { images } from '@/images';
+import { images } from './images';
 
 const Nav = styled.nav({
   position: 'fixed',

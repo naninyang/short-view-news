@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import { images } from '@/images';
+import { images } from '@/components/images';
 import Seo from '@/components/Seo';
 import YouTubeController from '@/components/YouTubeController';
 import AnchorLink from '@/components/AnchorLink';

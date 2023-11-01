@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAccordionItem, useAccordionItemEffect, useHeightTransition } from '@szhsin/react-accordion';
 import styled from '@emotion/styled';
-import { images } from '@/images';
+import { images } from './images';
 import styles from '@/styles/history.module.sass';
 
 const Chevron = styled.i({

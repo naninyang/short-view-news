@@ -4,11 +4,11 @@ import Image from 'next/image';
 import Modal from 'react-modal';
 import axios, { AxiosError } from 'axios';
 import PullToRefresh from 'react-simple-pull-to-refresh';
-import { PeriodtOmt } from '@/types';
+import { PeriodtOmt } from 'types';
 import AnchorLink from '@/components/AnchorLink';
 import styled from '@emotion/styled';
 import styles from '@/styles/periodts.module.sass';
-import { images } from '@/images';
+import { images } from '@/components/images';
 import { rem } from '@/styles/designSystem';
 
 interface ContentComponentProps {

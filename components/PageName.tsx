@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 import { mq, rem } from '@/styles/designSystem';
-import { images } from '@/images';
+import { images } from './images';
 
 interface Props {
   pageName: string;
