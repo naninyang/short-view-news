@@ -38,10 +38,14 @@ export const images = {
   services: {
     githubLight: require('./services/githubLight.svg'),
     postypeLight: require('./services/postypeLight.svg'),
-    blogLight: require('./services/blogLight.svg'),
+    develogLight: require('./services/develogLight.svg'),
+    velogLight: require('./services/velogLight.svg'),
+    dev1studioLight: require('./services/dev1studioLight.svg'),
     githubDark: require('./services/githubDark.svg'),
     postypeDark: require('./services/postypeDark.svg'),
-    blogDark: require('./services/blogDark.svg'),
+    develogDark: require('./services/develogDark.svg'),
+    velogDark: require('./services/velogDark.svg'),
+    dev1studioDark: require('./services/dev1studioDark.svg'),
   },
   home: {
     downloadDefaultBefore: require('./home/download-default-before.svg'),

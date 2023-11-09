@@ -288,12 +288,30 @@ const Postype = styled.i({
   },
 });
 
-const Blog = styled.i({
+const Develog = styled.i({
   'body[data-theme="dark"] &': {
-    background: `url(${images.services.blogLight}) no-repeat 50% 50%/contain`,
+    background: `url(${images.services.develogLight}) no-repeat 50% 50%/contain`,
   },
   'body &, body[data-theme="light"] &': {
-    background: `url(${images.services.blogDark}) no-repeat 50% 50%/contain`,
+    background: `url(${images.services.develogDark}) no-repeat 50% 50%/contain`,
+  },
+});
+
+const Velog = styled.i({
+  'body[data-theme="dark"] &': {
+    background: `url(${images.services.velogLight}) no-repeat 50% 50%/contain`,
+  },
+  'body &, body[data-theme="light"] &': {
+    background: `url(${images.services.velogDark}) no-repeat 50% 50%/contain`,
+  },
+});
+
+const Dev1studio = styled.i({
+  'body[data-theme="dark"] &': {
+    background: `url(${images.services.dev1studioLight}) no-repeat 50% 50%/contain`,
+  },
+  'body &, body[data-theme="light"] &': {
+    background: `url(${images.services.dev1studioDark}) no-repeat 50% 50%/contain`,
   },
 });
 
@@ -481,13 +499,25 @@ export default function Header() {
               <li>
                 <AnchorLink href="https://dev-il-studio.postype.com">
                   <Postype />
-                  <span>데빌 스튜디오</span>
+                  <span>포스타입</span>
+                </AnchorLink>
+              </li>
+              <li>
+                <AnchorLink href="https://velog.io/@naninyang">
+                  <Velog />
+                  <span>벨로그</span>
                 </AnchorLink>
               </li>
               <li>
                 <AnchorLink href="https://dev1stud.io">
-                  <Blog />
-                  <span>데블런 스튜디오</span>
+                  <Dev1studio />
+                  <span>데브런닷스튜디오</span>
+                </AnchorLink>
+              </li>
+              <li>
+                <AnchorLink href="https://develog.dev1stud.io">
+                  <Develog />
+                  <span>디벨로그</span>
                 </AnchorLink>
               </li>
               <li>
