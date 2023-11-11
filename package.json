@@ -27,7 +27,7 @@
     "@notionhq/client": "^2.2.13",
     "@szhsin/react-accordion": "^1.2.3",
     "@vercel/node": "^3.0.7",
-    "axios": "^1.6.0",
+    "axios": "^1.6.1",
     "date-fns": "2.30.0",
     "front-matter": "^4.0.2",
     "jsonwebtoken": "^9.0.2",
