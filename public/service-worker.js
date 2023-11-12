@@ -11,7 +11,7 @@ self.addEventListener('fetch', (event) => {
     event.request.url.includes('/api/periodtTimeline') ||
     event.request.url.includes('/api/historyNaver') ||
     event.request.url.includes('/api/historyYouTube') ||
-    event.request.url.includes('https://naver-news-opengraph.vercel.app/api/og')
+    event.request.url.includes('/api/twt')
   ) {
     event.respondWith(
       caches.open(CACHE_NAME).then((cache) => {
