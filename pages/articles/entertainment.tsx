@@ -161,7 +161,9 @@ function ArticlesEntertainment() {
                       </Link>
                     )}
                     <Image
-                      src={`https://drive.google.com/uc?id=${article.thumbnail}`}
+                      src={`https://cat-svn.netlify.app/img/${article?.thumbnail}${
+                        article?.thumbnail?.endsWith('.gif') ? '' : '.webp'
+                      }`}
                       width={640}
                       height={480}
                       unoptimized

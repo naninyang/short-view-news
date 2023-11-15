@@ -70,7 +70,9 @@ const articleDetail: React.FC<articleProps> = ({ articleItem }) => {
               <div className={styles.description}>
                 <p>{`${articleItem?.description}`}</p>
                 <Image
-                  src={`https://drive.google.com/uc?id=${articleItem?.thumbnail}`}
+                  src={`https://cat-svn.netlify.app/img/${articleItem?.thumbnail}${
+                    articleItem?.thumbnail?.endsWith('.gif') ? '' : '.webp'
+                  }`}
                   width={640}
                   height={480}
                   unoptimized

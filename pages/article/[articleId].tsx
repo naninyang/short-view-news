@@ -50,7 +50,9 @@ export default function ArticleDetail({ article }: { article: Article | null }) 
         <Seo
           pageTitle={`${article?.title}`}
           pageDescription={`${article?.description}`}
-          pageImg={`https://drive.google.com/uc?id=${article?.thumbnail}`}
+          pageImg={`https://cat-svn.netlify.app/img/${article?.thumbnail}${
+            article?.thumbnail?.endsWith('.gif') ? '' : '.webp'
+          }`}
           pageOgType="article"
         />
         <header>
@@ -61,7 +63,9 @@ export default function ArticleDetail({ article }: { article: Article | null }) 
             <div className={styles.description}>
               <p>{`${article?.description}`}</p>
               <Image
-                src={`https://drive.google.com/uc?id=${article?.thumbnail}`}
+                src={`https://cat-svn.netlify.app/img/${article?.thumbnail}${
+                  article?.thumbnail?.endsWith('.gif') ? '' : '.webp'
+                }`}
                 width={640}
                 height={480}
                 unoptimized
