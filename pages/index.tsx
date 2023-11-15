@@ -139,7 +139,8 @@ export default function Home() {
           </p>
         </Apple>
       );
-    } else return null;
+    }
+    return null;
   };
 
   const timestamp = Date.now();
