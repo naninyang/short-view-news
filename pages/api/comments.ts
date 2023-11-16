@@ -21,6 +21,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (req.method === 'POST') {
     const databaseId = process.env.NOTION_DATABASE_ID_COMMENTS as any;
     const { collection, permalink, created, idx, username, comment } = req.body;
+
     try {
       const pageData = {
         parent: { database_id: databaseId },
@@ -45,9 +46,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           },
         },
       };
-
       await notion.pages.create(pageData);
-
       res.status(200).json({ success: true });
     } catch (error) {
       if (error instanceof Error) {
