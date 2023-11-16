@@ -196,7 +196,6 @@ const MenuContainer = styled.div({
         '&:focus, &:hover': {
           background: hex.accent,
           color: hex.white,
-          outline: '2px solid var(--default-text)',
         },
         '& .before': {
           background: `url(${images.home.downloadDefaultBefore}) no-repeat 50% 50%/contain`,
