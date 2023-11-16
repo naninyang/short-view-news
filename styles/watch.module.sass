@@ -26,7 +26,7 @@
     &:not(.watch-container)
       align-items: center
       padding: rem(15) rem(15) rem(121)
-      min-height: calc(100dvh - rem(15) - env(safe-area-inset-top) - env(safe-area-inset-bottom))
+      min-height: calc(100dvh - rem(50) - env(safe-area-inset-top) - env(safe-area-inset-bottom))
 
       +mq(minLarge)
         padding: rem(25) rem(25) rem(141)
@@ -324,3 +324,95 @@
 
           +mq(minLarge)
             padding-top: rem(10)
+
+  form
+    width: 100%
+
+    fieldset
+      display: flex
+      flex-direction: column
+      gap: rem(15)
+
+    .field-group
+      display: flex
+      flex-direction: column
+      gap: rem(5)
+
+    textarea
+      height: rem(70)
+
+    input, textarea
+      transition: all .4s cubic-bezier(.4,0,.2,1)
+      background-color: var(--border)
+      border: 1px solid var(--border)
+      border-radius: rem(5)
+      padding: rem(10)
+      font-size: rem(14)
+      color: var(--txt-blockquote)
+
+      &:focus-within, &:focus, &:hover
+        outline: 1px solid var(--txt-blockquote)
+
+    button[type="submit"]
+      display: flex
+      justify-content: center
+      align-items: center
+      gap: rem(7)
+      transition: all .4s cubic-bezier(.4,0,.2,1)
+      background: transparent
+      border: 1px solid $hex-accent
+      border-radius: rem(5)
+      padding: rem(7)
+      font-size: rem(16)
+      font-weight: 700
+      color: $hex-accent
+
+      svg
+        width: rem(14)
+        height: rem(14)
+
+        path
+          fill: $hex-accent
+
+      &:focus, &:hover
+        background: $hex-accent
+        color: $hex-white
+        outline: 2px solid var(--default-text)
+
+  .comments
+    display: flex
+    flex-direction: column
+    gap: rem(15)
+    width: 100%
+
+    strong
+      font-size: rem(16)
+      font-weight: 700
+      color: var(--txt-blockquote)
+
+    .comment
+      display: flex
+      flex-direction: column
+      gap: rem(15)
+      background-color: var(--bg-primary)
+      border-radius: rem(5)
+      padding: rem(15)
+
+      .user
+        display: flex
+        gap: rem(10)
+        font-size: rem(12)
+
+        cite, time
+          line-height: 1
+
+        cite
+          color: var(--txt-blockquote)
+
+        time
+          color: var(--txt-subject)
+
+      p
+        font-size: rem(14)
+        line-height: 1.5
+        color: var(--txt-blockquote)

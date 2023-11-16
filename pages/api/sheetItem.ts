@@ -117,7 +117,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         comment: parsedNewsData.attributes.comment,
         created: parsedNewsData.attributes.created,
         title: parsedNewsData.attributes.title,
-        type: 'item',
+        type: 'news',
       };
 
       return res.status(200).json(responseNewsData);

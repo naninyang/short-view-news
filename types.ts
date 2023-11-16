@@ -39,6 +39,7 @@ export type Article = {
   title: string;
   oid: string;
   aid: string;
+  type?: string;
   newsMetaData?: {
     ogTitle: string;
     ogUrl: string;

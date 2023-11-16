@@ -80,6 +80,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         oid: parsedNewsData.attributes.oid,
         aid: parsedNewsData.attributes.aid,
         thumbnail: parsedNewsData.attributes.thumbnail,
+        type: 'news',
       };
 
       const naverNewsUrl = `https://naver-news-opengraph.vercel.app/api/og?url=${encodeURIComponent(
@@ -118,6 +119,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         oid: parsedEntertainmentData.attributes.oid,
         aid: parsedEntertainmentData.attributes.aid,
         thumbnail: parsedEntertainmentData.attributes.thumbnail,
+        type: 'entertainment',
       };
 
       const naverEntertainmentUrl = `https://naver-news-opengraph.vercel.app/api/og?url=${encodeURIComponent(
