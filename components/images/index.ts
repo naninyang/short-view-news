@@ -89,5 +89,12 @@ export const images = {
       defaultDark: require('./tab/history/defaultDark.svg'),
       defaultLight: require('./tab/history/defaultLight.svg'),
     },
+    preview: {
+      active: require('./tab/preview/active.svg'),
+      dark: require('./tab/preview/dark.svg'),
+      light: require('./tab/preview/light.svg'),
+      defaultDark: require('./tab/preview/defaultDark.svg'),
+      defaultLight: require('./tab/preview/defaultLight.svg'),
+    },
   },
 };

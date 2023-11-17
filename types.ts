@@ -60,6 +60,22 @@ export type Article = {
   };
 };
 
+export type Instead = {
+  idx: string;
+  title: string;
+  description: string;
+  addr: string;
+  comment: string;
+  insteadMetaData?: {
+    ogTitle: string;
+    ogUrl: string;
+    ogImage: string;
+    ogDescription: string;
+    ogSiteName?: string;
+    twitterSite?: string;
+  };
+};
+
 export interface PeriodtOmt {
   idx: string;
   user: string;
