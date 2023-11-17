@@ -173,11 +173,11 @@ function InsteadsView() {
                         scroll={false}
                         shallow={true}
                       >
-                        <p className={styles.comment} dangerouslySetInnerHTML={{ __html: instead.description }} />
+                        <p className={styles.comment} dangerouslySetInnerHTML={{ __html: instead.comment }} />
                       </Link>
                     ) : (
                       <Link key={instead.idx} href={`/instead/${instead.idx}`} scroll={false} shallow={true}>
-                        <p className={styles.comment} dangerouslySetInnerHTML={{ __html: instead.description }} />
+                        <p className={styles.comment} dangerouslySetInnerHTML={{ __html: instead.comment }} />
                       </Link>
                     )}
                   </div>
