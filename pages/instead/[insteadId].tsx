@@ -213,7 +213,7 @@ export default function InsteadDetail({ instead }: { instead: Instead | null }) 
             <input required type="hidden" value={formData.permalink} />
             <input required type="hidden" value={formData.created} />
             <input required type="hidden" value={formData.idx} />
-            <div className={styles['field-group']}>
+            <div className={commentStyles['field-group']}>
               <input
                 required
                 type="text"
@@ -223,7 +223,7 @@ export default function InsteadDetail({ instead }: { instead: Instead | null }) 
                 onChange={(e) => setFormData({ ...formData, username: e.target.value })}
               />
             </div>
-            <div className={styles['field-group']}>
+            <div className={commentStyles['field-group']}>
               <textarea
                 required
                 id="comment"
