@@ -2,13 +2,12 @@ import { useEffect, useState } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import { format, formatDistanceToNow } from 'date-fns';
-import { ko } from 'date-fns/locale';
 import Image from 'next/image';
+import { Article } from 'types';
+import { foramtDate } from '@/components/ForamtDate';
+import { images } from '@/components/images';
 import AnchorLink from '@/components/AnchorLink';
 import Seo from '@/components/Seo';
-import { images } from '@/components/images';
-import { Article } from 'types';
 import styled from '@emotion/styled';
 import styles from '@/styles/article.module.sass';
 
@@ -29,19 +28,6 @@ const BackButton = styled.i({
     background: `url(${images.arrow.backDark}) no-repeat 50% 50%/contain`,
   },
 });
-
-export function foramtDate(date: string) {
-  const d = new Date(date);
-  const now = Date.now();
-  const diff = (now - d.getTime()) / 1000;
-  if (diff < 60 * 1) {
-    return '방금 전';
-  }
-  if (diff < 60 * 60 * 24 * 3) {
-    return formatDistanceToNow(d, { addSuffix: true, locale: ko });
-  }
-  return format(d, 'PPP EEE p', { locale: ko });
-}
 
 export default function ArticleDetail({ article }: { article: Article | null }) {
   const router = useRouter();

@@ -83,21 +83,6 @@
       width: 100%
       height: auto
 
-    .description
-      a
-        &:focus
-          color: var(--default-text)
-          text-decoration: underline
-
-      .comment
-        padding: rem(15)
-        font-size: rem(14)
-        line-height: 1.6
-        color: var(--txt-blockquote)
-
-        +mq(minLarge)
-          font-size: rem(16)
-
     .opengraph
       position: relative
       padding: rem(15) rem(15) 0
@@ -116,46 +101,146 @@
         color: var(--txt-subject)
         line-height: 1
 
+        +mq(minSmall)
+          z-index: 2
+          top: rem(37)
+          right: auto
+          left: rem(37)
+
         &:hover, &:focus
           color: var(--default-text)
 
-      img
-        width: 100%
-        height: auto
-        border-radius: rem(10)
-
-        +mq(minLarge)
-          border-radius: rem(20)
-
       .og-container
+        display: flex
+        flex-direction: column
+        gap: rem(17)
         background-color: var(--bg-primary)
         border-radius: rem(15)
         padding: rem(15)
 
+        +mq(minSmall)
+          flex-direction: row
+
+        > img
+          border-radius: rem(7)
+
+          +mq(minSmall)
+            width: rem(246)
+            height: rem(138)
+
+        .thumbnails
+          position: relative
+          overflow: hidden
+          border-radius: rem(7)
+
+          +mq(minSmall)
+            width: rem(246)
+            height: rem(138)
+
+          img
+            +mq(minSmall)
+              width: 100%
+              height: 100%
+
+          .thumbnail-origin
+            object-fit: contain
+            position: relative
+            z-index: 1
+
+          .thumbnail-background
+            position: absolute
+            top: 0
+            left: 0
+            object-fit: cover
+            backdrop-filter: blur(rem(200))
+
         .og-info
           display: flex
           flex-direction: column
-          gap: rem(10)
-          margin-top: rem(15)
+
+          +mq(minSmall)
+            gap: rem(12)
+            +col
+
+          .detail
+            display: flex
+            gap: rem(7)
+
+            img
+              border-radius: 100%
+              width: rem(36)
+              height: rem(36)
+
+            .user-info
+              display: flex
+              flex-direction: column
+              gap: rem(7)
+              font-size: rem(16)
+              line-height: 1.25
+              color: var(--txt-subject)
+
+              .user
+                display: flex
+                gap: rem(7)
+                line-height: 1
+                font-size: rem(12)
+                color: var(--txt-subject)
+
+                cite
+                  display: flex
+                  gap: rem(7)
+                  align-items: center
+
+                  &::after
+                    content: '•'
+                    font-size: rem(12)
 
           .summary
             display: flex
             flex-direction: column
-            gap: rem(2)
+            gap: rem(7)
 
             strong
-              font-size: rem(14)
-              font-weight: 900
+              font-size: rem(16)
+              font-weight: 700
               line-height: 1.5
-              color: $hex-accent
+              color: var(--txt-summary)
 
               +mq(minLarge)
                 font-size: rem(16)
 
-            .description
-              font-size: rem(12)
-              line-height: 1.5
-              color: var(--txt-subject)
+            .user
+              display: flex
+              gap: rem(7)
 
-              +mq(minLarge)
-                font-size: rem(14)
+              img
+                border-radius: 100%
+                width: rem(36)
+                height: rem(36)
+
+              .user-info
+                display: flex
+                flex-direction: column
+                gap: rem(2)
+                font-size: rem(12)
+                color: var(--txt-subject)
+
+          .description
+            font-size: rem(12)
+            color: var(--txt-subject)
+            +line-abbr(2, 36, 1.5)
+
+    .description
+      a
+        &:focus
+          color: var(--default-text)
+          text-decoration: underline
+
+      .comment
+        padding: rem(15)
+        font-size: rem(14)
+        line-height: 1.6
+        color: var(--txt-blockquote)
+
+        +mq(minLarge)
+          font-size: rem(16)

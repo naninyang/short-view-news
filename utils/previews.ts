@@ -42,7 +42,9 @@ export async function getInsteadData(start?: number, count?: number) {
 
 async function fetchInsteadMetadata(url: string) {
   try {
-    const response = await axios.get(`https://naver-news-opengraph.vercel.app/api/og?url=${encodeURIComponent(url)}`);
+    const response = await axios.get(
+      `https://naver-news-opengraph.vercel.app/api/creator?url=${encodeURIComponent(url)}`,
+    );
     return response.data;
   } catch (error) {
     console.error('Failed to fetch article metadata', error);

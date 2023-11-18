@@ -73,6 +73,12 @@ export type Instead = {
     ogDescription: string;
     ogSiteName?: string;
     twitterSite?: string;
+    twitterCreator?: string;
+    datePublished?: string;
+    ownerAvatar?: string;
+    ownerName?: string;
+    pressPublished?: string;
+    pressAvatar?: string;
   };
 };
 

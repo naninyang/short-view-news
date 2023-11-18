@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import useSWRInfinite from 'swr/infinite';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useMediaQuery } from 'react-responsive';
@@ -9,6 +8,7 @@ import axios, { AxiosError } from 'axios';
 import PullToRefresh from 'react-simple-pull-to-refresh';
 import { Instead } from 'types';
 import { modalContainer } from '@/components/ModalStyling';
+import { foramtDate } from '@/components/ForamtDate';
 import InsteadDetail from '@/components/Instead';
 import AnchorLink from '@/components/AnchorLink';
 import styles from '@/styles/insteads.module.sass';
@@ -22,6 +22,15 @@ export function useDesktop() {
     setIsDesktop(desktop);
   }, [desktop]);
   return isDesktop;
+}
+
+export function useTablet() {
+  const [isTablet, setIsTablet] = useState(false);
+  const tablet = useMediaQuery({ query: '(min-width: 576px)' });
+  useEffect(() => {
+    setIsTablet(tablet);
+  }, [tablet]);
+  return isTablet;
 }
 
 function InsteadsView() {
@@ -105,6 +114,7 @@ function InsteadsView() {
   };
 
   const isDesktop = useDesktop();
+  const isTablet = useTablet();
 
   return (
     <>
@@ -118,7 +128,7 @@ function InsteadsView() {
       </Modal>
       {isLoading && (
         <div className={styles.loading}>
-          <p>뉴스를 가져오는 중입니다.</p>
+          <p>뉴스를 가져오는 중입니다. 속도가 다소 느릴 수 있습니다.</p>
         </div>
       )}
       {waitingFor504 && (
@@ -152,15 +162,81 @@ function InsteadsView() {
                         : instead.insteadMetaData?.twitterSite}
                     </AnchorLink>
                     <div className={styles['og-container']}>
-                      <img src={instead.insteadMetaData?.ogImage} alt="" />
-                      <div className={styles['og-info']}>
-                        <div className={styles.summary}>
-                          <strong>{instead.insteadMetaData?.ogTitle}</strong>
-                          <div className={styles.description}>
-                            {instead.insteadMetaData?.ogDescription}
-                            ...
-                          </div>
+                      {instead.insteadMetaData?.ownerAvatar ? (
+                        <img src={instead.insteadMetaData?.ogImage} alt="" />
+                      ) : (
+                        <div className={styles.thumbnails}>
+                          <img src={instead.insteadMetaData?.ogImage} alt="" className={styles['thumbnail-origin']} />
+                          <img
+                            src={instead.insteadMetaData?.ogImage}
+                            alt=""
+                            className={styles['thumbnail-background']}
+                          />
                         </div>
+                      )}
+                      <div className={styles['og-info']}>
+                        {isTablet ? (
+                          <>
+                            <div className={styles.summary}>
+                              <strong>{instead.insteadMetaData?.ogTitle}</strong>{' '}
+                              <div className={styles.user}>
+                                {instead.insteadMetaData?.ownerAvatar ? (
+                                  <img src={instead.insteadMetaData?.ownerAvatar} alt="" />
+                                ) : (
+                                  <img src={instead.insteadMetaData?.pressAvatar} alt="" />
+                                )}
+                                <div className={styles['user-info']}>
+                                  <cite>
+                                    {instead.insteadMetaData?.ownerName
+                                      ? instead.insteadMetaData?.ownerName
+                                      : instead.insteadMetaData?.twitterCreator}
+                                  </cite>
+                                  {instead.insteadMetaData?.datePublished ? (
+                                    <time dateTime={instead.insteadMetaData?.datePublished}>
+                                      {foramtDate(instead.insteadMetaData?.datePublished)}
+                                    </time>
+                                  ) : (
+                                    <time dateTime={instead.insteadMetaData?.pressPublished}>
+                                      {foramtDate(`${instead.insteadMetaData?.pressPublished}`)}
+                                    </time>
+                                  )}
+                                </div>
+                                `{' '}
+                              </div>
+                            </div>
+                            <div className={styles.description}>
+                              {instead.insteadMetaData?.ogDescription}
+                              ...
+                            </div>
+                          </>
+                        ) : (
+                          <div className={styles.detail}>
+                            {instead.insteadMetaData?.ownerAvatar ? (
+                              <img src={instead.insteadMetaData?.ownerAvatar} alt="" />
+                            ) : (
+                              <img src={instead.insteadMetaData?.pressAvatar} alt="" />
+                            )}
+                            <div className={styles['user-info']}>
+                              <strong>{instead.insteadMetaData?.ogTitle}</strong>{' '}
+                              <div className={styles.user}>
+                                <cite>
+                                  {instead.insteadMetaData?.ownerName
+                                    ? instead.insteadMetaData?.ownerName
+                                    : instead.insteadMetaData?.twitterCreator}
+                                </cite>
+                                {instead.insteadMetaData?.datePublished ? (
+                                  <time dateTime={instead.insteadMetaData?.datePublished}>
+                                    {foramtDate(instead.insteadMetaData?.datePublished)}
+                                  </time>
+                                ) : (
+                                  <time dateTime={instead.insteadMetaData?.pressPublished}>
+                                    {foramtDate(`${instead.insteadMetaData?.pressPublished}`)}
+                                  </time>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
