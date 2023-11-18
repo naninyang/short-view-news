@@ -44,7 +44,7 @@
             width: 100%
 
           > div[class^=" css"]:not(.youtube-playlist)
-            padding-bottom: rem(50)
+            padding-bottom: rem(35)
 
             body[data-theme="dark"] &
               background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 90%, rgba(0,0,0,0) 100%)
@@ -133,12 +133,12 @@
             position: sticky
             top: rem(50)
 
-            > img
-              border-radius: rem(15)
-              overflow: hidden
+            &:hover > img
+              transform: initial
 
-              +mq(minLarge)
-                border-radius: rem(25)
+            > img
+              border-radius: 0
+              overflow: hidden
 
               &:hover
                 border-radius: 0
@@ -277,8 +277,10 @@
       display: flex
       flex-direction: column
       gap: rem(5)
+      margin: 0 auto
       border-bottom: 1px solid var(--border)
       padding: rem(15) 0
+      max-width: rem(767)
 
       > strong
         font-weight: 900
