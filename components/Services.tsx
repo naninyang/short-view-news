@@ -172,7 +172,9 @@ export default function Services() {
             <span>History</span>
           </AnchorLink>
         </MenuItem>
-        <MenuItem currentRouter={router.pathname === '/insteads' ? true : false}>
+        <MenuItem
+          currentRouter={router.pathname === '/insteads' || router.pathname.includes('/instead') ? true : false}
+        >
           <AnchorLink href="/insteads">
             <i data-icon="preview" />
             <span>Preview</span>
