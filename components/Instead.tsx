@@ -166,7 +166,7 @@ const insteadDetail: React.FC<insteadProps> = ({ insteadItem }) => {
                 </div>
               )}
               <div className={styles.description}>
-                <p>{`${insteadItem?.comment}`}</p>
+                <p className={styles.comment} dangerouslySetInnerHTML={{ __html: insteadItem.comment }} />
               </div>
               <div className={commentStyles['comment-control']}>
                 <form onSubmit={handleSubmit}>

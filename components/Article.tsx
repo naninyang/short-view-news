@@ -122,7 +122,7 @@ const articleDetail: React.FC<articleProps> = ({ articleItem }) => {
             </header>
             <PerfectScrollbar className={styles['scrollbar-container']}>
               <div className={styles.description}>
-                <p>{`${articleItem?.description}`}</p>
+                <p dangerouslySetInnerHTML={{ __html: articleItem.description }} />
                 <Image
                   src={`https://cat-svn.netlify.app/img/${articleItem?.thumbnail}${
                     articleItem?.thumbnail?.endsWith('.gif') ? '' : '.webp'

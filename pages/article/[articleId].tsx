@@ -109,7 +109,7 @@ export default function ArticleDetail({ article }: { article: Article | null }) 
         {article ? (
           <>
             <div className={styles.description}>
-              <p>{`${article?.description}`}</p>
+              <p dangerouslySetInnerHTML={{ __html: article.description }} />
               <Image
                 src={`https://cat-svn.netlify.app/img/${article?.thumbnail}${
                   article?.thumbnail?.endsWith('.gif') ? '' : '.webp'
