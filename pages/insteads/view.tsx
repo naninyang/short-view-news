@@ -178,7 +178,15 @@ function InsteadsView() {
                         {isTablet ? (
                           <>
                             <div className={styles.summary}>
-                              <strong>{instead.insteadMetaData?.ogTitle}</strong>{' '}
+                              <Link
+                                key={instead.idx}
+                                href={`/insteads?insteadId=${instead.idx}`}
+                                as={`/instead/${instead.idx}`}
+                                scroll={false}
+                                shallow={true}
+                              >
+                                <strong>{instead.insteadMetaData?.ogTitle}</strong>{' '}
+                              </Link>
                               <div className={styles.user}>
                                 {instead.insteadMetaData?.ownerAvatar ? (
                                   <img src={instead.insteadMetaData?.ownerAvatar} alt="" />
@@ -217,7 +225,9 @@ function InsteadsView() {
                               <img src={instead.insteadMetaData?.pressAvatar} alt="" />
                             )}
                             <div className={styles['user-info']}>
-                              <strong>{instead.insteadMetaData?.ogTitle}</strong>{' '}
+                              <Link key={instead.idx} href={`/instead/${instead.idx}`} scroll={false} shallow={true}>
+                                <strong>{instead.insteadMetaData?.ogTitle}</strong>{' '}
+                              </Link>
                               <div className={styles.user}>
                                 <cite>
                                   {instead.insteadMetaData?.ownerName
@@ -241,21 +251,7 @@ function InsteadsView() {
                     </div>
                   </div>
                   <div className={styles.description}>
-                    {isDesktop ? (
-                      <Link
-                        key={instead.idx}
-                        href={`/insteads?insteadId=${instead.idx}`}
-                        as={`/instead/${instead.idx}`}
-                        scroll={false}
-                        shallow={true}
-                      >
-                        <p className={styles.comment} dangerouslySetInnerHTML={{ __html: instead.comment }} />
-                      </Link>
-                    ) : (
-                      <Link key={instead.idx} href={`/instead/${instead.idx}`} scroll={false} shallow={true}>
-                        <p className={styles.comment} dangerouslySetInnerHTML={{ __html: instead.comment }} />
-                      </Link>
-                    )}
+                    <p className={styles.comment} dangerouslySetInnerHTML={{ __html: instead.comment }} />
                   </div>
                 </article>
               ))}

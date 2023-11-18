@@ -167,6 +167,31 @@
             padding-bottom: rem(25)
             font-size: rem(16)
 
+          &::before
+            content: '댓글달기'
+            opacity: 0
+            transition: all .4s cubic-bezier(.4,0,.2,1)
+            position: absolute
+            top: 0
+            left: 0
+            z-index: 1
+            background-color: var(--txt-subject)
+            display: flex
+            align-items: center
+            border-radius: rem(2)
+            height: 0
+            padding: 0 rem(7)
+            font-size: rem(12)
+            color: var(--bg-secondary)
+
+          &:hover, &:focus
+            color: $hex-accent
+
+            &::before
+              top: rem(-20)
+              opacity: 1
+              height: rem(20)
+
           time
             position: absolute
             bottom: 0

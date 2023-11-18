@@ -89,9 +89,41 @@
 
     .description
       a
-        &:focus
-          color: var(--default-text)
-          text-decoration: underline
+        position: relative
+        transition: all .4s cubic-bezier(.4,0,.2,1)
+        font-size: rem(14)
+        font-weight: 700
+        line-height: 1.5
+        color: var(--txt-subject)
+        text-wrap: balance
+
+        +mq(minLarge)
+          font-size: rem(16)
+
+        &::before
+          content: '댓글달기'
+          opacity: 0
+          transition: all .4s cubic-bezier(.4,0,.2,1)
+          position: absolute
+          bottom: 0
+          left: rem(15)
+          z-index: 1
+          background-color: var(--txt-subject)
+          display: flex
+          align-items: center
+          border-radius: rem(2)
+          height: 0
+          padding: 0 rem(7)
+          font-size: rem(12)
+          color: var(--bg-secondary)
+
+        &:hover, &:focus
+          color: $hex-accent
+
+          &::before
+            bottom: rem(-10)
+            opacity: 1
+            height: rem(20)
 
       .comment
         padding: rem(15)

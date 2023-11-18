@@ -87,30 +87,6 @@
       position: relative
       padding: rem(15) rem(15) 0
 
-      a
-        display: flex
-        align-items: center
-        position: absolute
-        top: rem(37)
-        right: rem(37)
-        z-index: 2
-        background-color: var(--bg-primary-opacity)
-        border-radius: rem(25)
-        height: rem(25)
-        padding: 0 rem(15)
-        font-size: rem(12)
-        color: var(--txt-subject)
-        line-height: 1
-
-        +mq(minSmall)
-          z-index: 2
-          top: rem(37)
-          right: auto
-          left: rem(37)
-
-        &:hover, &:focus
-          color: var(--default-text)
-
       .og-container
         display: flex
         flex-direction: column
@@ -128,6 +104,30 @@
           +mq(minSmall)
             width: rem(246)
             height: rem(138)
+
+        > a
+          display: flex
+          align-items: center
+          position: absolute
+          top: rem(37)
+          right: rem(37)
+          z-index: 2
+          background-color: var(--bg-primary-opacity)
+          border-radius: rem(25)
+          height: rem(25)
+          padding: 0 rem(15)
+          font-size: rem(12)
+          color: var(--txt-subject)
+          line-height: 1
+
+          +mq(minSmall)
+            z-index: 2
+            top: rem(37)
+            right: auto
+            left: rem(37)
+
+          &:hover, &:focus
+            color: var(--default-text)
 
         .thumbnails
           position: relative
@@ -158,6 +158,8 @@
         .og-info
           display: flex
           flex-direction: column
+          user-select: none
+          cursor: default
 
           +mq(minSmall)
             gap: rem(12)
@@ -179,6 +181,45 @@
               font-size: rem(16)
               line-height: 1.25
               color: var(--txt-subject)
+              user-select: none
+              cursor: default
+
+              a
+                position: relative
+                transition: all .4s cubic-bezier(.4,0,.2,1)
+                cursor: cursor
+                font-weight: 700
+                font-size: rem(14)
+                line-height: 1.35
+
+                &::before
+                  content: '댓글달기'
+                  opacity: 0
+                  transition: all .4s cubic-bezier(.4,0,.2,1)
+                  position: absolute
+                  bottom: 0
+                  left: 0
+                  z-index: 1
+                  background-color: var(--txt-subject)
+                  display: flex
+                  align-items: center
+                  border-radius: rem(2)
+                  height: 0
+                  padding: 0 rem(7)
+                  font-size: rem(12)
+                  color: var(--bg-secondary)
+
+                &:hover, &:focus
+                  strong
+                    color: $hex-accent
+
+                  &::before
+                    bottom: rem(-20)
+                    opacity: 1
+                    height: rem(20)
+
+              strong
+                color: var(--txt-summary)
 
               .user
                 display: flex
@@ -201,14 +242,41 @@
             flex-direction: column
             gap: rem(7)
 
+            a
+              position: relative
+              transition: all .4s cubic-bezier(.4,0,.2,1)
+              cursor: cursor
+
+              &::before
+                content: '댓글달기'
+                opacity: 0
+                transition: all .4s cubic-bezier(.4,0,.2,1)
+                position: absolute
+                top: 0
+                left: 0
+                z-index: 1
+                background-color: var(--txt-subject)
+                display: flex
+                border-radius: rem(2)
+                height: 0
+                padding: 0 rem(7)
+                font-size: rem(12)
+                color: var(--bg-secondary)
+
+              &:hover, &:focus
+                strong
+                  color: $hex-accent
+
+                &::before
+                  top: rem(-30)
+                  opacity: 1
+                  height: rem(20)
+
             strong
               font-size: rem(16)
               font-weight: 700
               line-height: 1.5
               color: var(--txt-summary)
-
-              +mq(minLarge)
-                font-size: rem(16)
 
             .user
               display: flex
