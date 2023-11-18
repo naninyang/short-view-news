@@ -44,7 +44,7 @@
             width: 100%
 
           > div[class^=" css"]:not(.youtube-playlist)
-            padding-bottom: rem(35)
+            margin-bottom: rem(35)
 
             body[data-theme="dark"] &
               background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 90%, rgba(0,0,0,0) 100%)
@@ -63,7 +63,7 @@
 
             +mq(minLarge)
               position: sticky
-              top: rem(50)
+              top: calc(env(safe-area-inset-top) + rem(50))
               margin: 0 auto
               padding-right: rem(370)
               padding-bottom: rem(50)
