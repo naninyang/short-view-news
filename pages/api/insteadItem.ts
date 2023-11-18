@@ -76,7 +76,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         comment: parsedInsteadData.attributes.comment,
       };
 
-      const insteadUrl = `https://naver-news-opengraph.vercel.app/api/og?url=${encodeURIComponent(
+      const insteadUrl = `https://naver-news-opengraph.vercel.app/api/creator?url=${encodeURIComponent(
         responseInsteadData.addr,
       )}`;
 

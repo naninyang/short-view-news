@@ -3,12 +3,14 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import { Instead } from 'types';
+import { useMediaQuery } from 'react-responsive';
 import { images } from '@/components/images';
 import { foramtDate } from '@/components/ForamtDate';
 import AnchorLink from '@/components/AnchorLink';
 import Seo from '@/components/Seo';
 import styled from '@emotion/styled';
 import styles from '@/styles/instead.module.sass';
+import commentStyles from '@/styles/comment.module.sass';
 
 type DataResponse = {
   collection: string;
@@ -27,6 +29,15 @@ const BackButton = styled.i({
     background: `url(${images.arrow.backDark}) no-repeat 50% 50%/contain`,
   },
 });
+
+export function useTablet() {
+  const [isTablet, setIsTablet] = useState(false);
+  const tablet = useMediaQuery({ query: '(min-width: 576px)' });
+  useEffect(() => {
+    setIsTablet(tablet);
+  }, [tablet]);
+  return isTablet;
+}
 
 export default function InsteadDetail({ instead }: { instead: Instead | null }) {
   const router = useRouter();
@@ -54,26 +65,28 @@ export default function InsteadDetail({ instead }: { instead: Instead | null }) 
     try {
       const response = await axios.post(`/api/comments`, formData);
       if (response.status === 200) {
-        await fetchNaverData();
+        await fetchPreviewData();
       }
     } catch (error) {
-      await fetchNaverData();
+      await fetchPreviewData();
     }
   };
 
-  const [naverData, setNaverData] = useState<DataResponse[]>([]);
-  const fetchNaverData = async () => {
+  const [previewData, setPreviewData] = useState<DataResponse[]>([]);
+  const fetchPreviewData = async () => {
     try {
       const response = await axios.get(`/api/comments?collection=instead-${process.env.NODE_ENV}&idx=${instead?.idx}`);
-      setNaverData(Array.isArray(response.data) ? response.data : [response.data]);
+      setPreviewData(Array.isArray(response.data) ? response.data : [response.data]);
     } catch (error) {
       console.error('Error fetching page info:', error);
     }
   };
 
   useEffect(() => {
-    fetchNaverData();
+    fetchPreviewData();
   }, []);
+
+  const isTablet = useTablet();
 
   return (
     <main className={styles.instead}>
@@ -102,7 +115,7 @@ export default function InsteadDetail({ instead }: { instead: Instead | null }) 
         </header>
         {instead ? (
           <>
-            {instead.insteadMetaData && (
+            <div className={styles.opengraph}>
               <div className={styles['og-container']}>
                 <AnchorLink href={instead.addr}>
                   원본:{' '}
@@ -110,27 +123,89 @@ export default function InsteadDetail({ instead }: { instead: Instead | null }) 
                     ? instead.insteadMetaData?.ogSiteName
                     : instead.insteadMetaData?.twitterSite}
                 </AnchorLink>
-                <img src={instead.insteadMetaData?.ogImage} alt="" />
-                <div className={styles['og-info']}>
-                  <div className={styles.summary}>
-                    <strong>{instead.insteadMetaData?.ogTitle}</strong>
-                    <div className={styles.description}>
-                      {instead.insteadMetaData?.ogDescription}
-                      ...
-                    </div>
+                {instead.insteadMetaData?.ownerAvatar ? (
+                  <img src={instead.insteadMetaData?.ogImage} alt="" />
+                ) : (
+                  <div className={styles.thumbnails}>
+                    <img src={instead.insteadMetaData?.ogImage} alt="" className={styles['thumbnail-origin']} />
+                    <img src={instead.insteadMetaData?.ogImage} alt="" className={styles['thumbnail-background']} />
                   </div>
+                )}
+                <div className={styles['og-info']}>
+                  {isTablet ? (
+                    <>
+                      <div className={styles.summary}>
+                        <strong>{instead.insteadMetaData?.ogTitle}</strong>{' '}
+                        <div className={styles.user}>
+                          {instead.insteadMetaData?.ownerAvatar ? (
+                            <img src={instead.insteadMetaData?.ownerAvatar} alt="" />
+                          ) : (
+                            <img src={instead.insteadMetaData?.pressAvatar} alt="" />
+                          )}
+                          <div className={styles['user-info']}>
+                            <cite>
+                              {instead.insteadMetaData?.ownerName
+                                ? instead.insteadMetaData?.ownerName
+                                : instead.insteadMetaData?.twitterCreator}
+                            </cite>
+                            {instead.insteadMetaData?.datePublished ? (
+                              <time dateTime={instead.insteadMetaData?.datePublished}>
+                                {foramtDate(instead.insteadMetaData?.datePublished)}
+                              </time>
+                            ) : (
+                              <time dateTime={instead.insteadMetaData?.pressPublished}>
+                                {foramtDate(`${instead.insteadMetaData?.pressPublished}`)}
+                              </time>
+                            )}
+                          </div>
+                          `{' '}
+                        </div>
+                      </div>
+                      <div className={styles.description}>
+                        {instead.insteadMetaData?.ogDescription}
+                        ...
+                      </div>
+                    </>
+                  ) : (
+                    <div className={styles.detail}>
+                      {instead.insteadMetaData?.ownerAvatar ? (
+                        <img src={instead.insteadMetaData?.ownerAvatar} alt="" />
+                      ) : (
+                        <img src={instead.insteadMetaData?.pressAvatar} alt="" />
+                      )}
+                      <div className={styles['user-info']}>
+                        <strong>{instead.insteadMetaData?.ogTitle}</strong>{' '}
+                        <div className={styles.user}>
+                          <cite>
+                            {instead.insteadMetaData?.ownerName
+                              ? instead.insteadMetaData?.ownerName
+                              : instead.insteadMetaData?.twitterCreator}
+                          </cite>
+                          {instead.insteadMetaData?.datePublished ? (
+                            <time dateTime={instead.insteadMetaData?.datePublished}>
+                              {foramtDate(instead.insteadMetaData?.datePublished)}
+                            </time>
+                          ) : (
+                            <time dateTime={instead.insteadMetaData?.pressPublished}>
+                              {foramtDate(`${instead.insteadMetaData?.pressPublished}`)}
+                            </time>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
-            )}
+            </div>
             <div className={styles.description}>
-              <p>{`${instead?.description}`}</p>
+              <p className={styles.comment} dangerouslySetInnerHTML={{ __html: instead.comment }} />
             </div>
           </>
         ) : (
           <p className={styles.loading}>본문 불러오는 중</p>
         )}
       </article>
-      <div className={styles['comment-control']}>
+      <div className={commentStyles['comment-control']}>
         <form onSubmit={handleSubmit}>
           <fieldset>
             <legend>댓글 달기</legend>
@@ -168,16 +243,16 @@ export default function InsteadDetail({ instead }: { instead: Instead | null }) 
             </button>
           </fieldset>
         </form>
-        {naverData && (
-          <div className={styles.comments}>
-            <strong>댓글 {naverData.length}개</strong>
-            {naverData.map((comment, index) => (
-              <div key={index} className={styles.comment}>
-                <div className={styles.user}>
+        {previewData && (
+          <div className={commentStyles.comments}>
+            <strong>댓글 {previewData.length}개</strong>
+            {previewData.map((comment, index) => (
+              <div key={index} className={commentStyles.comment}>
+                <div className={commentStyles.user}>
                   <cite>{comment.username}</cite>
                   <time>{foramtDate(comment.created)}</time>
                 </div>
-                <div className={styles.desc}>
+                <div className={commentStyles.desc}>
                   {comment.comment.split('\n').map((line) => {
                     return <p>{line}</p>;
                   })}

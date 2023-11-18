@@ -155,13 +155,13 @@ function InsteadsView() {
               {insteads.map((instead: Instead) => (
                 <article key={instead.idx}>
                   <div className={styles.opengraph}>
-                    <AnchorLink href={instead.addr}>
-                      원본:{' '}
-                      {instead.insteadMetaData?.ogSiteName
-                        ? instead.insteadMetaData?.ogSiteName
-                        : instead.insteadMetaData?.twitterSite}
-                    </AnchorLink>
                     <div className={styles['og-container']}>
+                      <AnchorLink href={instead.addr}>
+                        원본:{' '}
+                        {instead.insteadMetaData?.ogSiteName
+                          ? instead.insteadMetaData?.ogSiteName
+                          : instead.insteadMetaData?.twitterSite}
+                      </AnchorLink>
                       {instead.insteadMetaData?.ownerAvatar ? (
                         <img src={instead.insteadMetaData?.ogImage} alt="" />
                       ) : (

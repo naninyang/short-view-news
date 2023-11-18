@@ -10,6 +10,7 @@ import AnchorLink from '@/components/AnchorLink';
 import Seo from '@/components/Seo';
 import styled from '@emotion/styled';
 import styles from '@/styles/article.module.sass';
+import commentStyles from '@/styles/comment.module.sass';
 
 type DataResponse = {
   collection: string;
@@ -168,7 +169,7 @@ export default function ArticleDetail({ article }: { article: Article | null }) 
           <p className={styles.loading}>본문 불러오는 중</p>
         )}
       </article>
-      <div className={styles['comment-control']}>
+      <div className={commentStyles['comment-control']}>
         <form onSubmit={handleSubmit}>
           <fieldset>
             <legend>댓글 달기</legend>
@@ -176,7 +177,7 @@ export default function ArticleDetail({ article }: { article: Article | null }) 
             <input required type="hidden" value={formData.permalink} />
             <input required type="hidden" value={formData.created} />
             <input required type="hidden" value={formData.idx} />
-            <div className={styles['field-group']}>
+            <div className={commentStyles['field-group']}>
               <input
                 required
                 type="text"
@@ -186,7 +187,7 @@ export default function ArticleDetail({ article }: { article: Article | null }) 
                 onChange={(e) => setFormData({ ...formData, username: e.target.value })}
               />
             </div>
-            <div className={styles['field-group']}>
+            <div className={commentStyles['field-group']}>
               <textarea
                 required
                 id="comment"
@@ -207,15 +208,15 @@ export default function ArticleDetail({ article }: { article: Article | null }) 
           </fieldset>
         </form>
         {naverData && (
-          <div className={styles.comments}>
+          <div className={commentStyles.comments}>
             <strong>댓글 {naverData.length}개</strong>
             {naverData.map((comment, index) => (
-              <div key={index} className={styles.comment}>
-                <div className={styles.user}>
+              <div key={index} className={commentStyles.comment}>
+                <div className={commentStyles.user}>
                   <cite>{comment.username}</cite>
                   <time>{foramtDate(comment.created)}</time>
                 </div>
-                <div className={styles.desc}>
+                <div className={commentStyles.desc}>
                   {comment.comment.split('\n').map((line) => {
                     return <p>{line}</p>;
                   })}

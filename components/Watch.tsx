@@ -1,14 +1,14 @@
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import axios from 'axios';
-import { format, formatDistanceToNow } from 'date-fns';
-import { ko } from 'date-fns/locale';
 import YouTubeController from './YouTubeController';
 import { images } from './images';
+import { foramtDate } from './ForamtDate';
 import styles from '@/styles/watch.module.sass';
+import commentStyles from '@/styles/comment.module.sass';
 import 'react-perfect-scrollbar/dist/css/styles.css';
-import { useEffect, useState } from 'react';
 
 type WatchData = {
   idx: string;
@@ -84,19 +84,6 @@ const Comment = styled.p({
     },
   },
 });
-
-export function foramtDate(date: string) {
-  const d = new Date(date);
-  const now = Date.now();
-  const diff = (now - d.getTime()) / 1000;
-  if (diff < 60 * 1) {
-    return '방금 전';
-  }
-  if (diff < 60 * 60 * 24 * 3) {
-    return formatDistanceToNow(d, { addSuffix: true, locale: ko });
-  }
-  return format(d, 'PPP EEE p', { locale: ko });
-}
 
 const watchDetail: React.FC<watchProps> = ({ watchItem }) => {
   const router = useRouter();
@@ -234,7 +221,7 @@ const watchDetail: React.FC<watchProps> = ({ watchItem }) => {
                         <Comment>{watchItem.comment10}</Comment>
                       </div>
                     )}
-                    <div className={styles['comment-control']}>
+                    <div className={commentStyles['comment-control']}>
                       <form onSubmit={handleSubmit}>
                         <fieldset>
                           <legend>댓글 달기</legend>
@@ -242,7 +229,7 @@ const watchDetail: React.FC<watchProps> = ({ watchItem }) => {
                           <input required type="hidden" value={formData.permalink} />
                           <input required type="hidden" value={formData.created} />
                           <input required type="hidden" value={formData.idx} />
-                          <div className={styles['field-group']}>
+                          <div className={commentStyles['field-group']}>
                             <input
                               required
                               type="text"
@@ -252,7 +239,7 @@ const watchDetail: React.FC<watchProps> = ({ watchItem }) => {
                               onChange={(e) => setFormData({ ...formData, username: e.target.value })}
                             />
                           </div>
-                          <div className={styles['field-group']}>
+                          <div className={commentStyles['field-group']}>
                             <textarea
                               required
                               id="comment"
@@ -279,15 +266,15 @@ const watchDetail: React.FC<watchProps> = ({ watchItem }) => {
                         </fieldset>
                       </form>
                       {youtubeData && (
-                        <div className={styles.comments}>
+                        <div className={commentStyles.comments}>
                           <strong>댓글 {youtubeData.length}개</strong>
                           {youtubeData.map((comment, index) => (
-                            <div key={index} className={styles.comment}>
-                              <div className={styles.user}>
+                            <div key={index} className={commentStyles.comment}>
+                              <div className={commentStyles.user}>
                                 <cite>{comment.username}</cite>
                                 <time>{foramtDate(comment.created)}</time>
                               </div>
-                              <div className={styles.desc}>
+                              <div className={commentStyles.desc}>
                                 {comment.comment.split('\n').map((line) => {
                                   return <p>{line}</p>;
                                 })}
@@ -317,7 +304,7 @@ const watchDetail: React.FC<watchProps> = ({ watchItem }) => {
                       <p dangerouslySetInnerHTML={{ __html: watchItem.description }} />
                       <p>{watchItem.comment}</p>
                     </div>
-                    <div className={styles['comment-control']}>
+                    <div className={commentStyles['comment-control']}>
                       <form onSubmit={handleSubmit}>
                         <fieldset>
                           <legend>댓글 달기</legend>
@@ -325,7 +312,7 @@ const watchDetail: React.FC<watchProps> = ({ watchItem }) => {
                           <input required type="hidden" value={formData.permalink} />
                           <input required type="hidden" value={formData.created} />
                           <input required type="hidden" value={formData.idx} />
-                          <div className={styles['field-group']}>
+                          <div className={commentStyles['field-group']}>
                             <input
                               required
                               type="text"
@@ -335,7 +322,7 @@ const watchDetail: React.FC<watchProps> = ({ watchItem }) => {
                               onChange={(e) => setFormData({ ...formData, username: e.target.value })}
                             />
                           </div>
-                          <div className={styles['field-group']}>
+                          <div className={commentStyles['field-group']}>
                             <textarea
                               required
                               id="comment"
@@ -362,15 +349,15 @@ const watchDetail: React.FC<watchProps> = ({ watchItem }) => {
                         </fieldset>
                       </form>
                       {youtubeData && (
-                        <div className={styles.comments}>
+                        <div className={commentStyles.comments}>
                           <strong>댓글 {youtubeData.length}개</strong>
                           {youtubeData.map((comment, index) => (
-                            <div key={index} className={styles.comment}>
-                              <div className={styles.user}>
+                            <div key={index} className={commentStyles.comment}>
+                              <div className={commentStyles.user}>
                                 <cite>{comment.username}</cite>
                                 <time>{foramtDate(comment.created)}</time>
                               </div>
-                              <div className={styles.desc}>
+                              <div className={commentStyles.desc}>
                                 {comment.comment.split('\n').map((line) => {
                                   return <p>{line}</p>;
                                 })}

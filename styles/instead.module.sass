@@ -15,66 +15,6 @@
     align-items: center
     color: $hex-accent
 
-  img
-    display: block
-    aspect-ratio: 1200 / 630
-    object-fit: cover
-    width: 100%
-    height: auto
-
-  .og-container
-    position: relative
-
-    a
-      display: flex
-      align-items: center
-      position: absolute
-      top: 0
-      right: 0
-      background-color: var(--bg-primary-opacity)
-      height: rem(25)
-      padding: 0 rem(10)
-      font-size: rem(12)
-      color: var(--txt-subject)
-      line-height: 1
-
-      &:hover, &:focus
-        color: var(--default-text)
-
-  .og-info
-    display: flex
-    flex-direction: column
-    gap: rem(7)
-    margin: rem(15) rem(15) 0
-    padding-bottom: rem(15)
-    border-bottom: 1px solid var(--border)
-
-    +mq(minLarge)
-      margin: rem(25) rem(25) 0
-      padding-bottom: rem(25)
-
-    .summary
-      display: flex
-      flex-direction: column
-      gap: rem(2)
-
-      strong
-        font-size: rem(14)
-        font-weight: 900
-        line-height: 1.5
-        color: $hex-accent
-
-        +mq(minLarge)
-          font-size: rem(16)
-
-      .description
-        font-size: rem(12)
-        line-height: 1.5
-        color: var(--txt-subject)
-
-        +mq(minLarge)
-          font-size: rem(14)
-
   &.instead
     &:not(.instead-container)
       align-items: center
@@ -85,6 +25,7 @@
         padding: rem(25) rem(25) rem(141)
 
       article
+        gap: rem(15)
         max-width: rem(767)
 
         header
@@ -93,23 +34,27 @@
             padding-left: 0
 
         .og-container
-          margin-bottom: rem(15)
+          +mq(minMedium)
+            padding-right: 0
+            padding-left: 0
 
-          .og-info
+        .opengraph
+          a
+            top: rem(17)
+            z-index: 2
+            right: auto
+            left: rem(27)
+
+            +mq(minSmall)
+              left: rem(27)
+
             +mq(minMedium)
-              margin-right: 0
-              margin-left: 0
+              left: rem(7)
 
-          +mq(minLarge)
-            margin-bottom: rem(25)
-
-        > .description
-          p
-            margin-bottom: 0
-
+          & + .description
             +mq(minMedium)
-              padding: 0
-              margin: 0
+              padding-right: 0
+              padding-left: 0
 
   &.instead-container
     padding: 0
@@ -124,16 +69,6 @@
 
       +mq(minLarge)
         padding-bottom: rem(25)
-
-      .scrollbar-container
-        display: flex
-        flex-direction: column
-        flex: 1
-        overflow: hidden
-        gap: rem(15)
-
-        +mq(minLarge)
-          gap: rem(25)
 
   article
     display: flex
@@ -190,123 +125,172 @@
       +mq(minLarge)
         font-size: rem(38)
 
-  .description
-    p
-      margin-bottom: rem(15)
+    img
+      display: block
+      width: 100%
+      height: auto
+
+    .opengraph
+      position: relative
+
+    .scrollbar-container
+      display: flex
+      flex-direction: column
+      flex: 1
+      overflow: hidden
+      gap: rem(15)
+
+    .scrollbar-container, .opengraph
+      a
+        display: flex
+        align-items: center
+        position: absolute
+        top: rem(37)
+        right: rem(37)
+        background-color: var(--bg-primary-opacity)
+        border-radius: rem(25)
+        height: rem(25)
+        padding: 0 rem(15)
+        font-size: rem(12)
+        color: var(--txt-subject)
+        line-height: 1
+
+        +mq(minSmall)
+          z-index: 2
+          top: rem(7)
+          right: auto
+          left: rem(27)
+
+        +mq(minLarge)
+          left: rem(37)
+
+        &:hover, &:focus
+          color: var(--default-text)
+
+      .og-container
+        display: flex
+        flex-direction: column
+        gap: rem(17)
+        padding: 0 rem(15)
+
+        +mq(minSmall)
+          flex-direction: row
+
+        +mq(minLarge)
+          padding: 0 rem(25)
+
+        > img
+          border-radius: rem(7)
+
+          +mq(minSmall)
+            width: rem(246)
+            height: rem(138)
+
+        .thumbnails
+          position: relative
+          overflow: hidden
+          border-radius: rem(7)
+
+          +mq(minSmall)
+            width: rem(246)
+            height: rem(138)
+
+          img
+            +mq(minSmall)
+              width: 100%
+              height: 100%
+
+          .thumbnail-origin
+            object-fit: contain
+            position: relative
+            z-index: 1
+
+          .thumbnail-background
+            position: absolute
+            top: 0
+            left: 0
+            object-fit: cover
+            backdrop-filter: blur(rem(200))
+
+        .og-info
+          display: flex
+          flex-direction: column
+
+          +mq(minSmall)
+            gap: rem(12)
+            +col
+
+          .detail
+            display: flex
+            gap: rem(7)
+
+            img
+              border-radius: 100%
+              width: rem(36)
+              height: rem(36)
+
+            .user-info
+              display: flex
+              flex-direction: column
+              gap: rem(7)
+              font-size: rem(16)
+              line-height: 1.25
+              color: var(--txt-subject)
+
+              .user
+                display: flex
+                gap: rem(7)
+                line-height: 1
+                font-size: rem(12)
+                color: var(--txt-subject)
+
+                cite
+                  display: flex
+                  gap: rem(7)
+                  align-items: center
+
+                  &::after
+                    content: '•'
+                    font-size: rem(12)
+
+          .summary
+            display: flex
+            flex-direction: column
+            gap: rem(7)
+
+            strong
+              font-size: rem(16)
+              font-weight: 700
+              line-height: 1.5
+              color: var(--txt-summary)
+
+            .user
+              display: flex
+              gap: rem(7)
+
+              img
+                border-radius: 100%
+                width: rem(36)
+                height: rem(36)
+
+              .user-info
+                display: flex
+                flex-direction: column
+                gap: rem(2)
+                font-size: rem(12)
+                color: var(--txt-subject)
+
+          .description
+            font-size: rem(12)
+            color: var(--txt-subject)
+            +line-abbr(2, 36, 1.5)
+
+    .scrollbar-container > .description, .opengraph + .description
       padding: 0 rem(15)
-      font-size: rem(14)
-      line-height: 1.5
+      font-size: rem(16)
+      line-height: 1.25
       color: var(--txt-blockquote)
 
       +mq(minLarge)
-        margin-bottom: rem(25)
         padding: 0 rem(25)
-        font-size: rem(16)
-
-    img
-      overflow: hidden
-      aspect-ratio: auto
-
-  .comment-control
-    display: flex
-    flex-direction: column
-    gap: rem(25)
-    margin: rem(25) auto 0
-    width: 100%
-    max-width: rem(767)
-
-  form
-    width: 100%
-
-    fieldset
-      display: flex
-      flex-direction: column
-      gap: rem(15)
-
-    .field-group
-      display: flex
-      flex-direction: column
-      gap: rem(5)
-
-    textarea
-      height: rem(70)
-
-    input, textarea
-      transition: all .4s cubic-bezier(.4,0,.2,1)
-      background-color: var(--border)
-      border: 1px solid var(--border)
-      border-radius: rem(5)
-      padding: rem(10)
-      font-size: rem(14)
-      color: var(--txt-blockquote)
-
-      &:focus-within, &:focus, &:hover
-        outline: 1px solid var(--txt-blockquote)
-
-    button[type="submit"]
-      display: flex
-      justify-content: center
-      align-items: center
-      gap: rem(7)
-      transition: all .4s cubic-bezier(.4,0,.2,1)
-      background: transparent
-      border: 1px solid $hex-accent
-      border-radius: rem(5)
-      padding: rem(7)
-      font-size: rem(16)
-      font-weight: 700
-      color: $hex-accent
-
-      svg
-        width: rem(14)
-        height: rem(14)
-
-        path
-          fill: $hex-accent
-
-      &:focus, &:hover
-        background: $hex-accent
-        color: $hex-white
-        outline: 1px solid var(--default-text)
-
-        svg
-          path
-            fill: $hex-white
-
-  .comments
-    display: flex
-    flex-direction: column
-    gap: rem(15)
-    width: 100%
-
-    strong
-      font-size: rem(16)
-      font-weight: 700
-      color: var(--txt-blockquote)
-
-    .comment
-      display: flex
-      flex-direction: column
-      gap: rem(15)
-      background-color: var(--bg-primary)
-      border-radius: rem(5)
-      padding: rem(15)
-
-      .user
-        display: flex
-        gap: rem(10)
-        font-size: rem(12)
-
-        cite, time
-          line-height: 1
-
-        cite
-          color: var(--txt-blockquote)
-
-        time
-          color: var(--txt-subject)
-
-      p
-        font-size: rem(14)
-        line-height: 1.5
-        color: var(--txt-blockquote)
+        font-size: rem(20)
