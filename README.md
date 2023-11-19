@@ -31,8 +31,9 @@ History 페이지의 콘텐츠는 사건/사고 위주로 가져옵니다.
 
 ### Web Opengraph Scrap API Server
 
-- iconv (for EUC-KR)
-- cheerio (EUC-KR 사용하는 웹사이트를 위해서 open-graph-scraper 사용 중지)
+- iconv
+- cheerio (NAVER 링크 미리보기 & Twitter 트윗 링크 미리보기)
+- open-graph-scraper (Preview 탭에서 링크 미리보기)
 
 ### Backend - Private repo
 
@@ -44,6 +45,13 @@ History 페이지의 콘텐츠는 사건/사고 위주로 가져옵니다.
 ## Troubleshooting
 
 이슈를 등록해 주시거나 [여기](https://news.dev1stud.io/contact-us)를 이용해 주세요.
+
+### 발견되거나 알려진 버그
+
+- 첫 댓글 등록시 등록한 댓글 자동으로 확인 불가 (이미 댓글이 1개라도 있을 때는 정상 동작)
+  - 저장은 잘 됨
+- Preview 탭에서 데이터 불러오는 속도가 지나치게 느린 현상 (데이터 크롤링을 2중으로 해야하기 때문에 그런 것 같은데 현재 대안 없음)
+  - 현재는 20건을 기본으로 불러오는데 10건 정도로 줄이는 방식으로 임시 수정 예정
 
 ## TO-DO
 
