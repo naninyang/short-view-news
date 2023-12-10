@@ -45,12 +45,22 @@
 
           > div[class^=" css"]:not(.youtube-playlist)
             margin-bottom: rem(35)
+            overflow: visible
 
-            body[data-theme="dark"] &
-              background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 90%, rgba(0,0,0,0) 100%)
+            &::after
+              content: ''
+              display: block
+              position: absolute
+              bottom: rem(-35)
+              left: 0
+              width: 100%
+              height: rem(35)
 
-            body &, body[data-theme="light"] &
-              background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 90%, rgba(255,255,255,0) 100%)
+              body[data-theme="dark"] &
+                background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)
+
+              body &, body[data-theme="light"] &
+                background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%)
 
             img
               margin: 0 auto
