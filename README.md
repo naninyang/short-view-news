@@ -8,6 +8,8 @@ Twitter의 트윗은 큐레이팅하여 가져올 때는 큐레이터의 의견�
 
 History 페이지의 콘텐츠는 사건/사고 위주로 가져옵니다.
 
+Preview는 대리클릭 콘텐츠 입니다.
+
 ## 사용된 주요 기술
 
 ### Frontend - This repo
