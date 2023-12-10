@@ -84,6 +84,10 @@ export default function History() {
     }
   };
 
+  const handleRefresh = async () => {
+    window.location.reload();
+  };
+
   const timestamp = Date.now();
 
   return (
@@ -93,7 +97,12 @@ export default function History() {
         pageDescription="당신이 놓친 뉴스를 짧게 요약해 드려요"
         pageImg={`https://news.dev1stud.io/og-image.png?ts=${timestamp}`}
       />
-      <PageName pageName="사건/사고 히스토리" />
+      <div className={styles.refresh}>
+        <PageName pageName="사건/사고 히스토리" />
+        <button type="button" onClick={handleRefresh}>
+          새로고침
+        </button>
+      </div>
       <div className={styles.container}>
         <div className={styles.list}>
           {!isDesktop && (

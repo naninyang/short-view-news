@@ -5,11 +5,25 @@
   min-height: calc(100dvh - rem(50))
   font-size: rem(16)
 
-  h2
+  .refresh
+    display: flex
+    justify-content: flex-start
+    gap: rem(15)
     padding-right: rem(25)
     padding-left: rem(25)
     max-width: rem(1350)
+    width: 100%
     margin: 0 auto
+
+    h2
+      justify-content: flex-start
+      padding-right: 0
+      padding-left: 0
+
+    button
+      background-color: transparent
+      color: $hex-accent
+      text-decoration: underline
 
   .container
     display: flex
