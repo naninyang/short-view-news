@@ -483,7 +483,7 @@ export default function Header() {
                   오픈소스
                 </AnchorLink>
               </li>
-              {deferredPrompt && (
+              {/* {deferredPrompt && (
                 <li>
                   <button type="button" className={buttonClass} onClick={onInstallPWA}>
                     <span>숏뷰 뉴스 앱 내려받기</span>
@@ -493,7 +493,7 @@ export default function Header() {
                     </s>
                   </button>
                 </li>
-              )}
+              )} */}
             </ol>
             <ul>
               <li>
@@ -523,7 +523,7 @@ export default function Header() {
               <li>
                 <AnchorLink href="https://github.com/naninyang/short-view-new">
                   <Github />
-                  <span>깃헙 레포</span>
+                  <span>깃헙 저장소</span>
                 </AnchorLink>
               </li>
             </ul>

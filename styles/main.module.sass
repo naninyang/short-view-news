@@ -45,6 +45,10 @@
             margin: 0
             border-radius: rem(15)
 
+        a
+          color: $hex-white
+          text-decoration: underline
+
         h2
           display: flex
           flex-direction: column
@@ -138,6 +142,16 @@
 
               body &, body[data-theme="light"] &
                 background: url('/desktop-twitter-light.webp') no-repeat 50% 50%/contain
+
+        &[data-fin]
+          &::before
+            display: none
+
+          > div
+            align-items: center
+
+            p
+              text-align: center
 
   dl
     border-top: 1px solid var(--border)

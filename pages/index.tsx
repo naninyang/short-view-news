@@ -8,6 +8,7 @@ import { rem } from '@/styles/designSystem';
 import styles from '@/styles/pages.module.sass';
 import content from '@/styles/content.module.sass';
 import main from '@/styles/main.module.sass';
+import AnchorLink from '@/components/AnchorLink';
 
 interface Counts {
   youtube: number;
@@ -156,9 +157,69 @@ export default function Home() {
         <h1>
           <span>{`숏뷰 뉴스 {short.view: news}`}</span>
         </h1>
-        {data && <Container className={main.description} dangerouslySetInnerHTML={{ __html: data.description }} />}
+        {/* {data && <Container className={main.description} dangerouslySetInnerHTML={{ __html: data.description }} />} */}
+        <Container className={main.description}>
+          <div data-summary>
+            <p>
+              <span>YouTube와 NAVER 뉴스에서 기사를 스크랩하고</span>
+              <span>기사에 짧은 코멘트를 달아서 보여주는 서비스,</span>
+              <span>short view news 입니다.</span>
+            </p>
+          </div>
+          <div data-youtube>
+            <div>
+              <h2>
+                <i></i> <span>YouTube 뉴스</span>
+              </h2>
+              <p>
+                <span>YouTube 영상 중, 언론사에서 올린 영상을 기준으로 가져오며</span>
+                <span>Open Graph가 아닌 NEWS CURATORS가 직접</span>
+                <span>제목과 내용을 영상에서 수동으로 가져 옵니다.</span>
+              </p>
+              <p>
+                <span>과거에는 MBC, KBS, SBS, JTBC, YTN, EBS, OBS</span>
+                <span>현재는 OBS를 제외하고 스크랩 합니다.</span>
+                <span>2023년 11월 15일부터 KBS 제외하고 스크랩 합니다.</span>
+              </p>
+            </div>
+          </div>
+          <div data-naver>
+            <div>
+              <h2>
+                <i></i> <span>NAVER 뉴스</span>
+              </h2>
+              <p>NAVER 뉴스는 Open Graph 기반의 데이터를 가져옵니다</p>
+              <p>언론사에는 제약이 없습니다.</p>
+              <p>소위 말하는 짤이 코멘트와 함께 첨부되어 서비스 됩니다.</p>
+            </div>
+          </div>
+          <div data-twitter>
+            <div>
+              <h2>
+                <i></i> <span>Twitter 인용</span>
+              </h2>
+              <p>Twitter 인용글은 큐레이터의 생각이 삽입되지 않습니다.</p>
+              <p>주로 기사 트윗의 인용을 가져옵니다.</p>
+              <p>
+                <span>트윗에 달린 링크의 정보(오픈그래프)를 인식할 수 있을 때는</span>{' '}
+                <span>링크의 정보를 가져와서 보여줍니다.</span>
+              </p>
+            </div>
+          </div>
+          <div data-fin>
+            <div>
+              <h2>업데이트 종료</h2>
+              <p>본 서비스는 더 이상 업데이트 되지 않습니다.</p>
+              <p>
+                <span>{`숏뷰 뉴스{short.view: news}는`}</span> 숏뷰뉴스 short.view.new 이름으로 시즌2를 시작합니다.{' '}
+                <span>
+                  <AnchorLink href="https://shorts.dev1stud.io">여기</AnchorLink>로 오세요.
+                </span>
+              </p>
+            </div>
+          </div>
+        </Container>
         {renderCountInfo()}
-        {renderSafari()}
       </div>
     </main>
   );
