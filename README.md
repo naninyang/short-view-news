@@ -6,6 +6,8 @@ Netlify CMS에서 Strapi로 변경하면서 저장소와 서비스 도메인을 
 
 아카이빙을 위해서 news.dev1stud.io는 유지되지만 데이터 업데이트는 이루어지지 않습니다.
 
+단, 도메인은 유지 중이기 때문에 보안 관련 업데이트는 지속됩니다.
+
 - 이전된 저장소: https://github.com/naninyang/short-view-news-frontend
 - 이전된 도메인: https://shorts.dev1stud.io
 
